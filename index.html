@@ -650,6 +650,9 @@ body.ch-vek nav.toc [data-ch="qf"], body.ch-qf nav.toc [data-ch="vek"]{display:n
 
 .vitem{flex-wrap:wrap}
 .vline{flex-basis:100%;max-width:260px;margin-left:34px;font:1rem var(--f-body);padding:6px 8px;border:1px dashed var(--line);border-radius:6px;background:var(--sheet);color:var(--ink)}
+/* Rückfrage: „falsch gelesen“ */
+.qc-misread{margin-top:.6rem;padding-top:.5rem;border-top:1px dashed var(--line)}
+.qc-misread .btn{font-size:.85rem}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -1817,7 +1820,9 @@ function toTex(n){
   }
   return '?';
 }
-const lineTex = parsed => parsed.parts.map(toTex).join(' = ');
+/* Name vor dem ersten „=“ (beim Lesen abgetrennt, z. B. MB, |DE|, δ) wieder voranstellen */
+const labelTex = l => { const v = String(l).match(/^\|([A-Za-z]{1,3})\|$/); return v ? `|#vec{${v[1]}}|` : /^[A-Z]{2,3}$/.test(l) ? `#overline{${l}}` : l; };
+const lineTex = parsed => (parsed.label ? labelTex(parsed.label) + ' = ' : '') + parsed.parts.map(toTex).join(' = ');
 const lineHTML = parsed => R('$' + lineTex(parsed) + '$');
 /* Hilfen zur Form */
 const isVar = (n, v) => n.t === 'var' && n.n === v;
@@ -2058,7 +2063,8 @@ function recogItems(strokes, ctx, depth = 0){
   const used = new Set();
   /* 1) Bruchstriche */
   if (depth < 2){
-    S.filter(s => s.h < 0.22 * Math.max(s.w, 1) && s.w > 0.6 * H).sort((a, b) => b.w - a.w).forEach(bar => {
+    /* Bruchstrich: flach und auch absolut niedrig (ein langes Wurzelzeichen mit Haken ist kein Bruchstrich) */
+    S.filter(s => s.h < 0.22 * Math.max(s.w, 1) && s.h < 0.35 * H && s.w > 0.6 * H).sort((a, b) => b.w - a.w).forEach(bar => {
       if (used.has(bar)) return;
       const inX = o => o.cx >= bar.x0 - 0.08 * bar.w && o.cx <= bar.x1 + 0.08 * bar.w;
       const above = S.filter(o => o !== bar && !used.has(o) && inX(o) && o.cy < bar.cy && o.y1 <= bar.cy + 0.15 * H && bar.cy - o.y1 < 1.4 * H);
@@ -2075,7 +2081,10 @@ function recogItems(strokes, ctx, depth = 0){
     S.filter(s => !used.has(s) && s.w > 0.8 * H && s.h > 0.5 * H).forEach(r => {
       const top = classify([r.pts], ctx, W)[0];
       if (!((top[0] === '√' && top[1] >= 0.3) || isRadicalShape(r, H))) return;
-      const rad = S.filter(o => o !== r && !used.has(o) && o.cx > r.x0 + 0.25 * r.w && o.cx < r.x1 + 0.1 * H && o.y0 >= r.y0 - 0.1 * H && o.cy <= r.y1 + 0.1 * H);
+      /* Der Radikand beginnt rechts vom Haken: dort, wo der Strich zum ersten Mal oben ankommt (bei langen Wurzeln weit vor einem Viertel der Breite) */
+      let hx = r.x0 + 0.25 * r.w;
+      for (const q of r.pts) if (q.y <= r.y0 + 0.25 * r.h && q.x > r.x0 + 0.04 * r.w){ hx = Math.min(hx, q.x); break; }
+      const rad = S.filter(o => o !== r && !used.has(o) && o.cx > hx && o.cx < r.x1 + 0.1 * H && o.y0 >= r.y0 - 0.1 * H && o.cy <= r.y1 + 0.1 * H);
       if (!rad.length) return;
       [r, ...rad].forEach(o => used.add(o));
       items.push({k:'sqrt', x0:r.x0, x1:r.x1, cy:(r.y0 + r.y1) / 2, y0:r.y0, y1:r.y1, h:r.h, inner:recogItems(rad.map(o => o.pts), ctx, depth + 1)});
@@ -2133,6 +2142,11 @@ function itemsToCands(items, ctx, beam = 60){
       } else if (it.sub) piece = '_' + piece;
       let bonus = 0;
       if (ctx.fnl && ctx.fnl.includes(c) && items[idx + 1] && items[idx + 1].k === 'sym' && items[idx + 1].alts[0][0] === '(') bonus = Math.log(6);
+      /* Zahlen-Ziele: ein Buchstabe steht nur als Name vor dem ersten „=“ (h = …), mitten in der Rechnung ist er unwahrscheinlich */
+      if (ctx.labelPos && it.k === 'sym' && /^[a-z]$/.test(c)){
+        const atLab = idx === 0 && items[1] && items[1].k === 'sym' && items[1].alts[0][0] === '=';
+        bonus += atLab ? Math.log(4) : Math.log(0.05);
+      }
       nb.push({s:b.s + piece, lp:b.lp + Math.log(Math.max(p, 1e-6)) + bonus, picks:b.picks.concat([c])});
     }));
     nb.sort((a, b) => b.lp - a.lp); B = nb.slice(0, beam);
@@ -2514,6 +2528,8 @@ const LM = (() => {
   return {
     st, on:f => subs.push(f), save,
     err(kind, where){ kind = kind || 'aufgabe'; st.err[kind] = (st.err[kind] || 0) + 1; st.evts.push({t:Date.now(), k:'err', kind, w:where}); if (st.evts.length > 60) st.evts.splice(0, st.evts.length - 60); save(); },
+    /* Fehler zurücknehmen (die Zeile war nur falsch gelesen) */
+    unerr(kind){ kind = kind || 'aufgabe'; if (st.err[kind] > 0) st.err[kind]--; if (!st.err[kind]) delete st.err[kind]; const e = st.evts[st.evts.length - 1]; if (e && e.k === 'err' && e.kind === kind) st.evts.pop(); save(); },
     /* Ergebnis einer Trainingsaufgabe: Leitner-Box und Ausblendstufe anpassen */
     result(type, ok, stage){
       const t = tr(type); t.n++; if (ok) t.ok++;
@@ -2675,11 +2691,24 @@ function lineBg(c, w, h){
   c.strokeStyle = cssVar('--grid-strong'); c.lineWidth = 1; c.setLineDash([5, 5]);
   c.beginPath(); c.moveTo(10, h * 0.72); c.lineTo(w - 10, h * 0.72); c.stroke(); c.setLineDash([]);
 }
+/* Zusammenhang für die Handschrifterkennung: erlaubte Buchstaben und Funktionsnamen (Zahlen-Ziele ergänzen Namen der gesuchten Größen) */
+function writerCtx(goal){ return {letters:goal.letters || 'x', fnl:Object.keys(goal.fnsPoly || {}).join(''), fnsObj:goal.fnsPoly || {}, noRoot:goal.kind !== 'solve'}; }
+/* Korrekturmenü „Gemeint war“: Auswahl für ein Zeichen */
+function popChoices(alts, ctx){
+  const letters = (ctx.letters || '') + (ctx.fnl || '');
+  return [...new Set([...alts.map(a => a[0]), ...(ctx.labels || []), '0','1','2','3','4','5','6','7','8','9', ...letters.split(''), '+', '-', '=', '(', ')', ',', '/', '*', '√', '±'])];
+}
+/* Ein Name (z. B. h oder MB) wurde für ein Zeichen vor dem ersten „=“ gewählt: die übrigen Zeichen davor gehören zum Namen */
+function popLabel(items, picks, i, v, ctx){
+  if (!(ctx.labels || []).includes(v)) return;
+  const k = picks.findIndex((p, j) => j !== i && items[j].k === 'sym' && p === '=');
+  if (k > i) for (let j = 0; j < k; j++) if (j !== i) picks[j] = '';
+}
 /* ---- Schreibzeile ---- */
 class LineWriter {
   constructor(root, goal, h){
     this.root = root; this.goal = goal; this.h = h; this.items = null; this.picks = []; this.text = ''; this.src = ''; this.fixed = false;
-    this.ctx = {letters:goal.letters || 'x', fnl:Object.keys(goal.fnsPoly || {}).join(''), fnsObj:goal.fnsPoly || {}, noRoot:goal.kind !== 'solve'};
+    this.ctx = writerCtx(goal);
     root.innerHTML = `<div class="lw">
       <div class="lw-tools btnrow">${h.modeToggle ? '<span class="seg sw-mode" role="group" aria-label="Schreibart"><button type="button" data-a="mode-sheet" aria-pressed="false" title="Mehrere Schritte auf einem linierten Blatt">Blatt</button><button type="button" data-a="mode-line" aria-pressed="true">Einzelzeile</button></span>' : ''}<button type="button" class="btn btn-sm" data-a="undo" title="Letzten Strich entfernen; nach „Zeile leeren“ holt es die Zeile zurück">↶ Strich</button><button type="button" class="btn btn-sm" data-a="clear">✕ Zeile leeren</button><button type="button" class="btn btn-sm lw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen. Nützlich mit dem Apple Pencil, der kein Radiererende hat.">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="kbd">⌨ Tastatur</button><button type="button" class="btn btn-sm needs-claude-img" data-a="claude">Von Claude lesen lassen</button></div>
       <div class="lw-zone"><canvas class="lw-cv" aria-label="Schreibzeile: hier eine Zeile von Hand schreiben"></canvas><div class="lw-lockmsg" aria-hidden="true">Erst die Rückfrage oben beantworten</div></div>
@@ -2729,6 +2758,7 @@ class LineWriter {
     const r = recognizeLine(this.ink.strokes, this.ctx);
     this.items = r.items; this.picks = r.picks; this.text = r.text; this.src = 'browser'; this.alts = r.alts || []; this.ctxNote = '';
     this.items.forEach((it, i) => { it.orig = r.picks[i]; });
+    if (this.h.onRead) this.h.onRead(this);
     this.renderRead();
   }
   value(){ clearTimeout(this.t); if (this.inp.value.trim()) return {text:this.inp.value.trim(), src:'Tastatur'}; if (this.ink.strokes.length && !this.src) this.recognize(); return {text:this.text, src:this.src}; }
@@ -2745,9 +2775,7 @@ class LineWriter {
   }
   pop(i, el){
     const it = this.items && this.items[i]; if (!it) return;
-    const letters = (this.ctx.letters || '') + (this.ctx.fnl || '');
-    const base = it.alts.map(a => a[0]);
-    const all = [...new Set([...base, '0','1','2','3','4','5','6','7','8','9', ...letters.split(''), '+', '-', '=', '(', ')', ',', '/', '*', '√', '±'])];
+    const all = popChoices(it.alts, this.ctx);
     const nx = this.items[i + 1], canJoin = nx && nx.k === 'sym' && it.strokes && nx.strokes;
     POP.innerHTML = '<div class="pop-t">Gemeint war:</div><div class="pop-g">' + all.map(a => `<button type="button" data-v="${escH(a)}">${escH(showSym(a))}</button>`).join('') + `<button type="button" data-v="__sup">${it.sup ? 'nicht hochgestellt' : 'hochgestellt'}</button>${canJoin ? '<button type="button" data-v="__join" title="z. B. ein x aus zwei Bögen">mit nächstem Zeichen verbinden</button>' : ''}<button type="button" data-v="" class="pop-del">entfernen</button></div>`;
     const r = el.getBoundingClientRect();
@@ -2767,7 +2795,7 @@ class LineWriter {
         const chip = this.chipsEl.querySelector(`.chipc[data-i="${i}"]`); if (chip) this.pop(i, chip);
         return;
       }
-      else { this.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); }
+      else { this.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); popLabel(this.items, this.picks, i, v, this.ctx); }
       this.fixed = true;
       POP.hidden = true; this.text = itemsText(this.items, this.picks, this.ctx); this.renderRead();
     };
@@ -2814,9 +2842,12 @@ function questionCard(box, res, ctxInfo, onSolved){
   const q = res.q;
   if (!q.keep && !q._mixed){ q.opts = q.opts.map(o => [Math.random(), o]).sort((a, b) => a[0] - b[0]).map(x => x[1]); q._mixed = true; }
   const card = document.createElement('div'); card.className = 'qcard';
-  card.innerHTML = `<div class="qc-h">Rückfrage</div>${res.html ? `<div class="qc-msg">${R(res.html)}</div>` : ''}<div class="qc-q">${R(q.q)}</div><div class="qc-opts">${q.opts.map((o, i) => `<button type="button" class="opt" data-i="${i}">${R(o.t)}</button>`).join('')}</div><div class="qc-fb" aria-live="polite"></div>${ctxInfo ? '<div class="qc-more needs-claude"><button type="button" class="btn btn-sm qc-claude">Andere Rückfrage von Claude</button></div>' : ''}`;
+  card.innerHTML = `<div class="qc-h">Rückfrage</div>${res.html ? `<div class="qc-msg">${R(res.html)}</div>` : ''}<div class="qc-q">${R(q.q)}</div><div class="qc-opts">${q.opts.map((o, i) => `<button type="button" class="opt" data-i="${i}">${R(o.t)}</button>`).join('')}</div><div class="qc-fb" aria-live="polite"></div>${ctxInfo && ctxInfo.misread ? '<div class="qc-misread"><button type="button" class="btn btn-sm qc-mr">So habe ich das nicht geschrieben: Zeile falsch gelesen</button></div>' : ''}${ctxInfo ? '<div class="qc-more needs-claude"><button type="button" class="btn btn-sm qc-claude">Andere Rückfrage von Claude</button></div>' : ''}`;
   box.appendChild(card);
   let wrong = 0, done = false;
+  /* Handschrift falsch gelesen: Rückfrage schließen, nichts zählen, Zeichen korrigieren lassen */
+  const mr = card.querySelector('.qc-mr');
+  if (mr) mr.addEventListener('click', () => { if (done) return; done = true; card.remove(); ctxInfo.misread(); });
   const finish = (o) => { done = true; card.querySelectorAll('.opt').forEach(b => b.disabled = true); card.querySelector('.qc-fb').innerHTML = `<div class="ok">${R(o.fb || 'Richtig.')}</div><div class="qc-after"><b>${R(q.after !== undefined ? q.after : 'Schreib die Zeile neu.')}</b>${ctxInfo && ctxInfo.line && !ctxInfo.sheet ? ' <span class="small">Mit „↶ Strich“ holst du deine alte Zeile zurück und kannst sie verbessern.</span>' : ''}</div>`; onSolved(); };
   card.querySelector('.qc-opts').addEventListener('click', e => {
     const b = e.target.closest('.opt'); if (!b || done) return;
@@ -2875,9 +2906,11 @@ class GoalRunner {
       this.sheetBase = cloneSt(this.st, this.st);
       this.w = new SheetWriter(this.wbox, this.goal, {extra:this.extra, onCheck:() => this.checkSheet(false), onSilent:() => this.checkSheet(true), onExtra, onFrozen:() => this.pulseQ(), onMode:m => this.switchWriter(m)});
     } else {
-      this.w = new LineWriter(this.wbox, this.goal, {extra:this.extra, modeToggle:true, onCheck:() => this.submit(), onExtra, onFrozen:() => this.pulseQ()});
+      this.w = new LineWriter(this.wbox, this.goal, {extra:this.extra, modeToggle:true, onCheck:() => this.submit(), onExtra, onFrozen:() => this.pulseQ(), onRead:w => this.fixLabel(w)});
     }
   }
+  /* Handschrift vor der Auswertung nach dem Zusammenhang nachbessern (Zahlen-Ziele: Name vor dem „=“); Standard: nichts */
+  fixLabel(w){}
   switchWriter(m){
     if (m === this.mode || this.done) return;
     if (this.mode === 'sheet'){ this.checkSheet(true); this.w.rows.forEach(r => { if (r.mark === 'ok') this.addLine(r.parsed, 'ok', r.msg, r.inkStrokes(), r.value().src); else if (r.mark === 'model') this.addLine(r.model.parsed, 'model', 'Musterzeile', null); }); }
@@ -2924,6 +2957,7 @@ class GoalRunner {
       if (r.isEmpty()) continue;
       if (r.isStruck()){ r.mark = 'struck'; r.msg = 'durchgestrichen, wird nicht gewertet'; continue; }
       if (first){ r.mark = 'wait'; r.msg = 'wird geprüft, sobald die Zeile darüber stimmt'; continue; }
+      if (!r.kb && r.src === 'browser' && !r.fixed) this.fixLabel(r);
       const v = r.value(); let parsed = tryParse(v.text, fx);
       let res = !v.text || parsed.err ? {status:'unread'} : analyzeLine(g, st, parsed);
       if (res.status !== 'ok' && v.src === 'browser' && !r.fixed){
@@ -2969,12 +3003,22 @@ class GoalRunner {
     const qkey = first.r.key + '|' + first.r.value().text;
     if (qkey === this.lastQKey) return this.note(`Zeile ${n} ist noch nicht korrigiert. Radiere sie und schreib sie neu, oder streich sie durch und schreib darunter weiter.`);
     this.lastQKey = qkey;
-    LM.err(first.res.q && first.res.q.kind || 'aufgabe', this.sub.id);
+    const ekind = first.res.q && first.res.q.kind || 'aufgabe';
+    LM.err(ekind, this.sub.id);
     LOG.push({where:this.sub.generated ? 'Training: ' + TYPES[this.sub.type].label : 'A' + String(this.sub.task).replace('a', '') + ' ' + (this.sub.lbl || ''), status:'err', text:plainTex(lineTex(first.parsed))});
     st.fails++;
     S.lock(true);
     const prevTex = st.last && st.last.parsed ? lineTex(st.last.parsed) : '';
-    questionCard(this.tutor, {q:first.res.q, html:`Zeile ${n}: ${first.res.html || ''}`}, {task:this.sub.taskText || '', prev:prevTex, line:first.r.value().text, sheet:true}, () => {
+    /* von Hand geschriebene Zeile: „falsch gelesen“ nimmt den Fehler zurück und öffnet die Zeichenkorrektur */
+    const misread = first.r.value().src === 'browser' && first.r.items ? () => {
+      LM.unerr(ekind); if (LOG.length && LOG[LOG.length - 1].status === 'err') LOG.pop();
+      this.st.fails = Math.max(0, this.st.fails - 1); this.lastQKey = '';
+      S.lock(false); first.r.showChips = true; first.r.mark = 'unread'; first.r.msg = 'falsch gelesen: tippe auf das Zeichen, das falsch ist';
+      S.render();
+      this.note(`Zeile ${n}: Tippe unter dem Blatt auf das falsch gelesene Zeichen und wähl aus, was gemeint war. Du kannst die Zeile auch neu schreiben. Kein Versuch wurde gezählt.`);
+      const li = this.w.readEl && this.w.readEl.querySelector(`.sr[data-r="${first.r.i}"]`); if (li) try { li.scrollIntoView({block:'nearest'}); } catch(e){}
+    } : null;
+    questionCard(this.tutor, {q:first.res.q, html:`Zeile ${n}: ${first.res.html || ''}`}, {task:this.sub.taskText || '', prev:prevTex, line:first.r.value().text, sheet:true, misread}, () => {
       if (this.st.fails >= 2) setTimeout(() => this.showModel(), 900);
       else { S.lock(false); this.note(`Korrigiere Zeile ${n}: radieren und neu schreiben, oder durchstreichen und darunter weiterschreiben. Dann tippe wieder auf „Blatt prüfen“.`); }
     });
@@ -3030,8 +3074,9 @@ class GoalRunner {
   }
   submit(){
     if (this.done) return;
-    const {text, src} = this.w.value();
+    let {text, src} = this.w.value();
     if (!text) return this.note('Schreib zuerst eine Zeile.');
+    if (src === 'browser' && !this.w.fixed){ this.fixLabel(this.w); if (this.w.text !== text){ text = this.w.text; this.w.renderRead(); } }
     let parsed = tryParse(text, {fns:this.goal.fnsPoly || {}});
     if (src === 'browser' && (parsed.err || analyzeLine(this.goal, this.st, parsed).status === 'note')){
       const alt = this.tryAlts(this.w.alts, text, this.st, 4);
@@ -3069,12 +3114,19 @@ class GoalRunner {
       return;
     }
     /* Fehler: Rückfrage, dann korrigieren */
-    this.addLine(parsed, 'err', '', strokes, src);
-    LM.err(res.q && res.q.kind || 'aufgabe', this.sub.id);
+    const errLi = this.addLine(parsed, 'err', '', strokes, src);
+    const ekind = res.q && res.q.kind || 'aufgabe';
+    LM.err(ekind, this.sub.id);
     this.st.fails++;
     this.w.lock(true);
     const prevTex = this.st.last && this.st.last.parsed ? lineTex(this.st.last.parsed) : '';
-    const qc = questionCard(this.tutor, res, {task:this.sub.taskText || '', prev:prevTex, line:text}, () => {
+    const misread = src === 'browser' && this.w.items ? () => {
+      LM.unerr(ekind); if (LOG.length && LOG[LOG.length - 1].status === 'err') LOG.pop();
+      this.st.fails = Math.max(0, this.st.fails - 1); if (errLi) errLi.remove();
+      this.w.lock(false); this.w.renderRead();
+      this.note('Tippe unter der Schreibzeile auf das falsch gelesene Zeichen und wähl aus, was gemeint war. Du kannst die Zeile auch neu schreiben. Kein Versuch wurde gezählt.');
+    } : null;
+    const qc = questionCard(this.tutor, res, {task:this.sub.taskText || '', prev:prevTex, line:text, misread}, () => {
       if (this.st.fails >= 2){
         setTimeout(() => this.showModel(), 900);
       } else { this.w.clear(true); this.w.lock(false); }
@@ -3326,7 +3378,7 @@ class SheetRow {
 class SheetWriter {
   constructor(root, goal, h){
     this.root = root; this.goal = goal; this.h = h; this.ready = false;
-    this.ctx = {letters:goal.letters || 'x', fnl:Object.keys(goal.fnsPoly || {}).join(''), fnsObj:goal.fnsPoly || {}, noRoot:goal.kind !== 'solve'};
+    this.ctx = writerCtx(goal);
     const n0 = goal.kind === 'solve' ? Math.max(4, Math.min(8, (goal.canonInfo || []).length + 2)) : goal.kind === 'value' ? Math.max(3, (goal.targets || []).length + 2) : 3;
     this.rows = []; for (let i = 0; i < n0; i++) this.rows.push(new SheetRow(i));
     root.innerHTML = `<div class="shw">
@@ -3450,8 +3502,7 @@ class SheetWriter {
   }
   pop(row, i, el){
     const it = row.items && row.items[i]; if (!it) return;
-    const letters = (this.ctx.letters || '') + (this.ctx.fnl || '');
-    const all = [...new Set([...it.alts.map(a => a[0]), '0','1','2','3','4','5','6','7','8','9', ...letters.split(''), '+', '-', '=', '(', ')', ',', '/', '*', '√', '±'])];
+    const all = popChoices(it.alts, this.ctx);
     const nx = row.items[i + 1], canJoin = nx && nx.k === 'sym' && it.strokes && nx.strokes;
     POP.innerHTML = '<div class="pop-t">Gemeint war:</div><div class="pop-g">' + all.map(a => `<button type="button" data-v="${escH(a)}">${escH(showSym(a))}</button>`).join('') + `<button type="button" data-v="__sup">${it.sup ? 'nicht hochgestellt' : 'hochgestellt'}</button>${canJoin ? '<button type="button" data-v="__join">mit nächstem Zeichen verbinden</button>' : ''}<button type="button" data-v="" class="pop-del">entfernen</button></div>`;
     const rc = el.getBoundingClientRect();
@@ -3465,7 +3516,7 @@ class SheetWriter {
         it.strokes = it.strokes.concat(nx.strokes); it.x1 = Math.max(it.x1, nx.x1); it.y0 = Math.min(it.y0, nx.y0); it.y1 = Math.max(it.y1, nx.y1);
         it.alts = classify(it.strokes, this.ctx, classWeights(this.ctx)); it.cls = true;
         row.items.splice(i + 1, 1); row.picks.splice(i + 1, 1); row.picks[i] = it.alts[0][0]; it.orig = '__joined';
-      } else { row.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); }
+      } else { row.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); popLabel(row.items, row.picks, i, v, this.ctx); }
       row.fixed = true; POP.hidden = true; row.text = itemsText(row.items, row.picks, this.ctx);
       this.h.onSilent && this.h.onSilent();
     };
@@ -4608,13 +4659,87 @@ Object.assign(KIND_LABEL, {
 });
 
 /* ---- Eingaben aufräumen: Einheiten, Grad, Namen vor dem Gleichheitszeichen ---- */
-function cleanIn(src){
+function cleanIn(src, out){
   let s = String(src || '');
   s = s.replace(/(\d|\))\s*(cm|mm|dm|km|kg|LE|FE|VE|m)(\^?[23²³])?(?![A-Za-z])/g, '$1');
-  s = s.replace(/^\s*(\|[^|=]{1,8}\||[A-ZÄÖÜ][A-Za-z0-9_'’]{1,4}|[α-ωΑ-Ω][_0-9]*)\s*=\s*(?=.*\S)/, '');
+  s = s.replace(/^\s*(\|[^|=]{1,8}\||[A-ZÄÖÜ][A-Za-z0-9_'’]{1,4}|[α-ωΑ-Ω][_0-9]*)\s*=\s*(?=.*\S)/, (m, lab) => { if (out) out.label = lab.replace(/\s+/g, ''); return ''; });
   return s;
 }
-tryParse = (orig => (src, ctx) => orig(cleanIn(src), ctx))(tryParse);
+/* abgetrennter Name bleibt am Ergebnis (für Anzeige und Zuordnung zur gesuchten Größe) */
+tryParse = (orig => (src, ctx) => { const o = {}, p = orig(cleanIn(src, o), ctx); if (p && !p.err && o.label) p.label = o.label; return p; })(tryParse);
+
+/* ---- Namen gesuchter Größen: h, d, δ, V, MB (Strecke), |DE| (Betrag) ---- */
+const labKey = s => String(s || '').replace(/#overline|#vec|[{}|\s→]/g, '');
+/* Schreibweisen, unter denen eine gesuchte Größe gemeint sein kann */
+function tKeys(t){
+  const ks = new Set(t.names || [t.label]), sh = String(t.show || '');
+  const m = sh.match(/^#overline\{([A-Za-z]{1,3})\}$/) || sh.match(/^\|#vec\{([A-Za-z]{1,3})\}\|$/) || sh.match(/^([A-Za-zα-ωΑ-Ω])$/);
+  if (m) ks.add(m[1]);
+  return [...ks];
+}
+const tHas = (t, lab) => { const k = labKey(lab); return !!k && tKeys(t).some(x => labKey(x) === k); };
+/* Name, mit dem eine Zeile für diese Größe gelesen wird: bei einem geschriebenen Zeichen der kurze Name (d), sonst die Strecke (AB) */
+function tLab(t, glyphs){
+  const sh = String(t.show || ''), ov = sh.match(/^#overline\{([A-Za-z]{2,3})\}$/), vb = sh.match(/^\|#vec\{([A-Za-z]{2,3})\}\|$/);
+  const short = (t.names || [t.label]).find(n => n.length === 1) || t.label;
+  if (glyphs > 1 && ov) return ov[1];
+  if (glyphs > 1 && vb) return '|' + vb[1] + '|';
+  return short;
+}
+/* Namen für das Korrekturmenü „Gemeint war“ */
+const numLabels = g => [...new Set(g.targets.flatMap(t => [tLab(t, 1), tLab(t, 3)]))];
+/* Buchstaben, die das Erkennungsnetz kennt */
+const NET_LET = typeof SYM !== 'undefined' && SYM ? SYM.classes.filter(c => /^[a-z]$/.test(c)).join('') : '';
+writerCtx = (orig => g => {
+  const c = orig(g);
+  if (!g.num) return c;
+  const lets = new Set(g.targets.flatMap(tKeys).filter(n => n.length === 1 && NET_LET.includes(n)));
+  Object.keys(g.vals || {}).forEach(v => lets.add(v));
+  return Object.assign(c, {letters:[...lets].join(''), labels:numLabels(g), labelPos:true, noRoot:false});
+})(writerCtx);
+
+/* Handschrift: Steht vor dem ersten „=“ ein kurzer Name, der keiner gesuchten Größe entspricht (h als 4 gelesen, d als 0 …),
+   wird er nach dem Zusammenhang zugeordnet: zu der offenen Größe, deren Wert die Zeile ergibt, oder zur einzigen offenen Größe.
+   Passt keine, wird der Name weggelassen und die Zeile ohne Namen gewertet. */
+function numRelabel(g, st, items, picks, ctx){
+  if (!items || !picks || items.length !== picks.length) return null;
+  const k = picks.findIndex((p, i) => items[i].k === 'sym' && p === '=');
+  if (k < 1 || k > 4 || k === picks.length - 1) return null;
+  const pre = picks.slice(0, k);
+  if (items.slice(0, k).some(it => it.k !== 'sym' || it.sup)) return null;
+  if (pre.some(p => !/^([0-9A-Za-zα-ωΑ-Ω()]|-)$/.test(p))) return null;
+  const preTxt = pre.join('');
+  if (!/[0-9A-Za-zα-ωΑ-Ω]/.test(preTxt)) return null;
+  if (g.targets.some(t => tHas(t, preTxt))) return null;
+  const env = {v:'_', vals:g.vals || {}, fns:{}, flags:{}};
+  const num = q => { const e = evalSafe(q, {...env, flags:{}}); return !e.err && e.br.length === 1 && P.isConst(e.br[0]) ? e.br[0][0] : NaN; };
+  const rest = tryParse(itemsText(items.slice(k + 1), picks.slice(k + 1), ctx), {fns:{}});
+  if (rest.err || !rest.parts || !rest.parts.length) return null;
+  /* eine echte Zahl vor dem „=“, die zur Rechnung passt (50 = 33 + 17), bleibt stehen */
+  const pp = tryParse(preTxt, {fns:{}}), pv = !pp.err && pp.parts.length === 1 ? num(pp.parts[0]) : NaN, fv = num(rest.parts[0]);
+  if (isFinite(pv) && isFinite(fv) && chainEq(fv, pv)) return null;
+  const val = num(rest.parts[rest.parts.length - 1]);
+  const open = g.targets.filter(t => !st.doneT.has(t.label));
+  const t = open.find(t => numMatch(val, t.value, g.exact) === 'exact') || open.find(t => numMatch(val, t.value, g.exact)) || (open.length === 1 ? open[0] : null);
+  const np = picks.slice();
+  for (let i = 0; i < k; i++) np[i] = '';
+  if (t) np[0] = tLab(t, k); else np[k] = '';
+  return np;
+}
+GoalRunner.prototype.fixLabel = function(w){
+  const g = this.goal;
+  if (!g.num || !w || !w.items || w.labFor === w.text) return;
+  const ctx = w.ctx || (this.w && this.w.ctx) || writerCtx(g);
+  const np = numRelabel(g, this.st, w.items, w.picks, ctx);
+  if (np){
+    w.picks = np; w.text = itemsText(w.items, np, ctx);
+    w.items.forEach((it, i) => { if (it.k === 'sym') it.orig = np[i]; });
+    w.ctxNote = 'Name vor dem „=“ nach der Aufgabe gelesen';
+  }
+  /* andere Lesarten genauso behandeln, damit sie nicht am Namen scheitern */
+  (w.alts || []).forEach(a => { const ap = numRelabel(g, this.st, w.items, a.picks, ctx); if (ap){ a.picks = ap; a.text = itemsText(w.items, ap, ctx); } });
+  w.labFor = w.text;
+};
 
 /* ---- Zahlen vergleichen: exakt oder sinnvoll gerundet (mindestens 2 gültige Ziffern) ---- */
 function decOf(v){ for (let d = 0; d <= 8; d++){ const w = v * 10 ** d; if (Math.abs(w - Math.round(w)) < 1e-7 * Math.max(1, Math.abs(w))) return d; } return 9; }
@@ -4674,8 +4799,10 @@ function analyzeNum(g, st, parsed){
   }
   const val = vals[vals.length - 1], open = g.targets.filter(t => !st.doneT.has(t.label));
   let target = null;
-  if (lab){ const nm = lab.n + (lab.sub ? '_' + lab.sub : ''); target = open.find(t => (t.names || []).includes(nm)) || g.targets.find(t => (t.names || []).includes(nm)); }
-  if (!target) target = open.find(t => numMatch(val, t.value, g.exact)) || open[0] || g.targets[0];
+  const nm = lab ? lab.n + (lab.sub ? '_' + lab.sub : '') : parsed.label || '';
+  if (nm) target = open.find(t => tHas(t, nm)) || g.targets.find(t => tHas(t, nm));
+  /* ohne Namen: zuerst ein exakter Treffer (δ = 13), erst dann ein gerundeter (y ≈ 12,67 ≈ 13) */
+  if (!target) target = open.find(t => numMatch(val, t.value, g.exact) === 'exact') || open.find(t => numMatch(val, t.value, g.exact)) || open[0] || g.targets[0];
   const m = numMatch(val, target.value, g.exact);
   if (m) return {status:'ok', target:target.label, html:`${M((target.show || target.label) + (m === 'round' ? ' #approx ' : ' = ') + (m === 'round' ? fmt(val) : g.exact ? fmtDec(target.value) : fmtK(target.value)))} ✓${m === 'round' ? ' (gerundet)' : ''}`};
   for (const er of (target.errs || [])) if (numMatch(val, er.v)) return {status:'err', q:er.q, html:er.html || `${M(target.show || target.label)} hat einen anderen Wert.`};
