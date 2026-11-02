@@ -2036,6 +2036,12 @@ function classify(strokes, ctx, W){
   const tot = sc.reduce((s, x) => s + x[0], 0) || 1;
   return sc.map(([v, c]) => [CLS_TO[c] || c, v / tot]).sort((a, b) => b[1] - a[1]).slice(0, 5);
 }
+/* Komma nach einer Ziffer: ein kurzer, nicht flacher Strich rechts unten, oben höchstens bis zur halben Ziffernhöhe,
+   unten bis zur Grundlinie oder darunter. Eine 1 reicht dagegen bis oben. A: Zeichen (Gruppe) links davon */
+function commaGeo(s, A){
+  const ah = A.y1 - A.y0;
+  return ah > 0 && s.h < 0.75 * ah && s.h > 0.35 * Math.max(s.w, 1) && s.w < 0.6 * ah && s.y0 > A.y0 + 0.45 * ah && s.y1 > A.y1 - 0.15 * ah && s.cx > (A.x0 + A.x1) / 2;
+}
 function groupStrokes(S, H, ctx, W){
   const tiny = s => Math.max(s.w, s.h) < 0.22 * H;
   const flat = s => s.h < 0.3 * Math.max(s.w, 1);
@@ -2048,12 +2054,16 @@ function groupStrokes(S, H, ctx, W){
       const ov = Math.min(g.x1, s.x1) - Math.max(g.x0, s.x0), mw = Math.max(3, Math.min(g.x1 - g.x0, s.w));
       const inside = (s.cx >= g.x0 - 2 && s.cx <= g.x1 + 2) || ((g.x0 + g.x1) / 2 >= s.x0 - 2 && (g.x0 + g.x1) / 2 <= s.x1 + 2);
       const stackedFlat = flat(s) && g.st.length === 1 && flat(g.st[0]) && ov > 0 && Math.abs(s.cy - g.st[0].cy) < 0.5 * H;
+      if (commaGeo(s, g) && s.x1 > g.x1) continue;                         /* Komma rechts unten an einer Ziffer: eigenes Zeichen */
       if (ov > 0.45 * mw || inside || stackedFlat){ tgt = g; break; }
     }
     if (tgt) add(tgt, s); else G.push({st:[s], x0:s.x0, x1:s.x1, y0:s.y0, y1:s.y1});
   });
   /* kleine Striche: Punkt/Querstrich eines Zeichens oder eigenes Zeichen */
   small.forEach(s => {
+    /* Punkt mitten in einem Gleichheits- oder Minuszeichen: Ansetzpunkt des Stifts, gehört dazu */
+    const fl = G.find(g => g.st.every(flat) && s.cx >= g.x0 && s.cx <= g.x1 && s.cy >= g.y0 - 2 && s.cy <= g.y1 + 2);
+    if (fl){ add(fl, s); return; }
     const g = G.find(g => s.cx >= g.x0 - 0.05 * H && s.cx <= g.x1 + 0.05 * H && s.cy > g.y0 - 0.6 * H && s.cy < g.y1 + 0.05 * H && !(g.st.length === 1 && flat(g.st[0])));
     if (g && (s.cy < g.y0 + 0.4 * (g.y1 - g.y0) || s.cy < g.y1 - 0.15 * H)) add(g, s); else G.push({st:[s], x0:s.x0, x1:s.x1, y0:s.y0, y1:s.y1, tiny:true});
   });
@@ -2077,7 +2087,10 @@ function groupStrokes(S, H, ctx, W){
     if (gap > 0.2 * H || uw > 1.6 * Math.max(uh, 0.6 * H)) continue;
     const hr = Math.max(A.h, B.h) / Math.max(1, Math.min(A.h, B.h));
     if ((A.st.length === 1 && flat(A.st[0])) || (B.st.length === 1 && flat(B.st[0]))) continue;
+    if (B.st.length === 1 && commaGeo(B.st[0], A)) continue;
     const pm = classify(A.st.concat(B.st).map(s => s.pts), ctx, W)[0];
+    /* Zahlen-Ziele: ein Buchstabe steht nur am Zeilenanfang; zwei Ziffern mitten in der Zeile nicht zu x zusammenfassen */
+    if (ctx.labelPos && /[a-z]/.test(pm[0]) && i > 0) continue;
     const xLike = pm[0] === 'x' && pm[1] > 0.5 && hr < 1.7 && A.st.length === 1 && B.st.length === 1 && uw / Math.max(uh, 1) > 0.55 && uw / Math.max(uh, 1) < 1.8;
     /* eigene Handschrift: wurde genau so ein zusammengesetztes Zeichen schon einmal bestätigt, Geometrieschranken lockern */
     const mine = pm[1] > 0.5 && /[0-9a-z]/.test(pm[0]) && handBest(A.st.concat(B.st).map(s => s.pts), pm[0]) > 0.9;
@@ -2163,6 +2176,11 @@ function recogItems(strokes, ctx, depth = 0){
     }
     if (/[-=+]/.test(c0) && it.alts[0][1] > 0.9) return;
     if (it.h < 0.4 * Hn && (it.x1 - it.x0) < 0.4 * Hn && it.y0 > base - 0.45 * Hn){ it.alts = [[',', .85], ['', .1], ['1', .05]]; return; }
+    /* größer geschriebenes Komma nach einer Ziffer (das Netz kennt kein Komma und liest 1, /, ) …) */
+    const prevDig = prev && prev.k === 'sym' && !prev.sup && !prev.sub && /[0-9]/.test(prev.alts[0][0]);
+    const letter = /[a-z]/.test(c0) && it.alts[0][1] > 0.3 && !ctx.labelPos;     /* Zahlen-Ziele: Buchstaben mitten in der Zeile sind unwahrscheinlich */
+    if (prevDig && !letter && it.strokes && it.strokes.length <= 2 && it.h < 0.8 * Hn && (it.x1 - it.x0) < 0.6 * Hn && it.h > 0.35 * Math.max(it.x1 - it.x0, 1)
+        && it.y0 > base - 0.5 * Hn && it.cy > base - 0.3 * Hn){ it.alts = [[',', .8], [c0, .15], ['', .05]]; return; }
     const small = it.h < 0.72 * Hn;
     if (small && prevAtom && it.y1 < base - 0.3 * Hn) it.sup = true;
     else if (small && prev && prev.k === 'sym' && /[a-z]/.test(prev.alts[0][0]) && it.y0 > base - 0.55 * Hn && /[0-9]/.test(c0)) it.sub = true;
