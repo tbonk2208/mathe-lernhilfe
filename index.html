@@ -653,6 +653,36 @@ body.ch-vek nav.toc [data-ch="qf"], body.ch-qf nav.toc [data-ch="vek"]{display:n
 /* Rückfrage: „falsch gelesen“ */
 .qc-misread{margin-top:.6rem;padding-top:.5rem;border-top:1px dashed var(--line)}
 .qc-misread .btn{font-size:.85rem}
+/* ---- Prüfart, Bewertung des Lösungswegs ---- */
+.seg-wrap{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.seg-lab{color:var(--muted)}
+.sw-mk.ff .sw-ic{color:#b7791f}
+.sw-mk.pend .sw-ic{color:var(--muted)}
+.sr.ff{border-color:color-mix(in srgb,#b7791f 55%,var(--line))}
+.sr.ff .sr-ic{color:#b7791f}
+.sr-pts{white-space:nowrap;color:var(--muted)}
+.pathcard{margin:10px 0;padding:12px 14px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;background:var(--sheet)}
+.pc-h{font:700 .95rem var(--f-head, var(--f-body));margin-bottom:4px}
+.pc-pts b{font-size:1.05rem}
+.pc-list{list-style:none;margin:8px 0;padding:0;display:grid;gap:4px}
+.pc-list li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:3px 8px;border-radius:6px;background:color-mix(in srgb,var(--line) 25%,transparent)}
+.pc-n{min-width:4.6em;color:var(--muted);font-size:.88rem}
+.pc-m{font-weight:600}
+.pc-list li.ok .pc-m{color:var(--good)}
+.pc-list li.ff .pc-m{color:#b7791f}
+.pc-list li.err .pc-m{color:var(--bad)}
+.pc-list li.miss .pc-m{color:var(--muted)}
+.pc-sum{margin:4px 0 0}
+.tnote .pts{display:block;margin-top:4px}
+/* Zeichen-Chips in Brüchen, Wurzeln, Vektoren */
+.chipg{display:inline-flex;align-items:center;gap:2px;padding:1px 4px;margin:0 2px;border:1px dashed var(--line);border-radius:6px;vertical-align:middle}
+.chipg .chipx{border:0;padding:0 2px}
+/* hohe Schreibzeile für Spaltenvektoren */
+.lw.tall .lw-cv{height:190px}
+.checkmode{margin:14px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sheet)}
+.checkmode h4{margin:0 0 6px}
+.ckm{display:flex;gap:8px;align-items:flex-start;margin:6px 0;cursor:pointer}
+.ckm input{margin-top:4px}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -718,7 +748,12 @@ html.js .nojs-note{display:none}
     <section class="card" id="start">
       <h1 style="font-size:2rem">Mathe verstehen, nicht nur ausrechnen</h1>
       <div class="chcards"><button type="button" class="chcard ch-btn" data-ch="qf"><b>Quadratische Funktionen</b><span class="small">Buchseiten 14–15: Parabeln, Nullstellen, Schnittpunkte, Sachaufgaben, Parameter</span></button><button type="button" class="chcard ch-btn" data-ch="vek"><b>Vektoren</b><span class="small">Buchseiten 138–155: Punkte im Raum, Vektoren, Rechnen mit Vektoren</span></button></div>
-      <p class="lead">Du schreibst deinen eigenen Rechenweg mit Stift oder Finger auf ein liniertes Rechenblatt, mehrere Schritte untereinander wie im Heft. Die Lernhilfe liest jede Zeile, vergleicht sie mathematisch mit der vorigen und erkennt, ob die Umformung erlaubt war. Bei einem Fehler stellt sie eine Rückfrage, die zum Denkfehler führt. Danach korrigierst du selbst: radieren und neu schreiben oder durchstreichen und darunter weiterschreiben. Nach zwei Fehlversuchen in Folge wird eine Musterzeile eingefügt, und es geht weiter.</p>
+      <p class="lead">Du schreibst deinen eigenen Rechenweg mit Stift oder Finger auf ein liniertes Rechenblatt, mehrere Schritte untereinander wie im Heft, bei Vektoren auch Spaltenvektoren in großen Klammern. Die Lernhilfe liest jede Zeile und prüft sie mathematisch. Wie eine wohlwollende Lehrkraft erkennt sie richtige Teilschritte an, auch wenn später ein Fehler passiert: Rechnest du mit einem falschen Zwischenergebnis richtig weiter, gilt das als folgerichtig und bekommt Punkte. Zum ersten Fehler stellt sie eine Rückfrage, die zum Denkfehler führt. Danach korrigierst du selbst: radieren und neu schreiben oder durchstreichen und darunter weiterschreiben. Nach zwei Fehlversuchen in Folge wird eine Musterzeile eingefügt, und es geht weiter.</p>
+      <div class="checkmode" id="checkmode"><h4>So wird geprüft (Voreinstellung)</h4>
+        <label class="ckm"><input type="radio" name="ckm" value="sheet"> <span><b>Ganzer Lösungsweg:</b> Du schreibst den ganzen Rechenweg aufs Blatt und tippst dann auf „Lösungsweg prüfen“. Jede Zeile bekommt ✓ richtig, ✓ folgerichtig (Folgefehler) oder ✗ Fehler, dazu Punkte: ein Punkt je Schritt, folgerichtige Schritte zählen voll. Gelöst ist die Aufgabe, wenn kein Fehler mehr drin ist.</span></label>
+        <label class="ckm"><input type="radio" name="ckm" value="line"> <span><b>Zeile für Zeile:</b> Jede Zeile wird sofort geprüft, bei einem Fehler kommt gleich die Rückfrage. Die Punkte zählen jeden Versuch.</span></label>
+        <p class="small">An jeder Aufgabe kannst du über „Prüfen:“ umschalten. Das gilt dann nur für diese Aufgabe.</p>
+      </div>
       <div class="intro-grid">
         <div><h4>So schreibst du</h4><p class="small">Eine Gleichung pro Zeile, z. B. x² − 4x − 45 = 0. Hochgestellte Zahlen werden als Potenz gelesen, Brüche dürfen gestapelt sein, Wurzeln mit Haken und Strich. Unter der Zeile siehst du, was gelesen wurde.</p></div>
         <div><h4>Falsch gelesen?</h4><p class="small">Zeichen antippen und richtiges wählen oder die Tastatur nutzen (z. B. x^2 - 4x = 0, sqrt(49), +- für ±).</p></div>
@@ -735,8 +770,9 @@ html.js .nojs-note{display:none}
         <ul class="small">
           <li>Sobald du mit einem Stift schreibst, ignoriert die Schreibfläche Berührungen mit Hand oder Finger. Solange der Stift schreibt oder über der Fläche schwebt, scrollt die Seite nicht und Knöpfe reagieren nicht auf den Handballen.</li>
           <li>Das Radiererende des Stifts oder die gedrückte Seitentaste löscht Striche.</li>
-          <li>Rechenblatt: Schreib jeden Schritt auf eine eigene Linie. Am Rand erscheint beim Weiterschreiben still ✓ oder ✗; erst „Blatt prüfen“ stellt bei einem Fehler die Rückfrage. Eine Zeile gilt als durchgestrichen, wenn du einen waagerechten Strich durch die ganze Zeile ziehst; klappt das nicht, tippe unter dem Blatt bei der Zeile auf „durchstreichen“.</li>
-          <li>Lieber jede Zeile einzeln prüfen lassen? Über dem Blatt auf „Einzelzeile“ tippen. Die Wahl gilt auch für die nächsten Aufgaben und lässt sich jederzeit zurückstellen.</li>
+          <li>Rechenblatt: Schreib jeden Schritt auf eine eigene Linie. Weiterrechnen in der nächsten Zeile geht mit „= …“ am Zeilenanfang. Unter dem Blatt siehst du, was gelesen wurde; bewertet wird erst mit „Lösungsweg prüfen“. Eine Zeile gilt als durchgestrichen, wenn du einen waagerechten Strich durch die ganze Zeile ziehst; klappt das nicht, tippe unter dem Blatt bei der Zeile auf „durchstreichen“.</li>
+          <li>Vektoren: Schreib die Koordinaten untereinander und setz große runde Klammern davor und dahinter, die über alle Koordinaten reichen. Den Namen davor (z. B. AB mit Pfeil) musst du nicht deutlich schreiben, er wird der Aufgabe zugeordnet.</li>
+          <li>Lieber jede Zeile sofort prüfen lassen? Über dem Blatt bei „Prüfen:“ auf „Zeile für Zeile“ tippen. Das gilt für diese Aufgabe; die Voreinstellung für alle Aufgaben stellst du oben auf dieser Seite ein.</li>
           <li>„⌨ Tippen“ legt die nächste freie Zeile als Tastaturzeile an, z. B. für x^2 oder sqrt(49).</li>
           <li>„✕ Zeile leeren“ lässt sich mit „↶ Strich“ rückgängig machen.</li>
           <li>Windows: Unter Einstellungen → Bluetooth und Geräte → Stift und Windows Ink lassen sich Toucheingaben beim Schreiben mit dem Stift ganz ignorieren. Erscheint beim Ansetzen ein Kreis für den Rechtsklick, hilft es, das Gedrückthalten für Rechtsklick beim Stift auszuschalten.</li>
@@ -956,7 +992,7 @@ html.js .nojs-note{display:none}
     <section class="card" id="vstart" data-ch="vek">
       <div class="card-head"><span class="num" style="background:var(--good)">V</span><h2>Vektoren: Kapitelstart</h2></div>
       <p class="lead">Mit Vektoren gelingt der Sprung von der ebenen in die räumliche Geometrie. Das kannst du bald: Punkte und Verschiebungen im Raum durch Vektoren beschreiben, mit Vektoren rechnen und geometrische Aussagen mit Vektoren begründen und prüfen.</p>
-      <p class="goal"><b>So ist das Kapitel aufgebaut:</b> Check-in (Pythagoras und Co.), Erkundungen, dann die drei Lerneinheiten von S. 142–155. Vektoren schreibst du in Kästchen untereinander wie im Heft, Punkte in Kästchen nebeneinander. Zahlen und kurze Rechnungen wie 4 − 3 darfst du direkt hineinschreiben. Mit „⌨ Tastatur“ geht es auch per Tippen.</p>
+      <p class="goal"><b>So ist das Kapitel aufgebaut:</b> Check-in (Pythagoras und Co.), Erkundungen, dann die drei Lerneinheiten von S. 142–155. Den Rechenweg schreibst du aufs Blatt wie im Heft: Vektoren als Spalte in großen Klammern, die Koordinaten untereinander, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) = (4 | −2 | −2), Punkte als Ortsvektor. Bewertet wird der ganze Weg: Richtige Teilschritte und Folgefehler werden anerkannt. Mit „⌨ Tippen“ geht es auch per Tastatur, eine Spalte schreibst du dann als (4|−2|−2). Linearkombinationen und Aufgaben mit mehreren richtigen Antworten trägst du weiter in Kästchen ein.</p>
       <aside class="box life"><h4><span class="lt game">Game</span> Koordinaten in Minecraft</h4><p>Mit F3 zeigt Minecraft (Java Edition) deine Position als drei Zahlen X, Y, Z<a class="ref" href="#q14">[14]</a>. Y ist dort die Höhe, X zählt nach Osten, Z nach Süden<a class="ref" href="#q14">[14]</a>. Im Matheheft ist die Höhe dagegen <span class="m"><i>x</i><sub>3</sub></span>. Gleiche Idee, andere Namen: Drei Zahlen legen jeden Ort fest.</p></aside>
       <aside class="box life"><h4><span class="lt fb">Fußball</span> Laufwege als Vektoren</h4><p>In der Bundesliga erfassen Kamerasysteme die Position jedes Spielers 25-mal pro Sekunde als Koordinaten<a class="ref" href="#q16">[16]</a>; das System TRACAB liefert 25-mal pro Sekunde auch x-, y- und z-Koordinaten des Balls<a class="ref" href="#q17">[17]</a>. Der Weg zwischen zwei Messungen ist ein Vektor „Endpunkt minus Anfangspunkt“, seine Länge die gelaufene Strecke.</p></aside>
     </section>
@@ -1341,11 +1377,11 @@ class InkCanvas {
     const penErase = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) || (e.buttons & 2));
     if (this.eraser || penErase){ this.erasing = true; this.eraseAt(this.pos(e)); return; }
     const p = this.pos(e);
-    /* kurzes Abheben des Stifts (Aussetzer < 80 ms, < 8 px) setzt den vorigen Strich fort */
+    /* kurzes Abheben des Stifts (Aussetzer < 70 ms, < 6 px) setzt den vorigen Strich fort */
     const last = this.strokes[this.strokes.length - 1];
-    if (last && this.lastUpType === e.pointerType && nowMs() - this.lastUpT < 80){
+    if (last && this.lastUpType === e.pointerType && nowMs() - this.lastUpT < 70){
       const q = last[last.length - 1];
-      if (Math.hypot(p.x - q.x, p.y - q.y) < 8){ this.strokes.pop(); this.cur = last.slice(); this.cur.push(p); this.seg(q, p); this.opt.onStart && this.opt.onStart(); return; }
+      if (Math.hypot(p.x - q.x, p.y - q.y) < 6){ this.strokes.pop(); this.cur = last.slice(); this.cur.push(p); this.seg(q, p); this.opt.onStart && this.opt.onStart(); return; }
     }
     this.cur = [p];
     this.opt.onStart && this.opt.onStart();
@@ -1822,7 +1858,7 @@ function toTex(n){
 }
 /* Name vor dem ersten „=“ (beim Lesen abgetrennt, z. B. MB, |DE|, δ) wieder voranstellen */
 const labelTex = l => { const v = String(l).match(/^\|([A-Za-z]{1,3})\|$/); return v ? `|#vec{${v[1]}}|` : /^[A-Z]{2,3}$/.test(l) ? `#overline{${l}}` : l; };
-const lineTex = parsed => (parsed.label ? labelTex(parsed.label) + ' = ' : '') + parsed.parts.map(toTex).join(' = ');
+const lineTex = parsed => (parsed.cont ? '= ' : '') + (parsed.vecTex !== undefined ? parsed.vecTex : (parsed.label ? labelTex(parsed.label) + ' = ' : '') + parsed.parts.map(toTex).join(' = '));
 const lineHTML = parsed => R('$' + lineTex(parsed) + '$');
 /* Hilfen zur Form */
 const isVar = (n, v) => n.t === 'var' && n.n === v;
@@ -1989,7 +2025,7 @@ function classWeights(ctx){
     if (/^[0-9]$/.test(c)) W[c] = 1;
     else if (/^[a-z]$/.test(c)) W[c] = ((ctx.letters || '') + (ctx.fnl || '')).includes(c) ? 1 : 0;
     else if (c === '/') W[c] = 0.35;
-    else if (c === 'sqrt' || c === 'pm') W[c] = ctx.noRoot ? 0.05 : 0.9;
+    else if (c === 'sqrt' || c === 'pm') W[c] = ctx.noRoot || (c === 'pm' && ctx.noPm) ? 0.05 : 0.9;
     else W[c] = 1;
   });
   return W;
@@ -2022,6 +2058,16 @@ function groupStrokes(S, H, ctx, W){
     if (g && (s.cy < g.y0 + 0.4 * (g.y1 - g.y0) || s.cy < g.y1 - 0.15 * H)) add(g, s); else G.push({st:[s], x0:s.x0, x1:s.x1, y0:s.y0, y1:s.y1, tiny:true});
   });
   G.sort((a, b) => a.x0 - b.x0);
+  /* einzelner flacher Strich ganz oben an der Ziffer davor (Deckstrich der 5): gehört zur Ziffer, ein Minus läge auf halber Höhe */
+  for (let i = G.length - 1; i > 0; i--){
+    const F = G[i], A = G[i - 1];
+    if (F.tiny || A.tiny || F.st.length !== 1 || !flat(F.st[0]) || (A.st.length === 1 && flat(A.st[0]))) continue;
+    const ah = A.y1 - A.y0, f = F.st[0];
+    if (ah < 0.6 * H || f.x0 > A.x1 + 0.15 * H || f.x0 < A.x0 || f.w > 1.2 * (A.x1 - A.x0) + 0.3 * H) continue;
+    if (f.cy > A.y0 + 0.33 * ah || f.cy < A.y0 - 0.25 * H) continue;
+    if (G[i + 1] && !G[i + 1].tiny && G[i + 1].x0 < f.x1 && G[i + 1].y0 > f.cy) continue;      /* Bruchstrich-artig über dem nächsten Zeichen */
+    add(A, f); G.splice(i, 1);
+  }
   G.forEach(g => { g.w = g.x1 - g.x0; g.h = g.y1 - g.y0; g.cx = (g.x0 + g.x1) / 2; g.cy = (g.y0 + g.y1) / 2; });
   /* Zusammenfügen benachbarter Gruppen, wenn das Ganze eindeutiger ist (x aus zwei Bögen, 4 aus zwei Strichen …) */
   if (ctx && W) for (let i = 0; i + 1 < G.length; i++){
@@ -2130,11 +2176,15 @@ function itemsToCands(items, ctx, beam = 60){
     let opts;
     if (it.k === 'frac'){ const n = decodeBest(it.num, ctx), d = decodeBest(it.den, ctx); opts = [[`((${n.text})/(${d.text}))`, 1]]; }
     else if (it.k === 'sqrt'){ const n = decodeBest(it.inner, ctx); opts = [[`sqrt(${n.text})`, 1]]; }
+    else if (it.k === 'vec'){ opts = [['(' + it.rows.map(r => decodeBest(r, ctx, ctx.compValid).text).join('|') + ')', 1]]; }
+    /* Zeichen in Brüchen, Wurzeln und Vektoren: vom Schüler gewählte Lesart (sel) gilt */
+    else if (it.sel !== undefined) opts = [[it.sel, 1]];
     else opts = it.alts.filter(a => a[1] > 0.004).slice(0, 4);
     const nb = [];
     B.forEach(b => opts.forEach(([c, p]) => {
       let piece = c === '√' ? 'sqrt' : c;
-      if (it.sup){
+      if (it.k !== 'sym') {}
+      else if (it.sup){
         const prevSup = idx > 0 && items[idx - 1].sup;
         piece = prevSup ? piece : '^(' + piece;
         const nextSup = items[idx + 1] && items[idx + 1].sup;
@@ -2144,8 +2194,10 @@ function itemsToCands(items, ctx, beam = 60){
       if (ctx.fnl && ctx.fnl.includes(c) && items[idx + 1] && items[idx + 1].k === 'sym' && items[idx + 1].alts[0][0] === '(') bonus = Math.log(6);
       /* Zahlen-Ziele: ein Buchstabe steht nur als Name vor dem ersten „=“ (h = …), mitten in der Rechnung ist er unwahrscheinlich */
       if (ctx.labelPos && it.k === 'sym' && /^[a-z]$/.test(c)){
-        const atLab = idx === 0 && items[1] && items[1].k === 'sym' && items[1].alts[0][0] === '=';
-        bonus += atLab ? Math.log(4) : Math.log(0.05);
+        const nx = items[idx + 1], atLab = idx === 0 && nx && nx.k === 'sym' && nx.alts[0][0] === '=';
+        /* gesuchte Größe mit Hochzahl (h²) gehört zu einer Gleichung wie h² + 6,8² = 8,5² */
+        const pow = nx && nx.k === 'sym' && nx.sup && !it.sup;
+        bonus += atLab ? Math.log(4) : pow ? 0 : Math.log(0.1);
       }
       nb.push({s:b.s + piece, lp:b.lp + Math.log(Math.max(p, 1e-6)) + bonus, picks:b.picks.concat([c])});
     }));
@@ -2153,9 +2205,12 @@ function itemsToCands(items, ctx, beam = 60){
   });
   return B;
 }
-function decodeBest(items, ctx){
+function decodeBest(items, ctx, valid){
   const C = itemsToCands(items, ctx);
-  for (const c of C){ const r = tryParse(c.s, {fns:ctx.fnsObj || {}}); if (!r.err) return {text:c.s, picks:c.picks, ok:true}; }
+  /* gewählte Lesart an den Zeichen merken (für die Zeichen-Chips innerhalb von Brüchen, Wurzeln, Vektoren) */
+  const mark = c => { items.forEach((it, k) => { if (it.k === 'sym') it.cur = c.picks[k]; }); return c; };
+  for (const c of C){ const r = tryParse(c.s, {fns:ctx.fnsObj || {}}); if (!r.err && (!valid || valid(c.s))){ mark(c); return {text:c.s, picks:c.picks, ok:true}; } }
+  if (C.length) mark(C[0]);
   return C.length ? {text:C[0].s, picks:C[0].picks, ok:false} : {text:'', picks:[], ok:false};
 }
 function recognizeLine(strokes, ctx){
@@ -2173,6 +2228,7 @@ function itemsText(items, picks, ctx){
     let piece;
     if (it.k === 'frac') piece = `((${decodeBest(it.num, ctx).text})/(${decodeBest(it.den, ctx).text}))`;
     else if (it.k === 'sqrt') piece = `sqrt(${decodeBest(it.inner, ctx).text})`;
+    else if (it.k === 'vec') piece = '(' + it.rows.map(r => decodeBest(r, ctx, ctx.compValid).text).join('|') + ')';
     else { const c = picks[idx]; piece = c === '√' ? 'sqrt' : c; if (it.sup){ if (!(idx > 0 && items[idx - 1].sup)) piece = '^(' + piece; if (!(items[idx + 1] && items[idx + 1].sup)) piece += ')'; } else if (it.sub) piece = '_' + piece; }
     s += piece;
   });
@@ -2434,9 +2490,20 @@ function analyzeNamed(goal, name, rhs, env){
   if (name === 'D' && goal.named.p !== undefined){ const p = goal.named.p, q = goal.named.q; if (aNear(val, p * p / 4 + q)) return {status:'err', q:QS.pqQ(q), html:'Die Diskriminante stimmt nicht.'}; if (aNear(val, p * p - q)) return {status:'err', q:QS.pqHalf(), html:'Die Diskriminante stimmt nicht.'}; }
   return {status:'err', q:QS.recompute(name, N[name], val), html:`${M(name)} stimmt nicht.`};
 }
+/* Zielwert, auf den sich eine fehlerhafte Zeile bezieht (für die Bewertung des Lösungswegs) */
 function analyzeValue(goal, st, parsed){
+  const r = analyzeValue0(goal, st, parsed);
+  if (r.status === 'err' && !r.tgt){
+    const env = envFor(goal), p0 = parsed.parts[0];
+    let t = null;
+    if (p0 && p0.t === 'call'){ const ce = evalSafe(p0.a, env); if (!ce.err && ce.br.length === 1) t = goal.targets.find(x => (x.fn === p0.f || (x.alt || []).includes(p0.f)) && aNear(x.x, ce.br[0][0])); }
+    r.tgt = (t || goal.targets.find(x => !st.doneT.has(x.label)) || goal.targets[0] || {}).label;
+  }
+  return r;
+}
+function analyzeValue0(goal, st, parsed){
   const env = envFor(goal), parts = parsed.parts.slice();
-  let label = null, target = null;
+  let label = null, target = parsed.contTgt ? goal.targets.find(t => t.label === parsed.contTgt) || null : null;
   if (parts.length > 1 && parts[0].t === 'var' && !(goal.fnsPoly || {})[parts[0].n]){ label = parts.shift(); }
   const first = parts[0];
   if (first.t === 'call'){
@@ -2528,6 +2595,9 @@ const LM = (() => {
   return {
     st, on:f => subs.push(f), save,
     err(kind, where){ kind = kind || 'aufgabe'; st.err[kind] = (st.err[kind] || 0) + 1; st.evts.push({t:Date.now(), k:'err', kind, w:where}); if (st.evts.length > 60) st.evts.splice(0, st.evts.length - 60); save(); },
+    /* Punkte eines bewerteten Lösungswegs je Teilaufgabe und Ziel (zuletzt erreicht) */
+    path(sub, gi, sc){ st.path = st.path || {}; const o = st.path[sub] || (st.path[sub] = {}); o[gi] = {e:sc.e, t:sc.t, m:sc.m, at:Date.now()}; save(); },
+    pathOf(sub){ const o = (st.path || {})[sub]; if (!o) return null; const v = Object.values(o); return {e:v.reduce((a, x) => a + x.e, 0), t:v.reduce((a, x) => a + x.t, 0), m:v.some(x => x.m === 'weg') ? 'weg' : 'zeile'}; },
     /* Fehler zurücknehmen (die Zeile war nur falsch gelesen) */
     unerr(kind){ kind = kind || 'aufgabe'; if (st.err[kind] > 0) st.err[kind]--; if (!st.err[kind]) delete st.err[kind]; const e = st.evts[st.evts.length - 1]; if (e && e.k === 'err' && e.kind === kind) st.evts.pop(); save(); },
     /* Ergebnis einer Trainingsaufgabe: Leitner-Box und Ausblendstufe anpassen */
@@ -2545,7 +2615,7 @@ const LM = (() => {
     due(){ const now = Date.now(); return Object.keys(TYPES).filter(k => st.train[k] && st.train[k].n && st.train[k].due <= now); },
     topErrors(n = 3){ return Object.entries(st.err).sort((a, b) => b[1] - a[1]).slice(0, n); },
     explain(ok){ st.expl.n++; if (ok) st.expl.ok++; save(); },
-    reset(){ st.err = {}; st.train = {}; st.evts = []; st.expl = {n:0, ok:0}; save(); }
+    reset(){ st.err = {}; st.train = {}; st.evts = []; st.expl = {n:0, ok:0}; st.path = {}; save(); }
   };
 })();
 
@@ -2687,9 +2757,20 @@ function strokesCanvas(strokes, {fg = '#000', bg = '#fff', pad = 18, maxH = 200,
   strokes.forEach(s => { g.beginPath(); s.forEach((p, i) => { const X = (p.x - x0 + pad) * k, Y = (p.y - y0 + pad) * k; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); if (s.length === 1) g.lineTo((s[0].x - x0 + pad) * k + .5, (s[0].y - y0 + pad) * k); g.stroke(); });
   return c;
 }
-function lineBg(c, w, h){
+function lineBg(c, w, h, f = 0.72){
   c.strokeStyle = cssVar('--grid-strong'); c.lineWidth = 1; c.setLineDash([5, 5]);
-  c.beginPath(); c.moveTo(10, h * 0.72); c.lineTo(w - 10, h * 0.72); c.stroke(); c.setLineDash([]);
+  c.beginPath(); c.moveTo(10, h * f); c.lineTo(w - 10, h * f); c.stroke(); c.setLineDash([]);
+}
+/* Prüfart: „Zeile für Zeile“ (Einzelzeile, sofortige Rückfrage) oder „ganzer Lösungsweg“ (Blatt, Bewertung am Ende).
+   Voreinstellung auf der Startseite; an jeder Aufgabe umschaltbar, das gilt dann nur für diese Aufgabe. */
+const SUBMODE = {};
+const modeSegHTML = m => `<span class="seg-wrap"><span class="small seg-lab">Prüfen:</span><span class="seg sw-mode" role="group" aria-label="Prüfart"><button type="button" data-a="mode-line" aria-pressed="${m === 'line'}" title="Jede Zeile sofort prüfen, bei einem Fehler gleich eine Rückfrage">Zeile für Zeile</button><button type="button" data-a="mode-sheet" aria-pressed="${m === 'sheet'}" title="Erst den ganzen Rechenweg schreiben, dann bewerten lassen (mit Folgefehlern und Punkten)">Ganzer Lösungsweg</button></span></span>`;
+/* eine geschriebene Zeile lesen (Vektor-Ziele: eigene Schreibweise mit Spaltenvektoren) */
+function goalParse(goal, text){
+  /* Weiterrechnen in der nächsten Zeile: „= 5,1“ setzt die Rechnung der Zeile darüber fort */
+  const m = goal.kind === 'value' && String(text || '').match(/^\s*=\s*(\S[\s\S]*)$/);
+  if (m){ const p = tryParse(m[1], {fns:goal.fnsPoly || {}}); if (!p.err) p.cont = true; return p; }
+  return tryParse(text, {fns:goal.fnsPoly || {}});
 }
 /* Zusammenhang für die Handschrifterkennung: erlaubte Buchstaben und Funktionsnamen (Zahlen-Ziele ergänzen Namen der gesuchten Größen) */
 function writerCtx(goal){ return {letters:goal.letters || 'x', fnl:Object.keys(goal.fnsPoly || {}).join(''), fnsObj:goal.fnsPoly || {}, noRoot:goal.kind !== 'solve'}; }
@@ -2704,21 +2785,53 @@ function popLabel(items, picks, i, v, ctx){
   const k = picks.findIndex((p, j) => j !== i && items[j].k === 'sym' && p === '=');
   if (k > i) for (let j = 0; j < k; j++) if (j !== i) picks[j] = '';
 }
+/* Zeichen-Chips: auch Zeichen in Brüchen, Wurzeln und Vektoren lassen sich antippen (Pfad wie 3.r1.0) */
+function chipsHTML(items, picks, attr = ''){
+  const chip = (it, path, lab) => `<button type="button" class="chipc${it.sup ? ' sup' : ''}${it.sub ? ' sub' : ''}" ${attr} data-p="${path}"${path.indexOf('.') < 0 ? ` data-i="${path}"` : ''}>${escH(showSym(lab || '∅'))}</button>`;
+  const walk = (its, pre, top) => its.map((it, i) => {
+    const path = pre + i;
+    if (it.k === 'sym') return chip(it, path, top ? picks[i] : it.sel !== undefined ? it.sel : it.cur !== undefined ? it.cur : it.alts[0][0]);
+    if (it.k === 'frac') return `<span class="chipg" title="Bruch">${walk(it.num, path + '.n.', false)}<span class="chipx">/</span>${walk(it.den, path + '.d.', false)}</span>`;
+    if (it.k === 'sqrt') return `<span class="chipg" title="Wurzel"><span class="chipx">√</span>${walk(it.inner, path + '.s.', false)}</span>`;
+    if (it.k === 'vec') return `<span class="chipg vecg" title="Vektor"><span class="chipx">(</span>${it.rows.map((r, j) => walk(r, path + '.r' + j + '.', false)).join('<span class="chipx">|</span>')}<span class="chipx">)</span></span>`;
+    return '';
+  }).join('');
+  return walk(items, '', true);
+}
+/* Element zu einem Chip-Pfad */
+function itemAt(items, path){
+  const seg = String(path).split('.'); let its = items, it = null;
+  for (const sg of seg){
+    if (sg === 'n'){ its = it.num; continue; } if (sg === 'd'){ its = it.den; continue; } if (sg === 's'){ its = it.inner; continue; }
+    if (sg[0] === 'r'){ its = it.rows[+sg.slice(1)]; continue; }
+    it = its && its[+sg];
+  }
+  return {it, top:seg.length === 1, i:+seg[0]};
+}
+/* Korrektur eines Zeichens innerhalb eines Bruchs, einer Wurzel oder eines Vektors */
+function popNested(it, ctx, el, onPick){
+  POP.innerHTML = '<div class="pop-t">Gemeint war:</div><div class="pop-g">' + popChoices(it.alts, ctx).map(a => `<button type="button" data-v="${escH(a)}">${escH(showSym(a))}</button>`).join('') + '<button type="button" data-v="" class="pop-del">entfernen</button></div>';
+  const r = el.getBoundingClientRect();
+  POP.style.left = Math.max(8, Math.min(window.innerWidth - 270, r.left + window.scrollX - 20)) + 'px';
+  POP.style.top = (r.bottom + window.scrollY + 6) + 'px'; POP.hidden = false;
+  POP.onclick = e => { const b = e.target.closest('button[data-v]'); if (!b) return; it.sel = b.dataset.v; if (b.dataset.v) SAMPLES.add(it.strokes, b.dataset.v, it.sup); POP.hidden = true; onPick(); };
+}
 /* ---- Schreibzeile ---- */
 class LineWriter {
   constructor(root, goal, h){
     this.root = root; this.goal = goal; this.h = h; this.items = null; this.picks = []; this.text = ''; this.src = ''; this.fixed = false;
     this.ctx = writerCtx(goal);
     root.innerHTML = `<div class="lw">
-      <div class="lw-tools btnrow">${h.modeToggle ? '<span class="seg sw-mode" role="group" aria-label="Schreibart"><button type="button" data-a="mode-sheet" aria-pressed="false" title="Mehrere Schritte auf einem linierten Blatt">Blatt</button><button type="button" data-a="mode-line" aria-pressed="true">Einzelzeile</button></span>' : ''}<button type="button" class="btn btn-sm" data-a="undo" title="Letzten Strich entfernen; nach „Zeile leeren“ holt es die Zeile zurück">↶ Strich</button><button type="button" class="btn btn-sm" data-a="clear">✕ Zeile leeren</button><button type="button" class="btn btn-sm lw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen. Nützlich mit dem Apple Pencil, der kein Radiererende hat.">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="kbd">⌨ Tastatur</button><button type="button" class="btn btn-sm needs-claude-img" data-a="claude">Von Claude lesen lassen</button></div>
+      <div class="lw-tools btnrow">${h.modeToggle ? modeSegHTML('line') : ''}<button type="button" class="btn btn-sm" data-a="undo" title="Letzten Strich entfernen; nach „Zeile leeren“ holt es die Zeile zurück">↶ Strich</button><button type="button" class="btn btn-sm" data-a="clear">✕ Zeile leeren</button><button type="button" class="btn btn-sm lw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen. Nützlich mit dem Apple Pencil, der kein Radiererende hat.">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="kbd">⌨ Tastatur</button><button type="button" class="btn btn-sm needs-claude-img" data-a="claude">Von Claude lesen lassen</button></div>
       <div class="lw-zone"><canvas class="lw-cv" aria-label="Schreibzeile: hier eine Zeile von Hand schreiben"></canvas><div class="lw-lockmsg" aria-hidden="true">Erst die Rückfrage oben beantworten</div></div>
       <div class="lw-read" aria-live="polite"><span class="small">Schreib eine Zeile. Wenn du den Stift absetzt, erscheint hier, was gelesen wurde.</span></div>
-      <input class="lw-in" type="text" hidden autocomplete="off" spellcheck="false" placeholder="z. B. x^2 - 4x - 45 = 0   ·   sqrt(49)   ·   +- für ±" aria-label="Zeile per Tastatur oder Scribble eingeben">
+      <input class="lw-in" type="text" hidden autocomplete="off" spellcheck="false" placeholder="${goal.vec ? 'z. B. AB = (5-1|0-2|1-3) = (4|-2|-2)' : 'z. B. x^2 - 4x - 45 = 0   ·   sqrt(49)   ·   +- für ±'}" aria-label="Zeile per Tastatur oder Scribble eingeben">
       <div class="lw-chips"></div>
       <div class="lw-act btnrow"><button type="button" class="btn btn-primary" data-a="check">Zeile prüfen</button>${h.extra || ''}</div>
     </div>`;
     this.cv = root.querySelector('.lw-cv'); this.readEl = root.querySelector('.lw-read'); this.chipsEl = root.querySelector('.lw-chips'); this.inp = root.querySelector('.lw-in');
-    this.ink = new InkCanvas(this.cv, {lw:2.8, bg:lineBg, zone:root.querySelector('.lw-zone'),
+    if (goal.tallRows) root.querySelector('.lw').classList.add('tall');
+    this.ink = new InkCanvas(this.cv, {lw:2.8, bg:goal.tallRows ? (c, w, hh) => lineBg(c, w, hh, 0.52) : lineBg, zone:root.querySelector('.lw-zone'),
       onStart:() => clearTimeout(this.t),
       onChange:() => { this.src = ''; this.fixed = false; this.sched(); },
       onFrozen:() => this.h.onFrozen && this.h.onFrozen()});
@@ -2750,7 +2863,10 @@ class LineWriter {
       else if (this.h.onExtra) this.h.onExtra(a);
       return;
     }
-    const ch = e.target.closest('.chipc'); if (ch) this.pop(+ch.dataset.i, ch);
+    const ch = e.target.closest('.chipc'); if (!ch) return;
+    const at = itemAt(this.items || [], ch.dataset.p);
+    if (at.top) this.pop(at.i, ch);
+    else if (at.it) popNested(at.it, this.ctx, ch, () => { this.fixed = true; this.text = itemsText(this.items, this.picks, this.ctx); this.renderRead(); });
   }
   recognize(){
     clearTimeout(this.t);
@@ -2766,11 +2882,11 @@ class LineWriter {
     const kb = this.inp.value.trim();
     const t = kb || this.text;
     if (!t){ this.readEl.innerHTML = '<span class="small">Schreib eine Zeile. Wenn du den Stift absetzt, erscheint hier, was gelesen wurde.</span>'; this.chipsEl.innerHTML = ''; return; }
-    const p = tryParse(t, {fns:this.goal.fnsPoly || {}});
+    const p = goalParse(this.goal, t);
     const who = kb ? 'Tastatur' : this.src === 'Claude' ? 'Claude' : this.ctxNote ? 'gelesen (Zusammenhang)' : 'gelesen';
     this.readEl.innerHTML = p.err ? `<span class="rd-who">${who}:</span> <code>${escH(t)}</code> <span class="rd-bad">nicht eindeutig lesbar</span>` : `<span class="rd-who">${who}:</span> <span class="rd-tex">${lineHTML(p)}</span>`;
     if (!kb && this.items && this.src === 'browser'){
-      this.chipsEl.innerHTML = '<span class="small">Falsch gelesen? Zeichen antippen:</span> ' + this.items.map((it, i) => it.k === 'sym' ? `<button type="button" class="chipc${it.sup ? ' sup' : ''}${it.sub ? ' sub' : ''}" data-i="${i}">${escH(showSym(this.picks[i] || '∅'))}</button>` : `<span class="chipx">${it.k === 'frac' ? 'Bruch' : '√'}</span>`).join('');
+      this.chipsEl.innerHTML = '<span class="small">Falsch gelesen? Zeichen antippen:</span> ' + chipsHTML(this.items, this.picks);
     } else this.chipsEl.innerHTML = '';
   }
   pop(i, el){
@@ -2881,6 +2997,92 @@ Antworte nur mit JSON: {"question":"...","options":[{"text":"...","correct":true
   try { card.scrollIntoView({block:'nearest', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){}
   return card;
 }
+/* ================= Lösungsweg bewerten wie eine wohlwollende Lehrkraft =================
+   Jede Zeile besteht aus Schritten: bei Rechenketten der Ansatz (erster Teil) und jedes „=“, sonst die ganze Zeile.
+   ok: stimmt mit der Aufgabe. ff (folgerichtig): richtig weitergerechnet, nur das Ergebnis eines früheren Fehlers
+   steckt darin (Folgefehler). err: Fehler. Ein Punkt je Schritt; folgerichtige Schritte bekommen den Punkt.
+   ref: Bezug für Folgefehler (Lösungsmenge bzw. Wert der letzten fehlerhaften oder folgerichtigen Zeile). */
+function gradeLine(g, st, parsed, res, ref){
+  const out = g.kind === 'solve' ? gradeSolve(g, st, parsed, res, ref) : g.kind === 'term' ? gradeTerm(g, st, parsed, res, ref) : gradeChain(g, st, parsed, res, ref);
+  if (res.status === 'ok'){ out.mark = 'ok'; out.steps = out.steps.map(() => 'ok'); }
+  return out;
+}
+/* Lösungsmenge einer Zeile einer Gleichungsaufgabe */
+function solveSetOf(g, parsed){
+  const v = g.v, parts = parsed.parts, env = envFor(g);
+  if (!parts || parts.length < 2) return null;
+  if (parts[0].t === 'var' && parts[0].n !== v && !hasVar(parts[1], v)) return null;      /* p = −4 usw. */
+  if (isVar(parts[0], v) && parts.slice(1).every(q => !hasVar(q, v))){
+    const e = evalSafe(parts[parts.length - 1], env); if (e.err) return null;
+    return {vals:uniqA(e.br.map(b => b[0])), stmt:true};
+  }
+  const r = solveEq(parts.length === 2 ? parts : [parts[0], parts[parts.length - 1]], env);
+  if (r.err || r.all || r.unsupported || r.sqrtNeg) return null;
+  return {vals:r.s, poly:r.polys && r.polys.length === 1 ? r.polys[0] : null};
+}
+function gradeSolve(g, st, parsed, res, ref){
+  if (res.status === 'ok') return {mark:'ok', steps:['ok'], ref:null, vals:res.stmt ? res.vals : null};
+  if (ref && ref.S){
+    const g2 = Object.assign({}, g, {S:ref.S, miscon:[]}), st2 = Object.assign({}, st, {last:ref.last || st.last});
+    const r2 = analyzeSolve(g2, st2, parsed);
+    if (r2.status === 'ok') return {mark:'ff', steps:['ff'], from:ref.from, vals:r2.stmt ? r2.vals : null, ref:r2.stmt ? ref : Object.assign({}, ref, {last:{parsed, poly:r2.poly || null, vals:ref.S}})};
+  }
+  const own = solveSetOf(g, parsed);
+  return {mark:'err', steps:['err'], ref:own ? {S:own.vals, last:own.stmt ? (ref && ref.last) || st.last : {parsed, poly:own.poly, vals:own.vals}} : ref};
+}
+const polyEqA = (a, b) => { const n = Math.max(a.length, b.length); for (let i = 0; i < n; i++) if (!aNear(a[i] || 0, b[i] || 0)) return false; return true; };
+function gradeTerm(g, st, parsed, res, ref){
+  if (res.status === 'ok') return {mark:'ok', steps:['ok'], ref:null};
+  const e = evalSafe(parsed.parts[parsed.parts.length - 1], {v:'x', vals:g.vals || {}, fns:{}, flags:{}});
+  const poly = !e.err && e.br.length === 1 ? e.br[0] : null;
+  if (ref && ref.poly && poly && polyEqA(poly, ref.poly)) return {mark:'ff', steps:['ff'], from:ref.from, ref};
+  return {mark:'err', steps:['err'], ref:poly ? {poly} : ref};
+}
+/* Werte der Teile einer Rechenkette (Funktionswerte; Zahlen- und Vektor-Ziele ergänzen das) */
+function chainInfo(g, st, parsed, res){
+  if (g.kind !== 'value' || !parsed.parts) return null;
+  const env = envFor(g), parts = parsed.parts.slice();
+  if (parts.length > 1 && (parts[0].t === 'var' || parts[0].t === 'call')) parts.shift();
+  const vals = [];
+  for (const q of parts){ const e = evalSafe(q, env); if (e.err || e.br.length !== 1 || !P.isConst(e.br[0])) return null; vals.push(e.br[0][0]); }
+  const lab = res.target || res.tgt, tgt = g.targets.find(t => t.label === lab) || null;
+  return {vals, tgt, eq:(a, b) => aNear(a, b), link:(a, b) => aNear(a, b)};
+}
+function gradeChain(g, st, parsed, res, ref){
+  const ci = chainInfo(g, st, parsed, res);
+  if (!ci || !ci.vals || !ci.vals.length) return {mark:res.status === 'ok' ? 'ok' : 'err', steps:[res.status === 'ok' ? 'ok' : 'err'], tgt:res.target || res.tgt, ref};
+  const T = ci.tgt ? ci.tgt.value : null, vals = ci.vals, R = ref && ci.tgt && ref.tgt === ci.tgt.label ? ref : null;
+  const isT = v => T !== null && !!ci.eq(v, T);
+  /* Gleichung mit der gesuchten Größe (h² + 6,8² = 8,5²): ein Schritt, Folgefehler über die Lösungen */
+  if (ci.eqn){
+    const ff = res.status !== 'ok' && R && ci.sols && ci.sols.length && ci.sols.every(x => R.S.some(y => ci.link(x, y)));
+    const mark = res.status === 'ok' ? 'ok' : ff ? 'ff' : 'err';
+    return {mark, steps:[mark], tgt:ci.tgt && ci.tgt.label, from:ff ? R.from : null, ref:ci.sols && ci.sols.length ? {tgt:ci.tgt && ci.tgt.label, S:ci.sols, m:mark, from:ff ? R.from : null} : ref};
+  }
+  const steps = [isT(vals[0]) ? 'ok' : R && R.S.some(x => ci.link(vals[0], x)) ? (R.m === 'ok' ? 'ok' : 'ff') : 'err'];
+  for (let i = 0; i + 1 < vals.length; i++) steps.push(!ci.link(vals[i + 1], vals[i]) ? 'err' : isT(vals[i + 1]) ? 'ok' : 'ff');
+  const mark = steps.includes('err') ? 'err' : steps.includes('ff') ? 'ff' : 'ok';
+  return {mark, steps, tgt:ci.tgt && ci.tgt.label, from:mark === 'ff' && R ? R.from : null, ref:{tgt:ci.tgt && ci.tgt.label, S:[vals[vals.length - 1]], m:mark, from:mark === 'ff' && R ? R.from : null}};
+}
+/* noch fehlende Ergebnisse (je ein Punkt) */
+function missingResults(g, st, rows){
+  if (g.kind === 'solve'){
+    if (!g.S.length) return [];
+    const ffv = uniqA(rows.filter(r => r.mark === 'ff' && r.grade.vals).flatMap(r => r.grade.vals));
+    const n = Math.max(0, g.S.length - st.found.length - ffv.length);
+    return g.S.filter(x => !st.found.some(f => aNear(f, x))).slice(0, n).map((x, i) => M(g.S.length > 1 ? g.v + '_{' + (g.S.length - n + i + 1) + '}' : g.v));
+  }
+  if (g.kind === 'value') return g.targets.filter(t => !st.doneT.has(t.label) && !rows.some(r => r.grade && r.grade.tgt === t.label)).map(t => M(t.show || t.label));
+  if (g.kind === 'term') return rows.length ? [] : ['die Funktionsgleichung'];
+  return [];
+}
+function pathScore(g, st, rows){
+  let e = 0, t = 0; const n = {ok:0, ff:0, err:0};
+  rows.forEach(r => { const sp = r.grade.steps; t += sp.length; e += sp.filter(m => m !== 'err').length; n[r.mark === 'ok' ? 'ok' : r.mark === 'ff' ? 'ff' : 'err']++; });
+  const miss = missingResults(g, st, rows);
+  return {e, t:t + miss.length, n, miss};
+}
+const ptsTxt = (e, t) => `${e} von ${t} ${t === 1 ? 'Punkt' : 'Punkten'}`;
 /* ---- ein Ziel ---- */
 class GoalRunner {
   constructor(sub, goal, root, idx, onDone){
@@ -2895,7 +3097,7 @@ class GoalRunner {
     else {
       this.extra = goal.kind === 'solve' ? '<button type="button" class="btn" data-a="done">Fertig</button><button type="button" class="btn" data-a="none">keine Lösung</button>' : '';
       if (goal.give) this.prefill(goal.give);
-      this.makeWriter(writerMode());
+      this.makeWriter(SUBMODE[sub.id] || writerMode());
     }
   }
   /* Schreibart: Rechenblatt (mehrere Zeilen) oder Einzelzeile */
@@ -2914,8 +3116,8 @@ class GoalRunner {
   switchWriter(m){
     if (m === this.mode || this.done) return;
     if (this.mode === 'sheet'){ this.checkSheet(true); this.w.rows.forEach(r => { if (r.mark === 'ok') this.addLine(r.parsed, 'ok', r.msg, r.inkStrokes(), r.value().src); else if (r.mark === 'model') this.addLine(r.model.parsed, 'model', 'Musterzeile', null); }); }
-    const done = this.mode === 'sheet' && this.isComplete();
-    setWriterMode(m); this.tutor.innerHTML = ''; this.makeWriter(m);
+    const done = this.mode === 'sheet' && this.isComplete() && !this.w.rows.some(r => r.mark === 'err');
+    SUBMODE[this.sub.id] = m; this.tutor.innerHTML = ''; this.makeWriter(m);
     if (done) this.complete(this.completeMsg());
   }
   /* mehrdeutige Handschrift: eine fast gleich wahrscheinliche Lesart wählen, die zur Rechnung passt */
@@ -2924,7 +3126,8 @@ class GoalRunner {
     const fx = {fns:this.goal.fnsPoly || {}}, cur = alts.find(a => a.text === text) || alts[0];
     for (const a of alts){
       if (a.text === text || cur.lp - a.lp > Math.log(gap)) continue;
-      const p2 = tryParse(a.text, fx); if (p2.err) continue;
+      const p2 = goalParse(this.goal, a.text); if (p2.err) continue;
+      if (p2.cont) p2.contTgt = this.contTgt || st.lastTgt;
       const r2 = analyzeLine(this.goal, st, p2);
       if (r2.status === 'ok') return {a, parsed:p2, res:r2};
     }
@@ -2943,40 +3146,52 @@ class GoalRunner {
     if (g.kind === 'value') return 'Alle gesuchten Werte stimmen.';
     return 'Die Funktionsgleichung stimmt.';
   }
-  /* Blatt auswerten: von oben nach unten, still (nur Randmarken) oder mit Rückfrage beim ersten Fehler */
+  /* Blatt auswerten („ganzer Lösungsweg“): jede Zeile wird bewertet, auch nach einem Fehler (Folgefehler werden anerkannt).
+     still (beim Schreiben): nur lesen und den Zustand berechnen, keine Bewertung zeigen; sonst Bewertung mit Punkten
+     und, falls ein Fehler drin ist, eine Rückfrage zum ersten Fehler. Gelöst ist das Ziel erst ohne Fehler. */
   checkSheet(silent){
     if (this.done || this.mode !== 'sheet') return;
-    const S = this.w, g = this.goal, fx = {fns:g.fnsPoly || {}};
+    const S = this.w, g = this.goal;
     S.recognizeDirty();
     this.st = cloneSt(this.sheetBase, this.st);
-    const st = this.st, acc = [];
-    let first = null;
+    const st = this.st, acc = [], graded = [];
+    let first = null, unread = null, ref = null;
     for (const r of S.rows){
-      r.mark = ''; r.msg = '';
-      if (r.model){ if (!first){ const res = analyzeLine(g, st, r.model.parsed); if (res.status === 'ok') this.accept(r.model.parsed, res, r.model); } r.mark = 'model'; r.msg = 'Musterzeile'; continue; }
+      r.mark = ''; r.msg = ''; r.grade = null;
+      if (r.model){ const res = analyzeLine(g, st, r.model.parsed); if (res.status === 'ok') this.accept(r.model.parsed, res, r.model); r.mark = 'model'; r.msg = 'Musterzeile'; ref = null; continue; }
       if (r.isEmpty()) continue;
       if (r.isStruck()){ r.mark = 'struck'; r.msg = 'durchgestrichen, wird nicht gewertet'; continue; }
-      if (first){ r.mark = 'wait'; r.msg = 'wird geprüft, sobald die Zeile darüber stimmt'; continue; }
       if (!r.kb && r.src === 'browser' && !r.fixed) this.fixLabel(r);
-      const v = r.value(); let parsed = tryParse(v.text, fx);
+      const v = r.value(); let parsed = goalParse(g, v.text);
+      if (parsed.cont) parsed.contTgt = (ref && ref.tgt) || st.lastTgt;
       let res = !v.text || parsed.err ? {status:'unread'} : analyzeLine(g, st, parsed);
       if (res.status !== 'ok' && v.src === 'browser' && !r.fixed){
         const alt = this.tryAlts(r.alts, v.text, st, res.status === 'err' ? 1.4 : 4);
         if (alt){ r.adoptAlt(alt.a); parsed = alt.parsed; res = alt.res; }
       }
-      if (res.status === 'unread'){ r.mark = 'unread'; r.msg = 'nicht eindeutig lesbar: tippe auf „Zeichen“'; first = {r, kind:'unread'}; continue; }
-      if (res.status === 'note'){ r.mark = 'unread'; r.msg = res.html; first = {r, kind:'note', res}; continue; }
+      if (res.status === 'unread' || res.status === 'note'){ r.mark = 'unread'; r.msg = res.status === 'note' ? res.html : 'nicht eindeutig lesbar: tippe auf „Zeichen“'; if (!unread) unread = {r, res}; continue; }
       r.parsed = parsed; r.res = res;
+      const gr = gradeLine(g, st, parsed, res, ref);
+      if (gr.mark === 'err' && gr.ref && gr.ref !== ref) gr.ref.from = r.i + 1;
+      r.grade = gr; ref = gr.ref; graded.push(r);
       if (res.status === 'ok'){ r.prevParsed = st.last && st.last.parsed; this.accept(parsed, res); r.mark = 'ok'; r.msg = res.html + (st.pendLow ? ' (noch nicht ganz ausgerechnet)' : ''); acc.push(r); continue; }
-      r.mark = 'err'; r.msg = silent ? 'passt nicht zur Zeile davor' : 'Fehler: siehe Rückfrage oben'; first = {r, kind:'err', res, parsed};
+      if (gr.mark === 'ff'){ r.mark = 'ff'; r.msg = 'folgerichtig' + (gr.from ? `: richtig weitergerechnet mit dem Ergebnis aus Zeile ${gr.from}` : ''); continue; }
+      r.mark = 'err'; r.msg = res.html || 'Fehler'; if (!first) first = {r, kind:'err', res, parsed};
     }
+    if (!silent) S.rows.forEach(r => { r.shown = true; });
     S.render();
     this.updGraph();
-    const done = this.isComplete();
-    if (silent){ S.setReady(!first && done); return; }
+    const done = !first && this.isComplete();
+    if (silent){ S.setReady(false); return; }
     S.setReady(false); this.tutor.innerHTML = '';
+    if (unread){
+      const n = unread.r.i + 1;
+      return this.note(unread.res.status === 'note' ? `Zeile ${n}: ${unread.res.html} Erst wenn alle Zeilen lesbar sind, wird der Lösungsweg bewertet. Kein Versuch wurde gezählt.` : `Zeile ${n} ist noch nicht eindeutig lesbar. Tippe unter dem Blatt bei Zeile ${n} auf „Zeichen“ und korrigiere falsch erkannte Zeichen, oder schreib die Zeile neu. Erst dann wird der Lösungsweg bewertet. Kein Versuch wurde gezählt.`);
+    }
+    if (!graded.length && !acc.length) return this.note('Schreib zuerst einen Schritt auf das Blatt.');
+    const sc = pathScore(g, st, graded);
+    this.lastScore = sc; if (!this.firstScore && !sc.miss.length) this.firstScore = sc;
     if (!first){
-      if (!acc.length) return this.note('Schreib zuerst einen Schritt auf das Blatt.');
       st.fails = 0; this.lastQKey = '';
       acc.forEach(r => { if (!r.learned){ S.learnRow(r); r.learned = true; } });
       if (done){
@@ -2989,19 +3204,19 @@ class GoalRunner {
         if (ex){ this.explained = true; explainCard(this.tutor, ex.rule, null, {q:`Welche Regel steckt in deinem Schritt in Zeile ${ex.n}?`, foot:'Diese Frage zählt nicht als Fehler.'}); }
         return;
       }
-      if (g.kind === 'solve' && st.pend.length) this.note((st.pendLow ? 'Alle Zeilen stimmen, aber die Lösungen sind noch nicht ganz ausgerechnet. ' : 'Alle Zeilen stimmen. ') + pendMsg(g, st, true));
-      else if (g.kind === 'solve') this.note(st.found.length ? 'Alle Zeilen stimmen. Gibt es weitere Lösungen? Schreib weiter oder tippe auf „Fertig“.' : 'Alle Zeilen stimmen. Schreib den nächsten Schritt darunter.');
-      else if (g.kind === 'value') this.note('Alle Zeilen stimmen. Noch offen: ' + g.targets.filter(t => !st.doneT.has(t.label)).map(t => M(t.label)).join(', ') + '.');
-      else this.note('Alle Zeilen stimmen.');
+      this.scoreCard(sc, graded);
+      if (g.kind === 'solve' && st.pend.length) this.addNote((st.pendLow ? 'Alle Zeilen stimmen, aber die Lösungen sind noch nicht ganz ausgerechnet. ' : 'Alle Zeilen stimmen. ') + pendMsg(g, st, true));
+      else if (g.kind === 'solve') this.addNote(st.found.length ? 'Alle Zeilen stimmen. Gibt es weitere Lösungen? Schreib weiter oder tippe auf „Fertig“.' : 'Alle Zeilen stimmen. Schreib den nächsten Schritt darunter.');
+      else if (g.kind === 'value') this.addNote('Alle Zeilen stimmen. Noch offen: ' + g.targets.filter(t => !st.doneT.has(t.label)).map(t => M(t.show || t.label)).join(', ') + '.');
+      else this.addNote('Alle Zeilen stimmen.');
       const last = acc[acc.length - 1];
       if (last && g.kind === 'solve' && !this.explained && Math.random() < EXPLAIN_P){ const rule = stepRule(last.prevParsed, last.parsed, last.res, g); if (rule){ this.explained = true; explainCard(this.tutor, rule); } }
       return;
     }
+    this.scoreCard(sc, graded, first);
     const n = first.r.i + 1;
-    if (first.kind === 'unread') return this.note(`Zeile ${n} ist noch nicht eindeutig lesbar. Tippe unter dem Blatt bei Zeile ${n} auf „Zeichen“ und korrigiere falsch erkannte Zeichen, oder schreib die Zeile neu. Kein Versuch wurde gezählt.`);
-    if (first.kind === 'note') return this.note(`Zeile ${n}: ${first.res.html}`);
     const qkey = first.r.key + '|' + first.r.value().text;
-    if (qkey === this.lastQKey) return this.note(`Zeile ${n} ist noch nicht korrigiert. Radiere sie und schreib sie neu, oder streich sie durch und schreib darunter weiter.`);
+    if (qkey === this.lastQKey) return this.addNote(`Zeile ${n} ist noch nicht korrigiert. Radiere sie und schreib sie neu, oder streich sie durch und schreib darunter weiter.`);
     this.lastQKey = qkey;
     const ekind = first.res.q && first.res.q.kind || 'aufgabe';
     LM.err(ekind, this.sub.id);
@@ -3013,6 +3228,7 @@ class GoalRunner {
     const misread = first.r.value().src === 'browser' && first.r.items ? () => {
       LM.unerr(ekind); if (LOG.length && LOG[LOG.length - 1].status === 'err') LOG.pop();
       this.st.fails = Math.max(0, this.st.fails - 1); this.lastQKey = '';
+      if (this.firstScore === sc) this.firstScore = null;
       S.lock(false); first.r.showChips = true; first.r.mark = 'unread'; first.r.msg = 'falsch gelesen: tippe auf das Zeichen, das falsch ist';
       S.render();
       this.note(`Zeile ${n}: Tippe unter dem Blatt auf das falsch gelesene Zeichen und wähl aus, was gemeint war. Du kannst die Zeile auch neu schreiben. Kein Versuch wurde gezählt.`);
@@ -3020,10 +3236,22 @@ class GoalRunner {
     } : null;
     questionCard(this.tutor, {q:first.res.q, html:`Zeile ${n}: ${first.res.html || ''}`}, {task:this.sub.taskText || '', prev:prevTex, line:first.r.value().text, sheet:true, misread}, () => {
       if (this.st.fails >= 2) setTimeout(() => this.showModel(), 900);
-      else { S.lock(false); this.note(`Korrigiere Zeile ${n}: radieren und neu schreiben, oder durchstreichen und darunter weiterschreiben. Dann tippe wieder auf „Blatt prüfen“.`); }
+      else { S.lock(false); this.addNote(`Korrigiere Zeile ${n}: radieren und neu schreiben, oder durchstreichen und darunter weiterschreiben. Dann tippe wieder auf „Lösungsweg prüfen“.`); }
     });
     if (g.kind === 'term') this.overlayTerm(first.parsed);
   }
+  /* Bewertungskarte: Punkte, jede Zeile mit Urteil, fehlende Ergebnisse */
+  scoreCard(sc, rows, first){
+    const lab = {ok:'✓ richtig', ff:'✓ folgerichtig', err:'✗ Fehler'};
+    const li = rows.map(r => { const gr = r.grade, k = r.mark, e = gr.steps.filter(m => m !== 'err').length;
+      return `<li class="${k}"><span class="pc-n">Zeile ${r.i + 1}</span><span class="pc-m">${lab[k] || ''}</span><span class="small">${ptsTxt(e, gr.steps.length)}${k === 'ff' && gr.from ? ` · Folgefehler aus Zeile ${gr.from}` : k === 'err' && gr.steps.length > 1 && e ? ' · Teilschritte richtig' : ''}</span></li>`; }).join('')
+      + sc.miss.map(m => `<li class="miss"><span class="pc-n">fehlt</span><span class="pc-m">${R(m)}</span><span class="small">${ptsTxt(0, 1)}</span></li>`).join('');
+    const errs = rows.filter(r => r.mark === 'err').map(r => r.i + 1);
+    const sum = !errs.length ? (sc.miss.length ? 'Bisher stimmt alles. Rechne die fehlenden Ergebnisse noch aus.' : 'Alles richtig.')
+      : `${sc.n.ok ? sc.n.ok + (sc.n.ok === 1 ? ' Zeile ist' : ' Zeilen sind') + ' richtig' + (sc.n.ff ? ', ' + sc.n.ff + ' folgerichtig' : '') : sc.e ? 'Teilschritte stimmen' + (sc.n.ff ? ', ' + sc.n.ff + (sc.n.ff === 1 ? ' Zeile ist' : ' Zeilen sind') + ' folgerichtig' : '') : 'Noch stimmt kein Schritt'}. ${errs.length === 1 ? 'Der Fehler steckt in Zeile ' + errs[0] : 'Fehler stecken in den Zeilen ' + errs.join(', ')}. Korrigiere zuerst Zeile ${errs[0]}${sc.n.ff ? '; die folgerichtigen Zeilen danach musst du an das neue Ergebnis anpassen' : ''}.`;
+    this.tutor.insertAdjacentHTML('beforeend', `<div class="pathcard"><div class="pc-h">Bewertung deines Lösungswegs</div><div class="pc-pts"><b>${ptsTxt(sc.e, sc.t)}</b> <span class="small">(ein Punkt je Schritt; folgerichtige Schritte zählen voll)</span></div><ul class="pc-list">${li}</ul><p class="pc-sum">${R(sum)}</p></div>`);
+  }
+  addNote(html){ this.tutor.insertAdjacentHTML('beforeend', `<div class="tnote">${R(html)}</div>`); }
   /* beim Abschluss: geprüfte Blattzeilen in die Liste übernehmen (bleiben sichtbar) */
   flushSheet(){
     if (this.mode !== 'sheet' || this.flushed || !this.w || !this.w.rows) return; this.flushed = true;
@@ -3077,7 +3305,8 @@ class GoalRunner {
     let {text, src} = this.w.value();
     if (!text) return this.note('Schreib zuerst eine Zeile.');
     if (src === 'browser' && !this.w.fixed){ this.fixLabel(this.w); if (this.w.text !== text){ text = this.w.text; this.w.renderRead(); } }
-    let parsed = tryParse(text, {fns:this.goal.fnsPoly || {}});
+    let parsed = goalParse(this.goal, text);
+    if (parsed.cont) parsed.contTgt = this.st.lastTgt;
     if (src === 'browser' && (parsed.err || analyzeLine(this.goal, this.st, parsed).status === 'note')){
       const alt = this.tryAlts(this.w.alts, text, this.st, 4);
       if (alt){ this.w.adoptAlt(alt.a); parsed = alt.parsed; }
@@ -3089,12 +3318,14 @@ class GoalRunner {
       const cur = this.w.alts.find(a => a.text === text) || this.w.alts[0];
       for (const a of this.w.alts){
         if (a.text === text || cur.lp - a.lp > Math.log(1.4)) continue;
-        const p2 = tryParse(a.text, {fns:this.goal.fnsPoly || {}}); if (p2.err) continue;
+        const p2 = goalParse(this.goal, a.text); if (p2.err) continue;
         const r2 = analyzeLine(this.goal, this.st, p2);
         if (r2.status === 'ok'){ this.w.adoptAlt(a); parsed = p2; res = r2; ctxUsed = true; break; }
       }
     }
     if (res.status === 'note'){ this.note(res.html); return; }
+    /* Punkte Zeile für Zeile: jeder Versuch zählt */
+    { const gr = gradeLine(this.goal, this.st, parsed, res, null); this.lscore = this.lscore || {e:0, t:0}; this.lscore.t += gr.steps.length; this.lscore.e += gr.steps.filter(m => m !== 'err').length; }
     const strokes = this.w.ink.strokes.slice();
     this.tutor.innerHTML = '';
     if (res.status === 'ok'){
@@ -3153,7 +3384,7 @@ class GoalRunner {
       else if (res.poly || !res.named){ if (!res.named) st.last = {parsed, poly:res.poly || null, vals:g.S}; }
       if (res.rank !== undefined) st.maxRank = Math.max(st.maxRank, res.rank);
     }
-    if (g.kind === 'value' && res.target) st.doneT.add(res.target);
+    if (g.kind === 'value' && res.target){ st.doneT.add(res.target); st.lastTgt = res.target; }
   }
   checkComplete(res){
     const g = this.goal, st = this.st;
@@ -3219,7 +3450,11 @@ class GoalRunner {
     if (this.done) return;
     this.flushSheet();
     this.done = true;
-    this.wbox.innerHTML = ''; this.tutor.innerHTML = `<div class="tnote ok">${R(msg)} <b>Ziel erreicht.</b></div>`;
+    /* Bewertung: beim ganzen Lösungsweg die erste vollständige Prüfung, Zeile für Zeile alle Versuche */
+    const sheet = this.mode === 'sheet', sc = sheet ? this.firstScore || this.lastScore : this.lscore;
+    const pt = sc && sc.t ? ` <span class="pts">Bewertung${sheet ? (this.firstScore ? ' beim ersten vollständigen Prüfen' : '') : ' (Zeile für Zeile, jeder Versuch zählt)'}: ${ptsTxt(sc.e, sc.t)}.</span>` : '';
+    if (sc && sc.t) LM.path(this.sub.id, this.idx, {e:sc.e, t:sc.t, m:sheet ? 'weg' : 'zeile'});
+    this.wbox.innerHTML = ''; this.tutor.innerHTML = `<div class="tnote ok">${R(msg)} <b>Ziel erreicht.</b>${pt}</div>`;
     this.root.className = 'tgoal ' + (this.st.helped ? 'done-help' : 'done-ok');
     this.onDone(this.st.helped);
   }
@@ -3297,7 +3532,7 @@ let EXPLAIN_P = 0.35;   /* Anteil richtiger Schritte mit „Welche Regel?“-Fra
 class Workspace3 {
   constructor(sub, root, opts = {}){
     this.sub = sub; this.root = root; this.opts = opts;
-    root.innerHTML = `<div class="ws-head"><span class="small">${sub.wsHint || 'Schreib deinen Rechenweg untereinander aufs Blatt. Jede Zeile wird mit der vorigen verglichen. Bei einem Fehler stellt die Lernhilfe eine Rückfrage. Nach zwei Fehlversuchen in Folge kommt eine Musterzeile.'}</span><button type="button" class="btn btn-sm ws-reset">Neu beginnen</button></div><div class="goals"></div><div class="ws-final"></div>${scratchHTML()}`;
+    root.innerHTML = `<div class="ws-head"><span class="small">${sub.wsHint || 'Schreib deinen Rechenweg untereinander aufs Blatt. Richtige Teilschritte und Folgefehler werden anerkannt, zum ersten Fehler kommt eine Rückfrage. Nach zwei Fehlversuchen in Folge kommt eine Musterzeile.'}</span><button type="button" class="btn btn-sm ws-reset">Neu beginnen</button></div><div class="goals"></div><div class="ws-final"></div>${scratchHTML()}`;
     initScratch(root.querySelector('details.scratch'));
     root.querySelector('.ws-reset').addEventListener('click', () => this.reset());
     this.reset();
@@ -3341,13 +3576,13 @@ function modelView3(sub, root){
 
 /* ================= Rechenblatt: mehrere Zeilen auf einem linierten Blatt ================= */
 /* Jede Linie ist eine Zeile des Rechenwegs. Beim Weiterschreiben werden die Zeilen still geprüft (Randmarke),
-   „Blatt prüfen“ prüft von oben nach unten und stellt beim ersten Fehler eine Rückfrage.
+   „Lösungsweg prüfen“ bewertet alle Zeilen (Folgefehler werden anerkannt) und stellt zum ersten Fehler eine Rückfrage.
    Korrigieren: radieren und überschreiben oder die Zeile waagerecht durchstreichen. */
-const SHEET_RH = 80, SHEET_M = 46;
+const SHEET_RH = 80, SHEET_RH_TALL = 180, SHEET_M = 46;
 let SHEET_SID = 0;
 const writerMode = () => store.get('qf6-writer') === 'line' ? 'line' : 'sheet';
 const setWriterMode = m => store.set('qf6-writer', m);
-const cloneSt = (b, keep) => ({last:b.last, found:b.found.slice(), pend:(b.pend || []).slice(), maxRank:b.maxRank, fails:keep ? keep.fails : b.fails, helped:keep ? keep.helped : b.helped, doneT:new Set(b.doneT), lines:b.lines.slice()});
+const cloneSt = (b, keep) => ({last:b.last, found:b.found.slice(), pend:(b.pend || []).slice(), maxRank:b.maxRank, fails:keep ? keep.fails : b.fails, helped:keep ? keep.helped : b.helped, doneT:new Set(b.doneT), lines:b.lines.slice(), lastTgt:b.lastTgt});
 function strokeBox(s){
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, len = 0;
   s.forEach((p, i) => { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y); if (i) len += Math.hypot(p.x - s[i - 1].x, p.y - s[i - 1].y); });
@@ -3355,11 +3590,11 @@ function strokeBox(s){
   return {x0, y0, x1, y1, w:x1 - x0, h:y1 - y0, cy:(y0 + y1) / 2, len, chord:Math.hypot(b.x - a.x, b.y - a.y)};
 }
 /* Durchstreichen erkennen: ein flacher, gerader Strich, der später gezogen wurde und fast die ganze übrige Schrift der Zeile mittig quert */
-function strikeStroke(strokes){
+function strikeStroke(strokes, RH = SHEET_RH){
   if (strokes.length < 3) return -1;
   for (let k = strokes.length - 1; k >= Math.floor(strokes.length / 2); k--){
     const s = strokeBox(strokes[k]);
-    if (s.h > Math.max(9, 0.2 * SHEET_RH) || s.w < 60 || s.chord < 0.8 * s.len) continue;
+    if (s.h > Math.max(9, 0.2 * Math.min(RH, 110)) || s.w < 60 || s.chord < 0.8 * s.len) continue;
     const others = strokes.filter((_, j) => j !== k).map(strokeBox);
     const ox0 = Math.min(...others.map(o => o.x0)), ox1 = Math.max(...others.map(o => o.x1)), oy0 = Math.min(...others.map(o => o.y0)), oy1 = Math.max(...others.map(o => o.y1));
     const ow = Math.max(1, ox1 - ox0), cover = (Math.min(s.x1, ox1) - Math.max(s.x0, ox0)) / ow;
@@ -3378,43 +3613,44 @@ class SheetRow {
 class SheetWriter {
   constructor(root, goal, h){
     this.root = root; this.goal = goal; this.h = h; this.ready = false;
+    this.rh = goal.tallRows ? SHEET_RH_TALL : SHEET_RH;
     this.ctx = writerCtx(goal);
     const n0 = goal.kind === 'solve' ? Math.max(4, Math.min(8, (goal.canonInfo || []).length + 2)) : goal.kind === 'value' ? Math.max(3, (goal.targets || []).length + 2) : 3;
     this.rows = []; for (let i = 0; i < n0; i++) this.rows.push(new SheetRow(i));
     root.innerHTML = `<div class="shw">
-      <div class="sw-tools btnrow"><span class="seg sw-mode" role="group" aria-label="Schreibart"><button type="button" data-a="mode-sheet" aria-pressed="true">Blatt</button><button type="button" data-a="mode-line" aria-pressed="false" title="Zeile für Zeile einzeln prüfen; auf dem Blatt geprüfte Zeilen bleiben erhalten">Einzelzeile</button></span><button type="button" class="btn btn-sm" data-a="undo">↶ Strich</button><button type="button" class="btn btn-sm sw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="addrow">+ Zeile</button><button type="button" class="btn btn-sm" data-a="kbd-new" title="Nächste freie Zeile per Tastatur eingeben">⌨ Tippen</button></div>
+      <div class="sw-tools btnrow">${modeSegHTML('sheet')}<button type="button" class="btn btn-sm" data-a="undo">↶ Strich</button><button type="button" class="btn btn-sm sw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="addrow">+ Zeile</button><button type="button" class="btn btn-sm" data-a="kbd-new" title="Nächste freie Zeile per Tastatur eingeben">⌨ Tippen</button></div>
       <div class="sw-zone"><canvas class="sw-cv" aria-label="Rechenblatt: jede Linie ist ein Schritt des Rechenwegs"></canvas><div class="sw-marks" aria-hidden="true"></div><div class="lw-lockmsg" aria-hidden="true">Erst die Rückfrage oben beantworten</div></div>
-      <p class="small sw-hint">Schreib jeden Schritt auf eine eigene Linie. Am Rand siehst du beim Weiterschreiben, ob eine Zeile passt (✓) oder nicht (✗). Korrigieren: radieren und neu schreiben oder die Zeile waagerecht durchstreichen und darunter weiterschreiben.</p>
+      <p class="small sw-hint">${goal.tallRows ? 'Schreib jeden Schritt auf eine eigene Linie, Vektoren als Spalte in großen Klammern, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) mit den Koordinaten untereinander = (4 | −2 | −2). ' : 'Schreib jeden Schritt auf eine eigene Linie. '}Unter dem Blatt siehst du, was gelesen wurde. Wenn du fertig bist, tippe auf „Lösungsweg prüfen“: Jede Zeile wird bewertet, Folgefehler werden anerkannt. Korrigieren: radieren und neu schreiben oder die Zeile waagerecht durchstreichen.</p>
       <ol class="sw-read" aria-label="So wurde das Blatt gelesen"></ol>
-      <div class="lw-act btnrow"><button type="button" class="btn btn-primary sw-check" data-a="check">Blatt prüfen</button>${h.extra || ''}<span class="small sw-ready" aria-live="polite"></span></div>
+      <div class="lw-act btnrow"><button type="button" class="btn btn-primary sw-check" data-a="check">Lösungsweg prüfen</button>${h.extra || ''}<span class="small sw-ready" aria-live="polite"></span></div>
     </div>`;
     this.cv = root.querySelector('.sw-cv'); this.zone = root.querySelector('.sw-zone'); this.marks = root.querySelector('.sw-marks'); this.readEl = root.querySelector('.sw-read');
     this.setHeight();
     this.ink = new InkCanvas(this.cv, {lw:2.8, zone:this.zone, bg:(c, w, hh) => this.bg(c, w, hh), fg:(c, w, hh) => this.fg(c, w, hh),
       onStart:() => clearTimeout(this.t), onChange:() => this.changed(), onFrozen:() => h.onFrozen && h.onFrozen()});
     root.addEventListener('click', e => this.click(e));
-    root.addEventListener('input', e => { const inp = e.target.closest('.sr-in'); if (!inp) return; const r = this.rows[+inp.dataset.r]; r.kb = inp.value.trim(); this.renderEntry(r); this.sched(400); });
+    root.addEventListener('input', e => { const inp = e.target.closest('.sr-in'); if (!inp) return; const r = this.rows[+inp.dataset.r]; r.kb = inp.value.trim(); r.shown = false; this.renderEntry(r); this.sched(400); });
     root.addEventListener('keydown', e => { if (e.target.closest('.sr-in') && e.key === 'Enter'){ e.preventDefault(); h.onCheck(); } });
     this.render();
   }
-  setHeight(){ this.cv.style.height = this.rows.length * SHEET_RH + 'px'; }
+  setHeight(){ this.cv.style.height = this.rows.length * this.rh + 'px'; }
   addRow(){ this.rows.push(new SheetRow(this.rows.length)); this.setHeight(); requestAnimationFrame(() => { this.ink.fit(); this.ink.redraw(); this.render(); }); }
   bg(c, w, h){
     c.save(); c.lineWidth = 1;
     for (let r = 0; r < this.rows.length; r++){
-      const y = (r + 1) * SHEET_RH - 0.5;
+      const y = (r + 1) * this.rh - 0.5;
       c.strokeStyle = cssVar('--grid-strong'); c.globalAlpha = .85; c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke();
-      c.globalAlpha = .55; c.setLineDash([4, 6]); const b = r * SHEET_RH + SHEET_RH * 0.68; c.beginPath(); c.moveTo(SHEET_M + 6, b); c.lineTo(w - 8, b); c.stroke(); c.setLineDash([]);
+      c.globalAlpha = .55; c.setLineDash([4, 6]); const b = r * this.rh + this.rh * (this.rh > SHEET_RH ? 0.52 : 0.68); c.beginPath(); c.moveTo(SHEET_M + 6, b); c.lineTo(w - 8, b); c.stroke(); c.setLineDash([]);
     }
     c.globalAlpha = .4; c.strokeStyle = cssVar('--bad'); c.beginPath(); c.moveTo(SHEET_M, 0); c.lineTo(SHEET_M, h); c.stroke(); c.restore();
   }
   /* durchgestrichene Zeilen und Musterzeilen blass zeichnen */
   fg(c, w){
     c.save(); c.fillStyle = cssVar('--sheet'); c.globalAlpha = .62;
-    this.rows.forEach(r => { if (r.model || (r.isStruck() && r.strokes.length)) c.fillRect(SHEET_M + 1, r.i * SHEET_RH + 1, w - SHEET_M - 1, SHEET_RH - 2); });
+    this.rows.forEach(r => { if (r.model || (r.isStruck() && r.strokes.length)) c.fillRect(SHEET_M + 1, r.i * this.rh + 1, w - SHEET_M - 1, this.rh - 2); });
     c.restore();
   }
-  rowOf(s){ if (s._row === undefined){ const b = strokeBox(s); s._row = Math.max(0, Math.floor(b.cy / SHEET_RH)); } return Math.min(this.rows.length - 1, s._row); }
+  rowOf(s){ if (s._row === undefined){ const b = strokeBox(s); s._row = Math.max(0, Math.floor(b.cy / this.rh)); } return Math.min(this.rows.length - 1, s._row); }
   changed(){
     for (const s of this.ink.strokes) if (!s._sid) s._sid = ++SHEET_SID;
     while (this.ink.strokes.some(s => this.rowOf(s) >= this.rows.length - 1) && this.rows.length < 30){ this.rows.push(new SheetRow(this.rows.length)); this.setHeight(); requestAnimationFrame(() => { this.ink.fit(); this.ink.redraw(); this.renderMarks(); }); }
@@ -3437,8 +3673,8 @@ class SheetWriter {
     this.rows.forEach(r => {
       const key = r.strokes.map(s => s._sid).join(',');
       if (key === r.key) return;
-      r.key = key; r.fixed = false; r.ctxNote = ''; r.strikeSet = null; r.learned = false;
-      r.strikeIdx = strikeStroke(r.strokes); r.autoStrike = r.strikeIdx >= 0;
+      r.key = key; r.fixed = false; r.ctxNote = ''; r.strikeSet = null; r.learned = false; r.shown = false;
+      r.strikeIdx = strikeStroke(r.strokes, this.rh); r.autoStrike = r.strikeIdx >= 0;
       const ink = r.inkStrokes();
       if (!ink.length){ r.items = null; r.text = ''; r.alts = []; r.src = ''; return; }
       const res = recognizeLine(ink, this.ctx);
@@ -3447,19 +3683,21 @@ class SheetWriter {
     });
   }
   render(){ this.ink && this.ink.redraw(); this.renderMarks(); this.renderRead(); }
+  /* Bewertung einer Zeile erst nach „Lösungsweg prüfen“ zeigen; Lesbarkeit, Durchstreichen und Musterzeilen sofort */
+  dispMark(r){ return r.shown || ['unread', 'struck', 'model'].includes(r.mark) ? r.mark : r.mark ? 'pend' : ''; }
   renderMarks(){
-    const IC = {ok:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'};
-    this.marks.innerHTML = this.rows.map(r => `<div class="sw-mk ${r.mark}" style="top:${r.i * SHEET_RH}px;height:${SHEET_RH}px"><span class="sw-n">${r.i + 1}</span><span class="sw-ic">${IC[r.mark] || ''}</span></div>`
-      + (r.kb && !r.model && !r.strokes.length ? (() => { const p = tryParse(r.kb, {fns:this.goal.fnsPoly || {}}); return `<div class="sw-model sw-typed" style="top:${r.i * SHEET_RH}px;height:${SHEET_RH}px;left:${SHEET_M + 10}px"><span class="rd-tex">${p.err ? '<code>' + escH(r.kb) + '</code>' : lineHTML(p)}</span><span class="small">getippt</span></div>`; })() : '')
-      + (r.model ? `<div class="sw-model" style="top:${r.i * SHEET_RH}px;height:${SHEET_RH}px;left:${SHEET_M + 10}px"><span class="rd-tex">${lineHTML(r.model.parsed)}</span><span class="small">Musterzeile</span></div>` : '')).join('');
+    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'};
+    this.marks.innerHTML = this.rows.map(r => `<div class="sw-mk ${this.dispMark(r)}" style="top:${r.i * this.rh}px;height:${this.rh}px"><span class="sw-n">${r.i + 1}</span><span class="sw-ic">${IC[this.dispMark(r)] || ''}</span></div>`
+      + (r.kb && !r.model && !r.strokes.length ? (() => { const p = goalParse(this.goal, r.kb); return `<div class="sw-model sw-typed" style="top:${r.i * this.rh}px;height:${this.rh}px;left:${SHEET_M + 10}px"><span class="rd-tex">${p.err ? '<code>' + escH(r.kb) + '</code>' : lineHTML(p)}</span><span class="small">getippt</span></div>`; })() : '')
+      + (r.model ? `<div class="sw-model" style="top:${r.i * this.rh}px;height:${this.rh}px;left:${SHEET_M + 10}px"><span class="rd-tex">${lineHTML(r.model.parsed)}</span><span class="small">Musterzeile</span></div>` : '')).join('');
   }
   entryHTML(r){
-    const v = r.value(), p = v.text ? tryParse(v.text, {fns:this.goal.fnsPoly || {}}) : null;
-    const IC = {ok:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'};
+    const v = r.value(), p = v.text ? goalParse(this.goal, v.text) : null;
+    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'}, dm = this.dispMark(r), msg = dm === 'pend' ? '' : r.msg;
     const tex = r.model ? lineHTML(r.model.parsed) : !v.text ? '<span class="small">(nichts gelesen)</span>' : p.err ? `<code>${escH(v.text)}</code>` : lineHTML(p);
-    const chips = r.showChips && r.items && !r.kb ? '<div class="sr-chips"><span class="small">Falsch gelesen? Zeichen antippen:</span> ' + r.items.map((it, i) => it.k === 'sym' ? `<button type="button" class="chipc${it.sup ? ' sup' : ''}${it.sub ? ' sub' : ''}" data-r="${r.i}" data-i="${i}">${escH(showSym(r.picks[i] || '∅'))}</button>` : `<span class="chipx">${it.k === 'frac' ? 'Bruch' : '√'}</span>`).join('') + '</div>' : '';
+    const chips = r.showChips && r.items && !r.kb ? '<div class="sr-chips"><span class="small">Falsch gelesen? Zeichen antippen:</span> ' + chipsHTML(r.items, r.picks, `data-r="${r.i}"`) + '</div>' : '';
     const act = r.model ? '' : `<span class="sr-act">${r.isStruck() ? '' : `<button type="button" class="btn btn-sm" data-a="row-fix" data-r="${r.i}" aria-expanded="${r.showChips}">Zeichen</button><button type="button" class="btn btn-sm" data-a="row-kbd" data-r="${r.i}" title="Zeile per Tastatur eingeben">⌨</button>`}<button type="button" class="btn btn-sm" data-a="row-strike" data-r="${r.i}">${r.isStruck() ? 'wiederherstellen' : 'durchstreichen'}</button><button type="button" class="btn btn-sm" data-a="row-clear" data-r="${r.i}" title="Zeile leeren">✕</button></span>`;
-    return `<div class="sr-main"><span class="sr-n">${r.i + 1}</span><span class="sr-ic">${IC[r.mark] || ''}</span><span class="sr-tex">${r.isStruck() ? '<s>' + tex + '</s>' : tex}</span>${act}</div>${r.msg ? `<div class="sr-msg small">${R(r.msg)}${r.ctxNote ? ' (' + escH(r.ctxNote) + ')' : ''}${v.src === 'Tastatur' ? ' (Tastatur)' : ''}</div>` : ''}${chips}${r.showKb ? `<input class="sr-in" data-r="${r.i}" type="text" autocomplete="off" spellcheck="false" value="${escH(r.kb || r.text)}" placeholder="z. B. x^2 - 4x - 45 = 0" aria-label="Zeile ${r.i + 1} per Tastatur">` : ''}`;
+    return `<div class="sr-main"><span class="sr-n">${r.i + 1}</span><span class="sr-ic">${IC[dm] || ''}</span><span class="sr-tex">${r.isStruck() ? '<s>' + tex + '</s>' : tex}</span>${act}</div>${msg ? `<div class="sr-msg small">${R(msg)}${r.ctxNote ? ' (' + escH(r.ctxNote) + ')' : ''}${v.src === 'Tastatur' ? ' (Tastatur)' : ''}${dm === 'ok' || dm === 'ff' || dm === 'err' ? ` <span class="sr-pts">${ptsTxt(r.grade.steps.filter(m => m !== 'err').length, r.grade.steps.length)}</span>` : ''}</div>` : ''}${chips}${r.showKb ? `<input class="sr-in" data-r="${r.i}" type="text" autocomplete="off" spellcheck="false" value="${escH(r.kb || r.text)}" placeholder="${this.goal.vec ? 'z. B. AB = (5-1|0-2|1-3) = (4|-2|-2)' : 'z. B. x^2 - 4x - 45 = 0'}" aria-label="Zeile ${r.i + 1} per Tastatur">` : ''}`;
   }
   renderRead(){
     /* Tippen nicht unterbrechen: Fokus und Cursor im Eingabefeld erhalten */
@@ -3469,9 +3707,9 @@ class SheetWriter {
   }
   renderList(){
     const rows = this.rows.filter(r => !r.isEmpty() || r.showKb);
-    this.readEl.innerHTML = rows.length ? rows.map(r => `<li class="sr ${r.mark}" data-r="${r.i}">${this.entryHTML(r)}</li>`).join('') : '<li class="sr-empty small">Noch nichts geschrieben. Unter dem Blatt erscheint dann, was gelesen wurde.</li>';
+    this.readEl.innerHTML = rows.length ? rows.map(r => `<li class="sr ${this.dispMark(r)}" data-r="${r.i}">${this.entryHTML(r)}</li>`).join('') : '<li class="sr-empty small">Noch nichts geschrieben. Unter dem Blatt erscheint dann, was gelesen wurde.</li>';
   }
-  renderEntry(r){ const li = this.readEl.querySelector(`.sr[data-r="${r.i}"]`); if (!li) return this.renderRead(); const tex = li.querySelector('.sr-tex'); const v = r.value(), p = v.text ? tryParse(v.text, {fns:this.goal.fnsPoly || {}}) : null; if (tex) tex.innerHTML = !v.text ? '' : p.err ? `<code>${escH(v.text)}</code>` : lineHTML(p); }
+  renderEntry(r){ const li = this.readEl.querySelector(`.sr[data-r="${r.i}"]`); if (!li) return this.renderRead(); const tex = li.querySelector('.sr-tex'); const v = r.value(), p = v.text ? goalParse(this.goal, v.text) : null; if (tex) tex.innerHTML = !v.text ? '' : p.err ? `<code>${escH(v.text)}</code>` : lineHTML(p); }
   click(e){
     const b = e.target.closest('button[data-a]');
     if (b){
@@ -3498,7 +3736,10 @@ class SheetWriter {
       if (this.h.onExtra) this.h.onExtra(a);
       return;
     }
-    const ch = e.target.closest('.chipc'); if (ch) this.pop(this.rows[+ch.dataset.r], +ch.dataset.i, ch);
+    const ch = e.target.closest('.chipc'); if (!ch) return;
+    const row = this.rows[+ch.dataset.r], at = itemAt(row.items || [], ch.dataset.p);
+    if (at.top) this.pop(row, at.i, ch);
+    else if (at.it) popNested(at.it, this.ctx, ch, () => { row.fixed = true; row.shown = false; row.text = itemsText(row.items, row.picks, this.ctx); this.h.onSilent && this.h.onSilent(); });
   }
   pop(row, i, el){
     const it = row.items && row.items[i]; if (!it) return;
@@ -3517,7 +3758,7 @@ class SheetWriter {
         it.alts = classify(it.strokes, this.ctx, classWeights(this.ctx)); it.cls = true;
         row.items.splice(i + 1, 1); row.picks.splice(i + 1, 1); row.picks[i] = it.alts[0][0]; it.orig = '__joined';
       } else { row.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); popLabel(row.items, row.picks, i, v, this.ctx); }
-      row.fixed = true; POP.hidden = true; row.text = itemsText(row.items, row.picks, this.ctx);
+      row.fixed = true; row.shown = false; POP.hidden = true; row.text = itemsText(row.items, row.picks, this.ctx);
       this.h.onSilent && this.h.onSilent();
     };
   }
@@ -4186,7 +4427,9 @@ function dataLab(root){
 /* ================= Unterricht: Fortschritt zentral, Lehrkraft-Ansicht, Berichte, Arbeitsblätter, Erkennungsproben ================= */
 const LOG = [];   /* Rechenwege dieser Sitzung (für den Bericht) */
 const plainTex = t => String(t).replace(/#frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/#sqrt\{([^{}]*)\}/g, '√($1)').replace(/\^\{2\}/g, '²').replace(/\^\{([^{}]*)\}/g, '^$1').replace(/_\{([^{}]*)\}/g, '$1').replace(/#pm/g, '±').replace(/#cdot/g, '·').replace(/-/g, '−');
-function progressData(){ return {v:1, upd:new Date().toISOString(), status:Object.assign({}, STATUS), train:LM.st.train, err:LM.st.err, expl:LM.st.expl, evts:LM.st.evts.slice(-30)}; }
+function progressData(){ return {v:1, upd:new Date().toISOString(), status:Object.assign({}, STATUS), train:LM.st.train, err:LM.st.err, expl:LM.st.expl, evts:LM.st.evts.slice(-30), path:LM.st.path || {}}; }
+/* Punkte aller bewerteten Lösungswege (Summe) */
+const pathSum = P0 => { let e = 0, t = 0; Object.values(P0 || {}).forEach(o => Object.values(o).forEach(x => { e += x.e; t += x.t; })); return {e, t}; };
 const CLASS = {
   db:null, user:null, uid:null, canWrite:null, teacher:false, central:false, standalone:false, busy:false, again:false, t:0, dl:null, rows:{}, files:[],
   async init(){
@@ -4240,7 +4483,8 @@ const CLASS = {
   /* ---- Bericht (für alle): lesbar und mit eingebetteten Daten für den Import ---- */
   report(name){
     const d = progressData(); d.name = String(name || '').slice(0, 60);
-    const rows = ORDER.map(id => { const s = SUBS[id]; return `<tr><td>${escH(taskLbl(s))} ${escH(s.lbl || '')}</td><td>${STATUS[id] === 'ok' ? '✓ ohne Hilfe' : STATUS[id] === 'help' ? '✓ mit Hilfe' : 'offen'}</td></tr>`; }).join('');
+    const rows = ORDER.map(id => { const s = SUBS[id], pp = LM.pathOf(id); return `<tr><td>${escH(taskLbl(s))} ${escH(s.lbl || '')}</td><td>${STATUS[id] === 'ok' ? '✓ ohne Hilfe' : STATUS[id] === 'help' ? '✓ mit Hilfe' : 'offen'}</td><td>${pp ? `${pp.e} von ${pp.t} <span class="small">(${pp.m === 'weg' ? 'ganzer Lösungsweg' : 'Zeile für Zeile'})</span>` : ''}</td></tr>`; }).join('');
+    const ps = pathSum(LM.st.path);
     const tr = Object.entries(LM.st.train).filter(([, t]) => t.n).map(([k, t]) => `<tr><td>${escH(TYPES[k].label)}</td><td>${t.ok} von ${t.n} ohne Hilfe</td><td>${STAGE_TXT[Math.max(0, t.stage)]}</td></tr>`).join('');
     const er = LM.topErrors(8).map(([k, n]) => `<li>${escH(KIND_LABEL[k] || k)}: ${n}×</li>`).join('');
     const lg = LOG.map(l => `<tr><td>${escH(l.where)}</td><td>${l.status === 'ok' ? '✓' : l.status === 'model' ? 'Muster' : l.status === 'err' ? '✗' : ''}</td><td>${escH(l.text)}</td></tr>`).join('');
@@ -4248,7 +4492,7 @@ const CLASS = {
 <style>body{font:15px/1.5 system-ui,sans-serif;max-width:820px;margin:24px auto;padding:0 16px;color:#14202d}table{border-collapse:collapse;width:100%;margin:8px 0 18px}td,th{border:1px solid #ccd5df;padding:4px 8px;text-align:left}h1{font-size:22px}h2{font-size:17px;margin-top:22px}.small{color:#556678;font-size:13px}</style>
 <script type="application/json" id="qf-report">${JSON.stringify(d).replace(/</g, '\\u003c')}<\/script></head><body>
 <h1>Lernstand: Mathe-Lernhilfe (Parabeln und Vektoren)${d.name ? ' – ' + escH(d.name) : ''}</h1><p class="small">Erstellt am ${new Date().toLocaleString('de-DE')} mit der Mathe-Lernhilfe. Diese Datei kann die Lehrkraft in der Lehrkraft-Ansicht importieren.</p>
-<h2>Buchaufgaben (Parabeln S. 14–15, Vektoren S. 138–155)</h2><table><tr><th>Teilaufgabe</th><th>Stand</th></tr>${rows}</table>
+<h2>Buchaufgaben (Parabeln S. 14–15, Vektoren S. 138–155)</h2>${ps.t ? `<p>Punkte aller bewerteten Lösungswege: <b>${ps.e} von ${ps.t}</b> <span class="small">(ein Punkt je Schritt; Folgefehler zählen als richtig. Beim ganzen Lösungsweg zählt die erste vollständige Prüfung, Zeile für Zeile jeder Versuch.)</span></p>` : ''}<table><tr><th>Teilaufgabe</th><th>Stand</th><th>Punkte</th></tr>${rows}</table>
 <h2>Training</h2>${tr ? `<table><tr><th>Aufgabentyp</th><th>Ergebnis</th><th>Stufe</th></tr>${tr}</table>` : '<p>Noch nicht trainiert.</p>'}
 <h2>Häufigste Denkfehler</h2>${er ? `<ul>${er}</ul>` : '<p>Keine erfasst.</p>'}
 <h2>Begründungsfragen</h2><p>${LM.st.expl.n ? `${LM.st.expl.ok} von ${LM.st.expl.n} richtig begründet` : 'Noch keine beantwortet.'}</p>
@@ -4298,13 +4542,14 @@ const CLASS = {
     all.forEach(r => { Object.entries(r.d.err || {}).forEach(([k, n]) => errT[k] = (errT[k] || 0) + n); Object.entries(r.d.status || {}).forEach(([k, s]) => { if (s === 'help') helpT[k] = (helpT[k] || 0) + 1; }); });
     const topE = Object.entries(errT).sort((a, b) => b[1] - a[1]).slice(0, 5), topH = Object.entries(helpT).sort((a, b) => b[1] - a[1]).slice(0, 5);
     sum.innerHTML = `<div class="tr-cards"><div class="tr-card"><h4>Häufigste Denkfehler der Gruppe</h4><ol class="small">${topE.map(([k, n]) => `<li>${escH(KIND_LABEL[k] || k)} (${n}×)</li>`).join('') || '<li>keine</li>'}</ol></div><div class="tr-card"><h4>Oft nur mit Musterzeile gelöst</h4><ol class="small">${topH.map(([k, n]) => `<li>${SUBS[k] ? escH(taskLbl(SUBS[k]) + ' ' + SUBS[k].lbl) : escH(k)} (${n}×)</li>`).join('') || '<li>keine</li>'}</ol></div><div class="tr-card"><h4>Gruppe</h4><p class="small">${all.length} Person${all.length > 1 ? 'en' : ''}, davon ${all.filter(r => r.src === 'Datei').length} aus Dateien.</p></div></div>`;
-    tab.innerHTML = '<tr><th>Name</th><th>Buchaufgaben</th><th>Training</th><th>Häufigste Denkfehler</th><th>zuletzt</th></tr>';
+    tab.innerHTML = '<tr><th>Name</th><th>Buchaufgaben</th><th>Punkte (Lösungswege)</th><th>Training</th><th>Häufigste Denkfehler</th><th>zuletzt</th></tr>';
     all.sort((a, b) => a.name.localeCompare(b.name, 'de')).forEach(r => {
       const st = Object.values(r.d.status || {}), ok = st.filter(s => s === 'ok').length, hp = st.filter(s => s === 'help').length;
       const tr = Object.values(r.d.train || {}), sure = tr.filter(t => t.box >= 3).length, used = tr.filter(t => t.n).length;
       const te = Object.entries(r.d.err || {}).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => KIND_LABEL[k] || k).join(', ');
       const row = document.createElement('tr');
-      [r.name + (r.src === 'Datei' ? ' (Datei)' : ''), `${ok} ohne, ${hp} mit Hilfe von ${ORDER.length}`, used ? `${sure} von ${used} Typen sicher` : '–', te || '–', r.d.upd ? new Date(r.d.upd).toLocaleDateString('de-DE') : '–'].forEach(t => { const td = document.createElement('td'); td.textContent = t; row.appendChild(td); });
+      const ps = pathSum(r.d.path);
+      [r.name + (r.src === 'Datei' ? ' (Datei)' : ''), `${ok} ohne, ${hp} mit Hilfe von ${ORDER.length}`, ps.t ? `${ps.e} von ${ps.t} (${Math.round(100 * ps.e / ps.t)} %)` : '–', used ? `${sure} von ${used} Typen sicher` : '–', te || '–', r.d.upd ? new Date(r.d.upd).toLocaleDateString('de-DE') : '–'].forEach(t => { const td = document.createElement('td'); td.textContent = t; row.appendChild(td); });
       tab.appendChild(row);
     });
   }
@@ -4778,11 +5023,43 @@ const QV = {
 };
 
 /* ---- Zahlen-Ziele (kind 'value' mit num:true): Abstand, Betrag, Winkel, Flächen … ---- */
+/* gesuchte Größe, die als Unbekannte in einer Gleichung steht (h² + 6,8² = 8,5²) */
+/* „h6,01“ (Buchstabe direkt vor einer Zahl) ist eher eine falsch gelesene Ziffer als eine Unbekannte */
+function plausVar(q, n){
+  if (!q || typeof q !== 'object') return false;
+  if (q.t === 'mul' && q.imp && q.a && q.a.t === 'var' && q.a.n === n && q.b && q.b.t === 'num') return false;
+  if (q.t === 'var' && q.n === n) return true;
+  return ['a', 'b'].some(k => q[k] && plausVar(q[k], n));
+}
+function numEqVar(g, parts){
+  for (const t of g.targets) for (const n of tKeys(t)) if (/^[A-Za-z]$/.test(n) && !(n in (g.vals || {})) && parts.some(q => plausVar(q, n))) return {t, n};
+  return null;
+}
+/* Lösungen einer solchen Gleichung (bei positiven Größen nur die positiven) */
+function numSolve(parts, n, t, env){
+  const r = solveEq([parts[0], parts[parts.length - 1]], {v:n, vals:env.vals, fns:{}, flags:{}});
+  if (r.err || r.all || !r.s) return [];
+  return uniqA(r.s.filter(x => !(t.value > 0) || x > 0)).sort((a, b) => a - b);
+}
 function analyzeNum(g, st, parsed){
   const parts = parsed.parts.slice();
   let lab = null;
   if (parts.length > 1 && parts[0].t === 'var') lab = parts.shift();
   const env = {v:'_', vals:g.vals || {}, fns:{}, flags:{}};
+  const open = g.targets.filter(t => !st.doneT.has(t.label));
+  const nm = lab ? lab.n + (lab.sub ? '_' + lab.sub : '') : parsed.label || '';
+  /* Gleichung mit der gesuchten Größe: stimmt sie für den gesuchten Wert? */
+  const eq = numEqVar(g, parts);
+  if (eq){
+    const P2 = parsed.parts, env2 = {...env, vals:Object.assign({}, env.vals, {[eq.n]:eq.t.value}), flags:{}};
+    const vs = P2.map(q => evalSafe(q, env2));
+    if (vs.some(e => e.err || e.br.length !== 1 || !P.isConst(e.br[0]))) return {status:'note', html:'Diese Gleichung kann ich nicht auswerten. Schreib sie mit Zahlen und der gesuchten Größe.'};
+    const vv = vs.map(e => e.br[0][0]), sols = numSolve(P2, eq.n, eq.t, env);
+    if (vv.every((x, i) => !i || chainEq(x, vv[i - 1]))) return {status:'ok', eqn:true, tgt:eq.t.label, sols, html:'Die Gleichung stimmt ✓'};
+    const s0 = sols[0];
+    if (s0 !== undefined) for (const er of eq.t.errs || []) if (numMatch(s0, er.v)) return {status:'err', eqn:true, tgt:eq.t.label, sols, q:er.q, html:er.html || 'Diese Gleichung stimmt nicht.'};
+    return {status:'err', eqn:true, tgt:eq.t.label, sols, q:s0 !== undefined ? QV.generic(eq.t.show || eq.t.label, eq.t.value, s0) : QS.generic(), html:'Diese Gleichung stimmt nicht.'};
+  }
   const vals = [];
   for (const q of parts){
     const e = evalSafe(q, env);
@@ -4790,26 +5067,44 @@ function analyzeNum(g, st, parsed){
     if (e.br.length !== 1 || !P.isConst(e.br[0])) return {status:'note', html:'Schreib einen einzigen Wert (ohne ±).'};
     vals.push(e.br[0][0]);
   }
-  if (env.flags.sqrtNeg) return {status:'err', q:QV.negsq(-2), html:'Unter der Wurzel steht eine negative Zahl.'};
+  const val = vals[vals.length - 1];
+  let target = null;
+  if (nm) target = open.find(t => tHas(t, nm)) || g.targets.find(t => tHas(t, nm));
+  if (!target && parsed.contTgt) target = g.targets.find(t => t.label === parsed.contTgt) || null;
+  /* ohne Namen: zuerst ein exakter Treffer (δ = 13), erst dann ein gerundeter (y ≈ 12,67 ≈ 13), sonst ein Teil der Kette */
+  if (!target) target = open.find(t => numMatch(val, t.value, g.exact) === 'exact') || open.find(t => numMatch(val, t.value, g.exact)) || open.find(t => vals.some(v => numMatch(v, t.value, g.exact) === 'exact')) || open[0] || g.targets[0];
+  const tg = target.label;
+  if (env.flags.sqrtNeg) return {status:'err', tgt:tg, q:QV.negsq(-2), html:'Unter der Wurzel steht eine negative Zahl.'};
   for (let i = 0; i + 1 < vals.length; i++){
     if (chainEq(vals[i + 1], vals[i])) continue;
     const ns = findNegBase(parts[i], env), e2 = evalSafe(parts[i], {...env, negSq:true, flags:{}});
-    if (ns !== null && !e2.err && numMatch(vals[i + 1], e2.br[0][0])) return {status:'err', q:QV.negsq(ns), html:'Beim Quadrieren ist ein Vorzeichenfehler passiert.'};
-    return {status:'err', q:QS.recompute(toTex(parts[i]), vals[i], vals[i + 1]), html:'Zwei Teile deiner Rechnung sind nicht gleich.'};
+    if (ns !== null && !e2.err && numMatch(vals[i + 1], e2.br[0][0])) return {status:'err', tgt:tg, q:QV.negsq(ns), html:'Beim Quadrieren ist ein Vorzeichenfehler passiert.'};
+    return {status:'err', tgt:tg, q:QS.recompute(toTex(parts[i]), vals[i], vals[i + 1]), html:'Zwei Teile deiner Rechnung sind nicht gleich.'};
   }
-  const val = vals[vals.length - 1], open = g.targets.filter(t => !st.doneT.has(t.label));
-  let target = null;
-  const nm = lab ? lab.n + (lab.sub ? '_' + lab.sub : '') : parsed.label || '';
-  if (nm) target = open.find(t => tHas(t, nm)) || g.targets.find(t => tHas(t, nm));
-  /* ohne Namen: zuerst ein exakter Treffer (δ = 13), erst dann ein gerundeter (y ≈ 12,67 ≈ 13) */
-  if (!target) target = open.find(t => numMatch(val, t.value, g.exact) === 'exact') || open.find(t => numMatch(val, t.value, g.exact)) || open[0] || g.targets[0];
   const m = numMatch(val, target.value, g.exact);
   if (m) return {status:'ok', target:target.label, html:`${M((target.show || target.label) + (m === 'round' ? ' #approx ' : ' = ') + (m === 'round' ? fmt(val) : g.exact ? fmtDec(target.value) : fmtK(target.value)))} ✓${m === 'round' ? ' (gerundet)' : ''}`};
-  for (const er of (target.errs || [])) if (numMatch(val, er.v)) return {status:'err', q:er.q, html:er.html || `${M(target.show || target.label)} hat einen anderen Wert.`};
-  if (numMatch(val, -target.value)) return {status:'err', q:QS.signFlip(), html:'Das Vorzeichen stimmt nicht.'};
-  if (target.root && numMatch(val, target.value * target.value)) return {status:'err', q:QV.root(target.value), html:'Die Wurzel fehlt noch.'};
-  return {status:'err', q:target.q || QV.generic(target.show || target.label, target.value, val), html:`${M(target.show || target.label)} hat einen anderen Wert.`};
+  for (const er of (target.errs || [])) if (numMatch(val, er.v)) return {status:'err', tgt:tg, q:er.q, html:er.html || `${M(target.show || target.label)} hat einen anderen Wert.`};
+  if (numMatch(val, -target.value)) return {status:'err', tgt:tg, q:QS.signFlip(), html:'Das Vorzeichen stimmt nicht.'};
+  if (target.root && numMatch(val, target.value * target.value)) return {status:'err', tgt:tg, q:QV.root(target.value), html:'Die Wurzel fehlt noch.'};
+  return {status:'err', tgt:tg, q:target.q || QV.generic(target.show || target.label, target.value, val), html:`${M(target.show || target.label)} hat einen anderen Wert.`};
 }
+/* Werte der Teile für die Bewertung des Lösungswegs: Zahlen-Ziele (auch Gleichungen) und Vektor-Ziele */
+chainInfo = (orig => (g, st, parsed, res) => {
+  const tgtOf = () => g.targets.find(t => t.label === (res.target || res.tgt)) || null;
+  if (g.vec){
+    if (!parsed.parts) return null;
+    const tgt = tgtOf(), tol = tgt && tgt.it && tgt.it.tol;
+    return {vals:parsed.parts.filter(p => p.v).map(p => p.v), tgt, eq:(a, b) => vEq(a, b, tol), link:vLink};
+  }
+  if (g.num){
+    if (res.eqn) return {eqn:true, vals:[0], sols:res.sols || [], tgt:tgtOf(), eq:(a, b) => !!numMatch(a, b, g.exact), link:chainEq};
+    const parts = parsed.parts.slice(); if (parts.length > 1 && parts[0].t === 'var') parts.shift();
+    const env = {v:'_', vals:g.vals || {}, fns:{}, flags:{}}, vals = [];
+    for (const q of parts){ const e = evalSafe(q, env); if (e.err || e.br.length !== 1 || !P.isConst(e.br[0])) return null; vals.push(e.br[0][0]); }
+    return {vals, tgt:tgtOf(), eq:(a, b) => !!numMatch(a, b, g.exact), link:chainEq};
+  }
+  return orig(g, st, parsed, res);
+})(chainInfo);
 analyzeLine = (orig => (g, st, p) => g.num ? analyzeNum(g, st, p) : orig(g, st, p))(analyzeLine);
 
 /* ---- Vorbereitung der neuen Zielarten ---- */
@@ -5230,6 +5525,257 @@ VK_KINDS.axes = gr => {
     vkErr(gr, {q, html}, reveal);
   });
 };
+
+/* ================= Rechenweg mit Vektoren auf dem Blatt ================= */
+/* Eine Zeile wie  AB = (5 − 1 | 0 − 2 | 1 − 3) = (4 | −2 | −2)  (von Hand: Spaltenvektoren in großen Klammern).
+   Intern steht ein Spaltenvektor als (a|b|c). Gerechnet wird koordinatenweise: Jeder Vektor wird durch seine
+   k-te Koordinate ersetzt, dann rechnet der normale Zahlen-Parser (Summen, Vielfache, Brüche, Wurzeln). */
+const VPH = k => `V_9${k}`;
+const VENV = () => ({v:'_', vals:{}, fns:{}, flags:{}});
+/* an Trennzeichen außerhalb von Klammern teilen */
+function splitTop(s, ch){
+  const out = []; let d = 0, cur = '';
+  for (const c of s){ if (c === '(') d++; else if (c === ')') d--; if (c === ch && d === 0){ out.push(cur); cur = ''; } else cur += c; }
+  out.push(cur); return out;
+}
+/* Vektor-Literale (a|b|c) durch Platzhalter ersetzen */
+function vecScan(s){
+  const lits = [];
+  const match = p => { let d = 0; for (let q = p; q < s.length; q++){ if (s[q] === '(') d++; else if (s[q] === ')'){ d--; if (!d) return q; } } return -1; };
+  const topBar = (a, b) => { let d = 0; for (let i = a; i < b; i++){ const c = s[i]; if (c === '(') d++; else if (c === ')') d--; else if (c === '|' && d === 0) return true; } return false; };
+  let out = '', i = 0;
+  while (i < s.length){
+    if (s[i] === '('){
+      const q = match(i);
+      if (q > 0 && topBar(i + 1, q)){ out += VPH(lits.length); lits.push(splitTop(s.slice(i + 1, q), '|').map(x => x.trim())); i = q + 1; continue; }
+    }
+    out += s[i]; i++;
+  }
+  return {tpl:out, lits};
+}
+const numVal = (src) => { const p = tryParse(src, {}); if (p.err || p.parts.length !== 1) return NaN; const e = evalSafe(p.parts[0], VENV()); return !e.err && e.br.length === 1 && P.isConst(e.br[0]) ? e.br[0][0] : NaN; };
+/* Wert eines Teils: Vektor (Array), Zahl oder Fehler */
+function vecPartVal(part){
+  if (!part.lits.length){ const v = numVal(part.tpl); return isFinite(v) ? {s:v} : {name:true}; }
+  const d = part.lits[0].length;
+  if (part.lits.some(l => l.length !== d)) return {err:'dim'};
+  if (part.lits.some(l => l.some(c => !c))) return {err:'leer'};
+  const sub = f => { let t = part.tpl; part.lits.forEach((l, k) => { t = t.split(VPH(k)).join(f(l)); }); return t; };
+  const v = [];
+  for (let j = 0; j < d; j++){ const x = numVal(sub(l => '(' + l[j] + ')')); if (!isFinite(x)) return {err:'comp', j}; v.push(x); }
+  /* nur Summen und Vielfache von Vektoren: alle Vektoren 0 ergibt 0, alle verdoppelt ergibt das Doppelte */
+  const z = numVal(sub(() => '(0)'));
+  if (isFinite(z) && Math.abs(z) > 1e-9) return {err:'mixed'};
+  const v2 = numVal(sub(l => '(2*(' + l[0] + '))'));
+  if (isFinite(v2) && Math.abs(v2 - 2 * v[0]) > 1e-6 * Math.max(1, Math.abs(v[0]))) return {err:'mixed'};
+  return {v};
+}
+/* Darstellung eines Teils */
+function vecPartTex(part){
+  const comp = c => { const p = tryParse(c, {}); return p.err ? String(c).replace(/[{}$]/g, '') : p.parts.map(toTex).join(' = '); };
+  const p = tryParse(part.tpl, {});
+  let t = p.err || p.parts.length !== 1 ? null : toTex(p.parts[0]);
+  if (t === null) return part.lits.length ? part.lits.map(l => '#col{' + l.map(comp).join(';') + '}').join(' … ') : String(part.tpl).replace(/[{}$]/g, '');
+  part.lits.forEach((l, k) => { t = t.split(`V_{9${k}}`).join('#col{' + l.map(comp).join(';') + '}'); });
+  return t;
+}
+/* bekannte Namen beim Tippen: B − A, OA + AB … */
+function vecNames(s, names){
+  if (!names) return s;
+  const keys = Object.keys(names).sort((a, b) => b.length - a.length);
+  let out = '', i = 0;
+  while (i < s.length){
+    const prev = s[i - 1] || '';
+    const k = !/[A-Za-z_]/.test(prev) ? keys.find(k => s.startsWith(k, i) && !/[A-Za-z_0-9']/.test(s[i + k.length] || '')) : null;
+    if (k){ out += '(' + names[k].map(x => N(x)).join('|') + ')'; i += k.length; continue; }
+    out += s[i]; i++;
+  }
+  return out;
+}
+const vName = n => String(n || '').replace(/#vec\{([^}]*)\}/g, '$1').replace(/[{}]/g, '').replace(/\s+/g, '');
+/* Zeile lesen; Rückgabe wie tryParse, zusätzlich vec:true, parts mit Werten und vecTex für die Anzeige */
+function parseVecLine(text, g){
+  let s = String(text || '').replace(/[−–—]/g, '-').replace(/;/g, '|').replace(/\s+/g, '').replace(/≈/g, '=');
+  if (!s) return {err:'leer'};
+  const cont = s[0] === '='; if (cont) s = s.slice(1);                                  /* „= (4|2|4)“ rechnet die Zeile darüber weiter */
+  if (!s) return {err:'leer'};
+  s = s.replace(/^([A-Z][A-Za-z0-9_']{0,3})\((?=[^=]*\|)/, '$1=(');                 /* M(3|1|2) wie M = (3|1|2) */
+  const raw = splitTop(s, '=');
+  if (raw.some(x => !x)) return {err:'Leerer Teil vor oder nach „=“'};
+  let label = null;
+  if (raw.length > 1 && !vecScan(raw[0]).lits.length && !isFinite(numVal(raw[0]))) label = raw.shift();
+  const parts = raw.map(x => { const sc = vecScan(vecNames(x, g && g.vnames)); return Object.assign(sc, {src:x}, vecPartVal(sc)); });
+  if (!parts.some(p => p.v || p.err)) return {err:'kein Vektor'};
+  const T = g && label ? (g.targets || []).find(t => tHas(t, label)) : null;
+  const labTex = label ? (T ? T.show : /^[A-Z]{2}'?$/.test(label) ? `#vec{${label}}` : label.replace(/[{}$]/g, '')) : '';
+  const vecTex = (labTex ? labTex + ' = ' : '') + parts.map(vecPartTex).join(' = ');
+  return {vec:true, parts, label, vecTex, cont};
+}
+const vEq = (a, b, tol) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((x, i) => !!numMatch(x, b[i], !tol));
+const vLink = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((x, i) => chainEq(x, b[i]));
+const vTex = v => colT(v);
+
+/* ---- Auswertung einer Vektorzeile ---- */
+function analyzeVec(g, st, parsed){
+  if (parsed.err) return {status:'note', html:'Nicht lesbar: ' + parsed.err};
+  const P0 = parsed.parts, vp = P0.filter(p => p.v);
+  const bad = P0.find(p => p.err);
+  if (bad) return {status:'note', html:bad.err === 'dim' ? 'In einem Teil haben die Vektoren verschieden viele Koordinaten.' : bad.err === 'mixed' ? 'Hier werden Zahl und Vektor addiert. Das geht nicht: Rechne mit Vektoren nur Summen und Vielfache.' : `In einem Vektor ist die ${(bad.j || 0) + 1}. Koordinate nicht lesbar. Tippe auf „Zeichen“.`};
+  if (vp.some(p => p.v.length !== g.dim)) return {status:'note', html:`Ein Vektor hat ${vp.find(p => p.v.length !== g.dim).v.length} Koordinaten. Hier gehören ${g.dim} untereinander in die Klammer.`};
+  const open = g.targets.filter(t => !st.doneT.has(t.label)), last = vp[vp.length - 1].v;
+  let tgt = parsed.label ? open.find(t => tHas(t, parsed.label)) || g.targets.find(t => tHas(t, parsed.label)) : null;
+  if (!tgt && parsed.contTgt) tgt = g.targets.find(t => t.label === parsed.contTgt) || null;
+  if (!tgt) tgt = open.find(t => vp.some(p => vEq(p.v, t.value, t.it.tol))) || (st.vref && open.find(t => t.label === st.vref)) || open[0] || g.targets[0];
+  for (let i = 0; i + 1 < vp.length; i++){
+    if (vLink(vp[i + 1].v, vp[i].v)) continue;
+    const k = vp[i].v.findIndex((x, j) => !chainEq(vp[i + 1].v[j], x)), comp = vp[i].lits.length === 1 && vp[i].tpl === VPH(0) ? vp[i].lits[0][k] : null;
+    const ct = comp ? (() => { const p = tryParse(comp, {}); return p.err ? fmtK(vp[i].v[k]) : toTex(p.parts[0]); })() : `${k + 1}. Koordinate`;
+    return {status:'err', tgt:tgt.label, q:QV.comp(k + 1, ct, vp[i].v[k], vp[i + 1].v[k]), html:`Zwei Teile deiner Rechnung sind nicht gleich (${k + 1}. Koordinate).`};
+  }
+  if (vEq(last, tgt.value, tgt.it.tol)) return {status:'ok', target:tgt.label, html:`${M(tgt.pt ? ptT(tgt.show, tgt.value) : tgt.show + ' = ' + vTex(tgt.value))} ✓`};
+  const d = vecDiag(tgt.it, last);
+  return {status:'err', tgt:tgt.label, q:d.q, html:d.html || `${M(tgt.show)} stimmt noch nicht.`};
+}
+analyzeLine = (orig => (g, st, p) => g.vec ? analyzeVec(g, st, p) : orig(g, st, p))(analyzeLine);
+goalParse = (orig => (g, t) => g.vec ? parseVecLine(t, g) : orig(g, t))(goalParse);
+
+/* ---- Vektor-Kästchen-Ziele werden Rechenweg-Ziele auf dem Blatt ---- */
+const N9 = x => N(+(+x).toFixed(9));
+const texTxt = s => String(s).replace(/−/g, '-').replace(/#frac\{([^{}]*)\}\{([^{}]*)\}/g, '(($1)/($2))').replace(/#cdot/g, '*').replace(/#sqrt\{([^{}]*)\}/g, 'sqrt($1)').replace(/[{}]/g, '').replace(/\s+/g, '');
+function vecCanon(it){
+  const nm = vName(it.name), T = '(' + it.t.map(N9).join('|') + ')', pn = x => x < 0 ? `(${N9(x)})` : N9(x);
+  let mid = null;
+  if (it.kind === 'diff' && it.A && it.B) mid = it.B.map((b, i) => `${N9(b)}-${pn(it.A[i])}`);
+  else if (it.kind === 'mid' && it.A && it.B) mid = it.A.map((a, i) => `(${N9(a)}+${pn(it.B[i])})/2`);
+  else if (it.kind === 'end' && it.B && it.v) mid = it.B.map((b, i) => `${N9(b)}-${pn(it.v[i])}`);
+  else if (it.kind === 'scal' && it.k !== undefined && it.v) mid = it.v.map(x => `${N9(it.k)}*${pn(x)}`);
+  else if (it.model) mid = it.model.map(texTxt);
+  if (mid && mid.some(c => !isFinite(numVal(c)))) mid = null;
+  return {line:nm + '=' + (mid ? '(' + mid.join('|') + ')=' : '') + T, target:it.name};
+}
+function vecToPath(g){
+  if (!g || g.kind !== 'vec' || g.vec || g.items.some(it => it.pred || it.lay === 'lin')) return g;
+  const dim = g.items[0].t.length;
+  if (g.items.some(it => it.t.length !== dim)) return g;
+  const names = {};
+  g.items.forEach(it => { if (it.A && it.nA) names[it.nA] = it.A; if (it.B && it.nB) names[it.nB] = it.B; });
+  if (Object.keys(names).length) names.O = Array(dim).fill(0);
+  Object.assign(g, {
+    kind:'value', vec:true, dim, tallRows:true, vnames:names,
+    targets:g.items.map(it => ({label:it.name, show:it.lay === 'pt' ? it.name : it.name, value:it.t, it, names:[vName(it.name)], pt:it.lay === 'pt'})),
+    canon:g.items.map(vecCanon),
+    prompt:(g.prompt || '') + (g.prompt ? ' ' : '') + 'Schreib den Rechenweg aufs Blatt, Vektoren als Spalte in großen Klammern' + (g.items.some(it => it.lay === 'pt') ? ' (Punkte als Ortsvektor)' : '') + '.'
+  });
+  return g;
+}
+prepGoal = (orig => g => {
+  if (g.vec){ g.fnsPoly = {}; g.fnAst = {}; g.canonInfo = (g.canon || []).map(c => ({parsed:parseVecLine(c.line, g), text:c.line, target:c.target, note:c.note})); return; }
+  return orig(g);
+})(prepGoal);
+
+/* ---- Handschrift: Spaltenvektoren erkennen ---- */
+/* Klammerform eines hohen Strichs: Bauch links „(“, Bauch rechts „)“, gerade „|“ */
+function brKind(s){
+  const pts = s.pts, cyM = (s.y0 + s.y1) / 2;
+  let mid = pts[0]; for (const p of pts) if (Math.abs(p.y - cyM) < Math.abs(mid.y - cyM)) mid = p;
+  const a = pts[0], b = pts[pts.length - 1], d = mid.x - (a.x + b.x) / 2;
+  return d < -0.06 * s.h ? '(' : d > 0.06 * s.h ? ')' : '|';
+}
+/* Zeilen eines Vektorinhalts: senkrechte Bereiche der Striche zusammenfassen (eine Koordinate = ein Bereich).
+   Zu viele Bereiche: die nächsten zusammenlegen; zu wenige: an den größten Lücken zwischen den Strichmitten trennen. */
+function vecRows(C, dim, Hc){
+  if (!C.length) return null;
+  const cs = C.slice().sort((a, b) => a.y0 - b.y0), tol = 0.15 * Hc;
+  let B = [];
+  for (const o of cs){ const b = B[B.length - 1]; if (b && o.y0 <= b.y1 + tol){ b.y1 = Math.max(b.y1, o.y1); b.st.push(o); } else B.push({y0:o.y0, y1:o.y1, st:[o]}); }
+  while (B.length > dim){
+    let k = 0, best = 1e9;
+    for (let i = 0; i + 1 < B.length; i++){ const g = B[i + 1].y0 - B[i].y1; if (g < best){ best = g; k = i; } }
+    B.splice(k, 2, {y0:B[k].y0, y1:Math.max(B[k].y1, B[k + 1].y1), st:B[k].st.concat(B[k + 1].st)});
+  }
+  if (B.length < dim){
+    const cy = C.slice().sort((a, b) => a.cy - b.cy), gaps = [];
+    for (let i = 0; i + 1 < cy.length; i++) gaps.push({i, g:cy[i + 1].cy - cy[i].cy});
+    const cut = gaps.slice().sort((a, b) => b.g - a.g).slice(0, dim - 1).filter(x => x.g >= 0.3 * Hc).map(x => x.i).sort((a, b) => a - b);
+    const rows = []; let s0 = 0;
+    for (const c of cut){ rows.push(cy.slice(s0, c + 1)); s0 = c + 1; }
+    rows.push(cy.slice(s0));
+    return rows;
+  }
+  return B.map(b => b.st);
+}
+function recognizeVecLine(strokes, ctx){
+  const S = strokes.filter(s => s.length).map(sInfo);
+  if (!S.length) return {text:'', ok:false, items:[]};
+  /* normale Zeichenhöhe ohne die großen Klammerstriche schätzen */
+  const p75 = a => { const b = a.slice().sort((x, y) => x - y); return b[Math.min(b.length - 1, Math.floor(b.length * 0.75))] || 0; };
+  const med = a => { const b = a.slice().sort((x, y) => x - y); return b[Math.floor(b.length / 2)] || 0; };
+  const hh = s => Math.max(s.h, 0.6 * s.w), H0 = Math.max(12, med(S.map(hh)));
+  const small = S.filter(s => s.h < 2 * H0), Hc = Math.max(12, small.length ? p75(small.map(hh)) : H0);
+  const isBr = s => s.h >= Math.max(2 * Hc, 34) && s.w <= 0.8 * s.h;
+  const brs = S.filter(isBr).sort((a, b) => a.x0 - b.x0);
+  brs.forEach(b => { b.bk = brKind(b); });
+  /* Klammerpaare: Stapel von links nach rechts */
+  const pairs = [], stack = [];
+  for (const b of brs){
+    if (b.bk === '(' || (b.bk === '|' && !stack.length)) stack.push(b);
+    else if (stack.length){ const L = stack.pop(); const ov = Math.min(L.y1, b.y1) - Math.max(L.y0, b.y0); if (ov > 0.5 * Math.min(L.h, b.h)) pairs.push([L, b]); }
+  }
+  const used = new Set(), vitems = [];
+  /* kleine Zusatzstriche direkt an einer großen Klammer gehören zur Klammer */
+  const brOf = new Map();
+  S.forEach(o => { if (isBr(o) || Math.max(o.w, o.h) > 0.45 * Hc) return; const b = brs.find(b => o.cx > b.x0 - 0.25 * Hc && o.cx < b.x1 + 0.25 * Hc && o.cy > b.y0 - 0.1 * Hc && o.cy < b.y1 + 0.1 * Hc && (o.cy < b.y0 + 0.2 * b.h || o.cy > b.y1 - 0.2 * b.h)); if (b) brOf.set(o, b); });
+  pairs.sort((a, b) => a[0].x0 - b[0].x0).forEach(([L, R]) => {
+    if (used.has(L) || used.has(R)) return;
+    const top = Math.min(L.y0, R.y0) - 0.15 * Hc, bot = Math.max(L.y1, R.y1) + 0.15 * Hc;
+    const C = S.filter(o => o !== L && o !== R && !used.has(o) && !brOf.has(o) && o.cx > L.cx && o.cx < R.cx && o.cy > top && o.cy < bot);
+    if (!C.length || C.some(o => isBr(o))) return;                         /* große Klammer um mehr als einen Vektor: normale Klammer */
+    const rows = vecRows(C, ctx.vec || 3, Hc);
+    if (!rows || rows.length < 2) return;
+    [L, R, ...C].forEach(o => used.add(o)); brOf.forEach((b, o) => { if (b === L || b === R) used.add(o); });
+    const cctx = Object.assign({}, ctx, {labelPos:false, vec:0});
+    vitems.push({k:'vec', x0:L.x0, x1:R.x1, y0:top, y1:bot, cy:(top + bot) / 2, h:bot - top, rows:rows.map(r => recogItems(r.map(o => o.pts), cctx)), strokes:[L, R, ...C].map(o => o.pts)});
+  });
+  const rest = S.filter(s => !used.has(s));
+  const items = (rest.length ? recogItems(rest.map(s => s.pts), ctx) : []).concat(vitems).sort((a, b) => a.x0 - b.x0);
+  const C = itemsToCands(items, ctx), alts = [];
+  for (const c of C){ if (alts.length >= 6) break; if (alts.some(a => a.text === c.s)) continue; const r = parseVecLine(c.s, ctx.goal); if (!r.err && !r.parts.some(p => p.err)) alts.push({text:c.s, picks:c.picks, lp:c.lp}); }
+  const best = alts[0] ? {text:alts[0].text, picks:alts[0].picks, ok:true} : (C.length ? {text:C[0].s, picks:C[0].picks, ok:false} : {text:'', picks:[], ok:false});
+  return {items, text:best.text, ok:best.ok, picks:best.picks, alts};
+}
+recognizeLine = (orig => (strokes, ctx) => ctx && ctx.vec ? recognizeVecLine(strokes, ctx) : orig(strokes, ctx))(recognizeLine);
+writerCtx = (orig => g => {
+  const c = orig(g);
+  if (!g.vec) return c;
+  /* eine Koordinate muss eine einzige Zahl ergeben (kein ±) */
+  return Object.assign(c, {letters:'', fnl:'', fnsObj:{}, noRoot:false, noPm:true, vec:g.dim, goal:g, labels:[...new Set(g.targets.map(t => vName(t.label)))], labelPos:false, compValid:t => isFinite(numVal(t))});
+})(writerCtx);
+/* Name vor dem ersten „=“ (von Hand meist nicht lesbar: AB mit Pfeil) der passenden gesuchten Größe zuordnen */
+function vecRelabel(g, st, items, picks, ctx){
+  if (!items || !picks || items.length !== picks.length) return null;
+  const k = picks.findIndex((p, i) => items[i].k === 'sym' && p === '=');
+  if (k < 1 || k > 6 || items.slice(0, k).some(it => it.k !== 'sym')) return null;
+  const pre = picks.slice(0, k).join('');
+  if (g.targets.some(t => tHas(t, pre))) return null;
+  const rest = parseVecLine(itemsText(items.slice(k + 1), picks.slice(k + 1), ctx), g);
+  if (rest.err) return null;
+  const vp = rest.parts.filter(p => p.v), open = g.targets.filter(t => !st.doneT.has(t.label));
+  const t = open.find(t => vp.some(p => vEq(p.v, t.value, t.it.tol))) || (open.length === 1 ? open[0] : null);
+  const np = picks.slice();
+  for (let i = 0; i < k; i++) np[i] = '';
+  if (t) np[0] = vName(t.label); else np[k] = '';
+  return np;
+}
+GoalRunner.prototype.fixLabel = (orig => function(w){
+  const g = this.goal;
+  if (!g.vec) return orig.call(this, w);
+  if (!w || !w.items || w.labFor === w.text) return;
+  const ctx = w.ctx || (this.w && this.w.ctx) || writerCtx(g);
+  const np = vecRelabel(g, this.st, w.items, w.picks, ctx);
+  if (np){ w.picks = np; w.text = itemsText(w.items, np, ctx); w.items.forEach((it, i) => { if (it.k === 'sym') it.orig = np[i]; }); w.ctxNote = 'Name vor dem „=“ nach der Aufgabe gelesen'; }
+  (w.alts || []).forEach(a => { const ap = vecRelabel(g, this.st, w.items, a.picks, ctx); if (ap){ a.picks = ap; a.text = itemsText(w.items, ap, ctx); } });
+  w.labFor = w.text;
+})(GoalRunner.prototype.fixLabel);
 
 /* ================= Buchseite 15: Aufgaben 13–18 ================= */
 const gCh = (title, q, opts, o = {}) => Object.assign({kind:'choice', title, prompt:o.prompt || '', q:{q, opts, after:'', keep:!!o.keep}}, o);
@@ -5884,15 +6430,24 @@ function buildVSections(){
     box.innerHTML = sec.tasks.map(t => `<div class="vtask" id="t-${sec.id}-${t.n}"><div class="vtask-h"><span class="vnum">${t.n === '0' ? '★' : t.n}</span><h3>${R(t.title)}</h3>${t.tag ? `<span class="tag">${escH(t.tag)}</span>` : ''}</div><p class="vtext">${R(t.text)}</p>${t.fig ? '<div class="vfig"></div>' : ''}<div class="subs" id="subs-${sec.id}-${t.n}"></div></div>`).join('');
     sec.tasks.forEach(t => {
       if (t.fig){ const el = $(`#t-${sec.id}-${t.n} .vfig`), f = t.fig(); if (f && f.view3) VK.view3(el, f.view3); else el.innerHTML = f; }
-      t.subs.forEach(s => { s.goals.forEach(prepGoal); if (!s.taskText || s.taskText === s.head) s.taskText = t.text; if (s.goals.every(g => !['solve', 'value', 'term'].includes(g.kind))) s.wsHint = VK_HINT; });
+      t.subs.forEach(s => { s.goals.forEach(g => prepGoal(vecToPath(g))); if (!s.taskText || s.taskText === s.head) s.taskText = t.text; if (s.goals.every(g => !['solve', 'value', 'term'].includes(g.kind))) s.wsHint = VK_HINT; });
       buildTask(`${sec.id}-${t.n}`, t.subs);
       t.subs.forEach(s => { s.ch = 'vek'; s.sec = sec.id; s.tlabel = `${sec.short} ${t.n === '0' ? 'Einstieg' : 'A' + t.n}`; });
     });
   });
 }
+/* Trainingsaufgaben mit Vektor-Kästchen ebenfalls als Rechenweg auf dem Blatt */
+mk = (orig => (type, o) => { const s = orig(type, o); (s.goals || []).forEach(vecToPath); return s; })(mk);
+/* Voreinstellung der Prüfart auf der Startseite */
+function initCheckMode(){
+  const box = $('#checkmode'); if (!box) return;
+  const cur = writerMode();
+  box.querySelectorAll('input[name=ckm]').forEach(i => { i.checked = i.value === cur; i.addEventListener('change', () => { if (i.checked) setWriterMode(i.value); }); });
+}
 function vkInit(){
+  initCheckMode();
   $$('main .merk').forEach(el => { if (!el.dataset.pre) el.innerHTML = R(el.innerHTML); });
-  [['a13', A13S], ['a14', A14S], ['a15', A15S], ['a16', A16S], ['a17', A17S], ['g18', A18S]].forEach(([id, L]) => { L.forEach(s => { s.goals.forEach(prepGoal); if (s.goals.every(g => !['solve', 'value', 'term'].includes(g.kind))) s.wsHint = VK_HINT; }); buildTask(id, L); if (id === 'g18') L.forEach(s => { s.tlabel = 'A18 (Grundwissen)'; }); });
+  [['a13', A13S], ['a14', A14S], ['a15', A15S], ['a16', A16S], ['a17', A17S], ['g18', A18S]].forEach(([id, L]) => { L.forEach(s => { s.goals.forEach(g => prepGoal(vecToPath(g))); if (s.goals.every(g => !['solve', 'value', 'term'].includes(g.kind))) s.wsHint = VK_HINT; }); buildTask(id, L); if (id === 'g18') L.forEach(s => { s.tlabel = 'A18 (Grundwissen)'; }); });
   buildVSections();
   labRaten($('#lab-raten')); labBau($('#lab-bau')); labRaum($('#lab-raum'));
   $$('.ch-btn').forEach(b => b.addEventListener('click', () => { CH.set(b.dataset.ch); const s = $(b.dataset.ch === 'vek' ? '#vstart' : '#start'); if (s && b.closest('.topbar')) try { s.scrollIntoView({block:'start', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){} }));
