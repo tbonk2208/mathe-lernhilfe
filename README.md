@@ -17,6 +17,23 @@ Adresse: https://tbonk2208.github.io/mathe-lernhilfe/
 
 Nach dem ersten Öffnen läuft die Lernhilfe auch ohne Internet. Der Lernstand wird nur auf dem jeweiligen Gerät gespeichert.
 
+## Startseite
+
+Die Startseite fragt „Was möchtest du heute machen?“ und bietet vier große Schaltflächen:
+
+- **Neues lernen:** Thema wählen und Schritt für Schritt lernen (siehe Lernweg). Das empfohlene nächste Thema ist markiert.
+- **Üben:** Buchaufgaben eines Themas rechnen, gemischte Runden oder einzelne Aufgabentypen.
+- **Wiederholen:** fällige Aufgabentypen (verteilte Wiederholung), gemischte Runde, „Fehler finden“, Quiz und Nachlesen der gelernten Themen.
+- **Klausur vorbereiten:** Termin, Klausurthemen aus beiden Kapiteln und Lernzeit pro Tag eintragen; daraus entsteht ein Tagesplan. Dazu eine **Probeklausur** (4, 6 oder 8 Aufgaben, 25/40/55 Minuten) ohne Hilfe, mit Zeitanzeige, Punkten je Aufgabe, allen Lösungen und den Themen, die noch geübt werden sollten.
+
+Darunter steht „Für heute“: dort weitermachen, wo man aufgehört hat, fällige Wiederholungen und der Klausur-Countdown. Kapitel werden über Reiter in jeder Ansicht gewählt.
+
+## Lösungen
+
+Eine Musterlösung gibt es erst nach einem eigenen Versuch: Sobald bei einer Aufgabe geprüft wurde, erscheint „Lösung ansehen“. Das Ansehen zählt als Hilfe. In der Probeklausur und im Abschlusscheck eines Themas gibt es diese Schaltfläche nicht.
+
+Unter **Für Eltern** stehen alle Musterlösungen der Buchaufgaben, der Lernstand, die Lehrkraft-Übersicht und die KI-Einstellungen. Der Bereich lässt sich mit einer PIN schützen.
+
 ## Lernweg
 
 Die Lernhilfe ist nach Themen aufgebaut (Parabeln: 6 Themen, Vektoren: Vorwissen und 3 Themen). Jedes Thema folgt derselben Abfolge:
@@ -29,7 +46,7 @@ Die Lernhilfe ist nach Themen aufgebaut (Parabeln: 6 Themen, Vektoren: Vorwissen
 6. **Üben:** die Buchaufgaben des Themas und neue Aufgaben, deren Hilfe sich anpasst.
 7. **Abschluss:** kurzer Check ohne Hilfe; das Ergebnis entscheidet über Wiederholung oder gezielte Übung.
 
-Unter „Mein Plan“ lässt sich ein Klausurtermin oder eine tägliche Lernzeit eintragen. Die Lernhilfe schlägt dann vor, was heute dran ist, und plant Wiederholungen ein. Alles wird nur auf dem Gerät gespeichert.
+Alles wird nur auf dem Gerät gespeichert.
 
 ## Schreiben wie im Heft, Hilfe und Fragen
 
@@ -40,7 +57,7 @@ Unter „Mein Plan“ lässt sich ein Klausurtermin oder eine tägliche Lernzeit
 
 ### Optionale KI-Hilfe
 
-Ohne eingetragenen Schlüssel sendet die Lernhilfe keine Eingaben ins Internet. Im Bereich „Lehrkraft: Klassenübersicht“ unter „KI-Antworten auf freie Fragen einrichten“ kann eine erwachsene Person einen eigenen Anthropic-API-Schlüssel eintragen (mit PIN, Tageslimit, Einverständnis-Bestätigung und Protokoll). Danach werden Fragen, die über „? Frage“ an die KI gehen, zusammen mit der aktuellen Aufgabe und dem bisherigen Rechenweg an `api.anthropic.com` gesendet. Fragen, die nach E-Mail-Adresse, Telefonnummer oder Anschrift aussehen, werden nicht gesendet. Der Schlüssel bleibt nur auf diesem Gerät gespeichert.
+Ohne eingetragenen Schlüssel sendet die Lernhilfe keine Eingaben ins Internet. Im Bereich „Für Eltern“ unter „KI-Antworten auf freie Fragen einrichten“ kann eine erwachsene Person einen eigenen Anthropic-API-Schlüssel eintragen (mit PIN, Tageslimit, Einverständnis-Bestätigung und Protokoll). Danach werden Fragen, die über „? Frage“ an die KI gehen, zusammen mit der aktuellen Aufgabe und dem bisherigen Rechenweg an `api.anthropic.com` gesendet. Fragen, die nach E-Mail-Adresse, Telefonnummer oder Anschrift aussehen, werden nicht gesendet. Der Schlüssel bleibt nur auf diesem Gerät gespeichert.
 
 ## Dateien
 

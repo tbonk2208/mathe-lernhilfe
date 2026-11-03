@@ -860,6 +860,95 @@ nav.toc a.wg-nt > span:first-child{display:flex;gap:6px;align-items:baseline}
 .wg-nn{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;min-width:.9em}
 .wg-dk{color:var(--muted)}
 .box.life h4 .lt{flex:0 0 auto;width:auto;display:inline-block;margin:0}
+/* ---- v14: einfache Oberfläche ---- */
+.wg-svg{width:1.35em;height:1.35em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto;vertical-align:-.25em}
+body.wg .topbar .chsel,body.wg .topbar .seg:has(#mode-lern),body.wg #mode-lern,body.wg #mode-loes{display:none!important}
+.wg-homebtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:10px;padding:8px 12px;min-height:44px}
+.wg-homebtn:hover{background:var(--accent);color:#fff}
+nav.toc.wg-nav a{justify-content:flex-start;align-items:center;gap:10px;font-size:1rem;padding:8px 10px}
+nav.toc.wg-nav a span{flex:1}
+.wg-homec{text-align:left}
+.wg-hi{font-size:clamp(1.5rem,4vw,2.1rem);margin:.2em 0 .8em}
+.wg-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.wg-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-decoration:none;color:var(--ink);border-radius:18px;padding:20px 18px 18px;min-height:150px;border:2px solid transparent;background:var(--sheet);box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform .12s,box-shadow .12s}
+.wg-tile:hover,.wg-tile:focus-visible{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.wg-tile b{font-size:1.3rem;line-height:1.2}
+.wg-tile .wg-td{color:var(--muted);font-size:.95rem}
+.wg-tic{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:16px;color:#fff;margin-bottom:4px}
+.wg-tic .wg-svg{width:32px;height:32px}
+.wg-t-neu{border-color:color-mix(in srgb,var(--accent) 35%,transparent)}.wg-t-neu .wg-tic{background:var(--accent)}
+.wg-t-ueben{border-color:color-mix(in srgb,var(--good) 35%,transparent)}.wg-t-ueben .wg-tic{background:var(--good)}
+.wg-t-wiederholen{border-color:color-mix(in srgb,var(--obs) 35%,transparent)}.wg-t-wiederholen .wg-tic{background:var(--obs)}
+.wg-t-klausur{border-color:color-mix(in srgb,var(--bad) 30%,transparent)}.wg-t-klausur .wg-tic{background:var(--bad)}
+.wg-badge{position:absolute;top:14px;right:14px;background:var(--bad);color:#fff;font-weight:700;font-size:.85rem;border-radius:999px;padding:3px 10px}
+.wg-today{margin-top:20px}
+.wg-today:empty{display:none}
+.wg-today h3{margin:0 0 8px}
+.wg-ti{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--sheet);margin-bottom:8px}
+.wg-ti > span:first-child{color:var(--accent)}
+.wg-minor{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.wg-minor a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;min-height:40px}
+.wg-minor a:hover{color:var(--ink)}
+.wg-crumb{margin-bottom:6px}
+.wg-crumb a{text-decoration:none;font-weight:600;display:inline-block;padding:6px 0;min-height:36px}
+.wg-vh{display:flex;align-items:center;gap:10px}
+.wg-vh .wg-svg{width:1.2em;height:1.2em;color:var(--accent)}
+.wg-chtabs{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--line);margin:4px 0 14px}
+.wg-chtabs button{border:0;background:transparent;font:600 1rem var(--f-body);color:var(--ink);padding:10px 20px;border-radius:9px;min-height:44px;cursor:pointer}
+.wg-chtabs button.on{background:var(--sheet);box-shadow:0 1px 3px rgba(0,0,0,.12);color:var(--accent)}
+button.wg-tc{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;min-height:72px}
+button.wg-tc:hover{border-color:var(--accent)}
+.wg-tb{display:flex;flex-direction:column;gap:2px}
+.wg-tb b{font-size:1.08rem}
+.wg-tn .wg-svg{width:1.1em;height:1.1em}
+.wg-tag{display:inline-block;background:var(--accent);color:#fff;font-size:.78rem;font-weight:700;border-radius:999px;padding:1px 8px;vertical-align:.1em}
+.wg-tgo{pointer-events:none;white-space:nowrap}
+@media (max-width:560px){button.wg-tc{grid-template-columns:auto 1fr}.wg-tgo{grid-column:1 / -1;justify-self:stretch;text-align:center}}
+.wg-mix{margin-bottom:16px}
+.wg-mix:empty{display:none}
+.wg-big{border-radius:16px;padding:18px;background:var(--obs-soft);margin-bottom:16px}
+.wg-big h3{margin-top:0}
+.btn-lg{font-size:1.1rem;padding:12px 22px;min-height:50px}
+.wg-chips2{display:flex;flex-wrap:wrap;gap:8px}
+.wg-chips2 .chip{min-height:44px;border:1px solid var(--line);border-radius:999px;background:var(--sheet);padding:6px 16px;font:inherit;font-weight:600;cursor:pointer;color:var(--ink)}
+.wg-chips2 .chip:hover{border-color:var(--accent);color:var(--accent)}
+.wg-chips2{margin-bottom:14px}
+.wg-exset{display:flex;flex-direction:column;gap:14px;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--sheet);margin-bottom:16px}
+.wg-exs{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.wg-num{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800}
+.wg-exs .fld span{font-weight:700}
+.wg-exs input[type=date],.wg-exs select{font-size:1rem;min-height:44px}
+.wg-exgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:6px}
+.wg-exg{display:flex;flex-direction:column;gap:4px}
+.wg-cb{display:flex;align-items:center;gap:8px;min-height:40px;cursor:pointer}
+.wg-cb input{width:22px;height:22px;flex:0 0 auto}
+.wg-today2{padding-left:1.3em}
+.wg-today2 li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.wg-probe{border:2px solid color-mix(in srgb,var(--bad) 30%,transparent);border-radius:16px;padding:16px;margin-top:16px}
+.wg-probe h3{display:flex;align-items:center;gap:8px;margin-top:0}
+.wg-hist{padding-left:1.2em}
+.wg-ptimer{position:sticky;top:var(--tb-h,64px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.wg-ptt{display:inline-flex;align-items:center;gap:6px}
+.wg-ptt.over{color:var(--bad)}
+.wg-prev{padding-left:1.3em}
+.wg-prev li{margin-bottom:10px}
+.wg-prh{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.wg-pts{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.wg-pts.ok{color:var(--good)}.wg-pts.mid{color:var(--obs)}.wg-pts.bad{color:var(--bad)}
+.wg-psol summary,.wg-sol1 summary,.wg-sol2 summary{cursor:pointer;min-height:36px;padding:4px 0}
+.wg-sol1{border:1px solid var(--line);border-radius:10px;padding:6px 12px;margin-bottom:8px;background:var(--sheet)}
+.wg-sol1 > summary{font-weight:700}
+.wg-sol2{margin:4px 0 4px 10px}
+.wg-sol3{margin:8px 0 12px;padding-left:10px;border-left:3px solid var(--line)}
+.wg-gate form{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--sheet);max-width:420px}
+.wg-gate input,.wg-pinset input{font-size:1.1rem;min-height:44px;max-width:180px}
+.wg-elb > div{margin-bottom:22px}
+.sol-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0;padding:10px 12px;border-radius:12px;background:var(--obs-soft)}
+.sol-bar .sol-btn{display:inline-flex;align-items:center;gap:6px}
+.sol-view{flex-basis:100%;background:var(--sheet);border-radius:10px;padding:8px 10px}
+@media (max-width:520px){.wg-tiles{gap:10px}.wg-tile{min-height:132px;padding:16px 14px}.wg-tile b{font-size:1.12rem}.wg-tic{width:48px;height:48px}.wg-tic .wg-svg{width:28px;height:28px}.wg-ti{grid-template-columns:auto 1fr}.wg-ti > :last-child{grid-column:1 / -1;justify-self:start}.wg-homebtn span{display:none}}
+.wg-tb > b .wg-tag{margin-left:6px}
+.topbar .brand .pg{margin-left:6px}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -3820,14 +3909,14 @@ class Workspace3 {
     const stt = this.helped ? 'help' : 'ok', fin = this.root.querySelector('.ws-final');
     if (this.opts.onFinish){
       const nx = this.opts.onFinish(stt) || {};
-      fin.innerHTML = `<div class="fin ${stt}"><h4>${stt === 'ok' ? 'Ohne Hilfe gelöst' : 'Abgeschlossen (mit Musterzeile)'}</h4><p>${R(this.sub.fin || '')}</p><div class="fin-plot"></div><div class="btnrow"><button type="button" class="btn btn-primary fin-next">${escH(nx.label || 'Weiter')}</button></div></div>`;
+      fin.innerHTML = `<div class="fin ${stt}"><h4>${stt === 'ok' ? 'Ohne Hilfe gelöst' : 'Abgeschlossen (mit Hilfe)'}</h4><p>${R(this.sub.fin || '')}</p><div class="fin-plot"></div><div class="btnrow"><button type="button" class="btn btn-primary fin-next">${escH(nx.label || 'Weiter')}</button></div></div>`;
       renderFinPlot(this.sub, fin.querySelector('.fin-plot'));
       fin.querySelector('.fin-next').addEventListener('click', () => nx.go && nx.go());
       CLASS.sync && CLASS.sync();
       return;
     }
     STATUS[this.sub.id] = STATUS[this.sub.id] === 'ok' ? 'ok' : stt; saveStatus(); updProgress();
-    fin.innerHTML = `<div class="fin ${stt}"><h4>${stt === 'ok' ? 'Teilaufgabe ohne Hilfe gelöst' : 'Teilaufgabe abgeschlossen (mit Musterzeile)'}</h4><p>${R(this.sub.fin || '')}</p><div class="fin-plot"></div><div class="btnrow"><button type="button" class="btn btn-primary fin-next">Nächste Teilaufgabe</button>${stt === 'help' ? '<button type="button" class="btn fin-again">Ohne Hilfe wiederholen</button>' : ''}</div></div>`;
+    fin.innerHTML = `<div class="fin ${stt}"><h4>${stt === 'ok' ? 'Teilaufgabe ohne Hilfe gelöst' : 'Teilaufgabe abgeschlossen (mit Hilfe)'}</h4><p>${R(this.sub.fin || '')}</p><div class="fin-plot"></div><div class="btnrow"><button type="button" class="btn btn-primary fin-next">Nächste Teilaufgabe</button>${stt === 'help' ? '<button type="button" class="btn fin-again">Ohne Hilfe wiederholen</button>' : ''}</div></div>`;
     renderFinPlot(this.sub, fin.querySelector('.fin-plot'));
     fin.querySelector('.fin-next').addEventListener('click', () => openNext(this.sub.id));
     const ag = fin.querySelector('.fin-again'); if (ag) ag.addEventListener('click', () => this.reset());
@@ -8355,19 +8444,24 @@ class WGRun {
     return this.o.minStage != null ? Math.max(s, this.o.minStage) : s;
   }
   next(){
-    if (this.i >= this.list.length){ this.o.onDone && this.o.onDone(this.res, this); return; }
+    if (this.done) return;
+    if (this.i >= this.list.length){ this.done = true; this.o.onDone && this.o.onDone(this.res, this); return; }
     const type = this.list[this.i], sub = generate(type), stage = this.stageOf(type);
-    this.box.innerHTML = `<div class="tr-head"><b>${escH(this.o.title || 'Aufgaben')}</b><span class="small">Aufgabe ${this.i + 1} von ${this.list.length} · ${escH(TYPES[type].label)}${this.o.stage === 3 ? '' : ' · ' + STAGE_TXT[stage]}</span></div>
+    this.cur = {type, sub, stage};
+    this.box.innerHTML = `<div class="tr-head"><b>${escH(this.o.title || 'Aufgaben')}</b><span class="small">Aufgabe ${this.i + 1} von ${this.list.length} · ${escH(TYPES[type].label)}${this.o.stage === 3 ? '' : ' · ' + STAGE_TXT[stage]}</span>${this.o.skip ? '<button type="button" class="btn btn-sm wg-skipt">Überspringen</button>' : ''}</div>
       <div class="tr-task"><h4>${R(sub.head)}</h4>${sub.given ? `<div class="plotbox sm">${sub.given}</div>` : ''}</div><div class="tr-ws"></div>`;
     const ws = this.box.querySelector('.tr-ws');
+    const sk = this.box.querySelector('.wg-skipt'); if (sk) sk.addEventListener('click', () => { this.res.push({type, r:'skip', stage, sub}); this.i++; this.next(); });
     if (stage === 0) return this.example(sub, type, ws);
     const g = sub.goals.find(x => x.kind === 'solve');
     if (g && stage < 3){ const n = g.canon.length; g.give = Math.max(0, stage === 1 ? n - 1 : n - 2); g.why = sub.why; }
     new Workspace3(sub, ws, {onFinish:stt => {
-      LM.result(type, stt === 'ok', stage); this.res.push({type, r:stt, stage});
+      LM.result(type, stt === 'ok', stage); this.res.push({type, r:stt, stage, sub}); this.cur = null;
       return {label:this.i + 1 < this.list.length ? 'Nächste Aufgabe' : (this.o.lastLabel || 'Weiter'), go:() => { this.i++; this.next(); }};
     }});
   }
+  /* vorzeitig beenden (Probeklausur abgeben): offene Aufgaben zählen als übersprungen */
+  abort(){ if (this.done) return; this.done = true; if (this.cur) this.res.push({type:this.cur.type, r:'skip', stage:this.cur.stage, sub:this.cur.sub}); for (let k = this.i + 1; k < this.list.length; k++) this.res.push({type:this.list[k], r:'skip', sub:null}); this.i = this.list.length; this.o.onDone && this.o.onDone(this.res, this); }
   /* vollständiges Beispiel; bei Rechenwegen Schritt für Schritt mit Warum-Frage */
   example(sub, type, ws){
     const g = sub.goals.find(x => x.kind === 'solve'), lines = (g && g.canonInfo) || [], why = sub.why || [];
@@ -8481,6 +8575,8 @@ function wgExamDays(){ const d = WGS.plan.exam; if (!d) return null; const t = n
 /* Abstand der Wiederholungen etwa 20 % der Zeit bis zur Prüfung (Cepeda u. a. 2008), mindestens 1 Tag */
 function wgGap(){ const n = wgExamDays(); return n && n > 0 ? Math.max(1, Math.round(0.2 * n)) : null; }
 function wgScopeCh(){ const s = WGS.plan.scope || CH.cur; return s === 'both' ? ['qf', 'vek'] : [s]; }
+function wgExamTopics(){ const ids = WGS.plan.topics; return ids && ids.length ? LW_TOPICS.filter(T => ids.includes(T.id)) : LW_TOPICS.filter(T => wgScopeCh().includes(T.ch)); }
+function wgExamTypes(){ return [...new Set(wgExamTopics().flatMap(T => T.types))]; }
 
 const LW = {
   cur:null, subs:{},
@@ -8490,14 +8586,7 @@ const LW = {
     /* Startseite wird zur Seite „Schreiben und Einstellungen“ */
     const st0 = $('#start'); if (st0){ const cc = st0.querySelector('.chcards'); if (cc) cc.remove(); const h1 = st0.querySelector('h1'); if (h1) h1.textContent = 'Schreiben und Einstellungen'; }
     /* Übersicht und Themen anlegen */
-    const home = document.createElement('section'); home.className = 'card'; home.id = 'lw-home';
-    home.innerHTML = `<div class="wg-hero"><h1>Mein Lernweg: <span class="wg-chn"></span></h1><p class="lead wg-chlead"></p></div><div class="wg-chintro"></div>
-      <details class="wg-how wg-howt"><summary>So ist jedes Thema aufgebaut</summary><ol class="wg-howl">${WG_ALL.map(k => `<li><b>${WG_STEP[k].t}:</b> ${({ziel:'Du siehst, was du am Ende können sollst. Vier kurze Fragen zeigen, womit du am besten startest.', einstieg:'Entweder ein Musterbeispiel mit Warum-Fragen oder ein Knobelproblem, das du zuerst selbst probierst. Du wählst, die Lernhilfe empfiehlt.', klaer:'Die Kernidee, worauf es ankommt und typische Fehler, nach dem Knobeln mit Blick auf deinen eigenen Ansatz.', darst:'Gleichung, Graph und Zahlen im Labor verbinden, danach dieselbe Frage ohne Bild.', vergl:'Zwei Lösungswege, wie sie Mitschüler aufschreiben könnten: Was ist gleich, was anders, wann ist welcher besser?', ueben:'Die Buchaufgaben, vom Einfachen zum Schwierigen. Wenn du stockst, bietet die Lernhilfe Hinweise an.', check:'Ein kurzer Check ohne Hilfe. Sitzt es, geht es weiter und das Thema kommt später zur Wiederholung. Sitzt es noch nicht, bekommst du gezielte Übung.'})[k]}</li>`).join('')}</ol>
-      <p class="small">Warum so? Die Abfolge folgt Übersichtsarbeiten zur Wirksamkeit im Mathematikunterricht: vorgerechnete Beispiele bei neuen Verfahren, Problemlösen vor der Erklärung bei Verständniszielen, Vergleich von Lösungswegen, Rückmeldung, die den nächsten Schritt bestimmt, und verteiltes Üben. Die Studien stehen unter <a href="#quellen">Quellen</a>. Am meisten bringt die Lernhilfe als Ergänzung zum Unterricht: Besprich Vergleiche und offene Fragen auch mit anderen.</p></details>
-      <div class="wg-plan"></div><h2 class="wg-th">Themen</h2><div class="wg-tlist"></div><div class="wg-end"></div>`;
-    main.insertBefore(home, $('#start') || main.firstChild);
-    const vs = $('#vstart'), ci = home.querySelector('.wg-chintro');
-    if (vs){ const d = document.createElement('details'); d.dataset.ch = 'vek'; d.className = 'wg-chv wg-how'; d.innerHTML = '<summary>Über das Kapitel</summary>'; vs.querySelectorAll(':scope > .lead, :scope > .goal, :scope > aside').forEach(el => d.appendChild(el)); ci.appendChild(d); vs.remove(); }
+    this.buildHome(main);
     LW_TOPICS.forEach(T => main.insertBefore(this.buildTopic(T), $('#start')));
     /* Inhalte umziehen: erst Kopien, dann Verschiebungen */
     const specs = T => [].concat((T.klaer || {}).move || [], (T.darst || {}).move || []);
@@ -8519,11 +8608,11 @@ const LW = {
     /* Verweise auf frühere Abschnitte an den neuen Aufbau anpassen */
     const TXT = [['(Tabelle im Werkzeugkasten)', '(Tabelle im Schritt „Klären“)'], ['im Flugbahn-Labor ausprobieren', 'im Flugbahn-Labor ausprobieren (Thema 4, Schritt „Darstellen“)'], ['Im Flugbahn-Labor kannst du', 'Im Flugbahn-Labor (Schritt „Darstellen“) kannst du'], ['„Raum-Labor“ weiter unten', '„Raum-Labor“ oben']];
     const tw = document.createTreeWalker(main, NodeFilter.SHOW_TEXT); for (let n = tw.nextNode(); n; n = tw.nextNode()) TXT.forEach(([a, b]) => { if (n.nodeValue.includes(a)) n.nodeValue = n.nodeValue.replace(a, b); });
-    this.nav(); this.hooks(); this.quellen();
+    this.nav(); this.hooks(); if (this.uiHooks) this.uiHooks(); this.quellen();
     $$('main > section.card').forEach(s => { if (s.id === 'lehrkraft' && s.hidden) return; s.dataset.view = '1'; });
     const h = location.hash.slice(1);
     if (!(h && this.route(h, {noPush:true, first:true}))) this.show(WGS.view && document.getElementById(WGS.view) && WGS.view !== 'lehrkraft' ? WGS.view : 'lw-home', {noPush:true});
-    LM.on(() => { if (this.cur === 'lw-home') this.renderHome(); this.navCounts(); });
+    LM.on(() => { this.refresh(); this.navCounts(); });
   },
   /* Ziel eines verschobenen Elements im Thema */
   slot(T, spec, el){
@@ -8544,7 +8633,7 @@ const LW = {
       ueben:`${stepH('ueben')}<p class="small">Die Aufgaben aus dem Buch, vom Einfachen zum Schwierigen. Öffne eine Teilaufgabe, rechne auf dem Blatt und lass prüfen. Wenn du stockst, bietet die Lernhilfe Hinweise an.</p><p class="small wg-uprog"></p>${(T.ueben || []).map((g, gi) => `<details class="wg-grp" data-g="${gi}"${gi === 0 ? ' open' : ''}><summary>${escH(g.t)}</summary><div class="wg-grpb"></div></details>`).join('')}<div class="wg-more"></div><div class="wg-run"></div>${next('ueben')}`,
       check:`${stepH('check')}<div class="wg-exit"></div>`
     };
-    sec.innerHTML = `<div class="wg-top"><a href="#lw" class="wg-back">← Mein Lernweg</a><span class="small">${wgName(T)} · Buch ${escH(T.book)} · <a href="#lexikon">Begriff nachschlagen</a></span></div>
+    sec.innerHTML = `<div class="wg-top"><a href="#neu" class="wg-back">← Themen</a><span class="small">${wgName(T)} · Buch ${escH(T.book)} · <a href="#lexikon">Begriff nachschlagen</a></span></div>
       <h2 class="wg-title">${R(T.title)}</h2>
       <ol class="wg-stepper">${ks.map((k, i) => `<li><button type="button" data-wg="step" data-k="${k}"><span class="wg-sn">${i + 1}</span><span class="wg-stt">${WG_STEP[k].t}</span></button></li>`).join('')}</ol>
       ${ks.map(k => `<div class="wg-step" data-k="${k}" hidden>${parts[k]}</div>`).join('')}`;
@@ -8611,8 +8700,9 @@ const LW = {
     $$('main > section.card').forEach(s => s.classList.toggle('wg-on', s === el));
     this.cur = id; if (id !== 'lehrkraft'){ WGS.view = id; wgSave(); }
     $$('nav.toc a').forEach(a => a.classList.toggle('active', a.dataset.view === id));
-    if (el.classList.contains('wg-topic')) this.step(el.dataset.topic, o.step || wgT(el.dataset.topic).step || 'ziel', {noScroll:true});
-    if (id === 'lw-home') this.renderHome();
+    if (el.classList.contains('wg-topic')){ const bk = el.querySelector('.wg-back'), b = this.back || 'neu'; if (bk){ bk.setAttribute('href', '#' + (b === 'lw-home' ? 'lw' : b)); bk.textContent = ({'lw-home':'← Start', neu:'← Neues lernen', ueben:'← Üben', wiederholen:'← Wiederholen', klausur:'← Klausur vorbereiten'})[b] || '← Themen'; } this.step(el.dataset.topic, o.step || wgT(el.dataset.topic).step || 'ziel', {noScroll:true}); }
+    const rv = {'lw-home':'renderHome', neu:'renderPick', ueben:'renderPick', wiederholen:'renderRep', klausur:'renderExam', eltern:'renderEltern'}[id]; if (rv) this[rv](id);
+    this.navActive(id);
     if (!o.noPush) try { history.pushState(null, '', '#' + (id === 'lw-home' ? 'lw' : id)); } catch(e){}
     if (!o.noScroll) try { window.scrollTo(0, 0); } catch(e){}
     return true;
@@ -8620,7 +8710,7 @@ const LW = {
   step(id, k, o = {}){
     const T = WGI[id], sec = $(`#t-${id}`); if (!T || !sec) return;
     if (!wgSteps(T).includes(k)) k = wgSteps(T)[0];
-    const st = wgT(id); st.step = k; wgSave();
+    const st = wgT(id); st.step = k; WGS.last = id; wgSave();
     sec.querySelectorAll('.wg-step').forEach(s => { s.hidden = s.dataset.k !== k; });
     sec.querySelectorAll('.wg-stepper button').forEach(b => { b.classList.toggle('cur', b.dataset.k === k); b.classList.toggle('done', !!st.done[b.dataset.k] || (b.dataset.k === 'check' && !!st.mastered)); b.setAttribute('aria-current', b.dataset.k === k ? 'step' : 'false'); });
     const sp = sec.querySelector('.wg-stepper'), cb = sp && sp.querySelector('button.cur'); if (sp && cb && sp.scrollWidth > sp.clientWidth) sp.scrollLeft += cb.getBoundingClientRect().left - sp.getBoundingClientRect().left - sp.clientWidth / 2 + cb.offsetWidth / 2;
@@ -8656,7 +8746,7 @@ const LW = {
       ro.innerHTML = `<div class="wg-rec"><p><b>Ergebnis: ${n} von ${all} richtig.</b> ${rec.t}</p>${this.routeHTML(T, rec)}<p class="small"><button type="button" class="linkbtn" data-wg="rediag">Check wiederholen</button></p></div>`;
     };
     if (st.diag){ dg.innerHTML = '<h4>Eingangscheck</h4><p class="small">Schon erledigt.</p>'; show(st.diag); return; }
-    dg.innerHTML = `<h4>Eingangscheck</h4><p class="small">${T.check.length} kurze Fragen. Sie zählen nicht als Note, sondern zeigen, womit du am besten startest. Bitte nicht raten: Wenn du etwas nicht weißt, tippe auf „Weiß ich noch nicht“.</p><div class="wg-dq"></div><p class="small"><button type="button" class="linkbtn wg-skipdiag">Ohne Check selbst wählen</button></p>`;
+    dg.innerHTML = `<h4>Eingangscheck</h4><p class="small">${T.check.length} kurze Fragen. Sie zählen nicht. Sie zeigen nur, womit du am besten anfängst. Wenn du etwas nicht weißt, tippe auf „Weiß ich noch nicht“.</p><div class="wg-dq"></div><p class="small"><button type="button" class="linkbtn wg-skipdiag">Ohne Check selbst wählen</button></p>`;
     ro.innerHTML = '';
     const items = T.check.map(c => ({q:c.q, opts:c.opts.concat([['Weiß ich noch nicht', false, 'Kein Problem. Genau dafür ist dieses Thema da.', 'last']])}));
     wgMCList(dg.querySelector('.wg-dq'), items, res => {
@@ -8729,14 +8819,14 @@ const LW = {
     if (box.dataset.busy) return;
     const nT = wgTopics(T.ch), nxt = nT[nT.indexOf(T) + 1];
     const E0 = T.exit || {}, types = (E0.pick || 0) + (E0.types || []).length + (E0.pickFrom ? 1 : 0), mcN = (E0.mc || []).length;
-    const intro = `<p>Ein kurzer Check ohne Hilfe: ${types ? `${types} neue ${types === 1 ? 'Aufgabe' : 'Aufgaben'}` : ''}${types && mcN ? ' und ' : ''}${mcN ? `${mcN} ${mcN === 1 ? 'Verständnisfrage' : 'Verständnisfragen'}` : ''}. Hinweise werden dabei nicht angeboten. Das Ergebnis entscheidet, wie es weitergeht: Sitzt es, kommt das Thema in einigen Tagen zur Wiederholung; sitzt es noch nicht, bekommst du gezielte Übung.</p>`;
+    const intro = `<p>Ein kurzer Check ohne Hilfe: ${types ? `${types} neue ${types === 1 ? 'Aufgabe' : 'Aufgaben'}` : ''}${types && mcN ? ' und ' : ''}${mcN ? `${mcN} ${mcN === 1 ? 'Verständnisfrage' : 'Verständnisfragen'}` : ''}. Diesmal gibt es keine Hinweise. Klappt alles, ist das Thema geschafft. Wenn nicht, bekommst du passende Übungen.</p>`;
     if (st.exit) box.innerHTML = this.exitHTML(T, st, nxt) + `<details class="wg-again"><summary>Abschluss noch einmal machen</summary>${intro}<div class="btnrow"><button type="button" class="btn" data-wg="exit">Neu starten</button></div></details>`;
     else box.innerHTML = intro + '<div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss starten</button></div>';
   },
   exitHTML(T, st, nxt){
     const E = st.exit, ok = E.ok === E.n, fails = E.fails || [];
     const er = T.types.filter(t => ERRGEN[t]);
-    if (ok) return `<div class="fin ok"><h4>Sicher: ${E.ok} von ${E.n} ohne Hilfe</h4><p>Das Thema kommt in einigen Tagen zur Wiederholung (unter „Üben und wiederholen“ bei „Heute fällig“). Verteilte Wiederholung hält das Gelernte länger.</p>${er.length ? '<p>Neu freigeschaltet: <b>Fehler finden</b> zu diesem Thema.</p>' : ''}<div class="btnrow">${nxt ? `<button type="button" class="btn btn-primary" data-wg="topic" data-t="${nxt.id}">Weiter: ${escH(wgName(nxt))}</button>` : ''}<button type="button" class="btn" data-wg="home">Zum Lernweg</button></div></div>`;
+    if (ok) return `<div class="fin ok"><h4>Sicher: ${E.ok} von ${E.n} ohne Hilfe</h4><p>In ein paar Tagen kommt das Thema unter „Wiederholen“ wieder dran. So bleibt es im Kopf.</p>${er.length ? '<p>Neu freigeschaltet: <b>Fehler finden</b> zu diesem Thema.</p>' : ''}<div class="btnrow">${nxt ? `<button type="button" class="btn btn-primary" data-wg="topic" data-t="${nxt.id}">Weiter: ${escH(wgName(nxt))}</button>` : ''}<button type="button" class="btn" data-wg="home">Zum Start</button></div></div>`;
     return `<div class="fin help"><h4>Noch nicht ganz sicher: ${E.ok} von ${E.n}</h4>${fails.length ? `<p>Noch unsicher: ${fails.map(t => t === 'mc' ? 'Verständnisfrage' : escH(TYPES[t].label)).join(', ')}.</p>` : ''}<p><b>So geht es weiter:</b></p><ol><li>Im Schritt <button type="button" class="linkbtn" data-wg="step" data-k="klaer">Klären</button> die Kernidee und die typischen Fehler noch einmal ansehen.</li>${fails.some(t => t !== 'mc') ? `<li>Gezielt üben: ${fails.filter(t => t !== 'mc').length * 2} Aufgaben, mit Lücken als Hilfe. <button type="button" class="btn btn-sm" data-wg="more" data-types="${[...new Set(fails.filter(t => t !== 'mc'))].flatMap(t => [t, t]).slice(0, 4).join(',')}">Starten</button></li>` : ''}<li>Danach den Abschluss mit neuen Aufgaben wiederholen.</li></ol><div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss wiederholen</button></div></div>`;
   },
   startExit(T){
@@ -8753,66 +8843,6 @@ const LW = {
     const doMC = res => { if (!mc.length) return fin(res, []); const mb = box.querySelector('.wg-xmc'); mb.innerHTML = '<h4>Verständnisfragen</h4>'; wgMCList(mb, mc, mres => setTimeout(() => fin(res, mres), 900)); };
     if (L.length) new WGRun(box.querySelector('.wg-xrun'), L, {stage:3, title:'Abschluss', lastLabel:'Weiter', onDone:res => { box.querySelector('.wg-xrun').innerHTML = `<p class="small">Aufgaben erledigt: ${res.filter(r => r.r === 'ok').length} von ${res.length} ohne Hilfe.</p>`; doMC(res); }});
     else doMC([]);
-  },
-  /* ---- Übersicht mit Plan ---- */
-  renderHome(){
-    const home = $('#lw-home'); if (!home) return;
-    const ch = CH.cur, Ts = wgTopics(ch);
-    home.querySelector('.wg-chn').textContent = ch === 'vek' ? 'Vektoren' : 'Parabeln';
-    home.querySelector('.wg-chlead').innerHTML = ch === 'vek' ? 'Buchseiten 138–155: Punkte im Raum, Vektoren und Rechnen mit Vektoren. Beginne mit dem Vorwissen-Check, dann geht es Thema für Thema weiter.' : 'Buchseiten 14–15, Aufgaben 5–18: Parabeln lesen, Nullstellen und Schnittpunkte berechnen, Parabeln aufstellen und in Sachaufgaben anwenden.';
-    home.querySelectorAll('.wg-chv').forEach(d => { d.hidden = d.dataset.ch !== ch; });
-    const how = home.querySelector('.wg-howt'); if (!WGS.seenHow){ how.open = true; WGS.seenHow = 1; wgSave(); }
-    const nextT = Ts.find(T => !wgT(T.id).mastered);
-    home.querySelector('.wg-tlist').innerHTML = Ts.map(T => {
-      const st = wgT(T.id), ks = wgSteps(T), d = ks.filter(k => st.done[k]).length, due = st.mastered && T.types.some(t => LM.due().includes(t));
-      const txt = st.mastered ? `Sicher seit ${wgDate(st.mastered)}${due ? ' · Wiederholung fällig' : ''}` : d || st.step !== 'ziel' ? `Weiter bei: ${WG_STEP[st.step].t}` : 'noch nicht begonnen';
-      return `<div class="wg-tc${st.mastered ? ' ok' : ''}${T === nextT ? ' next' : ''}"><div class="wg-tn">${T.n || '·'}</div><div class="wg-tb"><b>${R(T.title)}</b><div class="small">Buch ${escH(T.book)}</div><div class="wg-dots">${ks.map(k => `<span class="${st.done[k] || (k === 'check' && st.mastered) ? 'on' : k === st.step && (d || st.step !== 'ziel') ? 'cur' : ''}" title="${WG_STEP[k].t}"></span>`).join('')}</div><div class="small">${txt}</div></div><button type="button" class="btn${T === nextT ? ' btn-primary' : ''}" data-open="${T.id}">${st.mastered ? 'Ansehen' : d || st.step !== 'ziel' ? 'Weiter' : 'Starten'}</button></div>`;
-    }).join('');
-    home.querySelector('.wg-end').innerHTML = `<div class="wg-mcards"><div class="tr-card"><h4>Gemischt üben</h4><p class="small">Aufgaben aus allen Themen gemischt. Das fühlt sich schwerer an, hilft aber, zu jeder Aufgabe den passenden Weg zu wählen.</p><button type="button" class="btn" data-home="mixed">Runde starten</button></div>${ch === 'qf' ? '<div class="tr-card"><h4>Kapitelabschluss</h4><p class="small">Elf Verständnisfragen zum ganzen Kapitel, jede Antwort wird erklärt.</p><button type="button" class="btn" data-home="quiz">Zum Abschluss-Quiz</button></div>' : ''}</div>`;
-    this.renderPlan(home.querySelector('.wg-plan'), Ts, nextT);
-    if (!home.dataset.ev){ home.dataset.ev = '1'; home.addEventListener('click', e => {
-      const o = e.target.closest('[data-open]'); if (o) return this.show(`t-${o.dataset.open}`);
-      const h = e.target.closest('[data-home]'); if (!h) return;
-      const a = h.dataset.home;
-      if (a === 'mixed'){ Training.start(Training.mixedList(6), 'Vermischte Runde'); }
-      else if (a === 'due'){ Training.start(Training.dueList(), 'Wiederholung'); }
-      else if (a === 'quiz') this.show('quiz');
-      else if (a === 'go'){ const [id, k] = h.dataset.t.split(':'); this.show(`t-${id}`, {step:k}); }
-    });
-    home.addEventListener('change', e => {
-      const t = e.target; if (!t.closest('.wg-plan')) return;
-      if (t.classList.contains('lp-exam')) WGS.plan.exam = t.value || '';
-      if (t.classList.contains('lp-scope')) WGS.plan.scope = t.value;
-      if (t.classList.contains('lp-min')) WGS.plan.min = +t.value;
-      wgSave(); this.renderHome(); if (typeof Training !== 'undefined' && Training.root && !Training.run) Training.render();
-    }); }
-  },
-  renderPlan(box, Ts, nextT){
-    const P = WGS.plan, mins = P.min || 20, days = wgExamDays(), scope = P.scope || CH.cur;
-    const dueN = LM.due().filter(k => chTypes().includes(k)).length;
-    const items = []; let left = mins;
-    if (days !== null && days >= 0 && days <= 2) items.push(['Endspurt: eine gemischte Runde aus allen Themen', 15, 'mixed', 'Runde starten']);
-    if (dueN){ const m = Math.min(15, Math.max(5, dueN * 3)); items.push([`Wiederholen: ${dueN} fällige${dueN === 1 ? 'r' : ''} Aufgabentyp${dueN === 1 ? '' : 'en'}, gemischt`, m, 'due', 'Wiederholen']); left -= m; }
-    if (nextT && !(days !== null && days >= 0 && days <= 1)){
-      const st = wgT(nextT.id), ks = wgSteps(nextT); let i = Math.max(0, ks.indexOf(st.step)); if (st.done[ks[i]] && i < ks.length - 1) i++;
-      for (; i < ks.length && (left > 0 || !items.some(x => x[2] === 'go')); i++){ const k = ks[i], m = WG_STEP[k].min; items.push([`${nextT.n ? wgName(nextT) + ' ' : ''}„${nextT.title}“: ${WG_STEP[k].t}`, m, 'go', 'Los', `${nextT.id}:${k}`]); left -= m; if (items.filter(x => x[2] === 'go').length >= 3) break; }
-    }
-    if (!nextT && !dueN) items.push(['Alle Themen sicher. Gemischt üben hält es frisch.', 10, 'mixed', 'Runde starten']);
-    const total = items.reduce((a, x) => a + x[1], 0);
-    let sched = '';
-    if (days !== null){
-      if (days < 0) sched = '<p class="small">Der eingetragene Klausurtermin liegt in der Vergangenheit. Trag einen neuen ein oder lösch ihn.</p>';
-      else {
-        const open = LW_TOPICS.filter(T => wgScopeCh().includes(T.ch) && !wgT(T.id).mastered), avail = Math.max(1, days - 2), now = Date.now();
-        sched = `<h4>Bis zur Klausur: noch ${days} ${days === 1 ? 'Tag' : 'Tage'}</h4>${open.length ? `<ol class="wg-sched">${open.map((T, i) => `<li><span class="wg-sd">bis ${wgDate(now + Math.max(0, Math.ceil((i + 1) * avail / open.length)) * WG_DAY)}</span> ${escH(wgName(T))}: ${R(T.title)}</li>`).join('')}<li><span class="wg-sd">${days > 2 ? 'ab ' + wgDate(now + (days - 2) * WG_DAY) : 'jetzt'}</span> gemischt wiederholen${scope !== 'vek' ? ', Abschluss-Quiz' : ''}</li></ol>` : '<p class="small">Alle Themen des Klausurstoffs sind sicher. Jetzt hilft gemischtes Wiederholen.</p>'}<p class="small">Wiederholt wird etwa alle ${wgGap()} ${wgGap() === 1 ? 'Tag' : 'Tage'}: Bei einer Prüfung in einigen Wochen behält man am meisten, wenn der Abstand zwischen Lernen und Wiederholen etwa ein Fünftel der Zeit bis zur Prüfung beträgt.</p>`;
-      }
-    }
-    box.innerHTML = `<div class="wg-planbox"><h3>Mein Plan</h3>
-      <div class="wg-pin"><label class="fld"><span>Klausur am (freiwillig)</span><input type="date" class="lp-exam" value="${escH(P.exam || '')}"></label>
-      <label class="fld"><span>Stoff der Klausur</span><select class="lp-scope">${[['qf', 'Parabeln'], ['vek', 'Vektoren'], ['both', 'beides']].map(([v, t]) => `<option value="${v}"${scope === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
-      <label class="fld"><span>Lernzeit pro Tag</span><select class="lp-min">${[10, 20, 30, 45].map(m => `<option value="${m}"${mins === m ? ' selected' : ''}>${m} Minuten</option>`).join('')}</select></label></div>
-      <h4>Heute dran (etwa ${total} Minuten)</h4><ol class="wg-today">${items.map(x => `<li><span>${R(x[0])} <span class="small">(ca. ${x[1]} Min.)</span></span><button type="button" class="btn btn-sm" data-home="${x[2]}"${x[4] ? ` data-t="${x[4]}"` : ''}>${x[3]}</button></li>`).join('')}</ol>${sched}
-      <p class="small">Lieber öfter kurz als selten lange: Verteiltes Üben und Wiederholen hält das Gelernte am längsten.</p></div>`;
   },
   /* ---- Anschlüsse an die übrige Lernhilfe ---- */
   hooks(){
@@ -8846,7 +8876,7 @@ const LW = {
     })(Training.render);
     if (Training.root && !Training.run) Training.render();
     /* Wiederholungen: bei Klausurtermin zusätzlich nach etwa einem Fünftel der Restzeit fällig */
-    LM.due = (orig => function(){ const d = new Set(orig.call(this)), gap = wgGap(); if (gap){ const lim = Date.now() - gap * WG_DAY, chs = wgScopeCh(); Object.keys(LM.st.train).forEach(k => { const t = LM.st.train[k]; if (TYPES[k] && chs.includes(TYPES[k].ch || 'qf') && t.n && t.last && t.last <= lim) d.add(k); }); } return [...d]; })(LM.due);
+    LM.due = (orig => function(){ const d = new Set(orig.call(this)), gap = wgGap(); if (gap){ const lim = Date.now() - gap * WG_DAY, tys = wgExamTypes(); Object.keys(LM.st.train).forEach(k => { const t = LM.st.train[k]; if (TYPES[k] && tys.includes(k) && t.n && t.last && t.last <= lim) d.add(k); }); } return [...d]; })(LM.due);
     updProgress = (orig => function(){ const r = orig.apply(this, arguments); try { self.navCounts(); if (self.cur && self.cur.startsWith('t-')){ const T = WGI[self.cur.slice(2)]; if (T && wgT(T.id).step === 'ueben') self.renderUeben(T); } } catch(e){} return r; })(updProgress);
     CLASS.report = (orig => function(name){ const h = orig.call(this, name); return h.replace('<h2>Training</h2>', wgReport() + '<h2>Training</h2>'); })(CLASS.report);
     /* Verweise innerhalb der Seite öffnen die passende Ansicht */
@@ -8884,6 +8914,289 @@ function wgReport(){
   const P = WGS.plan;
   return `<h2>Lernweg</h2>${rows ? `<table><tr><th>Thema</th><th>Eingangscheck</th><th>Einstieg</th><th>Abschluss</th><th>Stand</th></tr>${rows}</table>` : '<p>Noch nicht begonnen.</p>'}${P.exam ? `<p>Klausurtermin eingetragen: ${escH(new Date(P.exam + 'T12:00:00').toLocaleDateString('de-DE'))}.</p>` : ''}`;
 }
+
+/* ================= Lernweg (v8): einfache Oberfläche mit vier Wegen ================= */
+/* Start: Neues lernen · Üben · Wiederholen · Klausur vorbereiten. Lösungen erst nach eigenem Versuch,
+   die Übersicht aller Lösungen im Elternbereich. Große Schaltflächen, kurze Sätze. */
+const WG_IC = (() => {
+  const P = {
+    home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+    neu:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
+    ueben:'<path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/>',
+    rep:'<path d="M20 11a8 8 0 0 0-14.5-4.5L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.5 4.5L20 16"/><path d="M20 21v-5h-5"/>',
+    exam:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M8 17h6"/>',
+    book:'<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7M8 11h5"/>',
+    gear:'<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+    lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+  };
+  const o = {}; Object.keys(P).forEach(k => { o[k] = `<svg class="wg-svg" viewBox="0 0 24 24" aria-hidden="true">${P[k]}</svg>`; }); return o;
+})();
+const WG_VIEWS = {neu:'Neues lernen', ueben:'Üben', wiederholen:'Wiederholen', klausur:'Klausur vorbereiten'};
+const wgMm = ms => { const s = Math.max(0, Math.round(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+const wgChTabs = () => `<div class="wg-chtabs" role="group" aria-label="Kapitel">${[['qf', 'Parabeln'], ['vek', 'Vektoren']].map(([c, t]) => `<button type="button" data-wch="${c}" aria-pressed="${CH.cur === c}" class="${CH.cur === c ? 'on' : ''}">${t}</button>`).join('')}</div>`;
+
+Object.assign(LW, {
+  back:'neu',
+  /* ---- Ansichten anlegen ---- */
+  buildHome(main){
+    const ref = $('#start') || main.firstChild;
+    const mk = (id, html, cls = '') => { const s = document.createElement('section'); s.className = 'card ' + cls; s.id = id; s.innerHTML = html; main.insertBefore(s, ref); return s; };
+    const crumb = '<div class="wg-crumb"><a href="#lw">← Start</a></div>';
+    const tile = (id, ic, t, d) => `<a class="wg-tile wg-t-${id}" href="#${id}" data-view="${id}"><span class="wg-tic">${WG_IC[ic]}</span><b>${t}</b><span class="wg-td">${d}</span><span class="wg-badge" hidden></span></a>`;
+    mk('lw-home', `<h1 class="wg-hi">Was möchtest du heute machen?</h1>
+      <div class="wg-tiles">${tile('neu', 'neu', 'Neues lernen', 'Ein Thema Schritt für Schritt')}${tile('ueben', 'ueben', 'Üben', 'Aufgaben zu einem Thema rechnen')}${tile('wiederholen', 'rep', 'Wiederholen', 'Gelerntes auffrischen')}${tile('klausur', 'exam', 'Klausur vorbereiten', 'Plan und Probeklausur')}</div>
+      <div class="wg-today"></div>
+      <div class="wg-minor"><a href="#lexikon">${WG_IC.book} Nachschlagen</a><a href="#start">${WG_IC.gear} Einstellungen</a><a href="#eltern">${WG_IC.lock} Für Eltern</a></div>`, 'wg-homec');
+    mk('neu', `${crumb}<h2 class="wg-vh">${WG_IC.neu} Neues lernen</h2><p class="lead">Wähle ein Thema. Du lernst es in sieben kleinen Schritten.</p>${'<div class="wg-chtabsw"></div>'}<div class="wg-chintro"></div>
+      <details class="wg-how wg-howt"><summary>Wie läuft ein Thema ab?</summary><ol class="wg-howl">${WG_ALL.map(k => `<li><b>${WG_STEP[k].t}:</b> ${({ziel:'Du siehst, was du am Ende kannst. Vier kurze Fragen zeigen, womit du anfängst.', einstieg:'Ein vorgerechnetes Beispiel oder eine Knobelaufgabe zum Ausprobieren. Du wählst.', klaer:'Die wichtigste Idee, worauf es ankommt und typische Fehler.', darst:'Gleichung und Bild im Labor verbinden, danach ohne Bild.', vergl:'Zwei Rechenwege vergleichen: Wann ist welcher besser?', ueben:'Aufgaben aus dem Buch, vom Leichten zum Schweren.', check:'Ein kurzer Test ohne Hilfe. Danach weißt du, ob es sitzt.'})[k]}</li>`).join('')}</ol>
+      <p class="small">Warum so? Die Abfolge folgt der Forschung zum Lernen im Mathematikunterricht (siehe <a href="#quellen">Quellen</a>). Am meisten bringt die Lernhilfe als Ergänzung zum Unterricht.</p></details>
+      <div class="wg-tlist"></div>`);
+    mk('ueben', `${crumb}<h2 class="wg-vh">${WG_IC.ueben} Üben</h2><p class="lead">Wähle ein Thema und rechne Aufgaben dazu.</p><div class="wg-chtabsw"></div><div class="wg-mix"></div><div class="wg-tlist"></div>`);
+    mk('wiederholen', `${crumb}<h2 class="wg-vh">${WG_IC.rep} Wiederholen</h2><p class="lead">Was du gelernt hast, kommt nach ein paar Tagen wieder dran. So vergisst du es nicht.</p><div class="wg-chtabsw"></div><div class="wg-repb"></div>`);
+    mk('klausur', `${crumb}<h2 class="wg-vh">${WG_IC.exam} Klausur vorbereiten</h2><div class="wg-exb"></div><div class="wg-prun" hidden></div>`);
+    mk('eltern', `${crumb}<h2 class="wg-vh">${WG_IC.lock} Für Eltern und Lehrkräfte</h2><div class="wg-gate"></div><div class="wg-elb" hidden><div class="wg-sols"></div><div class="wg-elrep"></div><div class="wg-pinset"></div><div class="wg-lkbox"></div></div>`);
+    /* Kapitel-Einführung Vektoren in „Neues lernen“ */
+    const vs = $('#vstart');
+    if (vs){ const d = document.createElement('details'); d.dataset.ch = 'vek'; d.className = 'wg-chv wg-how'; d.innerHTML = '<summary>Über das Kapitel Vektoren</summary>'; vs.querySelectorAll(':scope > .lead, :scope > .goal, :scope > aside').forEach(el => d.appendChild(el)); $('#neu .wg-chintro').appendChild(d); vs.remove(); }
+    /* Lehrkraft-Bereich wandert in den Elternbereich */
+    const lk = $('#lehrkraft'); if (lk) $('#eltern .wg-lkbox').appendChild(lk);
+    /* Kopfzeile: Start-Knopf, Kapitel- und Moduswahl ausgeblendet */
+    const tb = $('.topbar-in'); if (tb && !tb.querySelector('.wg-homebtn')) tb.insertAdjacentHTML('afterbegin', `<a href="#lw" class="wg-homebtn" aria-label="Zum Start">${WG_IC.home}<span>Start</span></a>`);
+    const st = $('#start .card-head h2, #start h1'); if (st) st.textContent = 'Einstellungen';
+    try { if (document.body.classList.contains('sol')) setMode('lern'); store.set('qf-mode', 'lern'); } catch(e){}
+    ['training', 'quiz', 'lexikon', 'start', 'quellen'].forEach(id => { const sec = $('#' + id); if (sec && !sec.querySelector(':scope > .wg-crumb')) sec.insertAdjacentHTML('afterbegin', crumb); });
+    const tr = $('#training'); if (tr){ const h = tr.querySelector('.card-head h2'); if (h) h.textContent = 'Aufgaben üben'; const l = tr.querySelector(':scope > .lead'); if (l) l.textContent = 'Hier gibt es immer neue Aufgaben. Jeder Aufgabentyp beginnt mit einem vorgerechneten Beispiel. Danach rechnest du Schritt für Schritt mehr selbst.'; }
+    ['neu', 'ueben', 'wiederholen', 'klausur', 'eltern', 'lw-home'].forEach(id => this.bindView($('#' + id)));
+  },
+  bindView(sec){
+    if (!sec) return;
+    sec.addEventListener('click', e => {
+      const c = e.target.closest('[data-wch]'); if (c){ CH.set(c.dataset.wch); this.refresh(true); return; }
+      const o = e.target.closest('[data-open]'); if (o){ this.back = sec.id; this.show(`t-${o.dataset.open}`, o.dataset.step ? {step:o.dataset.step} : {}); return; }
+      const h = e.target.closest('[data-act]'); if (!h) return;
+      const a = h.dataset.act; if (['mixed', 'due', 'types', 'err', 'quiz'].includes(a)) this.back = sec.id;
+      if (a === 'mixed') Training.start(Training.mixedList(+(h.dataset.n || 6)), 'Gemischte Runde');
+      else if (a === 'due') Training.start(Training.dueList(), 'Wiederholung');
+      else if (a === 'types') this.show('training');
+      else if (a === 'err'){ this.show('training', {noScroll:true}); Training.startErr(); }
+      else if (a === 'quiz') this.show('quiz');
+      else if (a === 'go'){ const [id, k] = h.dataset.t.split(':'); this.back = sec.id; this.show(`t-${id}`, {step:k}); }
+      else if (a === 'probe') this.startProbe(+(h.dataset.n || 6));
+      else if (a === 'pabort'){ if (this.probeRun) this.probeRun.abort(); }
+    });
+    sec.addEventListener('change', e => this.onChange(sec, e));
+    sec.addEventListener('submit', e => this.onSubmit(sec, e));
+  },
+  refresh(force){
+    const v = this.cur; if (!v) return;
+    if (v === 'klausur' && this.probeRun) return;
+    const rv = {'lw-home':'renderHome', neu:'renderPick', ueben:'renderPick', wiederholen:'renderRep', klausur:'renderExam', eltern:force ? 'renderEltern' : null}[v];
+    if (rv) this[rv](v);
+  },
+  /* ---- Navigation links ---- */
+  nav(){
+    const nav = $('nav.toc'); if (!nav) return;
+    const a = (h, v, ic, t) => `<a href="#${h}" data-view="${v}">${WG_IC[ic]}<span>${t}</span></a>`;
+    nav.innerHTML = a('lw', 'lw-home', 'home', 'Start') + a('neu', 'neu', 'neu', 'Neues lernen') + a('ueben', 'ueben', 'ueben', 'Üben') + a('wiederholen', 'wiederholen', 'rep', 'Wiederholen') + a('klausur', 'klausur', 'exam', 'Klausur vorbereiten') +
+      '<div class="sep"></div>' + a('lexikon', 'lexikon', 'book', 'Nachschlagen') + a('start', 'start', 'gear', 'Einstellungen') + a('eltern', 'eltern', 'lock', 'Für Eltern');
+    nav.classList.add('wg-nav');
+  },
+  navCounts(){},
+  navActive(id){
+    const fromV = ['neu', 'ueben', 'wiederholen', 'klausur'].includes(this.back) ? this.back : null;
+    const v = id.startsWith('t-') ? (fromV || 'neu') : id === 'training' ? (fromV === 'wiederholen' || fromV === 'klausur' ? fromV : 'ueben') : id === 'quiz' ? 'wiederholen' : id === 'lehrkraft' ? 'eltern' : id;
+    $$('nav.toc a').forEach(x => x.classList.toggle('active', x.dataset.view === v));
+    if (id === 'training' || id === 'quiz'){ const c = $(`#${id} > .wg-crumb a`), b = id === 'quiz' ? 'wiederholen' : (['wiederholen', 'klausur'].includes(fromV) ? fromV : 'ueben'); if (c){ c.setAttribute('href', '#' + b); c.textContent = '← ' + WG_VIEWS[b]; } }
+  },
+  /* ---- Start ---- */
+  renderHome(){
+    const home = $('#lw-home'); if (!home) return;
+    const dueAll = LM.due().length, days = wgExamDays(), last = WGS.last && WGI[WGS.last], ls = last && wgT(last.id);
+    const b = home.querySelector('.wg-t-wiederholen .wg-badge'); if (b){ b.hidden = !dueAll; b.textContent = dueAll ? `${dueAll} fällig` : ''; }
+    const be = home.querySelector('.wg-t-klausur .wg-badge'); if (be){ be.hidden = !(days !== null && days >= 0); be.textContent = days === 0 ? 'heute' : days === 1 ? 'morgen' : `in ${days} Tagen`; }
+    const items = [];
+    if (last && !ls.mastered) items.push(`<div class="wg-ti"><span>${WG_IC.neu}</span><span>Weitermachen: <b>${R(last.title)}</b> <span class="small">(${WG_STEP[ls.step].t})</span></span><button type="button" class="btn btn-primary" data-act="go" data-t="${last.id}:${ls.step}">Weiter</button></div>`);
+    if (dueAll) items.push(`<div class="wg-ti"><span>${WG_IC.rep}</span><span><b>${dueAll}</b> ${dueAll === 1 ? 'Aufgabentyp ist' : 'Aufgabentypen sind'} zum Wiederholen dran.</span><a class="btn" href="#wiederholen">Ansehen</a></div>`);
+    if (days !== null && days >= 0) items.push(`<div class="wg-ti"><span>${WG_IC.exam}</span><span>Klausur ${days === 0 ? '<b>heute</b>' : days === 1 ? '<b>morgen</b>' : `in <b>${days} Tagen</b>`}.</span><a class="btn" href="#klausur">Zum Plan</a></div>`);
+    home.querySelector('.wg-today').innerHTML = items.length ? `<h3>Für heute</h3>${items.join('')}` : '';
+  },
+  /* ---- Themenwahl für „Neues lernen“ und „Üben“ ---- */
+  renderPick(id){
+    const sec = $('#' + id); if (!sec) return;
+    const ch = CH.cur, Ts = wgTopics(ch), nextT = Ts.find(T => !wgT(T.id).mastered), neu = id === 'neu';
+    sec.querySelector('.wg-chtabsw').innerHTML = wgChTabs();
+    sec.querySelectorAll('.wg-chv').forEach(d => { d.hidden = d.dataset.ch !== ch; });
+    const how = sec.querySelector('.wg-howt'); if (how && !WGS.seenHow){ how.open = true; WGS.seenHow = 1; wgSave(); }
+    if (!neu) sec.querySelector('.wg-mix').innerHTML = `<div class="wg-mcards"><div class="tr-card"><h4>Gemischt aus allen Themen</h4><p class="small">Sechs Aufgaben aus verschiedenen Themen. Das ist schwerer, hilft aber am meisten.</p><button type="button" class="btn btn-primary" data-act="mixed">Los geht’s</button></div><div class="tr-card"><h4>Alle Aufgabentypen</h4><p class="small">Einen bestimmten Aufgabentyp üben, mit Musterbeispiel und Lücken.</p><button type="button" class="btn" data-act="types">Auswählen</button></div></div>`;
+    sec.querySelector('.wg-tlist').innerHTML = Ts.map(T => {
+      const st = wgT(T.id), ks = wgSteps(T), d = ks.filter(k => st.done[k]).length, begun = d || st.step !== 'ziel', ids = this.subs[T.id] || [], k2 = ids.filter(x => STATUS[x]).length;
+      const txt = neu ? (st.mastered ? `${WG_IC.star} Geschafft` : begun ? `Weiter bei: ${WG_STEP[st.step].t}` : 'Noch nicht angefangen') : `${k2} von ${ids.length} Aufgaben gerechnet${st.mastered ? ' · ' + WG_IC.star + ' geschafft' : ''}`;
+      const btn = neu ? (st.mastered ? 'Ansehen' : begun ? 'Weiter' : 'Starten') : 'Üben';
+      const rec = neu && T === nextT;
+      return `<button type="button" class="wg-tc${st.mastered ? ' ok' : ''}${rec ? ' next' : ''}" data-open="${T.id}"${neu ? '' : ' data-step="ueben"'}><span class="wg-tn">${st.mastered ? WG_IC.star : (T.n || '·')}</span><span class="wg-tb"><b>${R(T.title)}${rec ? '<span class="wg-tag">Als Nächstes</span>' : ''}</b><span class="small wg-tbk">Buch ${escH(T.book)}</span>${neu ? `<span class="wg-dots">${ks.map(k => `<span class="${st.done[k] || (k === 'check' && st.mastered) ? 'on' : k === st.step && begun ? 'cur' : ''}"></span>`).join('')}</span>` : ''}<span class="small">${txt}</span></span><span class="btn${rec || !neu ? ' btn-primary' : ''} wg-tgo">${btn}</span></button>`;
+    }).join('');
+  },
+  /* ---- Wiederholen ---- */
+  renderRep(){
+    const sec = $('#wiederholen'); if (!sec) return;
+    sec.querySelector('.wg-chtabsw').innerHTML = wgChTabs();
+    const due = LM.due().filter(k => chTypes().includes(k)), un = wgErrUnlocked().filter(k => ERRGEN[k].ch === CH.cur);
+    const learned = wgTopics(CH.cur).filter(T => wgT(T.id).mastered || wgT(T.id).done.klaer);
+    sec.querySelector('.wg-repb').innerHTML = `<div class="wg-big">${due.length ? `<h3>Heute dran</h3><p>${due.map(k => escH(TYPES[k].label)).join(' · ')}</p><button type="button" class="btn btn-primary btn-lg" data-act="due">Wiederholung starten</button>` : `<h3>Gerade ist nichts fällig</h3><p>Prima. Was du gelernt hast, kommt automatisch wieder, kurz bevor du es vergessen würdest. Du kannst trotzdem eine kurze Runde machen.</p><button type="button" class="btn btn-primary btn-lg" data-act="mixed" data-n="4">Kurze Runde</button>`}</div>
+      <div class="wg-mcards"><div class="tr-card"><h4>Gemischte Runde</h4><p class="small">Sechs Aufgaben aus allen Themen.</p><button type="button" class="btn" data-act="mixed">Starten</button></div>
+      <div class="tr-card"><h4>Fehler finden</h4><p class="small">${un.length ? 'Fremde Lösungen mit einem Fehler: finden, erklären, verbessern.' : 'Wird freigeschaltet, sobald du ein Thema geschafft hast.'}</p><button type="button" class="btn" data-act="err"${un.length ? '' : ' disabled'}>Fehler suchen</button></div>
+      ${CH.cur === 'qf' ? '<div class="tr-card"><h4>Quiz zum Kapitel</h4><p class="small">Elf Fragen zum Verständnis, jede Antwort wird erklärt.</p><button type="button" class="btn" data-act="quiz">Zum Quiz</button></div>' : ''}</div>
+      ${learned.length ? `<h3>Noch einmal nachlesen</h3><div class="wg-chips2">${learned.map(T => `<button type="button" class="chip" data-open="${T.id}" data-step="klaer">${R(T.title)}</button>`).join('')}</div>` : ''}`;
+  },
+  /* ---- Klausur vorbereiten: Termin, Stoff, Tagesplan, Probeklausur ---- */
+  renderExam(){
+    const sec = $('#klausur'); if (!sec || this.probeRun) return;
+    const P = WGS.plan, sel = P.topics || [], mins = P.min || 20, days = wgExamDays();
+    const grp = ch => `<div class="wg-exg"><b>${ch === 'qf' ? 'Parabeln' : 'Vektoren'}</b>${wgTopics(ch).filter(T => T.types.length).map(T => `<label class="wg-cb"><input type="checkbox" class="lp-top" value="${T.id}"${sel.includes(T.id) ? ' checked' : ''}> ${R(T.title)}</label>`).join('')}</div>`;
+    const hist = (WGS.probe || []).slice(-5).reverse();
+    sec.querySelector('.wg-exb').innerHTML = `<div class="wg-exset"><div class="wg-exs"><span class="wg-num">1</span><label class="fld"><span>Wann ist die Klausur?</span><input type="date" class="lp-exam" value="${escH(P.exam || '')}"></label></div>
+      <div class="wg-exs"><span class="wg-num">2</span><div><span class="fld"><span>Was kommt dran?</span></span><div class="wg-exgs">${grp('qf')}${grp('vek')}</div></div></div>
+      <div class="wg-exs"><span class="wg-num">3</span><label class="fld"><span>Wie viel Zeit hast du pro Tag?</span><select class="lp-min">${[10, 20, 30, 45, 60].map(m => `<option value="${m}"${mins === m ? ' selected' : ''}>${m} Minuten</option>`).join('')}</select></label></div></div>
+      <div class="wg-plan2"></div>
+      <div class="wg-probe"><h3>${WG_IC.clock} Probeklausur</h3><p>Aufgaben aus deinen Klausurthemen, ohne Hilfe und mit Zeitvorgabe, wie in der echten Klausur. Punkte gibt es für das, was du selbst richtig rechnest. Danach siehst du deine Punkte und alle Lösungen.</p>
+        ${sel.length ? `<div class="btnrow"><button type="button" class="btn btn-primary" data-act="probe" data-n="4">Kurz: 4 Aufgaben, 25 Min.</button><button type="button" class="btn btn-primary" data-act="probe" data-n="6">Normal: 6 Aufgaben, 40 Min.</button><button type="button" class="btn btn-primary" data-act="probe" data-n="8">Lang: 8 Aufgaben, 55 Min.</button></div>` : '<p class="small">Wähle oben aus, was drankommt.</p>'}
+        ${hist.length ? `<h4>Deine letzten Probeklausuren</h4><ul class="wg-hist">${hist.map(h => `<li>${new Date(h.at).toLocaleDateString('de-DE')}: ${fmt(h.e)} von ${fmt(h.t)} Punkten (${Math.round(100 * h.e / Math.max(1, h.t))} %), ${h.n} Aufgaben, ${h.min} Min.</li>`).join('')}</ul>` : ''}</div>`;
+    this.renderPlan2(sec.querySelector('.wg-plan2'));
+  },
+  renderPlan2(box){
+    const P = WGS.plan, mins = P.min || 20, days = wgExamDays(), Ts = wgExamTopics(), sel = (P.topics || []).length;
+    if (days === null || !sel){ const need = [days === null ? 'das Datum' : '', !sel ? 'die Themen' : ''].filter(Boolean).join(' und '); box.innerHTML = `<p class="small">Gib oben ${need} an, dann bekommst du deinen Plan bis zur Klausur.</p>`; return; }
+    if (days < 0){ box.innerHTML = '<p class="small">Dieser Termin ist schon vorbei. Trag einen neuen ein.</p>'; return; }
+    const open = Ts.filter(T => !wgT(T.id).mastered), dueN = LM.due().filter(k => wgExamTypes().includes(k)).length, now = Date.now(), avail = Math.max(1, days - 2);
+    if (days === 0){ box.innerHTML = `<div class="wg-planbox"><h3>Heute ist die Klausur. Viel Erfolg!</h3><p>Kurz vorher hilft es, die wichtigsten Ideen noch einmal zu lesen:</p><div class="wg-chips2">${Ts.map(T => `<button type="button" class="chip" data-open="${T.id}" data-step="klaer">${R(T.title)}</button>`).join('')}</div></div>`; return; }
+    const items = []; let left = mins;
+    const probeDay = days <= 3 && (!open.length || days === 1);
+    if (probeDay){ items.push(['Probeklausur schreiben (kurz)', 25, 'probe', null, 4]); left -= 25; }
+    if (dueN){ const m = Math.min(15, Math.max(5, dueN * 3)); items.push([`Wiederholen: ${dueN} ${dueN === 1 ? 'Aufgabentyp' : 'Aufgabentypen'}`, m, 'due']); left -= m; }
+    const nT = open[0];
+    if (nT && (left > 0 || !probeDay)){ const st = wgT(nT.id), ks = wgSteps(nT); let i = Math.max(0, ks.indexOf(st.step)); if (st.done[ks[i]] && i < ks.length - 1) i++; for (let c = 0; i < ks.length && c < 3 && (left > 0 || !c); i++, c++){ const k = ks[i]; items.push([`${R(nT.title)}: ${WG_STEP[k].t}`, WG_STEP[k].min, 'go', `${nT.id}:${k}`]); left -= WG_STEP[k].min; } }
+    if (!items.length) items.push(['Gemischt üben', 15, 'mixed']);
+    const total = items.reduce((a, x) => a + x[1], 0);
+    box.innerHTML = `<div class="wg-planbox"><h3>Noch ${days === 0 ? 'heute' : days === 1 ? '1 Tag' : days + ' Tage'} bis zur Klausur</h3>
+      <h4>Heute dran (etwa ${total} Minuten)</h4><ol class="wg-today2">${items.map(x => `<li><span>${x[0]} <span class="small">(ca. ${x[1]} Min.)</span></span>${x[2] ? `<button type="button" class="btn btn-sm" data-act="${x[2]}"${x[3] ? ` data-t="${x[3]}"` : ''}${x[4] ? ` data-n="${x[4]}"` : ''}>Los</button>` : ''}</li>`).join('')}</ol>
+      ${open.length ? `<h4>Bis wann welches Thema?</h4><ol class="wg-sched">${open.map((T, i) => `<li><span class="wg-sd">bis ${wgDate(now + Math.max(0, Math.ceil((i + 1) * avail / open.length)) * WG_DAY)}</span> ${R(T.title)}</li>`).join('')}<li><span class="wg-sd">${days > 2 ? 'ab ' + wgDate(now + (days - 2) * WG_DAY) : 'jetzt'}</span> gemischt wiederholen und eine Probeklausur schreiben</li></ol>` : '<p>Alle Klausurthemen sind geschafft. Jetzt helfen Wiederholen und eine Probeklausur.</p>'}
+      <p class="small">${wgGap() <= 1 ? 'Wiederholt wird jetzt jeden Tag.' : `Wiederholt wird etwa alle ${wgGap()} Tage.`} Lieber jeden Tag ein bisschen als am Ende alles auf einmal.</p></div>`;
+  },
+  onChange(sec, e){
+    const t = e.target;
+    if (sec.id === 'klausur'){
+      if (t.classList.contains('lp-exam')) WGS.plan.exam = t.value || '';
+      if (t.classList.contains('lp-min')) WGS.plan.min = +t.value;
+      if (t.classList.contains('lp-top')) WGS.plan.topics = [...sec.querySelectorAll('.lp-top:checked')].map(x => x.value);
+      wgSave(); this.renderExam(); if (Training.root && !Training.run) Training.render();
+    }
+  },
+  onSubmit(sec, e){
+    if (sec.id !== 'eltern') return;
+    const f = e.target; e.preventDefault();
+    if (f.classList.contains('wg-pinf')){ const v = f.querySelector('input').value; if (KI.hash(v) === KI.cfg.pin){ this.parentOpen = true; this.unlockKI(); this.renderEltern(); } else f.querySelector('.wg-pinfb').textContent = 'Falsche PIN.'; }
+    if (f.classList.contains('wg-pinnew')){ const v = f.querySelector('input').value.trim(); if (!/^\d{4,8}$/.test(v)){ f.querySelector('.wg-pinfb').textContent = 'Bitte 4 bis 8 Ziffern.'; return; } KI.cfg.pin = KI.hash(v); KI.save(); this.parentOpen = true; f.querySelector('.wg-pinfb').textContent = 'PIN gespeichert.'; }
+  },
+  unlockKI(){ if (typeof kiSetup !== 'function') return; kiSetup.open = true; const kb = $('#eltern .ki-setup .ki-box'); if (kb){ const nb = kb.cloneNode(false); kb.replaceWith(nb); kiSetup(nb); } },
+  /* ---- Probeklausur ---- */
+  startProbe(n){
+    const sec = $('#klausur'), Ts = wgExamTopics().filter(T => T.types.length); if (!Ts.length) return;
+    const pool = wgShuffle(Ts), list = [];
+    for (let i = 0; list.length < n; i++) list.push(wgShuffle(pool[i % pool.length].types)[0]);
+    const min = {4:25, 6:40, 8:55}[n] || 40, t0 = Date.now(), box = sec.querySelector('.wg-prun');
+    sec.querySelector('.wg-exb').hidden = true; box.hidden = false;
+    box.innerHTML = `<div class="wg-ptimer"><span class="wg-ptt">${WG_IC.clock} 0:00 von ${min}:00</span><button type="button" class="btn btn-sm" data-act="pabort">Abgeben</button></div><div class="wg-prunb wg-noh"></div>`;
+    const tt = box.querySelector('.wg-ptt');
+    this.probeTimer = setInterval(() => { const el = Date.now() - t0; tt.innerHTML = `${WG_IC.clock} ${wgMm(el)} von ${min}:00${el > min * 60000 ? ' · <b>Zeit um.</b> Schreib die Aufgabe zu Ende oder gib ab.' : ''}`; tt.classList.toggle('over', el > min * 60000); }, 1000);
+    LM.event(`Probeklausur gestartet (${n} Aufgaben)`, 'klausur');
+    this.probeRun = new WGRun(box.querySelector('.wg-prunb'), list, {stage:3, title:'Probeklausur', skip:true, lastLabel:'Abgeben', onDone:res => this.probeResult(res, t0, min)});
+    try { sec.scrollIntoView({block:'start'}); } catch(e){}
+  },
+  probePts(r){
+    const sub = r.sub;
+    if (!sub) return {e:0, t:2};
+    const P = (LM.st.path || {})[sub.id] || {}; let e = 0, t = 0;
+    sub.goals.forEach((g, gi) => { const p = P[gi]; if (r.r !== 'skip' && p && p.t){ e += p.e; t += p.t; } else { const w = g.kind === 'solve' ? Math.max(1, (g.canon || []).length) : 1; t += w; if (r.r === 'ok') e += w; } });
+    return {e, t};
+  },
+  probeResult(res, t0, min){
+    clearInterval(this.probeTimer); this.probeRun = null;
+    const sec = $('#klausur'), box = sec.querySelector('.wg-prun'), used = Math.round((Date.now() - t0) / 60000);
+    const rows = res.map(r => Object.assign({}, r, this.probePts(r))), E = rows.reduce((a, r) => a + r.e, 0), Tt = rows.reduce((a, r) => a + r.t, 0), pct = Math.round(100 * E / Math.max(1, Tt));
+    (WGS.probe || (WGS.probe = [])).push({at:Date.now(), e:E, t:Tt, n:rows.length, min:used}); WGS.probe = WGS.probe.slice(-20); wgSave();
+    LM.event(`Probeklausur: ${E}/${Tt} Punkte`, 'klausur');
+    const weakT = LW_TOPICS.filter(T => rows.some(r => T.types.includes(r.type) && r.e < r.t));
+    box.innerHTML = `<div class="fin ${pct >= 80 ? 'ok' : 'help'}"><h4>Probeklausur: ${fmt(E)} von ${fmt(Tt)} Punkten (${pct} %)</h4><p>Gebraucht: ${used} von ${min} Minuten.${pct >= 80 ? ' Stark!' : ''}</p></div>
+      <h3>Deine Aufgaben</h3><ol class="wg-prev">${rows.map((r, i) => `<li><div class="wg-prh"><span>${r.sub ? R(r.sub.head) : escH(TYPES[r.type].label)}</span><span class="wg-pts ${r.e >= r.t ? 'ok' : r.e > 0 ? 'mid' : 'bad'}">${r.r === 'skip' ? 'nicht bearbeitet · ' : ''}${fmt(r.e)} / ${fmt(r.t)}</span></div>${r.sub ? `<details class="wg-psol" data-i="${i}"><summary>Lösung ansehen</summary><div class="wg-psolb"></div></details>` : ''}</li>`).join('')}</ol>
+      ${weakT.length ? `<h3>Das solltest du noch üben</h3><div class="wg-chips2">${weakT.map(T => `<button type="button" class="chip" data-open="${T.id}" data-step="ueben">${R(T.title)}</button>`).join('')}</div>` : '<p>Alles richtig. Bleib mit kurzen Wiederholungen dran.</p>'}
+      <div class="btnrow"><button type="button" class="btn btn-primary wg-pback">Zurück zum Plan</button></div>`;
+    box.querySelectorAll('.wg-psol').forEach(d => d.addEventListener('toggle', () => { if (d.open && !d.dataset.r){ d.dataset.r = '1'; modelView3(rows[+d.dataset.i].sub, d.querySelector('.wg-psolb')); } }));
+    box.querySelector('.wg-pback').addEventListener('click', () => { box.hidden = true; box.innerHTML = ''; sec.querySelector('.wg-exb').hidden = false; this.renderExam(); });
+    try { sec.scrollIntoView({block:'start'}); } catch(e){}
+  },
+  /* ---- Elternbereich: PIN, alle Lösungen, Lernstand ---- */
+  renderEltern(){
+    const sec = $('#eltern'); if (!sec) return;
+    const pin = KI.cfg.pin, open = !pin || this.parentOpen, gate = sec.querySelector('.wg-gate'), body = sec.querySelector('.wg-elb');
+    gate.innerHTML = open ? '' : `<form class="wg-pinf"><p>Dieser Bereich ist mit einer PIN geschützt.</p><div class="btnrow"><input type="password" inputmode="numeric" maxlength="8" aria-label="PIN" class="wg-pinin"><button type="submit" class="btn btn-primary">Öffnen</button></div><p class="small wg-pinfb" aria-live="polite"></p></form>`;
+    body.hidden = !open; if (!open) return;
+    if (!body.dataset.r){
+      body.dataset.r = '1';
+      const tasks = T => { const by = {}; (this.subs[T.id] || []).forEach(id => { const s = SUBS[id]; (by[s.task] = by[s.task] || []).push(s); }); return by; };
+      const ttl = tid => { const q = document.getElementById(tid); const h = q && q.querySelector('.card-head h2'); if (h) return 'Aufgabe ' + (q.querySelector('.card-head .num') || {}).textContent + ': ' + h.textContent; const v = document.getElementById('t-' + tid); return v ? (v.querySelector('.vnum') || {}).textContent + ' ' + (v.querySelector('.vtask-h h3') || {}).textContent : tid; };
+      body.querySelector('.wg-sols').innerHTML = `<h3>Alle Lösungen</h3><p class="small">Hier stehen die Musterlösungen aller Buchaufgaben. Ihr Kind sieht eine Lösung sonst erst, nachdem es die Aufgabe selbst versucht hat; das Ansehen zählt dann als Hilfe.</p>
+        ${['qf', 'vek'].map(ch => `<h4>${ch === 'qf' ? 'Parabeln' : 'Vektoren'}</h4>${wgTopics(ch).map(T => `<details class="wg-sol1"><summary>${R(T.title)}</summary>${Object.entries(tasks(T)).map(([tid, L]) => `<details class="wg-sol2"><summary>${escH(ttl(tid))}</summary>${L.map(s => `<div class="wg-sol3"><div class="small"><b>${escH(s.lbl || '')}</b> ${R(s.head || '')}</div><div class="wg-solm" data-id="${s.id}"></div></div>`).join('')}</details>`).join('')}</details>`).join('')}`).join('')}`;
+      body.querySelectorAll('.wg-sol2').forEach(d => d.addEventListener('toggle', () => { if (!d.open || d.dataset.r) return; d.dataset.r = '1'; d.querySelectorAll('.wg-solm').forEach(m => modelView3(SUBS[m.dataset.id], m)); }));
+      body.querySelector('.wg-pinset').innerHTML = `<h3>PIN</h3><form class="wg-pinnew"><p class="small">${pin ? 'Eine PIN ist gesetzt. Hier können Sie sie ändern.' : 'Legen Sie eine PIN fest, damit Ihr Kind die Lösungsübersicht und die KI-Einstellungen nicht öffnen kann.'}</p><div class="btnrow"><input type="password" inputmode="numeric" maxlength="8" placeholder="4 bis 8 Ziffern" aria-label="neue PIN"><button type="submit" class="btn">PIN speichern</button></div><p class="small wg-pinfb" aria-live="polite"></p></form>`;
+    }
+    body.querySelector('.wg-elrep').innerHTML = `<h3>Lernstand</h3>${wgReport().replace('<h2>Lernweg</h2>', '')}<p class="small">Den ausführlichen Bericht speichert Ihr Kind unter „Üben → Alle Aufgabentypen → Mein Lernstand“.</p>`;
+  },
+  /* ---- Lösung ansehen nach eigenem Versuch ---- */
+  uiHooks(){
+    const self = this;
+    const W0 = Workspace3;
+    Workspace3 = class extends W0 {
+      constructor(sub, root, opts){ super(sub, root, opts); root.__ws = this; root.classList.add('wsx'); }
+      finish(){ if (this.sub.sawSol) this.helped = true; return super.finish(); }
+    };
+    const G0 = GoalRunner;
+    GoalRunner = class extends G0 { constructor(...a){ super(...a); this.root.__gr = this; } };
+    const ATT = '[data-a="check"],[data-a="pcheck"],[data-a="scheck"],[data-a="vcheck"],[data-a="xcheck"],[data-a="acheck"],[data-a="tw-check"],[data-a="done"],[data-a="none"],.sk-check,.qc-opts .opt';
+    /* Ein Versuch zählt, wenn geprüft wurde und dabei etwas herauskam (Fehler, gefundene Zeile, Ziel erledigt) */
+    const tried = (tg, isOpt) => { if (isOpt || /done-/.test(tg.className)) return true; const gr = tg.__gr; if (!gr || !gr.st) return false; const s = gr.st; return s.fails > 0 || (s.found && s.found.length > 0) || (s.lines && s.lines.length > 0) || (s.doneT && s.doneT.size > 0); };
+    document.addEventListener('click', e => {
+      const b = e.target.closest(ATT); if (!b) return;
+      const tg = b.closest('.tgoal'), root = b.closest('.wsx'); if (!tg || !root || root.closest('.wg-noh') || !root.__ws) return;
+      const isOpt = b.matches('.qc-opts .opt');
+      [80, 700, 1800].forEach(ms => setTimeout(() => { if (tried(tg, isOpt)) self.solBar(root); }, ms));
+    }, true);
+    updProgress = (orig => function(){ const r = orig.apply(this, arguments); try { self.topProgress(); } catch(e){} return r; })(updProgress);
+    CH.set = (orig => function(c){ const r = orig.call(this, c); try { self.topProgress(); } catch(e){} return r; })(CH.set);
+    this.topProgress();
+  },
+  solBar(root){
+    const ws = root.__ws; if (!ws || root.querySelector(':scope > .sol-bar')) return;
+    const bar = document.createElement('div'); bar.className = 'sol-bar';
+    bar.innerHTML = `<button type="button" class="btn sol-btn">${WG_IC.bulb} Lösung ansehen</button><span class="small">Zählt als Hilfe. Probier es ruhig noch einmal selbst.</span><div class="sol-view" hidden></div>`;
+    const fin = root.querySelector(':scope > .ws-final'); root.insertBefore(bar, fin || null);
+    bar.querySelector('.sol-btn').addEventListener('click', () => {
+      const v = bar.querySelector('.sol-view'), on = v.hidden;
+      if (on && !v.dataset.r){ v.dataset.r = '1'; modelView3(ws.sub, v); ws.sub.sawSol = true; LM.event('Lösung angesehen', ws.sub.id); }
+      v.hidden = !on; bar.querySelector('.sol-btn').innerHTML = `${WG_IC.bulb} ${on ? 'Lösung ausblenden' : 'Lösung ansehen'}`;
+    });
+  },
+  topProgress(){
+    const Ts = wgTopics(CH.cur), m = Ts.filter(T => wgT(T.id).mastered).length, b = Ts.filter(T => !wgT(T.id).mastered && Object.keys(wgT(T.id).done).length).length;
+    const br = $('.topbar .brand'); if (br) br.innerHTML = `Mathe-Lernhilfe <span class="pg">${CH.cur === 'vek' ? 'Vektoren' : 'Parabeln'}</span>`;
+    const pt = $('#ptext'), p1 = $('#pbar'), p2 = $('#pbar2'); if (!pt) return;
+    pt.innerHTML = `${WG_IC.star} ${m} von ${Ts.length} Themen geschafft`;
+    if (p1) p1.style.width = (100 * m / Ts.length) + '%'; if (p2) p2.style.width = (100 * b / Ts.length) + '%';
+    const pr = pt.closest('.progress'); if (pr) pr.title = 'Grün: Themen geschafft · Orange: angefangen';
+  }
+});
 
 /* ================= Start v3 ================= */
 const PLOTS = {};
