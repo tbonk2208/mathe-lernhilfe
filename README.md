@@ -17,6 +17,17 @@ Adresse: https://tbonk2208.github.io/mathe-lernhilfe/
 
 Nach dem ersten Öffnen läuft die Lernhilfe auch ohne Internet. Der Lernstand wird nur auf dem jeweiligen Gerät gespeichert.
 
+## Schreiben wie im Heft, Hilfe und Fragen
+
+- **Rechenblatt:** Umformungsangaben hinter einem senkrechten Strich (`| −3`, `| :2`), Folgepfeile (⇒, ⇔), Nebenrechnungen neben der Zeile, unterstrichene oder eingerahmte Ergebnisse und Wertetabellen werden erkannt und bewertet.
+- **Hilfe bei Stocken:** Wer länger nicht weiterkommt oder mehrfach Fehler macht, bekommt gestufte Hinweise angeboten (Denkanstoß → Regel → Schritt mit Lücken). Die vollständige Musterzeile gibt es erst nach einem eigenen Versuch.
+- **Fragen stellen:** Bei jeder Aufgabe über „? Frage“; dazu der Bereich „Nachschlagen“ mit Begriffen aus beiden Kapiteln.
+- **Fehler finden:** Im Training gibt es Lösungswege mit einem typischen Fehler, der gefunden, erklärt und berichtigt wird.
+
+### Optionale KI-Hilfe
+
+Ohne eingetragenen Schlüssel sendet die Lernhilfe keine Eingaben ins Internet. Im Bereich „Lehrkraft: Klassenübersicht“ unter „KI-Antworten auf freie Fragen einrichten“ kann eine erwachsene Person einen eigenen Anthropic-API-Schlüssel eintragen (mit PIN, Tageslimit, Einverständnis-Bestätigung und Protokoll). Danach werden Fragen, die über „? Frage“ an die KI gehen, zusammen mit der aktuellen Aufgabe und dem bisherigen Rechenweg an `api.anthropic.com` gesendet. Fragen, die nach E-Mail-Adresse, Telefonnummer oder Anschrift aussehen, werden nicht gesendet. Der Schlüssel bleibt nur auf diesem Gerät gespeichert.
+
 ## Dateien
 
 | Datei | Zweck |

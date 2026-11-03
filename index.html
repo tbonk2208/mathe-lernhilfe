@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.anthropic.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1b5cad">
 <meta name="mobile-web-app-capable" content="yes">
@@ -525,6 +525,59 @@ canvas,.lw-zone,.sk-wrap,details.scratch{-webkit-user-select:none;user-select:no
 .gwriter.locked .sw-cv{cursor:not-allowed}
 @media (pointer:coarse){.sr-act .btn-sm{min-height:36px;padding:6px 11px}.sw-mode button{min-height:38px}}
 .sw-typed .rd-tex{color:inherit}
+/* Heftschreibweisen: weitere Rechnungen in derselben Zeile, Nebenrechnungen, Hervorhebung */
+.sr-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 0 0 1.2em;padding:3px 8px;border-left:3px solid var(--line);border-radius:4px}
+.sr-sub .sr-msg{flex-basis:100%;margin-left:2.4em}
+.sr-sub.ok,.sr-sub.nr-ok{border-left-color:color-mix(in srgb,var(--good) 55%,var(--line))}
+.sr-sub.err,.sr-sub.nr-err{border-left-color:var(--bad)}
+.sr-sub.ok .sr-ic,.sr-sub.nr-ok .sr-ic{color:var(--good)}.sr-sub.err .sr-ic,.sr-sub.nr-err .sr-ic{color:var(--bad)}
+.sr-sub.unread .sr-ic{color:#b45309}
+.sr-kind,.sr-deco{color:var(--muted)}
+.sr-u .m{text-decoration:underline;text-underline-offset:4px}
+.sr-cl{margin-left:4px}
+.sw-mk.nr-ok .sw-ic{color:var(--good)}.sw-mk.nr-err .sw-ic{color:var(--bad)}
+/* Wertetabelle von Hand */
+.tw-zone{position:relative;padding:4px 0}
+.tw-cv{width:100%;border:2px solid var(--line);border-radius:10px;touch-action:none;cursor:crosshair;display:block}
+.tw-zone.erasing .tw-cv{border-color:var(--bad);border-style:dashed;cursor:cell}
+canvas.tw-cv{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.gwriter.locked .tw-cv{cursor:not-allowed}
+.tw-tab{border-collapse:collapse;margin:6px 0;font-size:1.05rem}
+.tw-tab th,.tw-tab td{border:1px solid var(--line);padding:4px 10px;text-align:center;min-width:3.2em;background:var(--sheet)}
+.tw-tab th{background:color-mix(in srgb,var(--accent) 7%,var(--sheet))}
+.tw-c.ok{background:color-mix(in srgb,var(--good) 10%,var(--sheet))}.tw-c.err{background:color-mix(in srgb,var(--bad) 10%,var(--sheet))}.tw-c.unread{background:color-mix(in srgb,#b45309 10%,var(--sheet))}
+.tw-m{margin-left:4px;font-weight:700}.tw-c.ok .tw-m{color:var(--good)}.tw-c.err .tw-m{color:var(--bad)}.tw-c.unread .tw-m{color:#b45309}
+.tw-ed{margin-left:4px;border:0;background:none;cursor:pointer;color:var(--muted);font-size:.8rem;padding:0 2px}
+.tw-in{display:block;width:6em;margin:4px auto 0;font:1rem var(--f-math);padding:3px 5px;border:1px solid var(--line);border-radius:5px}
+/* Hilfe bei Stocken, Hinweise, Fragen */
+.goal-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ask-btn{margin-left:auto;padding:3px 10px;font-size:.84rem}
+.help-offer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0;padding:9px 12px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-left:4px solid var(--accent);border-radius:10px;background:color-mix(in srgb,var(--accent) 6%,var(--sheet))}
+.ho-t{font-weight:600}
+.hint-panel,.gask{margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;background:var(--sheet)}
+.hp-h,.ga-h{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.hp-x{margin-left:auto;border:0;background:none;cursor:pointer;font-size:1rem;color:var(--muted);padding:2px 6px}
+.hp-l{margin:4px 0 8px}
+.ga-chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.gask .chip{border:1px solid var(--line);border-radius:999px;background:var(--sheet);padding:4px 11px;font:inherit;font-size:.88rem;cursor:pointer}
+.gask .chip:hover{border-color:var(--accent)}
+.ga-form,.lex-form{display:flex;gap:6px;margin:4px 0}
+.ga-form input,.lex-form input{flex:1;min-width:0;font:inherit;padding:6px 9px;border:1px solid var(--line);border-radius:8px}
+.ga-out{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.ga-a{padding:8px 10px;border-radius:8px;background:color-mix(in srgb,var(--accent) 5%,var(--sheet));border:1px solid var(--line)}
+.ga-a.ki{border-color:color-mix(in srgb,#7c3aed 40%,var(--line));background:color-mix(in srgb,#7c3aed 5%,var(--sheet))}
+.ki-lab{display:inline-block;font-size:.78rem;font-weight:700;color:#6d28d9;margin-bottom:3px}
+.ga-q{color:var(--muted)}
+.lex-e h4{margin:0 0 4px}.lex-e p{margin:4px 0}
+.lex-g,.lex-b,.lex-f{font-size:.95rem}
+.lex-f b{color:var(--bad)}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);cursor:pointer;font:inherit;text-decoration:underline;text-underline-offset:2px}
+.lex-out{margin:10px 0}
+.lex-links{line-height:1.9}
+.ki-setup{margin-top:16px}.ki-setup summary{font-weight:600;cursor:pointer}
+.ki-box .fld{display:block;margin:6px 0}.ki-box input[type=password],.ki-box select{font:inherit;padding:4px 7px;border:1px solid var(--line);border-radius:6px;min-width:16em}
+.ki-box .ki-limit{width:5em}
+.ki-log ol{padding-left:1.2em}
 /* ================= v7: Kapitel, Vektoren, neue Zielarten ================= */
 body.ch-vek main > section[data-ch="qf"], body.ch-qf main > section[data-ch="vek"]{display:none}
 body.ch-vek nav.toc [data-ch="qf"], body.ch-qf nav.toc [data-ch="vek"]{display:none}
@@ -683,6 +736,20 @@ body.ch-vek nav.toc [data-ch="qf"], body.ch-qf nav.toc [data-ch="vek"]{display:n
 .checkmode h4{margin:0 0 6px}
 .ckm{display:flex;gap:8px;align-items:flex-start;margin:6px 0;cursor:pointer}
 .ckm input{margin-top:4px}
+/* Pfeile von Hand */
+.arbox{position:relative}
+.arink{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;display:block}
+.gwriter.locked .arink{pointer-events:none}
+/* Fehler finden */
+.err-box h4{margin:6px 0 8px}
+.err-lines{list-style:none;padding:0;margin:6px 0 10px;display:flex;flex-direction:column;gap:5px}
+.err-l{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;font-size:1.08rem;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);cursor:pointer}
+.err-l:hover:not(:disabled){border-color:var(--accent)}
+.err-l.found{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--sheet))}
+.err-l.fine{border-color:color-mix(in srgb,var(--good) 50%,var(--line))}
+.err-l.later{border-style:dashed;border-color:#b45309}
+.err-n{font:600 .8rem var(--f-body);color:var(--muted);min-width:1.2em}
+.err-step .qcard{margin:8px 0}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -755,8 +822,9 @@ html.js .nojs-note{display:none}
         <p class="small">An jeder Aufgabe kannst du über „Prüfen:“ umschalten. Das gilt dann nur für diese Aufgabe.</p>
       </div>
       <div class="intro-grid">
-        <div><h4>So schreibst du</h4><p class="small">Eine Gleichung pro Zeile, z. B. x² − 4x − 45 = 0. Hochgestellte Zahlen werden als Potenz gelesen, Brüche dürfen gestapelt sein, Wurzeln mit Haken und Strich. Unter der Zeile siehst du, was gelesen wurde.</p></div>
+        <div><h4>So schreibst du</h4><p class="small">Wie im Heft: eine Gleichung pro Zeile, z. B. x² − 4x − 45 = 0, Umformungen mit „| −3“ oder „| :2“ dahinter, ⇒ am Zeilenanfang, Ergebnisse unterstrichen oder eingerahmt. Mit Abstand dürfen zwei Rechnungen in einer Zeile stehen (x₁ = …   x₂ = …), Nebenrechnungen am Rand werden nachgerechnet. Funktionswerte gehen auch als selbst gezeichnete Wertetabelle, Vektorpfeile zeichnest du selbst. Unter dem Blatt siehst du, was gelesen wurde.</p></div>
         <div><h4>Falsch gelesen?</h4><p class="small">Zeichen antippen und richtiges wählen oder die Tastatur nutzen (z. B. x^2 - 4x = 0, sqrt(49), +- für ±).</p></div>
+        <div><h4>Fragen und Hilfe</h4><p class="small">An jeder Aufgabe: „? Frage“ für Fragen zur Aufgabe, zu Begriffen oder ein ähnliches Beispiel. Kommst du nicht weiter, bietet die Lernhilfe von sich aus gestufte Hinweise an. Unter „Nachschlagen“ stehen Erklärungen zu allen Begriffen.</p></div>
         <div><h4>Freier Rechenweg</h4><p class="small">Jede erlaubte Umformung wird akzeptiert, egal ob pq-Formel, Faktorisieren oder Wurzelziehen. Geprüft wird, ob die Lösungsmenge gleich bleibt.</p></div>
         <div><h4>Lösungsmodus</h4><p class="small">Zeigt für jede Teilaufgabe einen vollständigen Musterweg, z. B. für die Besprechung im Unterricht.</p></div>
       </div>
@@ -1858,7 +1926,7 @@ function toTex(n){
 }
 /* Name vor dem ersten „=“ (beim Lesen abgetrennt, z. B. MB, |DE|, δ) wieder voranstellen */
 const labelTex = l => { const v = String(l).match(/^\|([A-Za-z]{1,3})\|$/); return v ? `|#vec{${v[1]}}|` : /^[A-Z]{2,3}$/.test(l) ? `#overline{${l}}` : l; };
-const lineTex = parsed => (parsed.cont ? '= ' : '') + (parsed.vecTex !== undefined ? parsed.vecTex : (parsed.label ? labelTex(parsed.label) + ' = ' : '') + parsed.parts.map(toTex).join(' = '));
+const lineTex = parsed => (parsed.arrow ? (parsed.arrow === '⇔' ? '#Lra ' : '#Ra ') : '') + (parsed.cont ? '= ' : '') + (parsed.vecTex !== undefined ? parsed.vecTex : (parsed.label ? labelTex(parsed.label) + ' = ' : '') + parsed.parts.map(toTex).join(' = ')) + (parsed.ops && parsed.ops.length ? parsed.ops.map(o => ' #quad| ' + (typeof opTex === 'function' ? opTex(o) : o.src)).join('') : '');
 const lineHTML = parsed => R('$' + lineTex(parsed) + '$');
 /* Hilfen zur Form */
 const isVar = (n, v) => n.t === 'var' && n.n === v;
@@ -2182,11 +2250,22 @@ function recogItems(strokes, ctx, depth = 0){
   const normal = items.filter(it => it.k === 'sym' && !it.tiny && /[0-9a-zA-Z(]/.test(it.alts[0][0]) && it.h > 0.45 * H);
   const Hn = pct(normal.map(it => it.h), 0.7) || H;
   const base = medianA(normal.map(it => it.y1)) || Math.max(...items.map(it => it.y1 || it.cy));
+  /* zwei Punkte übereinander: Geteilt-Zeichen „:“ (z. B. in „| :2“) */
+  for (let i = 0; i + 1 < items.length; i++){
+    const a = items[i], b = items[i + 1];
+    if (a.k !== 'sym' || b.k !== 'sym' || a.alts[0][0] !== '.' || b.alts[0][0] !== '.') continue;
+    const acx = (a.x0 + a.x1) / 2, bcx = (b.x0 + b.x1) / 2;
+    if (Math.abs(acx - bcx) > 0.35 * Hn || Math.abs(a.cy - b.cy) < 0.2 * Hn || Math.abs(a.cy - b.cy) > 0.9 * Hn) continue;
+    const top = a.cy < b.cy ? a : b, bot = a.cy < b.cy ? b : a;
+    if (bot.cy < base - 0.6 * Hn || top.cy > base - 0.15 * Hn) continue;
+    items.splice(i, 2, {k:'sym', x0:Math.min(a.x0, b.x0), x1:Math.max(a.x1, b.x1), y0:top.y0, y1:bot.y1, h:bot.y1 - top.y0, cy:(top.cy + bot.cy) / 2, alts:[[':', .9], ['*', .05], ['', .05]], cls:false, colon:true, strokes:top.strokes.concat(bot.strokes)});
+  }
   items.forEach((it, i) => {
     if (it.k !== 'sym') return;
     const prev = items[i - 1];
     const prevAtom = prev && (prev.k !== 'sym' || /[0-9a-zA-Z)]/.test(prev.alts[0][0]) || prev.sup);
     const c0 = it.alts[0][0];
+    if (it.colon) return;
     if (c0 === '.'){
       it.alts = it.cy < base - 0.25 * Hn && it.cy > base - 0.85 * Hn ? [['*', .85], [',', .1], ['', .05]] : [[',', .85], ['*', .08], ['', .07]];
       return;
@@ -2651,7 +2730,10 @@ const LM = (() => {
     due(){ const now = Date.now(); return Object.keys(TYPES).filter(k => st.train[k] && st.train[k].n && st.train[k].due <= now); },
     topErrors(n = 3){ return Object.entries(st.err).sort((a, b) => b[1] - a[1]).slice(0, n); },
     explain(ok){ st.expl.n++; if (ok) st.expl.ok++; save(); },
-    reset(){ st.err = {}; st.train = {}; st.evts = []; st.expl = {n:0, ok:0}; st.path = {}; save(); }
+    /* Hilfe-Ereignisse (Angebot, Hinweis, Beispiel) und gestellte Fragen: für den Bericht an die Lehrkraft */
+    event(txt, where){ st.evts.push({t:Date.now(), k:'help', txt:String(txt).slice(0, 80), w:where}); if (st.evts.length > 60) st.evts.splice(0, st.evts.length - 60); save(); },
+    question(q, where){ st.q = st.q || []; st.q.push({t:Date.now(), q:String(q).slice(0, 300), w:where}); if (st.q.length > 50) st.q.splice(0, st.q.length - 50); save(); },
+    reset(){ st.err = {}; st.train = {}; st.evts = []; st.expl = {n:0, ok:0}; st.path = {}; st.q = []; save(); }
   };
 })();
 
@@ -2907,16 +2989,18 @@ class LineWriter {
   recognize(){
     clearTimeout(this.t);
     if (!this.ink.strokes.length){ this.items = null; this.text = ''; this.renderRead(); return; }
-    const r = recognizeLine(this.ink.strokes, this.ctx);
+    const r = this.goal.vec || typeof heftRecognize !== 'function' ? recognizeLine(this.ink.strokes, this.ctx) : heftRecognize(this.ink.strokes, this.ctx, this.goal);
     this.items = r.items; this.picks = r.picks; this.text = r.text; this.src = 'browser'; this.alts = r.alts || []; this.ctxNote = '';
+    this.ops = r.ops || []; this.arrow = r.arrow || null; this.deco = r.deco || null; this.subs = r.subs || [];
     this.items.forEach((it, i) => { it.orig = r.picks[i]; });
     if (this.h.onRead) this.h.onRead(this);
     this.renderRead();
   }
-  value(){ clearTimeout(this.t); if (this.inp.value.trim()) return {text:this.inp.value.trim(), src:'Tastatur'}; if (this.ink.strokes.length && !this.src) this.recognize(); return {text:this.text, src:this.src}; }
+  textOf(main){ return (this.arrow ? this.arrow + ' ' : '') + main + (this.ops || []).filter(o => o.text).map(o => ' | ' + o.text).join(''); }
+  value(){ clearTimeout(this.t); if (this.inp.value.trim()) return {text:this.inp.value.trim(), src:'Tastatur'}; if (this.ink.strokes.length && !this.src) this.recognize(); return {text:this.text && this.src === 'browser' ? this.textOf(this.text) : this.text, src:this.src}; }
   renderRead(){
     const kb = this.inp.value.trim();
-    const t = kb || this.text;
+    const t = kb || (this.text && this.src === 'browser' ? this.textOf(this.text) : this.text);
     if (!t){ this.readEl.innerHTML = '<span class="small">Schreib eine Zeile. Wenn du den Stift absetzt, erscheint hier, was gelesen wurde.</span>'; this.chipsEl.innerHTML = ''; return; }
     const p = goalParse(this.goal, t);
     const who = kb ? 'Tastatur' : this.src === 'Claude' ? 'Claude' : this.ctxNote ? 'gelesen (Zusammenhang)' : 'gelesen';
@@ -2986,7 +3070,7 @@ Antworte nur mit JSON wie {"line": "x^2-4x-45=0"}.`;
     finally { btn.disabled = false; }
   }
   setEraser(on){ this.ink.eraser = on; const b = this.root.querySelector('.lw-er'); if (b){ b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); } const z = this.root.querySelector('.lw-zone'); if (z) z.classList.toggle('erasing', on); }
-  clear(keep = false){ clearTimeout(this.t); this.setEraser(false); this.ink.clear(keep); this.inp.value = ''; this.items = null; this.text = ''; this.src = ''; this.renderRead(); }
+  clear(keep = false){ clearTimeout(this.t); this.setEraser(false); this.ink.clear(keep); this.inp.value = ''; this.items = null; this.text = ''; this.src = ''; this.ops = []; this.arrow = null; this.deco = null; this.subs = []; this.renderRead(); }
   lock(on){ this.root.classList.toggle('locked', on); this.ink.frozen = on; this.root.querySelectorAll('button').forEach(b => b.disabled = on); this.inp.disabled = on; }
 }
 /* ---- Rückfrage-Karte ---- */
@@ -3139,7 +3223,13 @@ class GoalRunner {
   /* Schreibart: Rechenblatt (mehrere Zeilen) oder Einzelzeile */
   makeWriter(mode){
     this.wbox.innerHTML = ''; this.wbox.classList.remove('locked'); this.mode = mode;
-    const onExtra = a => a === 'mode-sheet' ? this.switchWriter('sheet') : a === 'mode-line' ? this.switchWriter('line') : a === 'done' ? this.finishSolve() : a === 'none' ? this.noneSolve() : null;
+    const onExtra = a => a === 'mode-sheet' ? this.switchWriter('sheet') : a === 'mode-line' ? this.switchWriter('line') : a === 'mode-table' ? this.switchWriter('table') : a === 'done' ? this.finishSolve() : a === 'none' ? this.noneSolve() : null;
+    if (mode === 'table' && typeof TableWriter === 'function' && tableable(this.goal)){
+      const names = [...new Set(this.goal.targets.map(t => t.fn))];
+      this.w = new TableWriter(this.wbox, {names, height:Math.max(220, 70 * (names.length + 1) + 40)}, {extra:this.extra, onCheck:() => this.checkTable(), onBack:() => this.switchWriter('sheet'), onExtra, onFrozen:() => this.pulseQ()});
+      this.mode = 'table'; return;
+    }
+    if (mode === 'table') mode = this.mode = 'sheet';
     if (mode === 'sheet'){
       this.sheetBase = cloneSt(this.st, this.st);
       this.w = new SheetWriter(this.wbox, this.goal, {extra:this.extra, onCheck:() => this.checkSheet(false), onSilent:() => this.checkSheet(true), onExtra, onFrozen:() => this.pulseQ(), onMode:m => this.switchWriter(m)});
@@ -3151,18 +3241,19 @@ class GoalRunner {
   fixLabel(w){}
   switchWriter(m){
     if (m === this.mode || this.done) return;
-    if (this.mode === 'sheet'){ this.checkSheet(true); this.w.rows.forEach(r => { if (r.mark === 'ok') this.addLine(r.parsed, 'ok', r.msg, r.inkStrokes(), r.value().src); else if (r.mark === 'model') this.addLine(r.model.parsed, 'model', 'Musterzeile', null); }); }
-    const done = this.mode === 'sheet' && this.isComplete() && !this.w.rows.some(r => r.mark === 'err');
+    if (this.mode === 'sheet' && this.w && this.w.rows){ this.checkSheet(true); this.w.rows.forEach(r => { if (r.mark === 'ok') this.addLine(r.parsed, 'ok', r.msg, r.inkStrokes(), r.value().src); else if (r.mark === 'model') this.addLine(r.model.parsed, 'model', 'Musterzeile', null); }); }
+    const done = this.mode === 'sheet' && this.w.rows && this.isComplete() && !this.w.rows.some(r => r.mark === 'err');
     SUBMODE[this.sub.id] = m; this.tutor.innerHTML = ''; this.makeWriter(m);
     if (done) this.complete(this.completeMsg());
   }
   /* mehrdeutige Handschrift: eine fast gleich wahrscheinliche Lesart wählen, die zur Rechnung passt */
-  tryAlts(alts, text, st, gap){
+  tryAlts(alts, text, st, gap, wrap = null){
     if (!alts || alts.length < 2) return null;
-    const fx = {fns:this.goal.fnsPoly || {}}, cur = alts.find(a => a.text === text) || alts[0];
+    const W = wrap || (t => t);
+    const fx = {fns:this.goal.fnsPoly || {}}, cur = alts.find(a => W(a.text) === text) || alts[0];
     for (const a of alts){
-      if (a.text === text || cur.lp - a.lp > Math.log(gap)) continue;
-      const p2 = goalParse(this.goal, a.text); if (p2.err) continue;
+      if (W(a.text) === text || cur.lp - a.lp > Math.log(gap)) continue;
+      const p2 = goalParse(this.goal, W(a.text)); if (p2.err) continue;
       if (p2.cont) p2.contTgt = this.contTgt || st.lastTgt;
       const r2 = analyzeLine(this.goal, st, p2);
       if (r2.status === 'ok') return {a, parsed:p2, res:r2};
@@ -3191,28 +3282,46 @@ class GoalRunner {
     S.recognizeDirty();
     this.st = cloneSt(this.sheetBase, this.st);
     const st = this.st, acc = [], graded = [];
-    let first = null, unread = null, ref = null;
-    for (const r of S.rows){
-      r.mark = ''; r.msg = ''; r.grade = null;
-      if (r.model){ const res = analyzeLine(g, st, r.model.parsed); if (res.status === 'ok') this.accept(r.model.parsed, res, r.model); r.mark = 'model'; r.msg = 'Musterzeile'; ref = null; continue; }
-      if (r.isEmpty()) continue;
-      if (r.isStruck()){ r.mark = 'struck'; r.msg = 'durchgestrichen, wird nicht gewertet'; continue; }
+    let first = null, unread = null, ref = null, prevP = null;
+    for (const row of S.rows){
+      row.mark = ''; row.msg = ''; row.grade = null; (row.subs || []).forEach(sb => { sb.mark = ''; sb.msg = ''; sb.grade = null; });
+      if (row.model){ const res = analyzeLine(g, st, row.model.parsed); if (res.status === 'ok') this.accept(row.model.parsed, res, row.model); row.mark = 'model'; row.msg = 'Musterzeile'; ref = null; prevP = row.model.parsed; continue; }
+      if (row.isEmpty()) continue;
+      if (row.isStruck()){ row.mark = 'struck'; row.msg = 'durchgestrichen, wird nicht gewertet'; continue; }
+      for (const r of row.entries()){
       if (!r.kb && r.src === 'browser' && !r.fixed) this.fixLabel(r);
       const v = r.value(); let parsed = goalParse(g, v.text);
+      /* zweite Rechnung in derselben Zeile ohne die gesuchte Größe: Nebenrechnung, nur nachrechnen */
+      if (r !== row && !parsed.err){
+        const nr = typeof nrCheck === 'function' ? nrCheck(g, parsed) : null;
+        if (nr && !(g.kind === 'value' && analyzeLine(g, st, parsed).status === 'ok')){
+          r.kind = 'nr'; r.mark = nr.ok ? 'nr-ok' : 'nr-err';
+          r.msg = nr.ok ? 'Nebenrechnung stimmt.' : `Nebenrechnung: ${M(fmt(nr.a, 4))} und ${M(fmt(nr.b, 4))} sind nicht gleich. Rechne sie noch einmal nach.`;
+          continue;
+        }
+        r.kind = 'line';
+      }
       if (parsed.cont) parsed.contTgt = (ref && ref.tgt) || st.lastTgt;
       let res = !v.text || parsed.err ? {status:'unread'} : analyzeLine(g, st, parsed);
       if (res.status !== 'ok' && v.src === 'browser' && !r.fixed){
-        const alt = this.tryAlts(r.alts, v.text, st, res.status === 'err' ? 1.4 : 4);
+        const alt = this.tryAlts(r.alts, v.text, st, res.status === 'err' ? 1.4 : 4, r === row && row.textOf ? t => row.textOf(t) : null);
         if (alt){ r.adoptAlt(alt.a); parsed = alt.parsed; res = alt.res; }
       }
       if (res.status === 'unread' || res.status === 'note'){ r.mark = 'unread'; r.msg = res.status === 'note' ? res.html : 'nicht eindeutig lesbar: tippe auf „Zeichen“'; if (!unread) unread = {r, res}; continue; }
+      /* Umformungsangabe der vorigen Zeile („| −3“): passt diese Zeile dazu? */
+      const oc = typeof opCheck === 'function' ? opCheck(g, prevP, parsed, res) : null;
+      if (oc && oc.err) res = {status:'err', html:oc.err, q:null};
+      else if (oc && oc.diag && res.status !== 'ok') res = Object.assign({}, res, {html:oc.diag + (res.html ? ' ' + res.html : ''), q:oc.q || res.q});
+      prevP = parsed;
       r.parsed = parsed; r.res = res;
       const gr = gradeLine(g, st, parsed, res, ref);
-      if (gr.mark === 'err' && gr.ref && gr.ref !== ref) gr.ref.from = r.i + 1;
+      if (gr.mark === 'err' && gr.ref && gr.ref !== ref) gr.ref.from = r.lab || r.i + 1;
       r.grade = gr; ref = gr.ref; graded.push(r);
-      if (res.status === 'ok'){ r.prevParsed = st.last && st.last.parsed; this.accept(parsed, res); r.mark = 'ok'; r.msg = res.html + (st.pendLow ? ' (noch nicht ganz ausgerechnet)' : ''); acc.push(r); continue; }
-      if (gr.mark === 'ff'){ r.mark = 'ff'; r.msg = 'folgerichtig' + (gr.from ? `: richtig weitergerechnet mit dem Ergebnis aus Zeile ${gr.from}` : ''); continue; }
-      r.mark = 'err'; r.msg = res.html || 'Fehler'; if (!first) first = {r, kind:'err', res, parsed};
+      const extra = oc ? [oc.warn, oc.note].filter(Boolean).join(' ') : '';
+      if (res.status === 'ok'){ r.prevParsed = st.last && st.last.parsed; this.accept(parsed, res); r.mark = 'ok'; r.msg = res.html + (st.pendLow ? ' (noch nicht ganz ausgerechnet)' : '') + (extra ? ' ' + extra : ''); acc.push(r); continue; }
+      if (gr.mark === 'ff'){ r.mark = 'ff'; r.msg = 'folgerichtig' + (gr.from ? `: richtig weitergerechnet mit dem Ergebnis aus Zeile ${gr.from}` : '') + (extra ? ' ' + extra : ''); continue; }
+      r.mark = 'err'; r.msg = (res.html || 'Fehler') + (oc && oc.warn ? ' ' + oc.warn : ''); if (!first) first = {r, kind:'err', res, parsed};
+      }
     }
     if (!silent) S.rows.forEach(r => { r.shown = true; });
     S.render();
@@ -3221,7 +3330,7 @@ class GoalRunner {
     if (silent){ S.setReady(false); return; }
     S.setReady(false); this.tutor.innerHTML = '';
     if (unread){
-      const n = unread.r.i + 1;
+      const n = unread.r.lab || unread.r.i + 1;
       return this.note(unread.res.status === 'note' ? `Zeile ${n}: ${unread.res.html} Erst wenn alle Zeilen lesbar sind, wird der Lösungsweg bewertet. Kein Versuch wurde gezählt.` : `Zeile ${n} ist noch nicht eindeutig lesbar. Tippe unter dem Blatt bei Zeile ${n} auf „Zeichen“ und korrigiere falsch erkannte Zeichen, oder schreib die Zeile neu. Erst dann wird der Lösungsweg bewertet. Kein Versuch wurde gezählt.`);
     }
     if (!graded.length && !acc.length) return this.note('Schreib zuerst einen Schritt auf das Blatt.');
@@ -3234,7 +3343,7 @@ class GoalRunner {
         /* ganzes Blatt auf einmal richtig: trotzdem einen Schritt kurz begründen lassen */
         let ex = null;
         if (g.kind === 'solve' && !this.explained && Math.random() < EXPLAIN_P){
-          for (const r of acc.slice().sort(() => Math.random() - .5)){ const rule = stepRule(r.prevParsed, r.parsed, r.res, g); if (rule){ ex = {rule, n:r.i + 1}; break; } }
+          for (const r of acc.slice().sort(() => Math.random() - .5)){ const rule = stepRule(r.prevParsed, r.parsed, r.res, g); if (rule){ ex = {rule, n:r.lab || r.i + 1}; break; } }
         }
         this.complete(this.completeMsg());
         if (ex){ this.explained = true; explainCard(this.tutor, ex.rule, null, {q:`Welche Regel steckt in deinem Schritt in Zeile ${ex.n}?`, foot:'Diese Frage zählt nicht als Fehler.'}); }
@@ -3250,7 +3359,8 @@ class GoalRunner {
       return;
     }
     this.scoreCard(sc, graded, first);
-    const n = first.r.i + 1;
+    const n = first.r.lab || first.r.i + 1;
+    this.lastErr = {html:`Zeile ${n}: ${first.res.html || ''}`, line:plainTex(lineTex(first.parsed)), after:first.res.q && first.res.q.after};
     const qkey = first.r.key + '|' + first.r.value().text;
     if (qkey === this.lastQKey) return this.addNote(`Zeile ${n} ist noch nicht korrigiert. Radiere sie und schreib sie neu, oder streich sie durch und schreib darunter weiter.`);
     this.lastQKey = qkey;
@@ -3280,9 +3390,9 @@ class GoalRunner {
   scoreCard(sc, rows, first){
     const lab = {ok:'✓ richtig', ff:'✓ folgerichtig', err:'✗ Fehler'};
     const li = rows.map(r => { const gr = r.grade, k = r.mark, e = gr.steps.filter(m => m !== 'err').length;
-      return `<li class="${k}"><span class="pc-n">Zeile ${r.i + 1}</span><span class="pc-m">${lab[k] || ''}</span><span class="small">${ptsTxt(e, gr.steps.length)}${k === 'ff' && gr.from ? ` · Folgefehler aus Zeile ${gr.from}` : k === 'err' && gr.steps.length > 1 && e ? ' · Teilschritte richtig' : ''}</span></li>`; }).join('')
+      return `<li class="${k}"><span class="pc-n">Zeile ${r.lab || r.i + 1}</span><span class="pc-m">${lab[k] || ''}</span><span class="small">${ptsTxt(e, gr.steps.length)}${k === 'ff' && gr.from ? ` · Folgefehler aus Zeile ${gr.from}` : k === 'err' && gr.steps.length > 1 && e ? ' · Teilschritte richtig' : ''}</span></li>`; }).join('')
       + sc.miss.map(m => `<li class="miss"><span class="pc-n">fehlt</span><span class="pc-m">${R(m)}</span><span class="small">${ptsTxt(0, 1)}</span></li>`).join('');
-    const errs = rows.filter(r => r.mark === 'err').map(r => r.i + 1);
+    const errs = rows.filter(r => r.mark === 'err').map(r => r.lab || r.i + 1);
     const sum = !errs.length ? (sc.miss.length ? 'Bisher stimmt alles. Rechne die fehlenden Ergebnisse noch aus.' : 'Alles richtig.')
       : `${sc.n.ok ? sc.n.ok + (sc.n.ok === 1 ? ' Zeile ist' : ' Zeilen sind') + ' richtig' + (sc.n.ff ? ', ' + sc.n.ff + ' folgerichtig' : '') : sc.e ? 'Teilschritte stimmen' + (sc.n.ff ? ', ' + sc.n.ff + (sc.n.ff === 1 ? ' Zeile ist' : ' Zeilen sind') + ' folgerichtig' : '') : 'Noch stimmt kein Schritt'}. ${errs.length === 1 ? 'Der Fehler steckt in Zeile ' + errs[0] : 'Fehler stecken in den Zeilen ' + errs.join(', ')}. Korrigiere zuerst Zeile ${errs[0]}${sc.n.ff ? '; die folgerichtigen Zeilen danach musst du an das neue Ergebnis anpassen' : ''}.`;
     this.tutor.insertAdjacentHTML('beforeend', `<div class="pathcard"><div class="pc-h">Bewertung deines Lösungswegs</div><div class="pc-pts"><b>${ptsTxt(sc.e, sc.t)}</b> <span class="small">(ein Punkt je Schritt; folgerichtige Schritte zählen voll)</span></div><ul class="pc-list">${li}</ul><p class="pc-sum">${R(sum)}</p></div>`);
@@ -3340,26 +3450,32 @@ class GoalRunner {
     if (this.done) return;
     let {text, src} = this.w.value();
     if (!text) return this.note('Schreib zuerst eine Zeile.');
-    if (src === 'browser' && !this.w.fixed){ this.fixLabel(this.w); if (this.w.text !== text){ text = this.w.text; this.w.renderRead(); } }
+    if (src === 'browser' && !this.w.fixed){ this.fixLabel(this.w); const t2 = this.w.value().text; if (t2 !== text){ text = t2; this.w.renderRead(); } }
+    const W = src === 'browser' && this.w.textOf ? t => this.w.textOf(t) : null;
     let parsed = goalParse(this.goal, text);
     if (parsed.cont) parsed.contTgt = this.st.lastTgt;
     if (src === 'browser' && (parsed.err || analyzeLine(this.goal, this.st, parsed).status === 'note')){
-      const alt = this.tryAlts(this.w.alts, text, this.st, 4);
+      const alt = this.tryAlts(this.w.alts, text, this.st, 4, W);
       if (alt){ this.w.adoptAlt(alt.a); parsed = alt.parsed; }
     }
     if (parsed.err) return this.note(`Die Zeile ist noch nicht eindeutig lesbar (${escH(parsed.err)}). Tippe auf falsch erkannte Zeichen, nutze die Tastatur${SAMPLE_IMG ? ' oder lass Claude lesen' : ''}. Kein Versuch wurde gezählt.`);
     let res = analyzeLine(this.goal, this.st, parsed), ctxUsed = false;
     /* mehrdeutige Handschrift: fast gleich wahrscheinliche Lesart, die zur Rechnung passt */
     if (res.status === 'err' && src === 'browser' && this.w.alts && this.w.alts.length > 1){
-      const cur = this.w.alts.find(a => a.text === text) || this.w.alts[0];
+      const WW = W || (t => t), cur = this.w.alts.find(a => WW(a.text) === text) || this.w.alts[0];
       for (const a of this.w.alts){
-        if (a.text === text || cur.lp - a.lp > Math.log(1.4)) continue;
-        const p2 = goalParse(this.goal, a.text); if (p2.err) continue;
+        if (WW(a.text) === text || cur.lp - a.lp > Math.log(1.4)) continue;
+        const p2 = goalParse(this.goal, WW(a.text)); if (p2.err) continue;
         const r2 = analyzeLine(this.goal, this.st, p2);
         if (r2.status === 'ok'){ this.w.adoptAlt(a); parsed = p2; res = r2; ctxUsed = true; break; }
       }
     }
     if (res.status === 'note'){ this.note(res.html); return; }
+    /* Umformungsangabe der vorigen Zeile („| −3“) */
+    const oc = typeof opCheck === 'function' ? opCheck(this.goal, this.st.lines.length ? this.st.lines[this.st.lines.length - 1] : null, parsed, res) : null;
+    if (oc && oc.err) res = {status:'err', html:oc.err, q:null};
+    else if (oc && oc.diag && res.status !== 'ok') res = Object.assign({}, res, {html:oc.diag + (res.html ? ' ' + res.html : ''), q:oc.q || res.q});
+    const ocExtra = oc ? [oc.warn, oc.note].filter(Boolean).join(' ') : '';
     /* Punkte Zeile für Zeile: jeder Versuch zählt */
     { const gr = gradeLine(this.goal, this.st, parsed, res, null); this.lscore = this.lscore || {e:0, t:0}; this.lscore.t += gr.steps.length; this.lscore.e += gr.steps.filter(m => m !== 'err').length; }
     const strokes = this.w.ink.strokes.slice();
@@ -3368,7 +3484,16 @@ class GoalRunner {
       const prevParsed = this.st.last && this.st.last.parsed;
       const prevPend = this.st.pend.length;
       this.accept(parsed, res);
-      this.addLine(parsed, 'ok', res.html + (this.st.pendLow && prevPend ? ' (noch nicht ganz ausgerechnet)' : '') + (ctxUsed ? ' <span class="small">(ein mehrdeutiges Zeichen wurde nach dem Zusammenhang gelesen)</span>' : ''), strokes, src);
+      this.addLine(parsed, 'ok', res.html + (this.st.pendLow && prevPend ? ' (noch nicht ganz ausgerechnet)' : '') + (ocExtra ? ' ' + ocExtra : '') + (ctxUsed ? ' <span class="small">(ein mehrdeutiges Zeichen wurde nach dem Zusammenhang gelesen)</span>' : ''), strokes, src);
+      /* weitere Rechnungen in derselben Zeile (x₂ = …) und Nebenrechnungen */
+      for (const sb of this.w.subs || []){
+        const p2 = goalParse(this.goal, sb.text); if (p2.err) continue;
+        const nr = typeof nrCheck === 'function' ? nrCheck(this.goal, p2) : null;
+        if (nr && !(this.goal.kind === 'value' && analyzeLine(this.goal, this.st, p2).status === 'ok')){ this.addLine(p2, nr.ok ? 'ok' : 'err', nr.ok ? 'Nebenrechnung stimmt.' : 'Nebenrechnung: Die Teile sind nicht gleich.', [], src); continue; }
+        const r2 = analyzeLine(this.goal, this.st, p2);
+        if (r2.status === 'ok'){ this.accept(p2, r2); this.addLine(p2, 'ok', r2.html, [], src); }
+        else this.addLine(p2, 'err', r2.html || 'Fehler', [], src);
+      }
       this.w.learn();
       this.w.clear();
       this.st.fails = 0;
@@ -3381,6 +3506,7 @@ class GoalRunner {
       return;
     }
     /* Fehler: Rückfrage, dann korrigieren */
+    this.lastErr = {html:res.html || '', line:plainTex(lineTex(parsed)), after:res.q && res.q.after};
     const errLi = this.addLine(parsed, 'err', '', strokes, src);
     const ekind = res.q && res.q.kind || 'aufgabe';
     LM.err(ekind, this.sub.id);
@@ -3576,7 +3702,8 @@ class Workspace3 {
   reset(){ this.helped = false; this.root.querySelector('.goals').innerHTML = ''; this.root.querySelector('.ws-final').innerHTML = ''; this.startGoal(0); }
   startGoal(i){
     const box = document.createElement('div'); this.root.querySelector('.goals').appendChild(box);
-    new GoalRunner(this.sub, this.sub.goals[i], box, i, helped => { this.helped = this.helped || helped; if (i + 1 < this.sub.goals.length) setTimeout(() => this.startGoal(i + 1), 500); else this.finish(); });
+    const gr = new GoalRunner(this.sub, this.sub.goals[i], box, i, helped => { this.helped = this.helped || helped; if (i + 1 < this.sub.goals.length) setTimeout(() => this.startGoal(i + 1), 500); else this.finish(); });
+    box.__gr = gr; if (typeof helpAttach === 'function' && !gr.done) helpAttach(gr);
     if (i > 0) try { box.scrollIntoView({block:'nearest', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){}
   }
   finish(){
@@ -3643,7 +3770,20 @@ class SheetRow {
   isStruck(){ return this.strikeSet !== null ? this.strikeSet : this.autoStrike; }
   isEmpty(){ return !this.model && !this.strokes.length && !this.kb; }
   inkStrokes(){ return this.strikeIdx >= 0 ? this.strokes.filter((_, j) => j !== this.strikeIdx) : this.strokes; }
-  value(){ return this.kb ? {text:this.kb, src:'Tastatur'} : {text:this.text, src:this.src}; }
+  /* Hauptrechnung mit Pfeil davor und Umformungsangaben dahinter */
+  textOf(main){ return (this.arrow ? this.arrow + ' ' : '') + main + (this.ops || []).filter(o => o.text).map(o => ' | ' + o.text).join(''); }
+  value(){ return this.kb ? {text:this.kb, src:'Tastatur'} : {text:this.text ? this.textOf(this.text) : '', src:this.src}; }
+  entries(){ return [this].concat(this.kb ? [] : this.subs || []); }
+  adoptAlt(a){ this.text = a.text; this.picks = a.picks.slice(); (this.items || []).forEach((it, i) => { if (it.k === 'sym') it.orig = this.picks[i]; }); this.ctxNote = 'nach dem Zusammenhang gelesen'; }
+}
+/* weitere Rechnung in derselben Zeile (x₂ = …) oder Nebenrechnung am Rand */
+class SubEntry {
+  constructor(row, k, s){ this.row = row; this.k = k; this.i = row.i; this.lab = (row.i + 1) + 'bcdefgh'[k]; this.items = s.items; this.picks = s.picks; this.text = s.text; this.alts = s.alts || []; this.src = 'browser'; this.fixed = false; this.ctxNote = ''; this.mark = ''; this.msg = ''; this.grade = null; this.kind = s.kind || 'line'; this.key = row.key + '/' + k; }
+  get showChips(){ return this.row.showChips; } set showChips(v){ this.row.showChips = v; }
+  get shown(){ return this.row.shown; } set shown(v){}
+  isStruck(){ return this.row.isStruck(); }
+  isEmpty(){ return !this.text; }
+  value(){ return {text:this.text, src:this.src}; }
   adoptAlt(a){ this.text = a.text; this.picks = a.picks.slice(); (this.items || []).forEach((it, i) => { if (it.k === 'sym') it.orig = this.picks[i]; }); this.ctxNote = 'nach dem Zusammenhang gelesen'; }
 }
 class SheetWriter {
@@ -3654,9 +3794,9 @@ class SheetWriter {
     const n0 = goal.kind === 'solve' ? Math.max(4, Math.min(8, (goal.canonInfo || []).length + 2)) : goal.kind === 'value' ? Math.max(3, (goal.targets || []).length + 2) : 3;
     this.rows = []; for (let i = 0; i < n0; i++) this.rows.push(new SheetRow(i));
     root.innerHTML = `<div class="shw">
-      <div class="sw-tools btnrow">${modeSegHTML('sheet')}<button type="button" class="btn btn-sm" data-a="undo">↶ Strich</button><button type="button" class="btn btn-sm sw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="addrow">+ Zeile</button><button type="button" class="btn btn-sm" data-a="kbd-new" title="Nächste freie Zeile per Tastatur eingeben">⌨ Tippen</button></div>
+      <div class="sw-tools btnrow">${modeSegHTML('sheet')}${typeof tableable === 'function' && tableable(goal) ? '<button type="button" class="btn btn-sm" data-a="mode-table" title="Werte als Wertetabelle schreiben, wie im Heft">▦ als Tabelle</button>' : ''}<button type="button" class="btn btn-sm" data-a="undo">↶ Strich</button><button type="button" class="btn btn-sm sw-er" data-a="eraser" aria-pressed="false" title="Radierer: Striche wegwischen">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="addrow">+ Zeile</button><button type="button" class="btn btn-sm" data-a="kbd-new" title="Nächste freie Zeile per Tastatur eingeben">⌨ Tippen</button></div>
       <div class="sw-zone"><canvas class="sw-cv" aria-label="Rechenblatt: jede Linie ist ein Schritt des Rechenwegs"></canvas><div class="sw-marks" aria-hidden="true"></div><div class="lw-lockmsg" aria-hidden="true">Erst die Rückfrage oben beantworten</div></div>
-      <p class="small sw-hint">${goal.tallRows ? 'Schreib jeden Schritt auf eine eigene Linie, Vektoren als Spalte in großen Klammern, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) mit den Koordinaten untereinander = (4 | −2 | −2). ' : 'Schreib jeden Schritt auf eine eigene Linie. '}Unter dem Blatt siehst du, was gelesen wurde. Wenn du fertig bist, tippe auf „Lösungsweg prüfen“: Jede Zeile wird bewertet, Folgefehler werden anerkannt. Korrigieren: radieren und neu schreiben oder die Zeile waagerecht durchstreichen.</p>
+      <p class="small sw-hint">${goal.tallRows ? 'Schreib jeden Schritt auf eine eigene Linie, Vektoren als Spalte in großen Klammern, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) mit den Koordinaten untereinander = (4 | −2 | −2). ' : 'Schreib jeden Schritt auf eine eigene Linie, wie im Heft: Umformungen mit „| −3“ oder „| :2“ hinter der Gleichung (der Strich etwas länger als die Ziffern), ⇒ am Zeilenanfang, Ergebnis unterstreichen oder einrahmen. Mit deutlichem Abstand darf eine zweite Rechnung in derselben Zeile stehen (x₁ = …   x₂ = …) oder eine Nebenrechnung am Rand; die wird nachgerechnet. '}Unter dem Blatt siehst du, was gelesen wurde. Wenn du fertig bist, tippe auf „Lösungsweg prüfen“: Jede Zeile wird bewertet, Folgefehler werden anerkannt. Korrigieren: radieren und neu schreiben oder die Zeile waagerecht durchstreichen.</p>
       <ol class="sw-read" aria-label="So wurde das Blatt gelesen"></ol>
       <div class="lw-act btnrow"><button type="button" class="btn btn-primary sw-check" data-a="check">Lösungsweg prüfen</button>${h.extra || ''}<span class="small sw-ready" aria-live="polite"></span></div>
     </div>`;
@@ -3712,28 +3852,44 @@ class SheetWriter {
       r.key = key; r.fixed = false; r.ctxNote = ''; r.strikeSet = null; r.learned = false; r.shown = false;
       r.strikeIdx = strikeStroke(r.strokes, this.rh); r.autoStrike = r.strikeIdx >= 0;
       const ink = r.inkStrokes();
+      r.ops = []; r.arrow = null; r.deco = null; r.subs = [];
       if (!ink.length){ r.items = null; r.text = ''; r.alts = []; r.src = ''; return; }
-      const res = recognizeLine(ink, this.ctx);
+      const res = this.goal.vec || typeof heftRecognize !== 'function' ? recognizeLine(ink, this.ctx) : heftRecognize(ink, this.ctx, this.goal);
       r.items = res.items; r.picks = res.picks; r.text = res.text; r.alts = res.alts || []; r.src = 'browser';
       r.items.forEach((it, i) => { it.orig = res.picks[i]; });
+      r.ops = res.ops || []; r.arrow = res.arrow || null; r.deco = res.deco || null;
+      r.subs = (res.subs || []).map((sb, k) => { const e = new SubEntry(r, k, sb); (e.items || []).forEach((it, i) => { it.orig = e.picks[i]; }); return e; });
     });
   }
   render(){ this.ink && this.ink.redraw(); this.renderMarks(); this.renderRead(); }
   /* Bewertung einer Zeile erst nach „Lösungsweg prüfen“ zeigen; Lesbarkeit, Durchstreichen und Musterzeilen sofort */
   dispMark(r){ return r.shown || ['unread', 'struck', 'model'].includes(r.mark) ? r.mark : r.mark ? 'pend' : ''; }
+  /* Randmarke einer Linie: auch weitere Rechnungen und Nebenrechnungen darin */
+  dispMarkAll(r){
+    let m = this.dispMark(r);
+    for (const sb of r.subs || []){ const d = this.dispMark(sb); if (d === 'err' || d === 'nr-err') m = 'err'; else if (d === 'unread' && m !== 'err') m = 'unread'; else if (!m) m = d === 'nr-ok' ? 'ok' : d; }
+    return m;
+  }
   renderMarks(){
-    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'};
-    this.marks.innerHTML = this.rows.map(r => `<div class="sw-mk ${this.dispMark(r)}" style="top:${r.i * this.rh}px;height:${this.rh}px"><span class="sw-n">${r.i + 1}</span><span class="sw-ic">${IC[this.dispMark(r)] || ''}</span></div>`
+    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·', 'nr-ok':'✓', 'nr-err':'✗'};
+    this.marks.innerHTML = this.rows.map(r => `<div class="sw-mk ${this.dispMarkAll(r)}" style="top:${r.i * this.rh}px;height:${this.rh}px"><span class="sw-n">${r.i + 1}</span><span class="sw-ic">${IC[this.dispMarkAll(r)] || ''}</span></div>`
       + (r.kb && !r.model && !r.strokes.length ? (() => { const p = goalParse(this.goal, r.kb); return `<div class="sw-model sw-typed" style="top:${r.i * this.rh}px;height:${this.rh}px;left:${SHEET_M + 10}px"><span class="rd-tex">${p.err ? '<code>' + escH(r.kb) + '</code>' : lineHTML(p)}</span><span class="small">getippt</span></div>`; })() : '')
       + (r.model ? `<div class="sw-model" style="top:${r.i * this.rh}px;height:${this.rh}px;left:${SHEET_M + 10}px"><span class="rd-tex">${lineHTML(r.model.parsed)}</span><span class="small">Musterzeile</span></div>` : '')).join('');
   }
   entryHTML(r){
     const v = r.value(), p = v.text ? goalParse(this.goal, v.text) : null;
-    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·'}, dm = this.dispMark(r), msg = dm === 'pend' ? '' : r.msg;
+    const IC = {ok:'✓', ff:'✓', err:'✗', unread:'?', struck:'—', model:'M', wait:'·', 'nr-ok':'✓', 'nr-err':'✗'}, dm = this.dispMark(r), msg = dm === 'pend' ? '' : r.msg;
     const tex = r.model ? lineHTML(r.model.parsed) : !v.text ? '<span class="small">(nichts gelesen)</span>' : p.err ? `<code>${escH(v.text)}</code>` : lineHTML(p);
-    const chips = r.showChips && r.items && !r.kb ? '<div class="sr-chips"><span class="small">Falsch gelesen? Zeichen antippen:</span> ' + chipsHTML(r.items, r.picks, `data-r="${r.i}"`) + '</div>' : '';
+    const blocks = [['', r.items, r.picks, '']].concat((r.ops || []).map((o, k) => ['o' + k, o.items, o.picks, 'Angabe']), (r.subs || []).map((sb, k) => ['s' + k, sb.items, sb.picks, sb.lab]));
+    const chips = r.showChips && r.items && !r.kb ? '<div class="sr-chips"><span class="small">Falsch gelesen? Zeichen antippen:</span> ' + blocks.filter(b => b[1] && b[1].length).map(([b, it, pk, lab]) => (lab ? `<span class="small sr-cl">${escH(lab)}:</span> ` : '') + chipsHTML(it, pk, `data-r="${r.i}"${b ? ` data-b="${b}"` : ''}`)).join(' <span class="chipx">·</span> ') + '</div>' : '';
+    const deco = r.deco ? ` <span class="small sr-deco">${r.deco === 'box' ? '(eingerahmt)' : r.deco === 'uu' ? '(doppelt unterstrichen)' : '(unterstrichen)'}</span>` : '';
+    const subs = (r.kb ? [] : r.subs || []).map(sb => {
+      const sv = sb.value(), sp = sv.text ? goalParse(this.goal, sv.text) : null, sd = this.dispMark(sb);
+      const stex = !sv.text ? '' : sp.err ? `<code>${escH(sv.text)}</code>` : lineHTML(sp);
+      return `<div class="sr-sub ${sd}"><span class="sr-n">${escH(sb.lab)}</span><span class="sr-ic">${IC[sd] || ''}</span><span class="sr-tex">${r.isStruck() ? '<s>' + stex + '</s>' : stex}</span>${sb.kind === 'nr' ? ' <span class="small sr-kind">Nebenrechnung</span>' : ''}${sd !== 'pend' && sb.msg ? `<div class="sr-msg small">${R(sb.msg)}${sb.ctxNote ? ' (' + escH(sb.ctxNote) + ')' : ''}${(sd === 'ok' || sd === 'ff' || sd === 'err') && sb.grade ? ` <span class="sr-pts">${ptsTxt(sb.grade.steps.filter(m => m !== 'err').length, sb.grade.steps.length)}</span>` : ''}</div>` : ''}</div>`;
+    }).join('');
     const act = r.model ? '' : `<span class="sr-act">${r.isStruck() ? '' : `<button type="button" class="btn btn-sm" data-a="row-fix" data-r="${r.i}" aria-expanded="${r.showChips}">Zeichen</button><button type="button" class="btn btn-sm" data-a="row-kbd" data-r="${r.i}" title="Zeile per Tastatur eingeben">⌨</button>`}<button type="button" class="btn btn-sm" data-a="row-strike" data-r="${r.i}">${r.isStruck() ? 'wiederherstellen' : 'durchstreichen'}</button><button type="button" class="btn btn-sm" data-a="row-clear" data-r="${r.i}" title="Zeile leeren">✕</button></span>`;
-    return `<div class="sr-main"><span class="sr-n">${r.i + 1}</span><span class="sr-ic">${IC[dm] || ''}</span><span class="sr-tex">${r.isStruck() ? '<s>' + tex + '</s>' : tex}</span>${act}</div>${msg ? `<div class="sr-msg small">${R(msg)}${r.ctxNote ? ' (' + escH(r.ctxNote) + ')' : ''}${v.src === 'Tastatur' ? ' (Tastatur)' : ''}${dm === 'ok' || dm === 'ff' || dm === 'err' ? ` <span class="sr-pts">${ptsTxt(r.grade.steps.filter(m => m !== 'err').length, r.grade.steps.length)}</span>` : ''}</div>` : ''}${chips}${r.showKb ? `<input class="sr-in" data-r="${r.i}" type="text" autocomplete="off" spellcheck="false" value="${escH(r.kb || r.text)}" placeholder="${this.goal.vec ? 'z. B. AB = (5-1|0-2|1-3) = (4|-2|-2)' : 'z. B. x^2 - 4x - 45 = 0'}" aria-label="Zeile ${r.i + 1} per Tastatur">` : ''}`;
+    return `<div class="sr-main"><span class="sr-n">${r.i + 1}</span><span class="sr-ic">${IC[dm] || ''}</span><span class="sr-tex${r.deco ? ' sr-u' : ''}">${r.isStruck() ? '<s>' + tex + '</s>' : tex}</span>${deco}${act}</div>${msg ? `<div class="sr-msg small">${R(msg)}${r.ctxNote ? ' (' + escH(r.ctxNote) + ')' : ''}${v.src === 'Tastatur' ? ' (Tastatur)' : ''}${dm === 'ok' || dm === 'ff' || dm === 'err' ? ` <span class="sr-pts">${ptsTxt(r.grade.steps.filter(m => m !== 'err').length, r.grade.steps.length)}</span>` : ''}</div>` : ''}${subs}${chips}${r.showKb ? `<input class="sr-in" data-r="${r.i}" type="text" autocomplete="off" spellcheck="false" value="${escH(r.kb || r.text)}" placeholder="${this.goal.vec ? 'z. B. AB = (5-1|0-2|1-3) = (4|-2|-2)' : 'z. B. x^2 - 4x - 45 = 0'}" aria-label="Zeile ${r.i + 1} per Tastatur">` : ''}`;
   }
   renderRead(){
     /* Tippen nicht unterbrechen: Fokus und Cursor im Eingabefeld erhalten */
@@ -3773,14 +3929,16 @@ class SheetWriter {
       return;
     }
     const ch = e.target.closest('.chipc'); if (!ch) return;
-    const row = this.rows[+ch.dataset.r], at = itemAt(row.items || [], ch.dataset.p);
-    if (at.top) this.pop(row, at.i, ch);
-    else if (at.it) popNested(at.it, this.ctx, ch, () => { row.fixed = true; row.shown = false; row.text = itemsText(row.items, row.picks, this.ctx); this.h.onSilent && this.h.onSilent(); });
+    const row = this.rows[+ch.dataset.r], blk = ch.dataset.b, tgt = !blk ? row : blk[0] === 'o' ? row.ops[+blk.slice(1)] : row.subs[+blk.slice(1)];
+    if (!tgt) return;
+    const at = itemAt(tgt.items || [], ch.dataset.p);
+    if (at.top) this.pop(row, at.i, ch, tgt);
+    else if (at.it) popNested(at.it, this.ctx, ch, () => { row.fixed = true; tgt.fixed = true; row.shown = false; tgt.text = itemsText(tgt.items, tgt.picks, this.ctx); this.h.onSilent && this.h.onSilent(); });
   }
-  pop(row, i, el){
-    const it = row.items && row.items[i]; if (!it) return;
+  pop(row, i, el, tgt = row){
+    const it = tgt.items && tgt.items[i]; if (!it) return;
     const all = popChoices(it.alts, this.ctx);
-    const nx = row.items[i + 1], canJoin = nx && nx.k === 'sym' && it.strokes && nx.strokes;
+    const nx = tgt.items[i + 1], canJoin = nx && nx.k === 'sym' && it.strokes && nx.strokes;
     POP.innerHTML = '<div class="pop-t">Gemeint war:</div><div class="pop-g">' + all.map(a => `<button type="button" data-v="${escH(a)}">${escH(showSym(a))}</button>`).join('') + `<button type="button" data-v="__sup">${it.sup ? 'nicht hochgestellt' : 'hochgestellt'}</button>${canJoin ? '<button type="button" data-v="__join">mit nächstem Zeichen verbinden</button>' : ''}<button type="button" data-v="" class="pop-del">entfernen</button></div>`;
     const rc = el.getBoundingClientRect();
     POP.style.left = Math.max(8, Math.min(window.innerWidth - 270, rc.left + window.scrollX - 20)) + 'px';
@@ -3792,9 +3950,9 @@ class SheetWriter {
       else if (v === '__join'){
         it.strokes = it.strokes.concat(nx.strokes); it.x1 = Math.max(it.x1, nx.x1); it.y0 = Math.min(it.y0, nx.y0); it.y1 = Math.max(it.y1, nx.y1);
         it.alts = classify(it.strokes, this.ctx, classWeights(this.ctx)); it.cls = true;
-        row.items.splice(i + 1, 1); row.picks.splice(i + 1, 1); row.picks[i] = it.alts[0][0]; it.orig = '__joined';
-      } else { row.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); popLabel(row.items, row.picks, i, v, this.ctx); }
-      row.fixed = true; row.shown = false; POP.hidden = true; row.text = itemsText(row.items, row.picks, this.ctx);
+        tgt.items.splice(i + 1, 1); tgt.picks.splice(i + 1, 1); tgt.picks[i] = it.alts[0][0]; it.orig = '__joined';
+      } else { tgt.picks[i] = v; if (v) SAMPLES.add(it.strokes, v, it.sup); if (tgt === row) popLabel(row.items, row.picks, i, v, this.ctx); }
+      row.fixed = true; tgt.fixed = true; row.shown = false; POP.hidden = true; tgt.text = itemsText(tgt.items, tgt.picks, this.ctx);
       this.h.onSilent && this.h.onSilent();
     };
   }
@@ -3814,6 +3972,939 @@ class SheetWriter {
   setReady(on){ this.ready = on; const b = this.root.querySelector('.sw-check'), s = this.root.querySelector('.sw-ready'); if (b) b.classList.toggle('pulse-ok', on); if (s) s.textContent = on ? 'Sieht vollständig aus. Tippe auf „Blatt prüfen“.' : ''; }
   setEraser(on){ this.ink.eraser = on; const b = this.root.querySelector('.sw-er'); if (b){ b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); } this.zone.classList.toggle('erasing', on); }
   lock(on){ this.root.classList.toggle('locked', on); this.ink.frozen = on; this.root.querySelectorAll('button, input').forEach(b => b.disabled = on); }
+}
+
+/* ================= Heftschreibweisen: Umformungsangaben, Pfeile, Nebenrechnungen, Unterstreichen ================= */
+/* Eine handgeschriebene Zeile wird vor dem Erkennen zerlegt:
+   - Unterstreichen (ein- oder zweifach) und Einrahmen: Hervorhebung, gehört nicht zur Rechnung
+   - Pfeil ⇒ / ⇔ am Zeilenanfang
+   - Umformungsangabe hinter einem hohen senkrechten Strich: „| −3“, „| :2“, auch mehrere
+   - weitere Rechnungen in derselben Zeile mit großem Abstand: x₁ = 9   x₂ = −5, Nebenrechnungen am Rand */
+function hInfo(s, k){ const b = strokeBox(s); b.pts = s; b.k = k; b.cx = (b.x0 + b.x1) / 2; return b; }
+function hBox(B){ return B.length ? {x0:Math.min(...B.map(b => b.x0)), x1:Math.max(...B.map(b => b.x1)), y0:Math.min(...B.map(b => b.y0)), y1:Math.max(...B.map(b => b.y1))} : null; }
+function hCharH(B){
+  const c = B.filter(b => !(b.h < 0.2 * b.w && b.w > 40) && Math.max(b.w, b.h) > 6);
+  return Math.max(14, pct(c.map(b => Math.max(b.h, 0.35 * b.w)), 0.6) || 24);
+}
+/* Spitze eines „>“ (dir = 1) oder „<“ (dir = −1): innerer Punkt ganz rechts bzw. links, zwei Schenkel mit spitzem Winkel */
+function chevronDir(b){
+  const p = b.pts; if (p.length < 3 || b.w < 4 || b.h < 4) return 0;
+  for (const dir of [1, -1]){
+    let k = 0; p.forEach((q, i) => { if (dir * q.x > dir * p[k].x) k = i; });
+    if (k < 1 || k > p.length - 2) continue;
+    const A = p[k], s = p[0], e = p[p.length - 1];
+    if (A.y < b.y0 + 0.2 * b.h || A.y > b.y1 - 0.2 * b.h) continue;
+    if (dir * (A.x - s.x) < 0.3 * b.w || dir * (A.x - e.x) < 0.3 * b.w) continue;
+    const u = [s.x - A.x, s.y - A.y], v = [e.x - A.x, e.y - A.y];
+    const cos = (u[0] * v[0] + u[1] * v[1]) / (Math.hypot(...u) * Math.hypot(...v) || 1);
+    /* Schenkel gerade (ein Bogen wie beim x ist keine Pfeilspitze) */
+    const dev = (P0, P1, seg) => { const L = Math.hypot(P1.x - P0.x, P1.y - P0.y) || 1; return Math.max(0, ...seg.map(q => Math.abs((P1.x - P0.x) * (P0.y - q.y) - (P0.x - q.x) * (P1.y - P0.y)) / L)) / L; };
+    if (dev(s, A, p.slice(0, k + 1)) > 0.16 || dev(A, e, p.slice(k)) > 0.16) continue;
+    if (cos > Math.cos(100 * Math.PI / 180)) return dir;
+  }
+  return 0;
+}
+const hFlat = (b, H) => b.h < 0.25 * Math.max(b.w, 1) && b.w > 0.45 * H;
+/* Zerlegen; liefert Indizes der Striche */
+function segmentRow(strokes, goal){
+  const B = strokes.map(hInfo), all = B.map(b => b.k);
+  const out = {deco:null, arrow:null, main:all.slice(), ops:[], sides:[], H:24};
+  if (B.length < 2 || (goal && goal.vec)) return out;
+  const H = hCharH(B); out.H = H;
+  let rest = B.slice();
+  const take = set => { rest = rest.filter(b => !set.has(b.k)); };
+  /* Rahmen: ein geschlossener Strich um fast alles herum, oder je zwei Linien oben/unten und links/rechts */
+  {
+    const inner = b => rest.filter(o => o !== b && o.cx > b.x0 && o.cx < b.x1 && o.cy > b.y0 && o.cy < b.y1);
+    for (const b of rest){
+      if (b.w < 2 * H || b.h < 0.8 * H || b.chord > 0.3 * Math.min(b.w, b.h) || b.len < 1.6 * (b.w + b.h)) continue;
+      const ins = inner(b); if (ins.length >= 0.8 * (rest.length - 1) && ins.length){ out.deco = 'box'; take(new Set([b.k])); break; }
+    }
+    if (!out.deco && rest.length >= 5){
+      const hs = rest.filter(b => hFlat(b, H) && b.w > 1.5 * H && b.chord > 0.85 * b.len), vs = rest.filter(b => b.w < 0.25 * b.h && b.h > 0.9 * H && b.chord > 0.85 * b.len);
+      const others = rest.filter(b => !hs.includes(b) && !vs.includes(b)), ob = hBox(others);
+      if (ob){
+        const top = hs.find(b => b.cy < ob.y0 + 0.2 * H && b.x0 < ob.x0 + H && b.x1 > ob.x1 - H), bot = hs.find(b => b.cy > ob.y1 - 0.2 * H && b.x0 < ob.x0 + H && b.x1 > ob.x1 - H);
+        const lf = vs.find(b => b.cx < ob.x0 + 0.2 * H), rt = vs.find(b => b.cx > ob.x1 - 0.2 * H);
+        if (top && bot && lf && rt){ out.deco = 'box'; take(new Set([top.k, bot.k, lf.k, rt.k])); }
+      }
+    }
+  }
+  /* Unterstreichen: lange flache Linie unter der Schrift, darunter steht nichts */
+  if (!out.deco){
+    const cand = rest.filter(b => hFlat(b, H) && b.chord > 0.85 * b.len).sort((a, b) => b.cy - a.cy);
+    const und = [];
+    for (const b of cand){
+      const others = rest.filter(o => o !== b && !und.includes(o)), ob = hBox(others);
+      if (!ob || others.length < 2) break;
+      const cw = ob.x1 - ob.x0, lowY = pct(others.map(o => o.y1), 0.85);
+      if (b.w < Math.max(2.2 * H, 0.45 * cw) || b.cy < lowY - 0.25 * H) break;
+      if (others.some(o => o.y0 > b.cy + 0.1 * H)) break;
+      if (und.length && (Math.abs(und[0].cy - b.cy) > 0.8 * H || Math.min(und[0].x1, b.x1) - Math.max(und[0].x0, b.x0) < 0.5 * b.w)) break;
+      und.push(b); if (und.length === 2) break;
+    }
+    if (und.length){ out.deco = und.length === 2 ? 'uu' : 'u'; take(new Set(und.map(b => b.k))); }
+  }
+  /* Pfeil am Zeilenanfang: Schaft (flache Striche) links von einer Spitze „>“, beim ⇔ auch „<“ */
+  {
+    const S = rest.slice().sort((a, b) => a.x0 - b.x0);
+    const c = S.find(b => b.x0 < S[0].x0 + 4 * H && b.h < 1.6 * H && chevronDir(b) === 1);
+    if (c){
+      const pre = S.filter(b => b !== c && b.cx < c.cx);
+      const apexY = c.cy, inBand = b => Math.abs(b.cy - apexY) < 0.6 * c.h + 0.2 * H && b.h < 1.6 * H;
+      const shaft = pre.filter(b => b.h < 0.3 * Math.max(b.w, 1) && b.w > 0.35 * H && b.x1 > c.x0 - 0.3 * H);
+      const left = pre.filter(b => chevronDir(b) === -1);
+      const after = S.filter(b => b !== c && b.cx >= c.cx);
+      if (shaft.length && pre.length <= 3 && pre.every(b => inBand(b) && (shaft.includes(b) || left.includes(b))) && after.length){
+        out.arrow = left.length ? '⇔' : '⇒'; take(new Set([c.k, ...pre.map(b => b.k)]));
+      }
+    }
+  }
+  /* Umformungsangaben: hoher, gerader, senkrechter Strich mit Schrift links und kurzer Schrift rechts */
+  {
+    const body = rest.filter(b => !(b.h < 0.3 * Math.max(b.w, 1)));
+    const baseY = medianA(body.map(b => b.y1)) || 0;
+    const straightV = b => { const p = b.pts, a = p[0], e = p[p.length - 1], L = Math.hypot(e.x - a.x, e.y - a.y) || 1; return Math.max(...p.map(q => Math.abs((e.x - a.x) * (a.y - q.y) - (a.x - q.x) * (e.y - a.y)) / L)) < 0.07 * b.h; };
+    const bars = rest.filter(b => b.h > 1.3 * H && b.w < 0.22 * b.h && b.chord > 0.92 * b.len && straightV(b) && b.y1 > baseY + 0.12 * H).sort((a, b) => a.cx - b.cx);
+    const ok = [];
+    for (const b of bars){
+      const left = rest.filter(o => o !== b && !bars.includes(o) && o.cx < b.x0), right = rest.filter(o => o !== b && !bars.includes(o) && o.cx > b.x1);
+      const lb = hBox(left), rb = hBox(right);
+      if (!lb || !rb || lb.x1 - lb.x0 < 2 * H || rb.x0 - b.x1 > 2.5 * H || b.x0 - lb.x1 < 0.15 * H) continue;
+      ok.push(b);
+    }
+    if (ok.length){
+      const xs = ok.map(b => b.cx);
+      const cuts = [-1e9, ...xs, 1e9];
+      const segs = [];
+      for (let i = 0; i + 1 < cuts.length; i++) segs.push(rest.filter(o => !ok.includes(o) && o.cx > cuts[i] && o.cx < cuts[i + 1]));
+      if (segs.slice(1).every(s => s.length)){
+        out.opsBars = ok.map(b => b.k);
+        out.ops = segs.slice(1).map(s => s.map(b => b.k));
+        rest = segs[0];
+      }
+    }
+  }
+  /* weitere Rechnungen in derselben Zeile: großer Abstand */
+  {
+    const S = rest.slice().sort((a, b) => a.x0 - b.x0), blocks = [];
+    let cur = [], x1 = -1e9;
+    const gap = Math.max(1.8 * H, 36);
+    for (const b of S){ if (cur.length && b.x0 > x1 + gap){ blocks.push(cur); cur = []; } cur.push(b); x1 = Math.max(x1, b.x1); }
+    if (cur.length) blocks.push(cur);
+    out.main = (blocks[0] || []).map(b => b.k);
+    out.sides = blocks.slice(1).map(bl => bl.map(b => b.k));
+  }
+  return out;
+}
+/* Umformungsangabe lesen: gültig ist, was als Rechenbefehl lesbar ist („:2“, „·4“, „−3x“, „√“) */
+function recognizeOp(strokes, ctx){
+  const items = recogItems(strokes, ctx), C = itemsToCands(items, ctx), alts = [];
+  for (const c of C){ if (alts.length >= 6) break; if (alts.some(a => a.text === c.s)) continue; if (parseOp(c.s).op !== '?') alts.push({text:c.s, picks:c.picks, lp:c.lp}); }
+  let best = alts[0] || (C[0] ? {text:C[0].s, picks:C[0].picks} : {text:'', picks:[]});
+  /* „:x“: zwei Bögen des x werden einzeln leicht als Ziffern gelesen; das Ganze als Zeichen prüfen */
+  const m = best.text.match(/^([:*\/+\-])\d{1,2}$/), syms = items.filter(it => it.k === 'sym');
+  if (m && syms.length >= 2 && syms.length <= 3 && /[a-z]/.test(ctx.letters || '')){
+    const opIt = syms[0], rest = syms.slice(1), st = rest.flatMap(it => it.strokes || []);
+    const top = st.length ? classify(st, ctx, classWeights(ctx))[0] : null;
+    if (top && /^[a-z]$/.test(top[0]) && (ctx.letters || '').includes(top[0]) && top[1] > 0.45){
+      const merged = {k:'sym', x0:Math.min(...rest.map(it => it.x0)), x1:Math.max(...rest.map(it => it.x1)), y0:Math.min(...rest.map(it => it.y0)), y1:Math.max(...rest.map(it => it.y1)), alts:classify(st, ctx, classWeights(ctx)), cls:true, strokes:st};
+      merged.h = merged.y1 - merged.y0; merged.cy = (merged.y0 + merged.y1) / 2;
+      const it2 = [opIt, merged];
+      return {items:it2, text:m[1] + top[0], picks:[m[1], top[0]], alts:[{text:m[1] + top[0], picks:[m[1], top[0]], lp:0}], ok:true};
+    }
+  }
+  return {items, text:best.text, picks:best.picks, alts, ok:!!alts[0]};
+}
+/* Erkennen mit Zerlegung. Ergebnis wie recognizeLine (für die Hauptrechnung) plus ops, arrow, deco, subs */
+function heftRecognize(strokes, ctx, goal){
+  const seg = segmentRow(strokes, goal);
+  const pick = ks => ks.map(k => strokes[k]);
+  const pl = t => goalParse(goal, t);
+  let main = recognizeLine(pick(seg.main), ctx);
+  let ops = seg.ops.map(ks => recognizeOp(pick(ks), Object.assign({}, ctx, {labelPos:false})));
+  let subs = seg.sides.map(ks => Object.assign(recognizeLine(pick(ks), ctx), {ks}));
+  /* Umformungsangabe nur hinter einer Gleichung; sonst war der Strich doch Teil der Rechnung */
+  if (ops.length && !/=/.test(main.text)){
+    const ks = seg.main.concat(seg.opsBars || [], ...seg.ops);
+    main = recognizeLine(pick(ks), ctx); seg.main = ks; ops = [];
+  }
+  /* Rechnungen nebeneinander nur, wenn jede für sich eine Zeile ist; sonst zusammenlassen */
+  if (subs.length){
+    const standalone = t => { if (!/=/.test(t) || /^\s*=/.test(t)) return false; const p = pl(t); return !p.err; };
+    if (!standalone(main.text) || subs.some(s => !standalone(s.text))){
+      const ks = seg.main.concat(...seg.sides);
+      main = recognizeLine(pick(ks), ctx); seg.main = ks; subs = [];
+    }
+  }
+  let arrow = seg.arrow;
+  /* Pfeil als Zeichen gelesen („=)x = 5“): bei Gleichungsaufgaben ohne Weiterrechnen-Zeilen abtrennen */
+  if (!arrow && goal && goal.kind === 'solve'){
+    const m = main.text.match(/^(=[)>\/]|=>|<=>)(.*=.*)$/);
+    if (m && !pl(m[2]).err){ arrow = '⇒'; main = Object.assign({}, main, {text:m[2], arrowTxt:m[1]}); }
+  }
+  const opsOut = ops.map(o => ({items:o.items, picks:o.picks, text:o.text, alts:o.alts || []}));
+  const subsOut = subs.map(s => ({items:s.items, picks:s.picks, text:s.text, alts:s.alts || [], kind:'line'}));
+  return Object.assign({}, main, {ops:opsOut, arrow, deco:seg.deco, subs:subsOut});
+}
+/* ---- Text: „2x + 3 = 7 | −3 | :2“, „⇒ x = 5“ ---- */
+function splitOps(t){
+  let depth = 0, eq = false, cut = -1;
+  for (let i = 0; i < t.length; i++){
+    const c = t[i];
+    if (c === '(') depth++; else if (c === ')') depth--;
+    else if (c === '=' && depth === 0) eq = true;
+    else if (c === '|' && depth === 0 && eq){
+      const after = t.slice(i + 1).trim();
+      if (/^[+\-−–*·×/:÷√²^]|^sqrt|^\(\)\^?2/.test(after) && !/=/.test(after)){ cut = i; break; }
+    }
+  }
+  if (cut < 0) return {main:t, ops:[]};
+  return {main:t.slice(0, cut).trim(), ops:t.slice(cut + 1).split('|').map(x => x.trim()).filter(Boolean)};
+}
+function parseOp(src){
+  let s = src.replace(/[−–]/g, '-').replace(/[·×]/g, '*').replace(/÷/g, ':').trim();
+  if (/^(√|sqrt)\s*$/.test(s)) return {op:'sqrt', src};
+  if (/^(\^2|²|\(\s*\)\s*\^?\s*2|\(\s*\)²)$/.test(s)) return {op:'sq', src};
+  const m = s.match(/^([+\-*/:])\s*(.+)$/);
+  if (!m) return {op:'?', src};
+  const op = m[1] === ':' ? '/' : m[1], p = tryParse(m[2]);
+  if (p.err || p.parts.length !== 1) return {op:'?', src};
+  return {op, node:p.parts[0], src};
+}
+const opTex = o => o.op === 'sqrt' ? '#sqrt{ }' : o.op === 'sq' ? '( )^2' : o.op === '?' ? escH(o.src) : (o.op === '/' ? ':' : o.op === '*' ? '#cdot ' : o.op) + ' ' + toTex(o.node);
+goalParse = (orig => (goal, text) => {
+  let t = String(text || '').trim(), arrow = null;
+  const m = t.match(/^(⇒|⇔|=>|<=>|→)\s*/);
+  if (m){ arrow = /⇔|<=>/.test(m[1]) ? '⇔' : '⇒'; t = t.slice(m[0].length); }
+  const sp = splitOps(t);
+  const p = orig(goal, sp.main);
+  if (!p.err){ if (arrow) p.arrow = arrow; if (sp.ops.length) p.ops = sp.ops.map(parseOp); }
+  return p;
+})(goalParse);
+/* ---- Umformungsangabe prüfen: passt die nächste Zeile zur angegebenen Rechnung? ---- */
+function sidePoly(n, env){ const e = evalSafe(n, env); return !e.err && e.br.length === 1 ? e.br[0] : null; }
+function polyDivExact(a, d){
+  a = P.trim(a.slice()); d = P.trim(d);
+  const dn = P.deg(d); if (dn < 0) return null;
+  if (P.deg(a) < 0) return [0];
+  const q = new Array(Math.max(1, a.length - d.length + 1)).fill(0), r = a.slice();
+  for (let i = r.length - d.length; i >= 0; i--){ const c = r[i + dn] / d[dn]; q[i] = c; for (let j = 0; j <= dn; j++) r[i + j] -= c * d[j]; }
+  return r.every(x => Math.abs(x) < 1e-9) ? P.trim(q) : null;
+}
+const termCount = n => n && n.t === 'add' ? termCount(n.a) + termCount(n.b) : n && n.t === 'par' ? termCount(n.a) : 1;
+function opCheck(g, prev, cur, res){
+  if (!prev || !prev.ops || !prev.ops.length || !cur || !cur.parts || g.kind !== 'solve') return null;
+  const env = envFor(g), pp = prev.parts;
+  if (!pp || pp.length < 2) return null;
+  let L = sidePoly(pp[0], env), R = sidePoly(pp[pp.length - 1], env);
+  if (!L || !R) return null;
+  const L0 = L, R0 = R, srcAll = prev.ops.map(o => o.src).join(' | ').replace(/-/g, '−').replace(/\*/g, '·').replace(/\//g, ':');
+  let warn = '', checkable = true, lastOp = null;
+  for (const o of prev.ops){
+    lastOp = o;
+    if (o.op === 'sqrt' || o.op === 'sq'){ if (o.op === 'sq') warn += 'Quadrieren ist keine Äquivalenzumformung: Es können Lösungen dazukommen. Mach am Ende die Probe. '; checkable = false; continue; }
+    if (o.op === '?'){ checkable = false; continue; }
+    const a = sidePoly(o.node, env); if (!a){ checkable = false; continue; }
+    if (o.op === '+'){ L = P.add(L, a); R = P.add(R, a); }
+    else if (o.op === '-'){ L = P.add(L, a, -1); R = P.add(R, a, -1); }
+    else if (o.op === '*'){
+      if (P.deg(a) < 0) return {err:'Mal 0 rechnen ist keine Umformung: Danach steht nur noch 0 = 0 da.', q:null};
+      if (P.deg(a) >= 1) warn += `Beim Multiplizieren mit ${M(toTex(o.node))} können Lösungen dazukommen. `;
+      L = P.mul(L, a); R = P.mul(R, a);
+    }
+    else if (o.op === '/'){
+      if (P.deg(a) < 0) return {err:'Durch 0 darf man nicht teilen.', q:null};
+      if (P.deg(a) >= 1){
+        const z = (roots(a).s || []).filter(x => aNear(P.ev(P.add(L, R, -1), x), 0));
+        if (z.length) warn += `Achtung: Beim Teilen durch ${M(toTex(o.node))} geht die Lösung ${z.map(x => M(g.v + ' = ' + fmt(x))).join(' und ')} verloren, denn dort ist ${M(toTex(o.node))} null. Besser: ausklammern und den Satz vom Nullprodukt nutzen. `;
+        const qL = polyDivExact(L, a), qR = polyDivExact(R, a);
+        if (!qL || !qR){ checkable = false; continue; }
+        L = qL; R = qR;
+      } else { L = P.scale(L, 1 / a[0]); R = P.scale(R, 1 / a[0]); }
+    }
+  }
+  const out = {warn:warn.trim()};
+  if (!checkable) return out.warn ? out : null;
+  const Lj = sidePoly(cur.parts[0], env), Rj = sidePoly(cur.parts[cur.parts.length - 1], env);
+  if (!Lj || !Rj || cur.parts.length > 2) return out.warn ? out : null;
+  const eq = polyEqA;
+  if ((eq(Lj, L) && eq(Rj, R)) || (eq(Lj, R) && eq(Rj, L))){ out.ok = true; return out; }
+  if (res && res.status === 'ok'){ out.note = `Deine Angabe „| ${escH(srcAll)}“ passt nicht genau zu dieser Zeile. Die Zeile selbst stimmt. Schreib die Angabe passend dazu, z. B. mehrere Schritte hintereinander: „| −3 | :2“.`; return out; }
+  const okL = eq(Lj, L), okR = eq(Rj, R);
+  if (okL !== okR){
+    const bad = okL ? 'rechten' : 'linken', badN = okL ? 'rechte' : 'linke', badPrev = okL ? R0 : L0, badCur = okL ? Rj : Lj, badNode = okL ? pp[pp.length - 1] : pp[0];
+    const same = eq(badCur, badPrev);
+    const multi = termCount(badNode) > 1 && lastOp && (lastOp.op === '/' || lastOp.op === '*');
+    out.diag = same ? `Auf der ${bad} Seite fehlt „${escH(srcAll)}“: Bei einer Umformung muss auf beiden Seiten dasselbe passieren.`
+      : multi ? `Auf der ${bad} Seite stimmt „${escH(srcAll)}“ noch nicht: ${lastOp.op === '/' ? 'Teile' : 'Multipliziere'} jeden Summanden, nicht nur einen.`
+      : `Auf der ${bad} Seite stimmt „${escH(srcAll)}“ noch nicht. Rechne diese Seite noch einmal nach.`;
+    out.q = {kind:same ? 'opOneSide' : multi ? 'opDistrib' : 'opSide', q:same ? 'Was muss bei einer Umformung einer Gleichung gelten?' : multi ? `Was bedeutet „${escH(srcAll)}“ für eine Seite mit mehreren Summanden?` : `Was ergibt die ${badN} Seite nach „${escH(srcAll)}“?`,
+      opts:same ? [opt('Auf beiden Seiten wird dasselbe gerechnet.', 1, 'Richtig. Nur dann bleibt die Gleichung wahr, wie bei einer Waage.'), opt(`Es reicht, die Seite mit dem ${g.v} umzuformen.`, 0, 'Nein. Dann wäre die Waage nicht mehr im Gleichgewicht.'), opt('Man rechnet nur rechts.', 0, 'Nein: links und rechts dasselbe.')]
+        : multi ? [opt(`Jeder Summand wird ${lastOp.op === '/' ? 'geteilt' : 'multipliziert'}.`, 1, `Richtig, z. B. ${lastOp.op === '/' ? M('(4x + 6) : 2 = 2x + 3') : M('(x + 3) #cdot 2 = 2x + 6')}.`), opt('Nur der erste Summand.', 0, 'Nein. Die ganze Seite wird umgeformt, also jeder Summand.'), opt('Nur der Summand mit x.', 0, 'Nein: jeder Summand.')]
+        : [opt(M(toTex(polyNode(okL ? R : L, g.v))), 1, 'Richtig.'), opt(M(toTex(polyNode(badCur, g.v))), 0, 'Das steht in deiner Zeile. Rechne noch einmal nach.')]};
+  }
+  return out.warn || out.diag ? out : null;
+}
+/* Polynom als Knoten (für die Anzeige einer Antwortmöglichkeit) */
+function polyNode(c, v){
+  const p = tryParse(polyStr(c, v).replace(/−/g, '-'));
+  return p.err ? {t:'num', v:c[0] || 0} : p.parts[0];
+}
+/* ---- Nebenrechnung prüfen: alle Teile ergeben dieselbe Zahl (gerundet erlaubt) ---- */
+function nrCheck(g, parsed){
+  if (!parsed || parsed.err || !parsed.parts || parsed.parts.length < 2) return null;
+  const env = Object.assign({}, envFor(g)), vals = [];
+  for (const q of parsed.parts){
+    if (g.v && hasVar(q, g.v)) return null;
+    const e = evalSafe(q, env); if (e.err || e.br.length !== 1 || !P.isConst(e.br[0])) return null;
+    vals.push(e.br[0][0]);
+  }
+  for (let i = 0; i + 1 < vals.length; i++){
+    const a = vals[i], b = vals[i + 1];
+    const close = (x, y) => aNear(x, y) || (typeof numMatch === 'function' && (numMatch(y, x) || numMatch(x, y)));
+    if (!close(a, b)) return {ok:false, k:i, a, b};
+  }
+  return {ok:true};
+}
+
+/* ================= Wertetabelle von Hand: selbst gezeichnete Tabelle lesen und prüfen ================= */
+/* Die Tabelle darf mit oder ohne Linien gezeichnet werden, waagerecht (erste Zeile x, darunter f(x), g(x) …)
+   oder senkrecht (Spalten x | y). Jede Zelle wird einzeln gelesen. */
+const TW_H = 300;
+function tableCells(strokes){
+  const B = strokes.map(hInfo);
+  if (!B.length) return null;
+  const nonLine = B.filter(b => !(b.h < 0.15 * Math.max(b.w, 1) && b.w > 60) && !(b.w < 0.15 * Math.max(b.h, 1) && b.h > 60));
+  const H = hCharH(nonLine.length ? nonLine : B);
+  const isH = b => b.h < 0.15 * Math.max(b.w, 1) && b.w > 2.5 * H && b.chord > 0.85 * b.len;
+  const isV = b => b.w < 0.15 * Math.max(b.h, 1) && b.h > 1.8 * H && b.chord > 0.85 * b.len;
+  const hl = B.filter(isH), vl = B.filter(isV), C = B.filter(b => !isH(b) && !isV(b));
+  if (!C.length) return null;
+  /* Zeilen */
+  let bands = [];
+  if (hl.length){
+    const ys = hl.map(b => b.cy).sort((a, b) => a - b), edges = [-1e9, ...ys, 1e9];
+    for (let i = 0; i + 1 < edges.length; i++){ const m = C.filter(b => b.cy > edges[i] && b.cy <= edges[i + 1]); if (m.length) bands.push(m); }
+  }
+  if (!hl.length || bands.some(bd => { const y0 = Math.min(...bd.map(b => b.y0)), y1 = Math.max(...bd.map(b => b.y1)); return y1 - y0 > 2.6 * H; })){
+    /* ohne Linien (oder zu hohe Bänder): nach den Mittelhöhen der Striche trennen */
+    const S = C.slice().sort((a, b) => a.cy - b.cy); bands = []; let cur = [];
+    for (const b of S){ if (cur.length && b.cy - cur[cur.length - 1].cy > 0.6 * H){ bands.push(cur); cur = []; } cur.push(b); }
+    if (cur.length) bands.push(cur);
+  }
+  /* Spalten: senkrechte Linien trennen Bereiche, darin trennen große Lücken */
+  const vx = vl.map(b => b.cx).sort((a, b) => a - b), cuts = [-1e9];
+  vx.forEach(x => { if (x - cuts[cuts.length - 1] > 0.8 * H) cuts.push(x); }); cuts.push(1e9);
+  let cols = [];
+  for (let r = 0; r + 1 < cuts.length; r++){
+    const lo = cuts[r], hi = cuts[r + 1], iv = [];
+    bands.forEach(bd => {
+      const S = bd.filter(b => b.cx > lo && b.cx <= hi).sort((a, b) => a.x0 - b.x0); let x0 = null, x1 = -1e9;
+      for (const b of S){ if (x0 !== null && b.x0 > x1 + 0.5 * H){ iv.push([x0, x1]); x0 = null; } if (x0 === null) x0 = b.x0; x1 = Math.max(x1, b.x1); }
+      if (x0 !== null) iv.push([x0, x1]);
+    });
+    iv.sort((a, b) => a[0] - b[0]);
+    const m = [];
+    for (const [a, b] of iv){ const l = m[m.length - 1]; if (l && a <= l[1] + 0.3 * H) l[1] = Math.max(l[1], b); else m.push([a, b]); }
+    m.forEach(([a, b], i) => cols.push([i ? (m[i - 1][1] + a) / 2 : lo, i + 1 < m.length ? (b + m[i + 1][0]) / 2 : hi]));
+  }
+  const grid = bands.map(bd => cols.map(([a, b]) => bd.filter(s => s.cx > a && s.cx <= b).map(s => s.pts)));
+  return {grid, H, lines:hl.length + vl.length};
+}
+function cellNum(t){ const p = tryParse(t); if (p.err || p.parts.length !== 1) return null; const e = evalSafe(p.parts[0], {v:'x', vals:{}, fns:{}, flags:{}}); return !e.err && e.br.length === 1 && P.isConst(e.br[0]) ? e.br[0][0] : null; }
+/* Tabelle lesen: liefert {xs:[{text, val, ...}], rows:[{fn, label, cells:[…]}], vertical} */
+function readTable(strokes, names){
+  const T = tableCells(strokes); if (!T) return null;
+  const labCtx = {letters:'xy' + names.join(''), fnl:names.join(''), fnsObj:Object.fromEntries(names.map(n => [n, [0, 1]])), noRoot:true};
+  const numCtx = {letters:'', fnl:'', fnsObj:{}, noRoot:true, labelPos:false};
+  const read = (st, ctx) => { if (!st.length) return {text:'', items:[], picks:[], alts:[], val:null}; const r = recognizeLine(st, ctx); return {text:r.text, items:r.items, picks:r.picks, alts:r.alts || [], val:cellNum(r.text), strokes:st}; };
+  let g = T.grid;
+  const isNum = st => st && st.length && read(st, numCtx).val !== null;
+  const R0 = g[0] || [], C0 = g.map(r => r[0] || []);
+  const lab = st => st && st.length && /[a-z]/.test(read(st, labCtx).text) && !isNum(st);
+  const r0lab = R0.filter(lab).length, c0lab = C0.filter(lab).length;
+  /* senkrecht: Kopfzeile x | y, darunter Werte */
+  const vertical = r0lab >= 2 && c0lab <= 1;
+  if (vertical){ const t = []; g.forEach((row, i) => row.forEach((c, j) => { (t[j] = t[j] || [])[i] = c; })); g = t.map(r => r.map(c => c || [])); }
+  /* Namensspalte: die Zellen der ersten Spalte enthalten Buchstaben (x, f(x), y …) */
+  const letterCell = st => st && st.length && /[a-z]/.test(read(st, labCtx).text);
+  const hasLab = g.length > 1 && (g[0] || []).length > 1 && g.filter(r => letterCell(r[0])).length >= Math.max(1, Math.ceil(0.6 * g.filter(r => r[0] && r[0].length).length));
+  const c0 = hasLab ? 1 : 0;
+  const xs = (g[0] || []).slice(c0).map(st => read(st, numCtx));
+  const rows = g.slice(1).map((row, i) => {
+    const label = hasLab && row[0] && row[0].length ? read(row[0], labCtx) : {text:''};
+    const m = label.text.match(/^([a-z])(\(x\))?$/);
+    const fn = m && m[1] !== 'x' ? (m[1] === 'y' ? names[0] : m[1]) : names[i] || names[0];
+    return {fn, label, cells:row.slice(c0).map(st => read(st, numCtx))};
+  }).filter(r => r.cells.some(c => c.text));
+  return {xs, rows, vertical, hasLab, lines:T.lines};
+}
+class TableWriter {
+  /* spec: {names:['f', 'g'], hint} · h: {onCheck, extra, onBack} */
+  constructor(root, spec, h){
+    this.root = root; this.spec = spec; this.h = h; this.tab = null; this.marks = {}; this.kb = {};
+    root.innerHTML = `<div class="tw">
+      <div class="tw-tools btnrow">${h.onBack ? '<button type="button" class="btn btn-sm" data-a="tw-back">← Rechenblatt</button>' : ''}<button type="button" class="btn btn-sm" data-a="tw-undo">↶ Strich</button><button type="button" class="btn btn-sm tw-er" data-a="tw-eraser" aria-pressed="false">⌫ Radierer</button><button type="button" class="btn btn-sm" data-a="tw-clear">✕ leeren</button></div>
+      <div class="tw-zone"><canvas class="tw-cv" aria-label="Kariertes Feld für eine Wertetabelle"></canvas><div class="lw-lockmsg" aria-hidden="true">Erst die Rückfrage oben beantworten</div></div>
+      <p class="small tw-hint">${spec.hint || 'Zeichne eine Wertetabelle wie im Heft: oben die x-Werte, darunter die Funktionswerte; davor „x“ und den Funktionsnamen, z. B. „f(x)“. Linien sind erlaubt, aber nicht nötig.'}</p>
+      <div class="tw-read" aria-live="polite"></div>
+      <div class="lw-act btnrow"><button type="button" class="btn btn-primary" data-a="tw-check">Tabelle prüfen</button>${h.extra || ''}</div>
+    </div>`;
+    this.cv = root.querySelector('.tw-cv'); this.readEl = root.querySelector('.tw-read'); this.zone = root.querySelector('.tw-zone');
+    this.cv.style.height = (spec.height || TW_H) + 'px';
+    this.ink = new InkCanvas(this.cv, {lw:2.6, zone:this.zone, bg:(c, w, hh) => this.bg(c, w, hh), onStart:() => clearTimeout(this.t), onChange:() => this.sched(), onFrozen:() => h.onFrozen && h.onFrozen()});
+    root.addEventListener('click', e => this.click(e));
+    root.addEventListener('input', e => { const inp = e.target.closest('.tw-in'); if (!inp) return; this.kb[inp.dataset.k] = inp.value.trim(); delete this.marks[inp.dataset.k]; });
+    this.render();
+  }
+  bg(c, w, h){
+    c.save(); c.fillStyle = cssVar('--sheet'); c.fillRect(0, 0, w, h); c.strokeStyle = cssVar('--grid'); c.lineWidth = 1; c.globalAlpha = .8;
+    for (let x = 0.5; x < w; x += 22){ c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); }
+    for (let y = 0.5; y < h; y += 22){ c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+    c.restore();
+  }
+  sched(){ clearTimeout(this.t); this.t = setTimeout(() => { const quiet = nowMs() - Math.max(this.ink.lastUpT || 0, INK.contact ? INK.inkT : 0); if (this.ink.cur || quiet < 600) return this.sched(); this.recognize(); }, 650); }
+  recognize(){ this.tab = this.ink.strokes.length ? readTable(this.ink.strokes, this.spec.names) : null; this.marks = {}; this.render(); }
+  /* Zellwert: Tastatur hat Vorrang vor der Handschrift */
+  cell(k, c){ const t = this.kb[k] !== undefined && this.kb[k] !== '' ? this.kb[k] : c ? c.text : ''; return {text:t, val:cellNum(t), kb:this.kb[k] !== undefined && this.kb[k] !== ''}; }
+  entries(){
+    const T = this.tab; if (!T) return [];
+    const out = [];
+    T.rows.forEach((r, i) => r.cells.forEach((c, j) => {
+      const xv = this.cell('x' + j, T.xs[j]), yv = this.cell(i + '_' + j, c);
+      if (!yv.text && !xv.text) return;
+      out.push({k:i + '_' + j, fn:r.fn, x:xv, y:yv});
+    }));
+    return out;
+  }
+  render(){
+    const T = this.tab, IC = {ok:'✓', err:'✗', unread:'?'};
+    if (!T){ this.readEl.innerHTML = '<span class="small">Noch keine Tabelle gelesen. Unter dem Feld erscheint dann, was gelesen wurde.</span>'; return; }
+    const cellH = (k, c) => { const v = this.cell(k, c), m = this.marks[k] || ''; return `<td class="tw-c ${m}"><span class="tw-v">${v.text ? R('$' + escH(v.text).replace(/\*/g, '#cdot ') + '$') : '<span class="muted">·</span>'}</span>${m ? `<span class="tw-m">${IC[m] || ''}</span>` : ''}<button type="button" class="tw-ed" data-a="tw-edit" data-k="${k}" title="Wert eintippen">⌨</button>${this.edit === k ? `<input class="tw-in" data-k="${k}" type="text" value="${escH(v.text)}" autocomplete="off">` : ''}</td>`; };
+    this.readEl.innerHTML = `<div class="small">So wurde die Tabelle gelesen${T.vertical ? ' (senkrecht geschrieben)' : ''}:</div><table class="tw-tab"><tr><th>${R('$x$')}</th>${T.xs.map((c, j) => cellH('x' + j, c)).join('')}</tr>${T.rows.map((r, i) => `<tr><th>${R('$' + r.fn + '(x)$')}</th>${r.cells.map((c, j) => cellH(i + '_' + j, c)).join('')}</tr>`).join('')}</table>${this.msg ? `<p class="small tw-msg">${R(this.msg)}</p>` : ''}`;
+    if (this.edit){ const inp = this.readEl.querySelector('.tw-in'); if (inp){ inp.focus(); inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); this.edit = null; this.render(); } }); } }
+  }
+  click(e){
+    const b = e.target.closest('[data-a]'); if (!b) return;
+    const a = b.dataset.a;
+    if (a === 'tw-undo') return this.ink.undo();
+    if (a === 'tw-eraser'){ const on = !this.ink.eraser; this.ink.eraser = on; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); this.zone.classList.toggle('erasing', on); return; }
+    if (a === 'tw-clear'){ this.ink.clear(); this.kb = {}; this.marks = {}; this.tab = null; this.msg = ''; return this.render(); }
+    if (a === 'tw-edit'){ this.edit = this.edit === b.dataset.k ? null : b.dataset.k; return this.render(); }
+    if (a === 'tw-check') return this.h.onCheck && this.h.onCheck();
+    if (a === 'tw-back') return this.h.onBack && this.h.onBack();
+    if (this.h.onExtra) this.h.onExtra(a);
+  }
+  lock(on){ this.root.classList.toggle('locked', on); this.ink.frozen = on; this.root.querySelectorAll('button, input').forEach(x => x.disabled = on); }
+}
+/* Ziel geeignet für eine Tabelle: alle gesuchten Werte sind Funktionswerte f(Zahl) */
+const tableable = g => g && g.kind === 'value' && !g.vec && !g.num && g.targets && g.targets.length >= 2 && g.targets.every(t => t.fn && typeof t.x === 'number');
+GoalRunner.prototype.checkTable = function(){
+  if (this.done) return;
+  const W = this.w, g = this.goal, st = this.st;
+  clearTimeout(W.t); if (W.ink.strokes.length && !W.tab) W.recognize();
+  this.tutor.innerHTML = ''; W.msg = '';
+  const E = W.entries();
+  if (!E.length){ W.render(); return this.note('Zeichne zuerst eine Tabelle mit x-Werten und Funktionswerten.'); }
+  let first = null, unread = null, e = 0, t = 0;
+  W.marks = {};
+  for (const en of E){
+    if (en.x.val === null || en.y.val === null){ W.marks[en.k] = 'unread'; if (!unread) unread = en; continue; }
+    const text = `${en.fn}(${fmt(en.x.val)})=${en.y.text}`, parsed = goalParse(g, text);
+    if (parsed.err){ W.marks[en.k] = 'unread'; if (!unread) unread = en; continue; }
+    const res = analyzeLine(g, st, parsed); t++;
+    if (res.status === 'ok'){ e++; W.marks[en.k] = 'ok'; if (!st.doneT.has(res.target)) this.accept(parsed, res); continue; }
+    W.marks[en.k] = 'err'; if (!first) first = {en, res, parsed, text};
+  }
+  W.render();
+  if (unread){ const n = unread.fn + '(' + (unread.x.text || '?') + ')'; return this.note(`Der Wert bei ${M(escH(n))} ist noch nicht eindeutig lesbar (oder der x-Wert darüber). Tippe in der Tabelle auf ⌨ und gib ihn ein, oder schreib ihn deutlicher.`); }
+  const miss = g.targets.filter(tg => !st.doneT.has(tg.label) && !E.some(en => en.fn === tg.fn && aNear(en.x.val, tg.x)));
+  this.tutor.insertAdjacentHTML('beforeend', `<div class="pathcard"><div class="pc-h">Bewertung der Tabelle</div><div class="pc-pts"><b>${ptsTxt(e, t + miss.length)}</b> <span class="small">(ein Punkt je Wert)</span></div>${miss.length ? `<p class="small">Noch nicht in der Tabelle: ${miss.map(tg => M(tg.label)).join(', ')}.</p>` : ''}</div>`);
+  if (!this.firstScore && !miss.length) this.firstScore = {e, t, n:{ok:e, ff:0, err:t - e}, miss:[]};
+  if (!first){
+    if (this.isComplete()) return this.complete('Alle Werte in der Tabelle stimmen.');
+    return this.addNote('Alle eingetragenen Werte stimmen. Ergänze die fehlenden Spalten oder Zeilen.');
+  }
+  const ekind = first.res.q && first.res.q.kind || 'aufgabe';
+  this.lastErr = {html:first.res.html || '', line:first.text, after:first.res.q && first.res.q.after};
+  LM.err(ekind, this.sub.id); st.fails++;
+  W.lock(true);
+  questionCard(this.tutor, {q:first.res.q, html:`${M(escH(first.en.fn + '(' + fmt(first.en.x.val) + ')'))}: ${first.res.html || 'Dieser Wert stimmt nicht.'}`}, {task:this.sub.taskText || '', prev:'', line:first.text, sheet:true}, () => {
+    W.lock(false);
+    if (st.fails >= 2){
+      this.st.helped = true;
+      const fe = g.fns && g.fns[first.en.fn], xv = first.en.x.val, poly = g.fnsPoly && g.fnsPoly[first.en.fn];
+      if (fe && poly){ const pp = goalParse(g, `${first.en.fn}(${fmt(xv)})=${String(fe).replace(/x/g, '(' + xv + ')')}`); if (!pp.err) W.msg = `So geht es: ${M(lineTex(pp) + ' = ' + fmt(P.ev(poly, xv)))}. Schreib den richtigen Wert in die Tabelle.`; }
+      W.render();
+    }
+    this.addNote('Korrigiere den Wert in der Tabelle: radieren und neu schreiben oder auf ⌨ tippen. Dann wieder „Tabelle prüfen“.');
+  });
+};
+
+/* ================= Nachschlagen: Erklärungen zu den Begriffen der Buchseiten (offline) ================= */
+/* x: Erklärung · g: Grundvorstellung („so kannst du es dir vorstellen“) · b: Beispiel · f: typischer Fehler · see: verwandte Einträge
+   Formeln in $…$ in der Schreibweise der Lernhilfe (#frac, #sqrt, #pm, #cdot, #vec, #col). */
+const LEX = [
+  {id:'qfunk', ch:'qf', t:'Quadratische Funktion', kw:'quadratische funktion allgemeine form ax2 bx c funktionsterm grad zwei',
+   x:'Eine quadratische Funktion hat die Form $f(x) = ax^{2} + bx + c$ mit $a #neq 0$. Ihr Graph ist eine Parabel.',
+   b:'$f(x) = 2x^{2} - 3x + 1$: Hier ist $a = 2$, $b = -3$, $c = 1$.', f:'Ist $a = 0$, ist es keine quadratische, sondern eine lineare Funktion.', see:['parabel', 'spf']},
+  {id:'parabel', ch:'qf', t:'Parabel und Normalparabel', kw:'parabel normalparabel graph form symmetrie achsensymmetrisch',
+   x:'Der Graph einer quadratischen Funktion heißt Parabel. Die Normalparabel gehört zu $f(x) = x^{2}$: Scheitel im Ursprung, nach oben geöffnet, symmetrisch zur y-Achse.',
+   g:'Jede Parabel ist eine verschobene und gestreckte, gestauchte oder gespiegelte Normalparabel.', see:['scheitel', 'streck', 'versch']},
+  {id:'scheitel', ch:'qf', t:'Scheitelpunkt', kw:'scheitelpunkt scheitel tiefpunkt hochpunkt extrempunkt s( höchster tiefster punkt',
+   x:'Der Scheitelpunkt ist der tiefste Punkt einer nach oben geöffneten oder der höchste Punkt einer nach unten geöffneten Parabel. Die Parabel ist symmetrisch zur senkrechten Geraden durch den Scheitel.',
+   b:'$f(x) = (x - 2)^{2} - 1$ hat den Scheitel $S(2|-1)$.', f:'Vorzeichenfalle: Bei $(x - 2)^{2}$ liegt der Scheitel bei $x = 2$, nicht bei $x = -2$.', see:['spf', 'versch']},
+  {id:'spf', ch:'qf', t:'Scheitelpunktform', kw:'scheitelpunktform scheitelform a(x-d)^2+e ablesen',
+   x:'In der Scheitelpunktform $f(x) = a(x - d)^{2} + e$ liest du den Scheitel $S(d|e)$ und den Streckfaktor $a$ direkt ab.',
+   b:'$f(x) = -#frac{1}{2}(x + 2)^{2} - 1$: $a = -#frac{1}{2}$, $d = -2$, $e = -1$, also $S(-2|-1)$, nach unten geöffnet und breiter als die Normalparabel.',
+   f:'$(x + 2)$ bedeutet $d = -2$, denn $x + 2 = x - (-2)$.', see:['scheitel', 'streck', 'qe']},
+  {id:'streck', ch:'qf', t:'Streckfaktor a', kw:'streckfaktor faktor a öffnung geöffnet gestreckt gestaucht breiter schmaler steiler ablesen ablese-regel',
+   x:'Der Faktor $a$ bestimmt Öffnung und Form: $a > 0$ heißt nach oben, $a < 0$ nach unten geöffnet. Bei $|a| > 1$ ist die Parabel schmaler (gestreckt), bei $0 < |a| < 1$ breiter (gestaucht).',
+   g:'Ablese-Regel: Vom Scheitel 1 Einheit nach rechts oder links, dann $a$ Einheiten nach oben (bei negativem $a$ nach unten). Bei 2 Einheiten zur Seite sind es $4a$.',
+   b:'Geht der Graph vom Scheitel aus 1 nach rechts und 3 nach oben, ist $a = 3$.', see:['spf', 'versch']},
+  {id:'versch', ch:'qf', t:'Verschieben: d und e', kw:'verschieben verschiebung verschoben nach rechts links oben unten transformation parameter d e',
+   x:'$e$ verschiebt den Graphen nach oben ($e > 0$) oder unten ($e < 0$). $d$ verschiebt nach rechts ($d > 0$) oder links ($d < 0$): Bei $f(x) = (x - 3)^{2}$ ist die Normalparabel um 3 nach rechts verschoben.',
+   g:'Warum nach rechts, obwohl dort ein Minus steht? Die Klammer wird null, wenn $x = 3$ ist. Dort hat die Parabel jetzt ihren Scheitel.', see:['spf', 'scheitel']},
+  {id:'nst', ch:'qf', t:'Nullstelle', kw:'nullstelle nullstellen schnittpunkt x-achse x achse f(x)=0 null',
+   x:'Nullstellen sind die x-Werte mit $f(x) = 0$. Dort schneidet oder berührt der Graph die x-Achse. Du setzt $f(x) = 0$ und löst die Gleichung.',
+   b:'$f(x) = x^{2} - 4$: $x^{2} - 4 = 0$, also $x = 2$ oder $x = -2$.', f:'Eine Parabel kann keine, eine oder zwei Nullstellen haben.', see:['qgl', 'diskr']},
+  {id:'yachse', ch:'qf', t:'Schnittpunkt mit der y-Achse', kw:'y-achse y achse y-achsenabschnitt schnittpunkt f(0) achsenabschnitt',
+   x:'Auf der y-Achse ist $x = 0$. Der Schnittpunkt ist also $S_{y}(0|f(0))$. Bei $f(x) = ax^{2} + bx + c$ ist $f(0) = c$.', b:'$f(x) = x^{2} - 4x - 45$: $f(0) = -45$, also $S_{y}(0|-45)$.', see:['einsetzen']},
+  {id:'einsetzen', ch:'qf', t:'Funktionswert berechnen (einsetzen)', kw:'funktionswert funktionswerte einsetzen werte ausrechnen berechnen f(-10) stelle klammer negative zahl',
+   x:'Für $f(-3)$ ersetzt du jedes $x$ durch $(-3)$, mit Klammer. Dann rechnest du: Klammern zuerst, dann Potenzen, dann Punkt vor Strich.',
+   b:'$f(x) = x^{2} - 2x$: $f(-3) = (-3)^{2} - 2 #cdot (-3) = 9 + 6 = 15$.', f:'$-3^{2} = -9$, aber $(-3)^{2} = 9$. Ohne Klammer wird nur die 3 quadriert.', see:['werttab']},
+  {id:'qgl', ch:'qf', t:'Quadratische Gleichung: welches Verfahren?', kw:'quadratische gleichung lösen verfahren normalform x2+px+q welcher weg wie löse ich',
+   x:'Bring die Gleichung auf die Form $ax^{2} + bx + c = 0$. Dann hängt das schnellste Verfahren von der Form ab: Ohne $x$-Glied ($x^{2} = 9$) ziehst du die Wurzel. Ohne Zahl ($x^{2} - 5x = 0$) klammerst du $x$ aus. Steht ein Produkt $= 0$ da, nutzt du den Satz vom Nullprodukt. Sonst hilft die pq-Formel oder die quadratische Ergänzung.',
+   see:['pq', 'ausklam', 'wurzel', 'nullprod', 'qe']},
+  {id:'pq', ch:'qf', t:'pq-Formel', kw:'pq-formel pq formel p q lösungsformel normalform',
+   x:'Für $x^{2} + px + q = 0$ gilt $x_{1,2} = -#frac{p}{2} #pm #sqrt{(#frac{p}{2})^{2} - q}$. Vor $x^{2}$ muss eine 1 stehen; sonst teilst du zuerst durch den Faktor vor $x^{2}$.',
+   b:'$x^{2} - 4x - 45 = 0$: $p = -4$, $q = -45$, also $x_{1,2} = 2 #pm #sqrt{4 + 45} = 2 #pm 7$, $x_{1} = 9$, $x_{2} = -5$.',
+   f:'Vorzeichen: Bei $p = -4$ ist $-#frac{p}{2} = +2$. Und $q$ wird abgezogen: $-(-45) = +45$.', see:['diskr', 'abc', 'qgl']},
+  {id:'diskr', ch:'qf', t:'Diskriminante: Anzahl der Lösungen', kw:'diskriminante d anzahl lösungen wie viele lösungen keine lösung eine lösung zwei lösungen negativ unter der wurzel',
+   x:'Der Term unter der Wurzel der pq-Formel, $D = (#frac{p}{2})^{2} - q$, entscheidet: Bei $D > 0$ gibt es zwei Lösungen, bei $D = 0$ eine, bei $D < 0$ keine.',
+   g:'Aus einer negativen Zahl gibt es keine reelle Wurzel. Am Graphen: Die Parabel schneidet die x-Achse zweimal, berührt sie oder verfehlt sie.', see:['pq', 'nst']},
+  {id:'abc', ch:'qf', t:'abc-Formel (Mitternachtsformel)', kw:'abc-formel abc formel mitternachtsformel a b c',
+   x:'Für $ax^{2} + bx + c = 0$ gilt $x_{1,2} = #frac{-b #pm #sqrt{b^{2} - 4ac}}{2a}$. Sie liefert dieselben Lösungen wie die pq-Formel nach dem Teilen durch $a$.', see:['pq']},
+  {id:'nullprod', ch:'qf', t:'Satz vom Nullprodukt', kw:'nullprodukt satz vom nullprodukt produkt null faktor null (x-9)(x+5) klammern null',
+   x:'Ein Produkt ist genau dann null, wenn mindestens ein Faktor null ist. Aus $(x - 9)(x + 5) = 0$ folgt $x - 9 = 0$ oder $x + 5 = 0$, also $x = 9$ oder $x = -5$.',
+   f:'Das gilt nur, wenn auf der anderen Seite 0 steht. Aus $(x - 1)(x - 2) = 6$ folgt nicht $x - 1 = 6$.', see:['ausklam', 'linfak']},
+  {id:'ausklam', ch:'qf', t:'Ausklammern', kw:'ausklammern x ausklammern faktorisieren ohne zahl gemeinsamer faktor durch x teilen lösung verloren',
+   x:'Fehlt die Zahl ohne $x$, klammerst du $x$ aus: $x^{2} - 5x = 0 #Lra x(x - 5) = 0$. Mit dem Satz vom Nullprodukt folgt $x = 0$ oder $x = 5$.',
+   f:'Nicht durch $x$ teilen: Aus $x^{2} = 5x$ wird mit „$: x$“ nur $x = 5$, die Lösung $x = 0$ geht verloren.', see:['nullprod', 'aequi']},
+  {id:'wurzel', ch:'qf', t:'Wurzel ziehen (±)', kw:'wurzel ziehen wurzel quadrat isolieren plusminus plus minus ± zwei lösungen beide vorzeichen x^2=',
+   x:'Steht das Quadrat allein, z. B. $x^{2} = 9$, dann gilt $x = 3$ oder $x = -3$, kurz $x = #pm 3$. Denn auch $(-3)^{2} = 9$.',
+   b:'$(x - 2)^{2} = 16$: $x - 2 = #pm 4$, also $x = 6$ oder $x = -2$.', f:'Bei $x^{2} = -4$ gibt es keine Lösung, denn kein Quadrat ist negativ.', see:['qgl']},
+  {id:'binom', ch:'qf', t:'Binomische Formeln', kw:'binomische formeln binomisch ausmultiplizieren klammer quadrat (a+b)^2',
+   x:'$(a + b)^{2} = a^{2} + 2ab + b^{2}$, $(a - b)^{2} = a^{2} - 2ab + b^{2}$ und $(a + b)(a - b) = a^{2} - b^{2}$.',
+   f:'$(x - 3)^{2}$ ist nicht $x^{2} - 9$, sondern $x^{2} - 6x + 9$.', see:['qe']},
+  {id:'qe', ch:'qf', t:'Quadratische Ergänzung', kw:'quadratische ergänzung ergänzen scheitelform umwandeln in scheitelpunktform',
+   x:'So wandelst du $x^{2} + px + q$ in die Scheitelpunktform um: Das Quadrat des halben $p$ addieren und wieder abziehen.',
+   b:'$x^{2} - 6x + 5 = (x^{2} - 6x + 9) - 9 + 5 = (x - 3)^{2} - 4$, Scheitel $S(3|-4)$.', see:['spf', 'binom']},
+  {id:'aequi', ch:'qf', t:'Umformen: auf beiden Seiten dasselbe', kw:'umformen äquivalenzumformung äquivalent beide seiten waage auf die andere seite bringen umformungsangabe strich minus teilen',
+   x:'Eine Gleichung bleibt gleichwertig, wenn du auf beiden Seiten dasselbe rechnest: dieselbe Zahl addieren oder abziehen, mit derselben Zahl ($#neq 0$) malnehmen oder durch sie teilen. Im Heft steht die Rechnung hinter einem Strich: $2x + 3 = 7 #quad| -3$.',
+   g:'Stell dir eine Waage im Gleichgewicht vor: Nimmst du auf beiden Seiten dasselbe weg, bleibt sie im Gleichgewicht.',
+   f:'Durch 0 oder durch einen Term mit $x$ zu teilen ist keine Äquivalenzumformung: Dabei können Lösungen verloren gehen.', see:['ausklam']},
+  {id:'schnitt2', ch:'qf', t:'Schnittpunkte zweier Graphen', kw:'schnittpunkt schnittpunkte gleichsetzen f(x)=g(x) schneiden zwei graphen berührpunkt',
+   x:'In einem Schnittpunkt haben beide Funktionen denselben Wert. Setz $f(x) = g(x)$, löse nach $x$ und berechne den y-Wert mit einer der beiden Funktionen.',
+   b:'$f(x) = x^{2} - 7$, $g(x) = 4x - 11$: $x^{2} - 7 = 4x - 11 #Lra x^{2} - 4x + 4 = 0 #Lra (x - 2)^{2} = 0$, also $x = 2$ und $y = f(2) = -3$: ein Berührpunkt.', see:['qgl']},
+  {id:'linfak', ch:'qf', t:'Faktorisierte Form', kw:'faktorisierte form linearfaktor linearfaktoren nullstellenform produktform a(x-x1)(x-x2)',
+   x:'$f(x) = a(x - x_{1})(x - x_{2})$ zeigt die Nullstellen $x_{1}$ und $x_{2}$ direkt. Der Scheitel liegt genau in der Mitte: $x_{S} = #frac{x_{1} + x_{2}}{2}$.', see:['nullprod', 'scheitel']},
+  {id:'aufstell', ch:'qf', t:'Funktionsgleichung aus Scheitel und Punkt', kw:'aufstellen funktionsgleichung bestimmen scheitel und punkt a bestimmen gleichung finden',
+   x:'Setz den Scheitel $S(d|e)$ in $f(x) = a(x - d)^{2} + e$ ein. Dann setzt du die Koordinaten des Punktes $P$ ein und löst nach $a$ auf.',
+   b:'$S(2|2)$, $P(1|1)$: $1 = a(1 - 2)^{2} + 2$, also $a = -1$ und $f(x) = -(x - 2)^{2} + 2$.', see:['spf', 'streck']},
+  {id:'werttab', ch:'qf', t:'Wertetabelle', kw:'wertetabelle tabelle punkte berechnen stützpunkte werte',
+   x:'Eine Wertetabelle listet zu ausgewählten x-Werten die Funktionswerte. Bei Parabeln wählst du die x-Werte symmetrisch um den Scheitel. Bei passenden Aufgaben kannst du im Rechenblatt „▦ als Tabelle“ wählen und die Tabelle von Hand zeichnen.', see:['einsetzen']},
+  {id:'linfkt', ch:'qf', t:'Lineare Funktion', kw:'lineare funktion gerade steigung y-achsenabschnitt mx+b steigungsdreieck',
+   x:'$f(x) = mx + b$: Der Graph ist eine Gerade. $m$ ist die Steigung (1 nach rechts, $m$ nach oben), $b$ der y-Achsenabschnitt.', see:['schnitt2']},
+  {id:'ks3', ch:'vek', t:'Koordinatensystem im Raum', kw:'koordinatensystem raum x1 x2 x3 achsen schrägbild dreidimensional 3d punkt koordinaten',
+   x:'Im Raum gibt es drei Achsen: $x_{1}$ (nach vorn, im Schrägbild schräg), $x_{2}$ (nach rechts) und $x_{3}$ (nach oben). Ein Punkt hat drei Koordinaten, z. B. $P(1|3|2)$.',
+   g:'Im Schrägbild wird die $x_{1}$-Achse schräg und verkürzt gezeichnet, oft eine Kästchendiagonale pro Einheit, wenn auf den anderen Achsen 2 Kästchen eine Einheit sind.', see:['achsen', 'ortsv']},
+  {id:'achsen', ch:'vek', t:'Punkte auf Achsen und in Koordinatenebenen', kw:'achse koordinatenebene x1x2-ebene ebene null koordinate liegt auf',
+   x:'Auf der $x_{2}$-Achse sind die beiden anderen Koordinaten 0, z. B. $B(0|6|0)$. In der $x_{1}x_{2}$-Ebene ist $x_{3} = 0$, entsprechend für die anderen Ebenen.', see:['ks3']},
+  {id:'vektor', ch:'vek', t:'Vektor', kw:'vektor vektoren pfeil pfeile verschiebung spaltenvektor koordinaten richtung',
+   x:'Ein Vektor beschreibt eine Verschiebung: wie weit es in jede Achsenrichtung geht. Man schreibt ihn als Spalte, z. B. $#vec{v} = #col{2;-1;3}$. Alle Pfeile mit gleicher Länge und Richtung gehören zum selben Vektor.',
+   g:'Ein Pfeil ist nur ein Vertreter. Der Vektor ist die Verschiebung selbst, egal wo der Pfeil beginnt.', see:['ortsv', 'verbv', 'nullv']},
+  {id:'ortsv', ch:'vek', t:'Ortsvektor', kw:'ortsvektor op vom ursprung ortsvektoren',
+   x:'Der Ortsvektor $#vec{OP}$ führt vom Ursprung $O$ zum Punkt $P$. Er hat dieselben Koordinaten wie der Punkt: Aus $P(3|1|2)$ wird $#vec{OP} = #col{3;1;2}$.', see:['verbv']},
+  {id:'verbv', ch:'vek', t:'Verbindungsvektor: Spitze minus Fuß', kw:'verbindungsvektor ab berechnen spitze fuß endpunkt anfangspunkt von a nach b zwischen zwei punkten vektor zwischen',
+   x:'$#vec{AB} = #vec{OB} - #vec{OA}$: Koordinaten von $B$ minus Koordinaten von $A$, kurz „Spitze minus Fuß“.',
+   b:'$A(1|2|0)$, $B(4|0|5)$: $#vec{AB} = #col{4 - 1;0 - 2;5 - 0} = #col{3;-2;5}$.', f:'Die Reihenfolge zählt: $#vec{BA} = -#vec{AB}$.', see:['gegenv', 'betrag']},
+  {id:'gegenv', ch:'vek', t:'Gegenvektor', kw:'gegenvektor gegenrichtung minus vektor entgegengesetzt ba umgekehrt',
+   x:'Der Gegenvektor $-#vec{v}$ hat dieselbe Länge, zeigt aber in die Gegenrichtung: Alle Koordinaten wechseln das Vorzeichen. Es gilt $#vec{BA} = -#vec{AB}$.', b:'$#vec{v} = #col{2;-1;3}$ hat den Gegenvektor $-#vec{v} = #col{-2;1;-3}$.', see:['nullv']},
+  {id:'nullv', ch:'vek', t:'Nullvektor', kw:'nullvektor null vektor keine verschiebung länge null',
+   x:'Der Nullvektor $#vec{0} = #col{0;0;0}$ beschreibt „keine Verschiebung“. Er hat die Länge 0 und keine Richtung.',
+   g:'Wer von $A$ nach $B$ und wieder zurück nach $A$ geht, hat sich insgesamt nicht bewegt: $#vec{AB} + #vec{BA} = #vec{0}$. Ebenso gilt $#vec{v} + (-#vec{v}) = #vec{0}$.', see:['gegenv']},
+  {id:'betrag', ch:'vek', t:'Betrag (Länge) eines Vektors, Abstand zweier Punkte', kw:'betrag länge lang vektorlänge |v| abstand entfernung abstand zweier punkte wie lang',
+   x:'$|#vec{v}| = #sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}$. Das ist der Satz des Pythagoras, im Raum zweimal angewendet. Der Abstand zweier Punkte ist die Länge von $#vec{AB}$.',
+   b:'$#vec{v} = #col{2;-1;2}$: $|#vec{v}| = #sqrt{4 + 1 + 4} = 3$.', f:'Negative Koordinaten werden quadriert und damit positiv: $(-1)^{2} = 1$.', see:['pyth', 'verbv']},
+  {id:'vadd', ch:'vek', t:'Vektoren addieren', kw:'addieren addition summe vektoren addieren pfeile aneinanderhängen hintereinander',
+   x:'Vektoren addierst du koordinatenweise: $#col{1;2} + #col{3;-1} = #col{4;1}$. Geometrisch hängst du die Pfeile aneinander; der Summenpfeil geht vom Anfang des ersten bis zur Spitze des letzten.', see:['smul', 'linko']},
+  {id:'smul', ch:'vek', t:'Vielfaches eines Vektors', kw:'vielfaches mal vektor skalar skalarmultiplikation doppelt halb zahl mal vektor',
+   x:'Bei $r #cdot #vec{v}$ wird jede Koordinate mit $r$ multipliziert. Für $r > 0$ bleibt die Richtung, die Länge wird $|r|$-mal so groß; für $r < 0$ zeigt der Pfeil in die Gegenrichtung.', b:'$2 #cdot #col{-4;-8} = #col{-8;-16}$.', see:['kollin', 'vadd']},
+  {id:'linko', ch:'vek', t:'Linearkombination', kw:'linearkombination kombination zusammensetzen weg entlang der kanten',
+   x:'Eine Linearkombination ist eine Summe von Vielfachen, z. B. $2#vec{a} - 3#vec{b}$. Erst rechnest du die Vielfachen, dann die Summe. Einen Weg entlang von Kanten schreibst du so auf; gegen die Pfeilrichtung zählt negativ.', see:['vadd', 'smul']},
+  {id:'mitte', ch:'vek', t:'Mittelpunkt einer Strecke', kw:'mittelpunkt mitte halbieren m berechnen mittelwert seitenmitte',
+   x:'Jede Koordinate des Mittelpunkts ist der Mittelwert der Koordinaten von $A$ und $B$: $m_{1} = #frac{a_{1} + b_{1}}{2}$ usw. Vektoriell: $#vec{OM} = #vec{OA} + #frac{1}{2}#vec{AB}$.', b:'$A(3|2|5)$, $B(5|2|3)$: $M(4|2|4)$.', see:['verbv']},
+  {id:'kollin', ch:'vek', t:'Kollinear (parallele Vektoren)', kw:'kollinear parallel vielfaches voneinander gleiche richtung prüfen s',
+   x:'Zwei Vektoren sind kollinear, wenn einer ein Vielfaches des anderen ist: $#vec{b} = s #cdot #vec{a}$. Prüf dasselbe $s$ in allen Koordinaten.',
+   b:'$#col{-8;-6;4}$ und $#col{4;3;2}$: $s = -2$ passt bei den ersten beiden Koordinaten, aber $2 #cdot (-2) = -4 #neq 4$. Also nicht kollinear.', see:['smul', 'parall']},
+  {id:'parall', ch:'vek', t:'Parallelogramm nachweisen', kw:'parallelogramm viereck nachweis nachweisen beweisen ab=dc vierter eckpunkt fehlender punkt',
+   x:'$ABCD$ ist ein Parallelogramm, wenn $#vec{AB} = #vec{DC}$ gilt (dann ist auch $#vec{AD} = #vec{BC}$). Achte auf die Reihenfolge der Ecken. Einen fehlenden Eckpunkt erreichst du so: $#vec{OD} = #vec{OA} + #vec{BC}$.', see:['verbv', 'kollin']},
+  {id:'pyth', ch:'vek', t:'Satz des Pythagoras', kw:'pythagoras satz des pythagoras hypotenuse kathete rechtwinklig a^2+b^2=c^2 höhe dreieck',
+   x:'Im rechtwinkligen Dreieck gilt $a^{2} + b^{2} = c^{2}$; $c$ ist die Hypotenuse (dem rechten Winkel gegenüber, die längste Seite).',
+   f:'Für eine Kathete wird subtrahiert: $h^{2} = 8,5^{2} - 6,8^{2}$, nicht addiert.', see:['betrag', 'trig']},
+  {id:'trig', ch:'vek', t:'Sinus, Kosinus, Tangens', kw:'sinus kosinus tangens sin cos tan winkel gegenkathete ankathete grad taschenrechner',
+   x:'Im rechtwinkligen Dreieck gilt: sin(α) = Gegenkathete : Hypotenuse, cos(α) = Ankathete : Hypotenuse, tan(α) = Gegenkathete : Ankathete. Den Winkel bekommst du mit $sin^{-1}$, $cos^{-1}$ oder $tan^{-1}$.',
+   f:'Der Taschenrechner muss auf Grad (DEG) stehen. Gegen- und Ankathete hängen vom Winkel ab, um den es geht.', see:['pyth']},
+  {id:'lgs', ch:'vek', t:'Lineares Gleichungssystem', kw:'gleichungssystem lgs zwei gleichungen additionsverfahren gleichsetzungsverfahren einsetzungsverfahren probe',
+   x:'Zwei Gleichungen mit zwei Unbekannten: Beim Gleichsetzungsverfahren löst du beide nach derselben Variablen auf und setzt gleich. Beim Additionsverfahren vervielfachst du die Gleichungen so, dass beim Addieren eine Variable wegfällt. Am Ende machst du die Probe in beiden Gleichungen.', see:['aequi']},
+  {id:'schwer', ch:'vek', t:'Schwerpunkt eines Dreiecks', kw:'schwerpunkt seitenhalbierende dreieck 2:1',
+   x:'Die drei Seitenhalbierenden schneiden sich im Schwerpunkt $S$; er teilt jede im Verhältnis 2 : 1. Es gilt $#vec{OS} = #frac{1}{3}(#vec{OA} + #vec{OB} + #vec{OC})$.', see:['mitte']},
+  {id:'heft', ch:'all', t:'So schreibst du im Rechenblatt', kw:'schreiben rechenblatt eingeben eingabe strich umformungsstrich unterstreichen nebenrechnung durchstreichen tabelle wie schreibe ich',
+   x:'Jeder Schritt steht auf einer eigenen Linie, wie im Heft. Umformungen gibst du mit einem langen Strich dahinter an („| −3“, „| :2“). ⇒ darf am Zeilenanfang stehen; Ergebnisse darfst du unterstreichen oder einrahmen. Mit deutlichem Abstand kann eine zweite Rechnung in derselben Zeile stehen (x₁ = …   x₂ = …) oder eine Nebenrechnung am Rand; die wird nachgerechnet. Falsches streichst du waagerecht durch.', see:['punkte']},
+  {id:'punkte', ch:'all', t:'Wie wird bewertet?', kw:'punkte bewertung folgefehler folgerichtig note wertung warum punkt',
+   x:'Jeder Schritt gibt einen Punkt. Rechnest du mit einem falschen Zwischenergebnis richtig weiter, ist das folgerichtig und zählt voll. Fehlende Ergebnisse kosten je einen Punkt. Gelöst ist eine Aufgabe erst, wenn alle Zeilen stimmen.', see:['heft']}
+];
+const LEXI = Object.fromEntries(LEX.map(e => [e.id, e]));
+/* Suche: Wörter normalisieren, Treffer in Titel und Stichwörtern zählen, kleine Tippfehler zulassen */
+const lexNorm = s => String(s || '').toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss').replace(/[²]/g, '^2').replace(/[^a-z0-9^()=+\-|]+/g, ' ').trim();
+const LEX_STOP = new Set('was ist ein eine einer der die das den dem des wie warum wieso weshalb wann wo und oder ich du mir mich man bei mit von zu zum zur im in an auf fuer heisst bedeutet macht mache rechne rechnet geht kann muss soll hier da dann nicht kein keine noch mal bitte erklaer erklaere erklaeren frage gibt es sind hat haben wird werden'.split(' '));
+function lev1(a, b){
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, d = 0;
+  while (i < a.length && j < b.length){ if (a[i] === b[j]){ i++; j++; continue; } if (++d > 1) return false; if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; } }
+  return d + (a.length - i) + (b.length - j) <= 1;
+}
+function lexSearch(q, chap){
+  const words = lexNorm(q).split(/\s+/).filter(w => w.length > 1 && !LEX_STOP.has(w));
+  if (!words.length) return [];
+  return LEX.map(e => {
+    const title = lexNorm(e.t).split(/\s+/), kws = lexNorm(e.kw).split(/\s+/);
+    let s = 0;
+    for (const w of words){
+      if (title.includes(w)) s += 4; else if (kws.includes(w)) s += 3;
+      else if (w.length >= 4 && kws.concat(title).some(k => k.startsWith(w) || (k.length >= 5 && w.startsWith(k)))) s += 2;
+      else if (w.length >= 5 && kws.concat(title).some(k => k.length >= 5 && lev1(w, k))) s += 1.5;
+    }
+    const phrase = lexNorm(q); if (lexNorm(e.t).length > 4 && phrase.includes(lexNorm(e.t))) s += 3;
+    if (s > 0 && chap && (e.ch === chap || e.ch === 'all')) s += 0.5;
+    return {e, s};
+  }).filter(r => r.s >= 2).sort((a, b) => b.s - a.s).slice(0, 4).map(r => r.e);
+}
+function lexHTML(e, full = true){
+  return `<div class="lex-e" data-lex="${e.id}"><h4>${escH(e.t)}</h4><p>${R(e.x)}</p>${full && e.g ? `<p class="lex-g"><b>So kannst du es dir vorstellen:</b> ${R(e.g)}</p>` : ''}${full && e.b ? `<p class="lex-b"><b>Beispiel:</b> ${R(e.b)}</p>` : ''}${full && e.f ? `<p class="lex-f"><b>Typischer Fehler:</b> ${R(e.f)}</p>` : ''}${full && e.see && e.see.length ? `<p class="small lex-see">Siehe auch: ${e.see.filter(k => LEXI[k]).map(k => `<button type="button" class="linkbtn" data-lexgo="${k}">${escH(LEXI[k].t)}</button>`).join(' · ')}</p>` : ''}</div>`;
+}
+
+/* ================= Hilfe: Angebot bei Stocken, gestufte Hinweise, Fragen stellen (eingebaut und optional KI) ================= */
+/* Gestaltung nach dem „Assistance Dilemma“ (Koedinger & Aleven 2007): Hilfe wird angeboten, nicht aufgedrängt; Hinweise
+   gehen vom Allgemeinen zum Konkreten; den nächsten Schritt gibt es erst nach einem eigenen Versuch. */
+const HELP_CFG = Object.assign({on:true, idle:60000}, store.get('qf7-help') || {});
+const helpSave = () => store.set('qf7-help', {on:HELP_CFG.on});
+const WATCH = {};
+/* ---- Hinweise je Ziel und Stand ---- */
+function maskTex(tex){
+  /* Zahlen im letzten Teil der Zeile durch Kästchen ersetzen (Hochzahlen bleiben) */
+  const parts = tex.split(' = '); let last = parts.pop(), out = '', depth = 0, sup = [];
+  for (let i = 0; i < last.length; i++){
+    const c = last[i];
+    if (c === '^' && last[i + 1] === '{'){ out += '^{'; i++; depth++; sup.push(depth); continue; }
+    if (c === '{'){ depth++; out += c; continue; }
+    if (c === '}'){ if (sup[sup.length - 1] === depth) sup.pop(); depth--; out += c; continue; }
+    if (/[0-9]/.test(c) && !sup.length && last[i - 1] !== '^'){ let j = i; while (j + 1 < last.length && /[0-9,.]/.test(last[j + 1])) j++; out += '□'; i = j; continue; }
+    out += c;
+  }
+  return parts.concat([out]).join(' = ');
+}
+function solveForm(g, parsed){
+  const env = envFor(g); if (!parsed || !parsed.parts || parsed.parts.length < 2) return null;
+  const L = evalSafe(parsed.parts[0], env), Rr = evalSafe(parsed.parts[parsed.parts.length - 1], env);
+  if (L.err || Rr.err || L.br.length !== 1 || Rr.br.length !== 1) return null;
+  const d = P.add(L.br[0], Rr.br[0], -1), rz = P.deg(Rr.br[0]) < 0 || (P.isConst(Rr.br[0]) && Math.abs(Rr.br[0][0]) < 1e-12);
+  const prod = parsed.parts.length === 2 && parsed.parts.some(q => q.t === 'mul' && hasVar(q.a, g.v) && hasVar(q.b, g.v));
+  return {c:d[0] || 0, b:d[1] || 0, a:d[2] || 0, deg:P.deg(d), rz, prod};
+}
+function hintSet(gr){
+  const g = gr.goal, st = gr.st, H = [], v = g.v || 'x';
+  if (!g || ['choice', 'sketch'].includes(g.kind) || (typeof VK_KINDS !== 'undefined' && VK_KINDS[g.kind])) return [{t:'Denkanstoß', html:R(g.prompt || 'Lies die Aufgabe noch einmal genau: Was ist gegeben, was ist gesucht?')}];
+  const c = pickModel(g, st);
+  if (g.kind === 'solve'){
+    const lastP = st.last && st.last.parsed ? st.last.parsed : (g.eq ? tryParse(g.eq, {fns:g.fnsPoly || {}}) : null);
+    const f = lastP && !lastP.err ? solveForm(g, lastP) : null;
+    let s1 = 'Was ist gesucht? Alle Werte von ' + M(v) + ', für die die Gleichung stimmt. Schau dir die Form deiner letzten Zeile an und wähl das passende Verfahren.';
+    if (st.pend && st.pend.length) s1 = 'Du hast die Lösungen fast. Rechne den Ausdruck noch ganz aus, bis nur noch ' + M(v + ' = Zahl') + ' dasteht.';
+    else if (f && f.prod && f.rz) s1 = 'Da steht ein Produkt, das null ist. Denk an den Satz vom Nullprodukt: Wann ist ein Produkt null?';
+    else if (f && f.deg === 1) s1 = 'Die Gleichung ist linear. Bring alle Glieder mit ' + M(v) + ' auf eine Seite und die Zahlen auf die andere, dann teilst du durch den Faktor vor ' + M(v) + '.';
+    else if (f && f.deg === 2 && !f.rz && !(Math.abs(f.b) < 1e-12)) s1 = 'Bring zuerst alles auf eine Seite, sodass rechts 0 steht. Dann siehst du, welches Verfahren passt.';
+    else if (f && f.deg === 2 && Math.abs(f.b) < 1e-12) s1 = 'Es gibt kein Glied mit ' + M(v) + ' allein. Bring die Zahl auf die andere Seite, sodass ' + M(v + '^{2}') + ' allein steht, und zieh dann die Wurzel. Denk an beide Vorzeichen.';
+    else if (f && f.deg === 2 && Math.abs(f.c) < 1e-12) s1 = 'Es gibt keine Zahl ohne ' + M(v) + '. Klammere ' + M(v) + ' aus (nicht durch ' + M(v) + ' teilen!) und nutze den Satz vom Nullprodukt.';
+    else if (f && f.deg === 2 && Math.abs(f.a - 1) > 1e-9) s1 = 'Vor ' + M(v + '^{2}') + ' steht nicht 1. Teile die ganze Gleichung durch ' + M(fmt(f.a)) + ', dann kannst du die pq-Formel nutzen.';
+    else if (f && f.deg === 2) s1 = 'Die Gleichung hat die Normalform ' + M(v + '^{2} + p' + v + ' + q = 0') + '. Lies p und q ab und nutze die pq-Formel.';
+    H.push({t:'Denkanstoß', html:R(s1)});
+    let s2 = '';
+    if (c && c.parsed && st.last){ try { const r2 = analyzeLine(g, st, c.parsed), rule = stepRule(st.last.parsed, c.parsed, r2, g); if (rule && RULES[rule]) s2 = `Als Nächstes passt: <b>${R(RULES[rule].t)}</b>. ${R(RULES[rule].fb)}`; } catch(e){} }
+    if (!s2 && f && f.deg === 2 && Math.abs(f.a - 1) < 1e-9 && f.rz) s2 = R(`Hier ist $p = ${fmt(f.b)}$ und $q = ${fmt(f.c)}$. Setz in $x_{1,2} = -#frac{p}{2} #pm #sqrt{(#frac{p}{2})^{2} - q}$ ein.`);
+    if (!s2) s2 = R('Schreib eine Zeile, die gleichwertig ist und einfacher aussieht. Prüf: Hast du auf beiden Seiten dasselbe gerechnet?');
+    H.push({t:'Regel', html:s2});
+  } else if (g.kind === 'value'){
+    const open = (g.targets || []).filter(t => !st.doneT.has(t.label));
+    const t = open[0];
+    if (g.vec) H.push({t:'Denkanstoß', html:R((g.prompt || '') + ' Rechne Koordinate für Koordinate, jede Zeile des Spaltenvektors für sich.')});
+    else if (g.num) H.push({t:'Denkanstoß', html:R((g.prompt || '') + ' Welche Formel verbindet die gegebenen Größen mit der gesuchten? Schreib sie zuerst allgemein auf.')});
+    else H.push({t:'Denkanstoß', html:R('Setz den x-Wert mit Klammern ein und rechne Schritt für Schritt: erst die Klammer, dann die Potenz, dann Punkt vor Strich.')});
+    if (t) H.push({t:'Was genau?', html:R(`Noch offen: $${t.show || labelTex(t.label)}$.` + (t.fn && g.fns && g.fns[t.fn] ? ` Für $${t.fn}(x) = ${toTex(tryParse(g.fns[t.fn]).parts[0])}$ ersetzt du jedes $x$ durch $(${fmt(t.x)})$.` : ''))});
+  } else if (g.kind === 'term'){
+    H.push({t:'Denkanstoß', html:R('Lies den Scheitel $S(d|e)$ ab und setz ihn in $f(x) = a(x - d)^{2} + e$ ein. Den Streckfaktor bekommst du mit der Ablese-Regel: vom Scheitel 1 nach rechts, dann $a$ nach oben oder unten.')});
+  }
+  if (c && c.parsed) H.push({t:'Schritt mit Lücken', html:`So ungefähr sieht der nächste Schritt aus. Füll die Kästchen selbst: <span class="rd-tex">${R('$' + maskTex(lineTex(c.parsed)) + '$')}</span>`});
+  return H;
+}
+/* ---- Angebot und Hinweiskarte ---- */
+class StuckWatch {
+  constructor(gr){
+    this.gr = gr; this.t0 = nowMs(); this.lastAct = nowMs(); this.lastProg = nowMs(); this.erase = []; this.snooze = 0; this.nErr = 0; this.prog = 0; this.lastN = 0;
+    const act = () => this.act();
+    gr.root.addEventListener('pointerup', act, true); gr.root.addEventListener('keydown', act, true); gr.root.addEventListener('input', act, true);
+    this.timer = setInterval(() => this.tick(), 3000);
+    WATCH[gr.sub.id] = this;
+  }
+  inkCount(){ const w = this.gr.w; return w && w.ink ? w.ink.strokes.length : 0; }
+  act(){ const n = this.inkCount(); if (n < this.lastN) this.erase.push(nowMs()); this.lastN = n; this.lastAct = nowMs(); if (this.panel) this.panel.tried = true; }
+  error(){ this.nErr++; this.lastErrT = nowMs(); }
+  progMeasure(){ const st = this.gr.st || {}; return (st.lines ? st.lines.length : 0) + (st.found ? st.found.length : 0) + (st.doneT ? st.doneT.size : 0); }
+  stop(){ clearInterval(this.timer); if (WATCH[this.gr.sub.id] === this) delete WATCH[this.gr.sub.id]; this.hideOffer(); }
+  visible(){ if (document.hidden) return false; const r = this.gr.root.getBoundingClientRect(); return r.bottom > 120 && r.top < innerHeight - 120; }
+  tick(){
+    const gr = this.gr;
+    if (gr.done || !document.body.contains(gr.root)) return this.stop();
+    const p = this.progMeasure(); if (p > this.prog){ this.prog = p; this.lastProg = nowMs(); this.erase = []; this.nErr = 0; }
+    if (!HELP_CFG.on || this.offerEl || this.panel || !this.visible() || gr.wbox.classList.contains('locked') || (gr.tutor && gr.tutor.querySelector('.qcard:not(.explain) .opt:not([disabled])'))) return;
+    const now = nowMs(), quiet = now - this.lastAct, noProg = now - this.lastProg, thr = HELP_CFG.idle * (1 + this.snooze);
+    this.erase = this.erase.filter(t => now - t < 120000);
+    let why = null;
+    if (quiet > thr && noProg > thr) why = 'idle';
+    else if (this.nErr >= 2 && now - this.lastErrT > 20000 && quiet > 20000) why = 'err';
+    else if (this.erase.length >= 5 && noProg > 60000 && quiet > 8000) why = 'erase';
+    if (why) this.showOffer(why);
+  }
+  showOffer(why){
+    const gr = this.gr, el = document.createElement('div'); el.className = 'help-offer'; el.setAttribute('role', 'status');
+    const txt = why === 'err' ? 'Das war knifflig. Möchtest du einen Denkanstoß?' : why === 'erase' ? 'Du hast einiges radiert. Brauchst du einen Hinweis?' : 'Kommst du gerade nicht weiter?';
+    el.innerHTML = `<span class="ho-t">${txt}</span><span class="btnrow"><button type="button" class="btn btn-sm btn-primary" data-h="hint">Denkanstoß</button><button type="button" class="btn btn-sm" data-h="ask">Frage stellen</button><button type="button" class="btn btn-sm" data-h="no">Nein, danke</button></span>`;
+    el.addEventListener('click', e => { const b = e.target.closest('[data-h]'); if (!b) return; const h = b.dataset.h; this.hideOffer(); if (h === 'no'){ this.snooze++; this.lastAct = nowMs(); } else if (h === 'hint') this.openHints(); else askOpen(gr); });
+    gr.wbox.before(el); this.offerEl = el; LM.event && LM.event('Hilfe angeboten (' + why + ')');
+  }
+  hideOffer(){ if (this.offerEl){ this.offerEl.remove(); this.offerEl = null; } }
+  openHints(){
+    const gr = this.gr; if (this.panel) return;
+    const H = hintSet(gr), el = document.createElement('div'); el.className = 'hint-panel';
+    const st = {lv:0, tried:false};
+    const draw = () => {
+      const shown = H.slice(0, st.lv + 1), more = st.lv + 1 < H.length, canStep = !!pickModel(gr.goal, gr.st) && ['solve', 'value', 'term'].includes(gr.goal.kind);
+      el.innerHTML = `<div class="hp-h">Hinweise <span class="small">(${st.lv + 1} von ${H.length + (canStep ? 1 : 0)})</span><button type="button" class="hp-x" data-h="close" aria-label="Hinweise schließen">✕</button></div>${shown.map((h, i) => `<div class="hp-l"><b>${i + 1}. ${escH(h.t)}:</b> ${h.html}</div>`).join('')}
+        <div class="btnrow">${more ? '<button type="button" class="btn btn-sm" data-h="more">Noch ein Hinweis</button>' : ''}${!more && canStep ? `<button type="button" class="btn btn-sm" data-h="step"${this.panel && !this.panel.tried ? ' disabled title="Probier es erst selbst"' : ''}>Nächsten Schritt zeigen</button>${this.panel && !this.panel.tried ? '<span class="small">Probier es erst selbst mit den Hinweisen. Danach kannst du dir den Schritt zeigen lassen.</span>' : ''}` : ''}<button type="button" class="btn btn-sm" data-h="ask">Frage stellen</button></div>`;
+    };
+    this.panel = st;
+    el.addEventListener('click', e => {
+      const b = e.target.closest('[data-h]'); if (!b) return; const h = b.dataset.h;
+      if (h === 'close'){ el.remove(); this.panel = null; this.lastAct = nowMs(); return; }
+      if (h === 'more'){ st.lv++; st.tried = false; LM.event && LM.event('Hinweis ' + (st.lv + 1)); gr.st.hints = (gr.st.hints || 0) + 1; return draw(); }
+      if (h === 'ask') return askOpen(gr);
+      if (h === 'step'){ el.remove(); this.panel = null; LM.event && LM.event('Nächster Schritt gezeigt'); if (gr.showModel) gr.showModel(); return; }
+    });
+    /* nach einem eigenen Versuch (Strich, Tippen) wird „Nächsten Schritt zeigen“ frei */
+    const iv = setInterval(() => { if (!document.body.contains(el)){ clearInterval(iv); return; } const b = el.querySelector('[data-h=step]'); if (b && b.disabled && st.tried){ draw(); } }, 1200);
+    gr.st.hints = (gr.st.hints || 0) + 1; LM.event && LM.event('Hinweis 1');
+    draw(); gr.wbox.before(el);
+  }
+}
+function helpAttach(gr){
+  if (!gr || !gr.root || gr.root.__help) return; gr.root.__help = true;
+  const h = gr.root.querySelector('.goal-h');
+  if (h){ const b = document.createElement('button'); b.type = 'button'; b.className = 'btn btn-sm ask-btn'; b.innerHTML = '? Frage'; b.title = 'Eine Frage zu dieser Aufgabe stellen'; b.addEventListener('click', () => askOpen(gr)); h.appendChild(b); }
+  if (['solve', 'value', 'term'].includes(gr.goal.kind) || (typeof VK_KINDS !== 'undefined' && VK_KINDS[gr.goal.kind]) || gr.goal.kind === 'sketch') gr.watch = new StuckWatch(gr);
+}
+GoalRunner.prototype.complete = (orig => function(msg){ if (this.watch) this.watch.stop(); const p = this.root.querySelector('.hint-panel'); if (p) p.remove(); if (this.watch) this.watch.panel = null; return orig.call(this, msg); })(GoalRunner.prototype.complete);
+LM.err = (orig => function(k, id){ const r = orig.apply(this, arguments); const w = WATCH[id]; if (w) w.error(); return r; })(LM.err);
+/* ---- Fragen stellen ---- */
+function goalLines(gr){
+  const w = gr.w;
+  if (w && w.rows) return w.rows.filter(r => !r.isEmpty() && !r.isStruck()).map(r => r.value().text).filter(Boolean);
+  return (gr.st.lines || []).map(p => plainTex(lineTex(p)));
+}
+function askOpen(gr){
+  let box = gr.root.querySelector('.gask');
+  if (box){ box.querySelector('input').focus(); return; }
+  box = document.createElement('div'); box.className = 'gask';
+  const sim = simType(gr.sub);
+  const chips = [['what', 'Was ist hier gesucht?'], ['start', 'Wie fange ich an?'], ['rule', 'Welche Regel brauche ich?']]
+    .concat(gr.lastErr ? [['why', 'Warum ist meine Zeile falsch?']] : []).concat(sim ? [['ex', 'Zeig mir ein ähnliches Beispiel']] : []).concat([['terms', 'Begriffe zu dieser Aufgabe']]);
+  box.innerHTML = `<div class="ga-h">Frag nach<button type="button" class="hp-x" data-q="close" aria-label="Fragen schließen">✕</button></div>
+    <div class="ga-chips">${chips.map(([k, t]) => `<button type="button" class="chip" data-q="${k}">${t}</button>`).join('')}</div>
+    <form class="ga-form"><input type="text" maxlength="400" placeholder="Oder schreib deine Frage, z. B. „Warum steht da ±?“" aria-label="Deine Frage"><button type="submit" class="btn btn-sm btn-primary">Fragen</button></form>
+    <div class="ga-out" aria-live="polite"></div>`;
+  const out = box.querySelector('.ga-out');
+  const say = (html, cls = '') => { out.insertAdjacentHTML('afterbegin', `<div class="ga-a ${cls}">${html}</div>`); };
+  box.addEventListener('click', e => {
+    const lx = e.target.closest('[data-lexgo]'); if (lx){ const en = LEXI[lx.dataset.lexgo]; if (en) say(lexHTML(en)); return; }
+    const ki = e.target.closest('[data-ki]'); if (ki){ kiAsk(gr, ki.dataset.ki, out, ki); return; }
+    const b = e.target.closest('[data-q]'); if (!b) return; const k = b.dataset.q;
+    if (k === 'close'){ box.remove(); return; }
+    LM.event && LM.event('Frage: ' + b.textContent);
+    if (k === 'what') say(whatHTML(gr));
+    else if (k === 'start'){ const H = hintSet(gr); say(`<b>Ein Anfang:</b> ${H[0] ? H[0].html : ''}${gr.goal.start ? `<p class="small">Der Ansatz steht schon da: ${R(gr.goal.start)}</p>` : ''}`); gr.st.hints = (gr.st.hints || 0) + 1; }
+    else if (k === 'rule'){ const H = hintSet(gr); say(`<b>Regel:</b> ${(H[1] || H[0] || {html:''}).html}`); gr.st.hints = (gr.st.hints || 0) + 1; }
+    else if (k === 'why') say(whyHTML(gr));
+    else if (k === 'ex') exampleInto(gr, sim, out);
+    else if (k === 'terms'){ const hits = lexSearch((gr.sub.taskText || '') + ' ' + (gr.goal.title || '') + ' ' + (gr.goal.prompt || '').replace(/\$[^$]*\$/g, ' '), CH.cur); say(hits.length ? hits.map(en => lexHTML(en, false) + `<button type="button" class="linkbtn" data-lexgo="${en.id}">mehr dazu</button>`).join('') : 'Zu dieser Aufgabe habe ich keine Begriffe gefunden. Schau unter „Nachschlagen“.'); }
+  });
+  box.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const inp = box.querySelector('input'), q = inp.value.trim(); if (!q) return;
+    LM.question && LM.question(q, gr.sub.id);
+    const hits = lexSearch(q, CH.cur), kiOn = KI.ready();
+    const kiBtn = kiOn ? `<p class="small"><button type="button" class="btn btn-sm" data-ki="${escH(q)}">KI fragen</button> Die Antwort kommt von einer KI (Claude) und kann Fehler enthalten.</p>` : '';
+    if (hits.length) say(`<div class="small ga-q">Deine Frage: „${escH(q)}“</div>${lexHTML(hits[0])}${hits.length > 1 ? `<p class="small">Passt eher: ${hits.slice(1).map(en => `<button type="button" class="linkbtn" data-lexgo="${en.id}">${escH(en.t)}</button>`).join(' · ')}</p>` : ''}${kiBtn}`);
+    else say(`<div class="small ga-q">Deine Frage: „${escH(q)}“</div><p>Dazu habe ich keine passende Erklärung gefunden. Versuch es mit einem Begriff aus der Aufgabe (z. B. „Scheitelpunkt“, „pq-Formel“, „Betrag“) oder tippe oben auf eine der Fragen.</p>${kiBtn || '<p class="small">Deine Frage wird im Bericht für deine Lehrkraft notiert.</p>'}`);
+    inp.value = '';
+  });
+  gr.wbox.before(box); box.querySelector('input').focus({preventScroll:true});
+}
+function whatHTML(gr){
+  const g = gr.goal;
+  let s = `<b>Gesucht:</b> ${R(g.title || '')}. ${R(g.prompt || '')}`;
+  if (g.kind === 'solve') s += ` <p class="small">Am Ende stehen alle Lösungen da, z. B. ${R('$' + (g.v || 'x') + '_{1} = …$')} und ${R('$' + (g.v || 'x') + '_{2} = …$')}, oder „keine Lösung“.</p>`;
+  if (g.kind === 'value' && g.targets) s += ` <p class="small">Werte: ${g.targets.map(t => R('$' + (t.show || labelTex(t.label)) + '$') + (gr.st.doneT.has(t.label) ? ' ✓' : '')).join(', ')}</p>`;
+  return s;
+}
+function whyHTML(gr){
+  const e = gr.lastErr; if (!e) return 'Bisher gab es keinen Fehler.';
+  return `<b>Zu deiner Zeile</b> ${e.line ? R('$' + escH(e.line) + '$') : ''}: ${R(e.html || '')}${e.after ? `<p class="small">${R(e.after)}</p>` : ''}<p class="small">Tipp: Vergleich die Zeile mit der Zeile darüber. Was hast du auf jeder Seite gerechnet?</p>`;
+}
+/* ähnliche Aufgabe mit anderen Zahlen als vollständiges Lösungsbeispiel (Lernen aus Lösungsbeispielen) */
+function simType(sub){ if (!sub || typeof TYPES === 'undefined') return null; if (sub.generated && sub.type) return sub.type; return Object.keys(TYPES).find(k => (TYPES[k].book || []).includes(sub.id)) || null; }
+function exampleInto(gr, k, out){
+  try {
+    const s = generate(k), div = document.createElement('div'); div.className = 'ga-a ga-ex';
+    div.innerHTML = `<b>Ähnliches Beispiel mit anderen Zahlen:</b> ${R(s.head || '')}<div class="ga-exbody"></div><p class="small">Vergleiche: Welche Schritte kannst du bei deiner Aufgabe genauso machen?</p>`;
+    out.prepend(div); modelView3(s, div.querySelector('.ga-exbody'));
+    LM.event && LM.event('Beispiel angesehen');
+  } catch(e){ out.insertAdjacentHTML('afterbegin', '<div class="ga-a">Gerade lässt sich kein Beispiel erzeugen.</div>'); }
+}
+/* ---- KI-Antworten mit eigenem Anthropic-API-Schlüssel (nur eigenständige Fassung) ---- */
+const KI = {
+  cfg:Object.assign({key:'', model:'claude-sonnet-5-5', limit:20, consent:false, pin:''}, store.get('qf7-ki') || {}),
+  save(){ store.set('qf7-ki', this.cfg); },
+  ready(){ return !!(this.cfg.key && this.cfg.consent && (typeof CLASS === 'undefined' || CLASS.standalone)); },
+  log(){ return store.get('qf7-ki-log') || []; },
+  addLog(e){ const L = this.log(); L.push(e); store.set('qf7-ki-log', L.slice(-100)); },
+  today(){ const d = new Date().toISOString().slice(0, 10); return this.log().filter(e => e.d && e.d.startsWith(d)).length; },
+  hash(s){ let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
+};
+const KI_SYS = `Du bist ein geduldiger Mathematik-Tutor in einer Lernhilfe für die gymnasiale Oberstufe (Einführungsphase, Nordrhein-Westfalen). Du sprichst mit einer Schülerin oder einem Schüler (etwa 16 Jahre) und duzt.
+Themen: quadratische Funktionen und Gleichungen, Vektoren und das nötige Vorwissen (Pythagoras, Trigonometrie im rechtwinkligen Dreieck, lineare Gleichungssysteme).
+Regeln:
+1. Bleib bei Mathematik. Bei anderen Themen lehnst du freundlich ab und lenkst zur Aufgabe zurück.
+2. Nenne nie das Endergebnis oder den vollständigen Lösungsweg der aktuellen Aufgabe. Gib stattdessen einen Hinweis, stell eine Rückfrage oder zeig die Idee an einem Beispiel mit anderen Zahlen. Wenn ausdrücklich nach der Lösung gefragt wird, erkläre kurz, warum du sie nicht verrätst, und hilf beim nächsten kleinen Schritt.
+3. Antworte kurz: höchstens etwa 120 Wörter, klare Sprache, keine Fachwörter ohne Erklärung. Formeln schreibst du in $...$ mit ^ für Potenzen, sqrt(...) für Wurzeln und (a)/(b) für Brüche.
+4. Sei mathematisch genau. Wenn du unsicher bist, sag es.
+5. Frag nicht nach persönlichen Daten und geh nicht darauf ein, falls welche genannt werden.
+6. Wenn die Person Kummer, Angst, Gewalt oder eine Gefährdung äußert, antworte kurz und einfühlsam, ermutige sie, mit einer Vertrauensperson zu sprechen, und nenne die Nummer gegen Kummer: 116 111 (kostenlos, Montag bis Samstag 14 bis 20 Uhr). Biete darüber hinaus keine Beratung an.
+7. Keine Inhalte, die für Jugendliche ungeeignet sind.`;
+const KI_PERSONAL = /(@[a-z0-9-]+\.[a-z]{2,}|\b\d{4,}[\s/-]?\d{3,}\b|\b(straße|strasse|str\.|hausnummer|passwort|adresse)\b)/i;
+async function kiAsk(gr, q, out, btn){
+  if (!KI.ready()) return;
+  if (KI_PERSONAL.test(q)){ out.insertAdjacentHTML('afterbegin', '<div class="ga-a">Bitte schreib keine persönlichen Daten (Adresse, Telefonnummer, E-Mail) in die Frage.</div>'); return; }
+  if (KI.today() >= KI.cfg.limit){ out.insertAdjacentHTML('afterbegin', `<div class="ga-a">Für heute sind die ${KI.cfg.limit} KI-Fragen aufgebraucht. Nutz die Hinweise und das Nachschlagen oder frag deine Lehrkraft.</div>`); return; }
+  if (btn) btn.disabled = true;
+  const g = gr.goal, lines = goalLines(gr).slice(-8);
+  const ctx = `Aufgabe: ${gr.sub.taskText || plainTex(gr.sub.head || '')}\nZiel: ${plainTex(g.title || '')} – ${plainTex(String(g.prompt || '').replace(/\$/g, ''))}\nBisheriger Rechenweg der Schülerin/des Schülers:\n${lines.length ? lines.map((l, i) => (i + 1) + ') ' + l).join('\n') : '(noch nichts)'}${gr.lastErr ? `\nLetzte automatische Rückmeldung: ${String(gr.lastErr.html || '').replace(/<[^>]+>/g, '')}` : ''}\n\nFrage: ${q}`;
+  const wait = document.createElement('div'); wait.className = 'ga-a ki'; wait.innerHTML = '<span class="ki-lab">KI-Antwort</span> <span class="small">… denkt nach</span>'; out.prepend(wait);
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {method:'POST', headers:{'x-api-key':KI.cfg.key, 'anthropic-version':'2023-06-01', 'content-type':'application/json', 'anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:KI.cfg.model, max_tokens:600, system:KI_SYS, messages:[{role:'user', content:ctx}]})});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j && j.error && j.error.message ? j.error.message : 'HTTP ' + r.status);
+    const text = (j.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n').trim() || '(keine Antwort)';
+    wait.innerHTML = `<span class="ki-lab">KI-Antwort (Claude) · kann Fehler enthalten</span><div class="ki-t">${R(escH(text).replace(/\n/g, '<br>'))}</div>`;
+    KI.addLog({d:new Date().toISOString(), sub:gr.sub.id, q, a:text.slice(0, 2000)});
+  } catch(e){
+    wait.innerHTML = `<span class="ki-lab">KI</span> Die KI ist gerade nicht erreichbar (${escH(String(e.message || e).slice(0, 120))}). Ohne Internet funktionieren nur die eingebauten Hilfen.`;
+  } finally { if (btn) btn.disabled = false; }
+}
+/* Einstellungen für Eltern oder Lehrkraft (Lehrkraft-Bereich der eigenständigen Fassung) */
+function kiSetup(root){
+  const c = KI.cfg;
+  const locked = () => c.pin && !kiSetup.open;
+  const draw = () => {
+    if (locked()){ root.innerHTML = `<p class="small">Geschützt mit einer PIN.</p><form class="ki-pin"><input type="password" inputmode="numeric" maxlength="8" placeholder="PIN" aria-label="PIN"><button class="btn btn-sm" type="submit">Öffnen</button><span class="small ki-fb"></span></form>`; return; }
+    const L = KI.log().slice(-20).reverse();
+    root.innerHTML = `<p class="small">Mit einem eigenen API-Schlüssel von Anthropic beantwortet eine KI (Claude) frei formulierte Fragen der Lernenden. Die Lernhilfe gibt der KI feste Regeln vor: nur Mathematik, keine fertigen Lösungen, kurze Antworten, keine persönlichen Daten, bei Kummer Verweis auf die Nummer gegen Kummer (116 111). Jede Antwort ist als KI-Antwort gekennzeichnet.</p>
+      <p class="small"><b>Bitte beachten:</b> Frage, Aufgabentext und Rechenweg (ohne Namen) werden an Anthropic in den USA gesendet. Anthropic verlangt für Angebote an Minderjährige zusätzliche Schutzmaßnahmen und den Hinweis, dass eine KI antwortet; als Inhaber des Schlüssels sind Sie dafür verantwortlich. Jede Frage kostet Geld; legen Sie in der Anthropic-Konsole ein Ausgabenlimit fest. Der Schlüssel wird nur in diesem Browser bzw. Programm gespeichert.</p>
+      <label class="fld">API-Schlüssel <input type="password" class="ki-key" autocomplete="off" value="${escH(c.key)}" placeholder="sk-ant-…"></label>
+      <label class="fld">Modell <select class="ki-model"><option value="claude-sonnet-5-5"${c.model === 'claude-sonnet-5-5' ? ' selected' : ''}>Claude Sonnet 5.5 (gründlicher)</option><option value="claude-haiku-5-5"${c.model === 'claude-haiku-5-5' ? ' selected' : ''}>Claude Haiku 5.5 (schneller, günstiger)</option></select></label>
+      <label class="fld">Höchstens <input type="number" class="ki-limit" min="1" max="200" value="${c.limit}"> KI-Fragen pro Tag</label>
+      <label class="fld">PIN für diese Einstellungen (optional) <input type="password" class="ki-pinset" inputmode="numeric" maxlength="8" placeholder="${c.pin ? 'gesetzt' : 'keine'}"></label>
+      <label class="ckm"><input type="checkbox" class="ki-consent"${c.consent ? ' checked' : ''}> <span>Ich bin erziehungsberechtigt bzw. Lehrkraft und erlaube die KI-Antworten.</span></label>
+      <div class="btnrow"><button type="button" class="btn btn-sm btn-primary" data-k="save">Speichern</button><button type="button" class="btn btn-sm" data-k="del">Schlüssel löschen</button><span class="small ki-fb"></span></div>
+      <details class="ki-log"><summary>Verlauf der KI-Fragen (${KI.log().length})</summary>${L.length ? `<ol class="small">${L.map(e => `<li><b>${escH(e.d.slice(0, 16).replace('T', ' '))}</b> ${escH(e.sub || '')}: „${escH(e.q)}“<br><span class="muted">${escH(e.a.slice(0, 400))}</span></li>`).join('')}</ol>` : '<p class="small">Noch keine Fragen.</p>'}<button type="button" class="btn btn-sm" data-k="clearlog">Verlauf löschen</button></details>`;
+  };
+  root.addEventListener('submit', e => { if (!e.target.closest('.ki-pin')) return; e.preventDefault(); const v = e.target.querySelector('input').value; if (KI.hash(v) === c.pin){ kiSetup.open = true; draw(); } else e.target.querySelector('.ki-fb').textContent = 'Falsche PIN.'; });
+  root.addEventListener('click', e => {
+    const b = e.target.closest('[data-k]'); if (!b) return; const fb = root.querySelector('.ki-fb');
+    if (b.dataset.k === 'save'){
+      c.key = root.querySelector('.ki-key').value.trim(); c.model = root.querySelector('.ki-model').value; c.limit = Math.max(1, Math.min(200, +root.querySelector('.ki-limit').value || 20)); c.consent = root.querySelector('.ki-consent').checked;
+      const p = root.querySelector('.ki-pinset').value.trim(); if (p) c.pin = KI.hash(p);
+      KI.save(); if (fb) fb.textContent = KI.ready() ? 'Gespeichert. KI-Antworten sind eingeschaltet.' : c.key && !c.consent ? 'Gespeichert, aber erst mit dem Häkchen eingeschaltet.' : 'Gespeichert.';
+    }
+    if (b.dataset.k === 'del'){ c.key = ''; c.consent = false; KI.save(); draw(); }
+    if (b.dataset.k === 'clearlog'){ store.set('qf7-ki-log', []); draw(); }
+  });
+  draw();
+}
+/* ---- Nachschlagen (eigener Abschnitt) ---- */
+function lexSection(){
+  const tr = document.getElementById('training'); if (!tr || document.getElementById('lexikon')) return;
+  const sec = document.createElement('section'); sec.className = 'card'; sec.id = 'lexikon';
+  sec.innerHTML = `<div class="card-head"><span class="num" style="background:var(--accent)">?</span><h2>Nachschlagen und fragen</h2></div>
+    <p class="lead">Schreib eine Frage oder einen Begriff. Die Erklärungen gehören zu den Buchseiten (Parabeln S. 14–15, Vektoren S. 138–155). An jeder Aufgabe findest du außerdem den Knopf „? Frage“ für Fragen zur Aufgabe selbst.</p>
+    <form class="lex-form"><input type="search" placeholder="z. B. Scheitelpunkt, pq-Formel, Gegenvektor, „Warum ±?“" aria-label="Frage oder Begriff"><button class="btn btn-primary" type="submit">Suchen</button></form>
+    <div class="lex-out" aria-live="polite"></div>
+    <details class="lex-all"><summary>Alle Erklärungen</summary><div class="lex-list"></div></details>`;
+  tr.before(sec);
+  const list = sec.querySelector('.lex-list'), out = sec.querySelector('.lex-out');
+  const fill = () => { list.innerHTML = ['qf', 'vek', 'all'].map(ch => `<h4>${ch === 'qf' ? 'Parabeln' : ch === 'vek' ? 'Vektoren' : 'Lernhilfe'}</h4><p class="lex-links">${LEX.filter(e => e.ch === ch).map(e => `<button type="button" class="linkbtn" data-lexgo="${e.id}">${escH(e.t)}</button>`).join(' · ')}</p>`).join(''); };
+  fill();
+  sec.addEventListener('click', e => { const b = e.target.closest('[data-lexgo]'); if (!b) return; const en = LEXI[b.dataset.lexgo]; if (en){ out.innerHTML = lexHTML(en); try { out.scrollIntoView({block:'nearest'}); } catch(x){} } });
+  sec.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); const q = sec.querySelector('input').value.trim(); if (!q) return;
+    LM.question && LM.question(q, 'Nachschlagen');
+    const hits = lexSearch(q, CH.cur);
+    out.innerHTML = hits.length ? lexHTML(hits[0]) + (hits.length > 1 ? `<p class="small">Passt eher: ${hits.slice(1).map(en => `<button type="button" class="linkbtn" data-lexgo="${en.id}">${escH(en.t)}</button>`).join(' · ')}</p>` : '') : '<p>Dazu habe ich keine passende Erklärung gefunden. Versuch einen Begriff aus der Aufgabe oder stell die Frage direkt an der Aufgabe mit „? Frage“.</p>';
+  });
+  const nav = document.querySelector('nav.toc a[href="#training"]');
+  if (nav && !document.querySelector('nav.toc a[href="#lexikon"]')){ const a = document.createElement('a'); a.href = '#lexikon'; a.textContent = 'Nachschlagen'; nav.before(a); }
+}
+/* ---- Quellen: didaktische Grundlagen und Lehrplan ---- */
+function quellenDidaktik(){
+  const sec = document.getElementById('quellen'); if (!sec || sec.querySelector('.src-did')) return;
+  const L = [
+    ['Ministerium für Schule und Bildung NRW (2023): Kernlehrplan für die Sekundarstufe II Gymnasium/Gesamtschule in Nordrhein-Westfalen – Mathematik (ab Schuljahr 2023/24). Grundlage der Ausrichtung auf die Einführungsphase.', 'https://lehrplannavigator.nrw.de/sekundarstufe-ii/kernlehrplaene-fuer-die-gymnasiale-oberstufe-ab-20222023/mathematik', 'lehrplannavigator.nrw.de'],
+    ['VanLehn, K. (2011): The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems. Educational Psychologist 46(4), 197–221. Rückmeldung zu jedem Schritt statt nur zum Ergebnis.', 'https://doi.org/10.1080/00461520.2011.611369', 'doi:10.1080/00461520.2011.611369'],
+    ['Koedinger, K. R.; Aleven, V. (2007): Exploring the assistance dilemma in experiments with cognitive tutors. Educational Psychology Review 19, 239–264. Hilfe anbieten statt aufdrängen, gestufte Hinweise.', 'https://doi.org/10.1007/s10648-007-9049-0', 'doi:10.1007/s10648-007-9049-0'],
+    ['Shute, V. J. (2008): Focus on formative feedback. Review of Educational Research 78(1), 153–189. Gestaltung der Rückmeldungen.', 'https://doi.org/10.3102/0034654307313795', 'doi:10.3102/0034654307313795'],
+    ['Wisniewski, B.; Zierer, K.; Hattie, J. (2020): The power of feedback revisited. Frontiers in Psychology 10, 3087. Rückmeldungen mit viel Information wirken stärker.', 'https://doi.org/10.3389/fpsyg.2019.03087', 'doi:10.3389/fpsyg.2019.03087'],
+    ['Renkl, A.; Atkinson, R. K. (2003): Structuring the transition from example study to problem solving in cognitive skill acquisition. Educational Psychologist 38(1), 15–22. Musterlösungen, die schrittweise ausgeblendet werden (Training).', 'https://doi.org/10.1207/S15326985EP3801_3', 'doi:10.1207/S15326985EP3801_3'],
+    ['Bisra, K.; Liu, Q.; Nesbit, J. C.; Salimi, F.; Winne, P. H. (2018): Inducing self-explanation: A meta-analysis. Educational Psychology Review 30(3), 703–725. „Welche Regel?“-Fragen.', 'https://doi.org/10.1007/s10648-018-9434-x', 'doi:10.1007/s10648-018-9434-x'],
+    ['Dunlosky, J. u. a. (2013): Improving students’ learning with effective learning techniques. Psychological Science in the Public Interest 14(1), 4–58. Abrufübung und verteiltes Üben.', 'https://doi.org/10.1177/1529100612453266', 'doi:10.1177/1529100612453266'],
+    ['Rohrer, D.; Dedrick, R. F.; Hartwig, M. K.; Cheung, C.-N. (2020): A randomized controlled trial of interleaved mathematics practice. Journal of Educational Psychology 112(1), 40–52. Vermischtes Üben.', 'https://doi.org/10.1037/edu0000367', 'doi:10.1037/edu0000367'],
+    ['Adams, D. M.; McLaren, B. M. u. a. (2014): Using erroneous examples to improve mathematics learning with a web-based tutoring system. Computers in Human Behavior 36, 401–411. „Fehler finden“.', 'https://doi.org/10.1016/j.chb.2014.03.053', 'doi:10.1016/j.chb.2014.03.053'],
+    ['vom Hofe, R.; Blum, W. (2016): „Grundvorstellungen“ as a category of subject-matter didactics. Journal für Mathematik-Didaktik 37, 225–254. Abschnitte „So kannst du es dir vorstellen“.', 'https://doi.org/10.1007/s13138-016-0107-3', 'doi:10.1007/s13138-016-0107-3'],
+    ['Anthony, L.; Yang, J.; Koedinger, K. R. (2007): Benefits of handwritten input for students learning algebra equation solving. Artificial Intelligence in Education (AIED 2007). Schreiben mit dem Stift statt Tippen.', 'https://learnlab.org/research/wiki/index.php/A_Multimodal_(Handwriting)_Interface_for_Solving_Equations', 'learnlab.org'],
+    ['Bastani, H. u. a. (2025): Generative AI without guardrails can harm learning: Evidence from high school mathematics. PNAS 122(26), e2422633122. Regeln für die KI-Antworten (keine fertigen Lösungen).', 'https://doi.org/10.1073/pnas.2422633122', 'doi:10.1073/pnas.2422633122'],
+    ['Anthropic: Responsible Use of Anthropic’s Models: Guidelines for Organizations Serving Minors. Schutzmaßnahmen und KI-Hinweis bei der optionalen KI.', 'https://support.claude.com/en/articles/9307344-responsible-use-of-anthropic-s-models-guidelines-for-organizations-serving-minors', 'support.claude.com']
+  ];
+  sec.insertAdjacentHTML('beforeend', `<h3 class="src-did">Didaktische Grundlagen und Lehrplan</h3><ol class="src">${L.map(([t, u, l]) => `<li>${escH(t)} <a href="${u}">${escH(l)}</a></li>`).join('')}</ol>`);
 }
 
 /* ================= Handschrift anlernen ================= */
@@ -4462,8 +5553,8 @@ function dataLab(root){
 
 /* ================= Unterricht: Fortschritt zentral, Lehrkraft-Ansicht, Berichte, Arbeitsblätter, Erkennungsproben ================= */
 const LOG = [];   /* Rechenwege dieser Sitzung (für den Bericht) */
-const plainTex = t => String(t).replace(/#frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/#sqrt\{([^{}]*)\}/g, '√($1)').replace(/\^\{2\}/g, '²').replace(/\^\{([^{}]*)\}/g, '^$1').replace(/_\{([^{}]*)\}/g, '$1').replace(/#pm/g, '±').replace(/#cdot/g, '·').replace(/-/g, '−');
-function progressData(){ return {v:1, upd:new Date().toISOString(), status:Object.assign({}, STATUS), train:LM.st.train, err:LM.st.err, expl:LM.st.expl, evts:LM.st.evts.slice(-30), path:LM.st.path || {}}; }
+const plainTex = t => String(t).replace(/#frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/#sqrt\{([^{}]*)\}/g, '√($1)').replace(/\^\{2\}/g, '²').replace(/\^\{([^{}]*)\}/g, '^$1').replace(/_\{([^{}]*)\}/g, '$1').replace(/#pm/g, '±').replace(/#cdot/g, '·').replace(/#Ra /g, '⇒ ').replace(/#Lra /g, '⇔ ').replace(/#quad/g, ' ').replace(/-/g, '−');
+function progressData(){ return {v:1, upd:new Date().toISOString(), status:Object.assign({}, STATUS), train:LM.st.train, err:LM.st.err, expl:LM.st.expl, evts:LM.st.evts.slice(-30), path:LM.st.path || {}, q:(LM.st.q || []).slice(-30)}; }
 /* Punkte aller bewerteten Lösungswege (Summe) */
 const pathSum = P0 => { let e = 0, t = 0; Object.values(P0 || {}).forEach(o => Object.values(o).forEach(x => { e += x.e; t += x.t; })); return {e, t}; };
 const CLASS = {
@@ -4529,9 +5620,11 @@ const CLASS = {
 <script type="application/json" id="qf-report">${JSON.stringify(d).replace(/</g, '\\u003c')}<\/script></head><body>
 <h1>Lernstand: Mathe-Lernhilfe (Parabeln und Vektoren)${d.name ? ' – ' + escH(d.name) : ''}</h1><p class="small">Erstellt am ${new Date().toLocaleString('de-DE')} mit der Mathe-Lernhilfe. Diese Datei kann die Lehrkraft in der Lehrkraft-Ansicht importieren.</p>
 <h2>Buchaufgaben (Parabeln S. 14–15, Vektoren S. 138–155)</h2>${ps.t ? `<p>Punkte aller bewerteten Lösungswege: <b>${ps.e} von ${ps.t}</b> <span class="small">(ein Punkt je Schritt; Folgefehler zählen als richtig. Beim ganzen Lösungsweg zählt die erste vollständige Prüfung, Zeile für Zeile jeder Versuch.)</span></p>` : ''}<table><tr><th>Teilaufgabe</th><th>Stand</th><th>Punkte</th></tr>${rows}</table>
+<h2>Lehrplanbezug (Kernlehrplan NRW 2023, Einführungsphase)</h2><ul><li><b>Parabeln S. 14–15</b>, Inhaltsfeld Funktionen und Analysis: aus dem Funktionsterm auf Eigenschaften schließen (u. a. quadratische Funktionen), Transformationen (Streckung, Verschiebung) anwenden und die Parameter deuten, Gleichungen, die sich auf quadratische Gleichungen zurückführen lassen, ohne Hilfsmittel lösen.</li><li><b>Vektoren S. 138–155</b>, Inhaltsfeld Analytische Geometrie und Lineare Algebra: kartesische Koordinaten im Raum, Vektoren als Verschiebungen und Ortsvektoren deuten, Gegen- und Nullvektor, Längen und Abstände berechnen, Vektoren addieren, vervielfachen und auf Kollinearität untersuchen, Eigenschaften geometrischer Figuren mit Vektoren nachweisen.</li><li>Prozessbezogen vor allem Operieren (Rechenwege ohne Hilfsmittel), Argumentieren (Begründungsfragen, Fehler finden) und Problemlösen.</li></ul><p class="small">Zusammenfassung in eigenen Worten; maßgeblich ist der Kernlehrplan im Lehrplannavigator NRW.</p>
 <h2>Training</h2>${tr ? `<table><tr><th>Aufgabentyp</th><th>Ergebnis</th><th>Stufe</th></tr>${tr}</table>` : '<p>Noch nicht trainiert.</p>'}
 <h2>Häufigste Denkfehler</h2>${er ? `<ul>${er}</ul>` : '<p>Keine erfasst.</p>'}
 <h2>Begründungsfragen</h2><p>${LM.st.expl.n ? `${LM.st.expl.ok} von ${LM.st.expl.n} richtig begründet` : 'Noch keine beantwortet.'}</p>
+<h2>Hilfen und Fragen</h2>${(() => { const hv = LM.st.evts.filter(e => e.k === 'help'); const qs = (LM.st.q || []).slice(-20); return `<p>${hv.length ? `${hv.filter(e => /^Hinweis/.test(e.txt)).length} Hinweise genutzt, ${hv.filter(e => /^Hilfe angeboten/.test(e.txt)).length}× Hilfe angeboten, ${hv.filter(e => /Schritt gezeigt/.test(e.txt)).length}× nächsten Schritt gezeigt bekommen, ${hv.filter(e => /Beispiel/.test(e.txt)).length} ähnliche Beispiele angesehen (zuletzt erfasste Ereignisse).` : 'Keine Hilfen genutzt.'}</p>${qs.length ? `<p>Gestellte Fragen (die neuesten zuerst):</p><ul>${qs.reverse().map(q => `<li>${escH(q.q)} <span class="small">(${escH(String(q.w || ''))}, ${new Date(q.t).toLocaleDateString('de-DE')})</span></li>`).join('')}</ul>` : ''}`; })()}
 <h2>Rechenwege dieser Sitzung</h2>${lg ? `<table><tr><th>Aufgabe</th><th></th><th>Zeile</th></tr>${lg}</table>` : '<p class="small">In dieser Sitzung wurden keine Zeilen geschrieben.</p>'}
 </body></html>`;
   },
@@ -5492,32 +6585,64 @@ function arrowSVG(gw, arrows, pend, ok){
 }
 VK_PREP.arrows = g => { g.canonInfo = [{html:g.v ? `Jeder Pfeil: ${fmt(g.v[0])} Einheiten in x₁-Richtung, ${fmt(g.v[1])} in x₂-Richtung, also $${colT(g.v)}$.` : (g.modelTxt || '')}]; };
 VK_MODEL.arrows = g => `<div class="arbox">${arrowSVG(g.grid, (g.modelArrows || (g.v ? [[0, 0], [-4, 1], [2, -4]].map(a => ({a, b:[a[0] + g.v[0], a[1] + g.v[1]], cls:'ok'})) : [])), null)}</div>`;
+/* Pfeile von Hand: ein Strich als Schaft, die Spitze als Haken am Ende oder als eigene kurze Striche.
+   Anfangs- und Endpunkt rasten auf Gitterpunkte ein. Antippen zweier Punkte geht weiterhin. */
+function inkArrows(strokes, U){
+  const I = strokes.map(s => Object.assign(strokeBox(s), {s}));
+  const long = I.filter(b => b.len >= 0.7 * U && b.chord >= 0.55 * b.len), short = I.filter(b => !long.includes(b));
+  const d = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  return long.map(L => {
+    const p = L.s, a = p[0], e = p[p.length - 1];
+    let j = 0; p.forEach((q, k) => { if (d(q, a) > d(p[j], a)) j = k; });
+    let tail = a, tip = e;
+    if (j < p.length - 2 && d(p[j], e) > 0.12 * U) tip = p[j];                     /* Haken am Ende */
+    else {
+      const nearA = short.some(h => h.s.some(q => d(q, a) < 0.6 * U)), nearE = short.some(h => h.s.some(q => d(q, e) < 0.6 * U));
+      if (nearA && !nearE){ tail = e; tip = a; }
+    }
+    return {tail, tip};
+  });
+}
 VK_KINDS.arrows = gr => {
-  const g = gr.goal, arrows = []; let pend = null;
-  const draw = () => { gr.wbox.innerHTML = `<div class="arbox">${arrowSVG(g.grid, arrows, pend)}</div><div class="btnrow"><button type="button" class="btn btn-primary" data-a="acheck">Prüfen</button><button type="button" class="btn btn-sm" data-a="aundo">↶ Pfeil</button><span class="small">Tippe Anfangs- und Endpunkt eines Pfeils. ${arrows.length} von ${g.n} Pfeilen gezeichnet.</span></div>`; };
-  draw();
-  const reveal = () => { arrows.length = 0; (g.modelArrows || [[0, 0], [-4, 1], [2, -4]].map(a => ({a, b:[a[0] + g.v[0], a[1] + g.v[1]]}))).slice(0, g.n).forEach(a => arrows.push({a:a.a, b:a.b, cls:'ok'})); draw(); gr.wbox.classList.remove('locked'); gr.tutor.innerHTML = ''; setTimeout(() => gr.complete('Mögliche Pfeile sind eingezeichnet.'), 400); };
+  const g = gr.goal; let arrows = [], taps = [], pend = null;
+  gr.wbox.innerHTML = `<div class="arbox"><div class="arsvgwrap"></div><canvas class="arink" aria-label="Koordinatengitter: Pfeile mit dem Stift zeichnen"></canvas></div><div class="btnrow"><button type="button" class="btn btn-primary" data-a="acheck">Prüfen</button><button type="button" class="btn btn-sm" data-a="aundo">↶ Strich</button><button type="button" class="btn btn-sm" data-a="aclear">✕ alle</button><span class="small ar-info"></span></div>`;
+  const wrap = gr.wbox.querySelector('.arsvgwrap'), cv = gr.wbox.querySelector('.arink'), info = gr.wbox.querySelector('.ar-info');
+  const geo = () => { const svg = wrap.querySelector('svg'), r = svg.getBoundingClientRect(), cr = cv.getBoundingClientRect(); return {k:r.width / +svg.dataset.w, U:+svg.dataset.u, ox:r.left - cr.left, oy:r.top - cr.top, y1:+svg.dataset.y1}; };
+  const toG = (q, G) => { const sn = g.snap || 1, sx = (q.x - G.ox) / G.k - 12, sy = (q.y - G.oy) / G.k - 12; return [Math.round((sx / G.U + g.grid[0]) / sn) * sn, Math.round((G.y1 - sy / G.U) / sn) * sn]; };
+  const draw = () => { wrap.innerHTML = arrowSVG(g.grid, arrows, pend); info.textContent = `Zeichne jeden Pfeil mit Spitze, z. B. als Strich mit Haken am Ende. Du kannst auch Anfangs- und Endpunkt antippen. ${arrows.length} von ${g.n} Pfeilen.`; };
+  const ink = new InkCanvas(cv, {lw:2.4, zone:gr.wbox.querySelector('.arbox'), bg:(c, w, h) => { c.clearRect(0, 0, w, h); }, onChange:() => analyze()});
+  cv.style.opacity = .55;
+  const analyze = () => {
+    if (gr.done) return;
+    const G = geo();
+    /* Antippen: sehr kurzer Strich = Punkt */
+    const tapIdx = ink.strokes.map((s, i) => strokeBox(s).len < 8 && Math.max(strokeBox(s).w, strokeBox(s).h) < 10 ? i : -1).filter(i => i >= 0);
+    if (tapIdx.length){
+      const t = ink.strokes[tapIdx[tapIdx.length - 1]]; ink.strokes = ink.strokes.filter((_, i) => !tapIdx.includes(i)); ink.redraw();
+      const P0 = toG(t[0], G); if (!pend) pend = P0; else { taps.push({a:pend, b:P0}); pend = null; }
+    }
+    const drawn = inkArrows(ink.strokes, G.U * G.k).map(x => ({a:toG(x.tail, G), b:toG(x.tip, G)})).filter(x => x.a[0] !== x.b[0] || x.a[1] !== x.b[1]);
+    arrows = drawn.concat(taps); draw();
+  };
+  draw(); requestAnimationFrame(() => { ink.fit && ink.fit(); ink.redraw(); });
+  const reveal = () => { ink.clear(); taps = []; pend = null; arrows = (g.modelArrows || [[0, 0], [-4, 1], [2, -4]].map(a => ({a, b:[a[0] + g.v[0], a[1] + g.v[1]]}))).slice(0, g.n).map(a => ({a:a.a, b:a.b, cls:'ok'})); draw(); ink.frozen = true; gr.wbox.classList.remove('locked'); gr.tutor.innerHTML = ''; setTimeout(() => gr.complete('Mögliche Pfeile sind eingezeichnet.'), 400); };
   gr.wbox.addEventListener('click', e => {
     if (gr.done) return;
-    const svg = e.target.closest('svg.arsvg');
-    if (svg && !gr.wbox.classList.contains('locked')){
-      const r = svg.getBoundingClientRect(), U = +svg.dataset.u, sx = (e.clientX - r.left) / r.width * +svg.dataset.w - 12, sy = (e.clientY - r.top) / r.height * +svg.dataset.h - 12;
-      const sn = g.snap || 1, P0 = [Math.round((sx / U + g.grid[0]) / sn) * sn, Math.round((+svg.dataset.y1 - sy / U) / sn) * sn];
-      if (!pend) pend = P0; else { if (arrows.length >= g.n) arrows.shift(); arrows.push({a:pend, b:P0}); pend = null; }
-      draw(); return;
-    }
     const b = e.target.closest('[data-a]'); if (!b) return;
-    if (b.dataset.a === 'aundo'){ if (pend) pend = null; else arrows.pop(); draw(); return; }
+    if (b.dataset.a === 'aundo'){ if (pend) pend = null; else if (ink.strokes.length) ink.undo(); else taps.pop(); analyze(); return; }
+    if (b.dataset.a === 'aclear'){ ink.clear(); taps = []; pend = null; analyze(); return; }
     if (b.dataset.a === 'acheck'){
-      if (arrows.length < g.n) return vkNote(gr, `Zeichne ${g.n} Pfeile.`);
+      if (arrows.length < g.n) return vkNote(gr, `Zeichne ${g.n} Pfeile${arrows.length ? ` (bisher erkannt: ${arrows.length})` : ''}. Ein Pfeil braucht eine Spitze, z. B. einen Haken am Ende.`);
       const vs = arrows.map(a => [a.b[0] - a.a[0], a.b[1] - a.a[1]]);
       const same = v => Math.abs(v[0] - g.v[0]) < 1e-9 && Math.abs(v[1] - g.v[1]) < 1e-9;
       const res = g.check ? g.check(vs) : vs.every(same) ? true : 'Mindestens ein Pfeil gehört nicht zum Vektor.';
       arrows.forEach((a, i) => { a.cls = g.check ? (res === true ? 'ok' : '') : (same(vs[i]) ? 'ok' : 'err'); });
       draw();
-      if (res === true) return gr.complete(g.okMsg || 'Alle Pfeile passen.');
+      if (res === true){ ink.frozen = true; return gr.complete(g.okMsg || 'Alle Pfeile passen.'); }
       const w = g.v ? vs.find(v => !same(v)) : null;
-      const q = g.v && w && w[0] === g.v[1] && w[1] === g.v[0] ? QV.swap() : g.v ? {kind:'vComp', q:`Was bedeutet ${M(colT(g.v))} für einen Pfeil?`, opts:[opt(`${fmt(g.v[0])} Einheiten in x₁-Richtung (waagerecht) und ${fmt(g.v[1])} in x₂-Richtung (senkrecht), egal wo er startet`, 1, 'Richtig. Alle Pfeile sind parallel, gleich lang und gleich gerichtet.'), opt('Der Pfeil muss im Ursprung beginnen.', 0, 'Nein, ein Vektor hat keinen festen Startpunkt.')], after:'Zeichne die markierten Pfeile neu.'} : (g.q ? g.q(res) : {kind:'vComp', q:String(res), opts:[opt('Ich prüfe Richtung und Länge noch einmal.', 1, 'Gut.')], after:''});
+      const rev = g.v && w && Math.abs(w[0] + g.v[0]) < 1e-9 && Math.abs(w[1] + g.v[1]) < 1e-9;
+      const q = rev ? {kind:'vRevDir', q:'Ein Pfeil zeigt genau in die Gegenrichtung. Woran erkennst du die Richtung eines Pfeils?', opts:[opt('an der Spitze: Sie zeigt, wohin verschoben wird', 1, 'Richtig. Zeichne die Spitze am Ende der Verschiebung.'), opt('an der Länge', 0, 'Die Länge sagt, wie weit, nicht wohin.')], after:'Zeichne den roten Pfeil mit der Spitze am anderen Ende neu.'}
+        : g.v && w && w[0] === g.v[1] && w[1] === g.v[0] ? QV.swap() : g.v ? {kind:'vComp', q:`Was bedeutet ${M(colT(g.v))} für einen Pfeil?`, opts:[opt(`${fmt(g.v[0])} Einheiten in x₁-Richtung (waagerecht) und ${fmt(g.v[1])} in x₂-Richtung (senkrecht), egal wo er startet`, 1, 'Richtig. Alle Pfeile sind parallel, gleich lang und gleich gerichtet.'), opt('Der Pfeil muss im Ursprung beginnen.', 0, 'Nein, ein Vektor hat keinen festen Startpunkt.')], after:'Radiere die roten Pfeile (↶ Strich) und zeichne sie neu.'} : (g.q ? g.q(res) : {kind:'vComp', q:String(res), opts:[opt('Ich prüfe Richtung und Länge noch einmal.', 1, 'Gut.')], after:''});
       vkErr(gr, {q, html:typeof res === 'string' ? res : 'Mindestens ein Pfeil passt noch nicht (rot).'}, reveal);
     }
   });
@@ -6214,7 +7339,7 @@ const LE2 = [
     S_('v2-6a', '', '$#vec{AB}$ und $|#vec{AB}|$', [gVec('Vektor', 'Spitze minus Fuß.', [iAB([2, 5, 6], [1, -3, 4])]), gNum('Betrag', 'Länge des Vektors.', [tLen('v', '|#vec{AB}|', [-1, -8, -2])], [cLen([-1, -8, -2], 'v')])], '$#vec{AB} = #col{-1;-8;-2}$, $|#vec{AB}| = #sqrt{69} #approx 8,31$.')
   ]},
   {n:'7', tag:'Test 1', title:'Vektor und Gegenvektor', text:'Bestimme die Koordinaten von DE und ED mit D(1|−1|1) und E(−1|1|0) und berechne jeweils die Beträge.', subs:[
-    S_('v2-7a', '', '$#vec{DE}$ und $#vec{ED}$', [gVec('Vektoren', 'Achte darauf, wo der Pfeil beginnt.', [iAB([1, -1, 1], [-1, 1, 0], 'D', 'E'), iAB([-1, 1, 0], [1, -1, 1], 'E', 'D')]), gNum('Beträge', 'Berechne $|#vec{DE}|$ und $|#vec{ED}|$.', [tLen('u', '|#vec{DE}|', [-2, 2, -1], {names:['u']}), tLen('w', '|#vec{ED}|', [2, -2, 1], {names:['w']})], [cLen([-2, 2, -1], 'u'), cLen([2, -2, 1], 'w')])], '$#vec{DE} = #col{-2;2;-1}$, $#vec{ED} = #col{2;-2;1} = -#vec{DE}$. Beide haben den Betrag 3: Gegenvektoren sind gleich lang.')
+    S_('v2-7a', '', '$#vec{DE}$ und $#vec{ED}$', [gVec('Vektoren', 'Achte darauf, wo der Pfeil beginnt.', [iAB([1, -1, 1], [-1, 1, 0], 'D', 'E'), iAB([-1, 1, 0], [1, -1, 1], 'E', 'D')]), gNum('Beträge', 'Berechne $|#vec{DE}|$ und $|#vec{ED}|$.', [tLen('u', '|#vec{DE}|', [-2, 2, -1], {names:['u']}), tLen('w', '|#vec{ED}|', [2, -2, 1], {names:['w']})], [cLen([-2, 2, -1], 'u'), cLen([2, -2, 1], 'w')]), gCh('Hin und zurück', 'Was ergibt $#vec{DE} + #vec{ED}$?', [opt('$#col{0;0;0}$, den Nullvektor $#vec{0}$', 1, 'Richtig: Von D nach E und zurück ist insgesamt keine Verschiebung. Der Nullvektor hat die Länge 0 und keine Richtung.'), opt('$2 #cdot #vec{DE}$', 0, 'Nein: $#vec{ED}$ zeigt in die Gegenrichtung von $#vec{DE}$, die beiden heben sich auf.'), opt('$#col{-4;4;-2}$', 0, 'Nein: Rechne koordinatenweise $(-2) + 2$, $2 + (-2)$, $(-1) + 1$.')])], '$#vec{DE} = #col{-2;2;-1}$, $#vec{ED} = #col{2;-2;1} = -#vec{DE}$. Beide haben den Betrag 3: Gegenvektoren sind gleich lang. Zusammen ergeben sie den Nullvektor: $#vec{DE} + #vec{ED} = #vec{0}$.')
   ]},
   {n:'8', tag:'Test 1', title:'Kein Parallelogramm', text:'Zeige, dass das Viereck ABCD mit A(1|2|1), B(4|3|−1), C(6|1|5) und D(5|3|−3) kein Parallelogramm ist.', subs:[
     S_('v2-8a', '', 'Nachweis', [gVec('Vektoren', 'Berechne $#vec{AB}$ und $#vec{DC}$.', [iAB([1, 2, 1], [4, 3, -1]), iAB([5, 3, -3], [6, 1, 5], 'D', 'C')]), gCh('Folgerung', 'Was folgt?', [opt('$#vec{AB} #neq #vec{DC}$, also kein Parallelogramm', 1, 'Richtig.'), opt('Die Vektoren sind gleich, also ein Parallelogramm.', 0, 'Vergleiche die Koordinaten.')])], '$#vec{AB} = #col{3;1;-2}$, $#vec{DC} = #col{1;-2;8}$: verschieden, also kein Parallelogramm.')
@@ -6493,6 +7618,172 @@ function vkInit(){
   if (h) setTimeout(() => { try { h.scrollIntoView({block:'start'}); } catch(e){} }, 60);
 }
 
+/* ================= Training: Fehler finden (fehlerhafte Lösungsbeispiele) ================= */
+/* Eine fremde Lösung mit einem typischen Denkfehler: erste falsche Zeile finden, den Fehler benennen, die Zeile richtig schreiben.
+   Fehlerhafte Beispiele zum Erkennen, Erklären und Verbessern verbesserten in Studien das Behalten (Adams u. a. 2014). */
+const ERR_NAMES = ['Alex', 'Kim', 'Jona', 'Mika'];
+const eN = v => v < 0 ? '(' + fmt(v) + ')' : fmt(v);
+const eS = (v, first) => (v < 0 ? '-' : first ? '' : '+') + fmt(Math.abs(v));
+const ERRGEN = {
+  pq:{ch:'qf', kinds:['pqM', 'pqQ'], label:'pq-Formel', make(){
+    let r1, r2; do { r1 = rnd.i(-9, 9); r2 = rnd.i(-9, 9); } while (r1 === r2 || (r1 + r2) % 2 || !r1 || !r2 || r1 + r2 === 0);
+    const p = -(r1 + r2), q = r1 * r2, m = -p / 2, s = Math.abs(r1 - r2) / 2, eq = `x^2${eS(p)}x${eS(q)}=0`;
+    const rad = (mm, qq) => `${fmt(mm * mm)}${eS(-qq)}`;
+    const ok = [eq, `x=${fmt(m)}+-sqrt(${rad(m, q)})`, `x=${fmt(m)}+-${fmt(s)}`, `x_1=${fmt(m + s)}`, `x_2=${fmt(m - s)}`];
+    const bad = [eq, `x=${fmt(-m)}+-sqrt(${rad(m, q)})`, `x=${fmt(-m)}+-${fmt(s)}`, `x_1=${fmt(-m + s)}`, `x_2=${fmt(-m - s)}`];
+    return {task:`Löse $${toTex(tryParse(eq).parts[0])} = 0$.`, goal:{kind:'solve', title:'Nullstellen', prompt:'', eq, v:'x', letters:'x', canon:ok.slice(1)}, lines:bad, okLines:ok, wrong:1, kind:'pqM',
+      why:[`Bei $-#frac{p}{2}$ wurde das Vorzeichen nicht umgedreht: Hier ist $p = ${fmt(p)}$, also $-#frac{p}{2} = ${fmt(m)}$.`, 'Unter der Wurzel wurde $q$ addiert statt abgezogen.', 'Die Wurzel wurde falsch gezogen.']};
+  }},
+  aus:{ch:'qf', kinds:['divX'], label:'Ausklammern', make(){
+    const a = rnd.p([1, 2, -1, 3]), r = rnd.nz(-7, 7), b = -a * r, aS = a === 1 ? '' : a === -1 ? '-' : fmt(a);
+    const eq = `${aS}x^2${eS(b)}x=0`;
+    const ok = [eq, `x(${aS}x${eS(b)})=0`, 'x_1=0', `x_2=${fmt(r)}`];
+    const bad = [eq + ' | :x', `${aS}x${eS(b)}=0`, `x=${fmt(r)}`];
+    return {task:`Bestimme die Nullstellen von $f(x) = ${toTex(tryParse(eq.replace('=0', '')).parts[0])}$.`, goal:{kind:'solve', title:'Nullstellen', prompt:'', eq, v:'x', letters:'x', canon:ok.slice(1)}, lines:bad, okLines:ok, wrong:1, kind:'divX',
+      why:['Durch $x$ geteilt: Dabei geht die Lösung $x = 0$ verloren. Richtig ist Ausklammern und der Satz vom Nullprodukt.', 'Beim Teilen wurde nicht jedes Glied geteilt.', 'Das Vorzeichen beim Seitenwechsel stimmt nicht.']};
+  }},
+  rein:{ch:'qf', kinds:['signMove', 'missing'], label:'Wurzel ziehen', make(){
+    const k = rnd.i(2, 9), eq = `x^2-${k * k}=0`, ok = [eq, `x^2=${k * k}`, `x_1=${k}`, `x_2=${-k}`];
+    const goal = {kind:'solve', title:'Lösungen', prompt:'', eq, v:'x', letters:'x', canon:ok.slice(1)};
+    if (Math.random() < 0.5) return {task:`Löse $x^{2} - ${k * k} = 0$.`, goal, lines:[eq, `x^2=${-k * k}`, 'keine Lösung'], okLines:ok, wrong:1, kind:'signMove',
+      why:[`Beim Seitenwechsel wurde das Vorzeichen nicht umgedreht: Aus $x^{2} - ${k * k} = 0$ folgt $x^{2} = ${k * k}$.`, 'Aus einer negativen Zahl kann man doch die Wurzel ziehen.', `Man hätte durch ${k * k} teilen müssen.`]};
+    return {task:`Löse $x^{2} - ${k * k} = 0$.`, goal, lines:[eq, `x^2=${k * k}`, `x=${k}`], okLines:ok, wrong:2, kind:'missing', need:[-k],
+      why:[`Die zweite Lösung fehlt: Auch $(-${k})^{2} = ${k * k}$, also $x = #pm ${k}$.`, `Die Wurzel aus ${k * k} ist nicht ${k}.`, 'Beim Seitenwechsel hätte das Vorzeichen bleiben müssen.']};
+  }},
+  werte:{ch:'qf', kinds:['negSquare'], label:'Einsetzen', make(){
+    const b = rnd.i(-5, 5), c = rnd.i(-8, 8), x0 = rnd.i(-6, -2), src = `x^2${b ? eS(b) + 'x' : ''}${c ? eS(c) : ''}`;
+    const val = x0 * x0 + b * x0 + c, wv = -x0 * x0 + b * x0 + c;
+    const sub = (xx, par) => `${par ? '(' + fmt(xx) + ')' : fmt(xx)}^2${b ? eS(b) + '*(' + fmt(xx) + ')' : ''}${c ? eS(c) : ''}`;
+    const ok = [`f(${fmt(x0)})=${sub(x0, true)}`, `=${fmt(x0 * x0)}${b ? eS(b * x0) : ''}${c ? eS(c) : ''}=${fmt(val)}`];
+    const bad = [`f(${fmt(x0)})=${sub(x0, false)}`, `=${fmt(-x0 * x0)}${b ? eS(b * x0) : ''}${c ? eS(c) : ''}=${fmt(wv)}`];
+    return {task:`Berechne $f(${fmt(x0)})$ für $f(x) = ${toTex(tryParse(src).parts[0])}$.`, goal:{kind:'value', title:'Funktionswert', prompt:'', fns:{f:src}, letters:'xf', targets:[{label:`f(${fmt(x0)})`, fn:'f', x:x0}], canon:[{line:`f(${fmt(x0)})=${sub(x0, true)}=@`, target:`f(${fmt(x0)})`}]}, lines:bad, okLines:ok, wrong:0, kind:'negSquare',
+      why:[`Die negative Zahl wurde ohne Klammer eingesetzt: $${fmt(x0)}^{2}$ bedeutet $-(${fmt(-x0)}^{2})$, gemeint ist aber $(${fmt(x0)})^{2} = ${fmt(x0 * x0)}$.`, 'Punkt- vor Strichrechnung wurde nicht beachtet.', 'Beim Zusammenfassen wurde falsch addiert.']};
+  }},
+  vAB:{ch:'vek', kinds:['vRev'], label:'Vektor zwischen zwei Punkten', make(){
+    const A = [0, 0, 0].map(() => rnd.i(-5, 6)), B = [0, 0, 0].map(() => rnd.i(-5, 6)); if (A.every((x, i) => x === B[i])) B[0]++;
+    const d = B.map((x, i) => x - A[i]), col = arr => '#col{' + arr.join(';') + '}';
+    const ok = `#vec{AB} = ${col(B.map((x, i) => fmt(x) + ' - ' + eN(A[i])))} = ${col(d.map(fmt))}`;
+    const bad = `#vec{AB} = ${col(A.map((x, i) => fmt(x) + ' - ' + eN(B[i])))} = ${col(d.map(x => fmt(-x)))}`;
+    return {task:`Bestimme $#vec{AB}$ für $A(${A.map(fmt).join('|')})$ und $B(${B.map(fmt).join('|')})$.`, texLines:[bad], okTex:[ok], wrong:0, kind:'vRev',
+      why:['Es wurde „Fuß minus Spitze“ gerechnet. Richtig ist Spitze minus Fuß: $B - A$.', 'Es wurde addiert statt subtrahiert.', 'Die Koordinaten wurden vertauscht.'],
+      fixOpts:[col(d.map(fmt)), col(d.map(x => fmt(-x))), col(A.map((x, i) => fmt(x + B[i])))]};
+  }},
+  vMitte:{ch:'vek', kinds:['vMid'], label:'Mittelpunkt', make(){
+    let A, B; do { A = [0, 0, 0].map(() => rnd.i(-5, 7)); B = [0, 0, 0].map(() => rnd.i(-5, 7)); } while (A.some((x, i) => (x + B[i]) % 2));
+    const M = A.map((x, i) => (x + B[i]) / 2), S = A.map((x, i) => x + B[i]);
+    return {task:`Bestimme den Mittelpunkt $M$ von $A(${A.map(fmt).join('|')})$ und $B(${B.map(fmt).join('|')})$.`, texLines:[`M(${A.map((x, i) => fmt(x) + ' + ' + eN(B[i])).join('|')}) = M(${S.map(fmt).join('|')})`], wrong:0, kind:'vMid',
+      why:['Das Halbieren fehlt: Jede Koordinate ist der Mittelwert $#frac{a + b}{2}$.', 'Es hätte subtrahiert werden müssen.', 'Der Mittelpunkt ist immer der Ursprung.'],
+      fixOpts:[`M(${M.map(fmt).join('|')})`, `M(${S.map(fmt).join('|')})`, `M(${A.map((x, i) => fmt((B[i] - x) / 2)).join('|')})`]};
+  }},
+  vBetrag:{ch:'vek', kinds:['vLenSign'], label:'Betrag', make(){
+    const v = rnd.p([[2, -1, 2], [1, -2, 2], [-4, 4, 2], [2, -3, 6], [6, -2, 3]]), sq = v.map(x => x * x), L = Math.sqrt(sq.reduce((a, b) => a + b, 0));
+    const neg = v.findIndex(x => x < 0), wrongSum = sq.reduce((a, b, i) => a + (v[i] < 0 ? -b : b), 0);
+    const l0 = `|#vec{v}| = #sqrt{${v.map(x => eN(x) + '^{2}').join(' + ')}}`;
+    return {task:`Berechne die Länge von $#vec{v} = #col{${v.join(';')}}$.`, texLines:[l0, `= #sqrt{${sq.map((x, i) => (i ? (v[i] < 0 ? ' - ' : ' + ') : '') + fmt(x)).join('')}} = #sqrt{${fmt(wrongSum)}}`], wrong:1, kind:'vLenSign',
+      why:[`$${eN(v[neg])}^{2} = ${fmt(sq[neg])}$ ist positiv: Ein Quadrat ist nie negativ.`, 'Die Wurzel hätte vor dem Addieren gezogen werden müssen.', 'Die Koordinaten hätten addiert werden müssen, nicht quadriert.'],
+      fixOpts:[`#sqrt{${sq.map(fmt).join(' + ')}} = ${fmt(L)}`, `#sqrt{${fmt(wrongSum)}}`, `${v.map(fmt).join(' + ')} = ${fmt(v.reduce((a, b) => a + b, 0))}`]};
+  }}
+};
+const ERR_KMAP = {pqM:'pq', pqQ:'pq', divX:'aus', lost:'aus', missing:'rein', noSqrt:'rein', negSquare:'werte', precedence:'werte', vRev:'vAB', vSwap:'vAB'};
+function errPick(n){
+  const keys = Object.keys(ERRGEN).filter(k => ERRGEN[k].ch === CH.cur);
+  const top = LM.topErrors(6).map(([k]) => ERR_KMAP[k]).filter(k => keys.includes(k));
+  const list = [];
+  top.forEach(k => { if (list.length < n && !list.includes(k)) list.push(k); });
+  keys.slice().sort(() => Math.random() - .5).forEach(k => { if (list.length < n && !list.includes(k)) list.push(k); });
+  return list.sort(() => Math.random() - .5);
+}
+function errLineTex(g, t){ const p = goalParse(g, t); return p.err ? escH(t) : lineTex(p); }
+/* Zustand bis vor die falsche Zeile aufbauen (richtige Zeilen der Musterlösung) */
+function errState(g, okLines, upto){
+  const st = {last:null, found:[], pend:[], maxRank:0, fails:0, helped:false, doneT:new Set(), lines:[]};
+  for (let i = 0; i < upto; i++){
+    const p = goalParse(g, okLines[i]); if (p.err) continue;
+    if (g.kind === 'solve' && i === 0 && okLines[0] === g.eq){ st.last = {parsed:p, poly:null, vals:g.S}; continue; }
+    const r = analyzeLine(g, st, p); if (r.status !== 'ok') continue;
+    st.lines.push(p);
+    if (g.kind === 'solve'){ if (r.stmt) st.found = uniqA(st.found.concat(r.vals)); else st.last = {parsed:p, poly:r.poly || null, vals:g.S}; }
+    if (g.kind === 'value' && r.target) st.doneT.add(r.target);
+  }
+  return st;
+}
+Training.startErr = function(){
+  const list = errPick(3); if (!list.length) return;
+  this.run = {list, i:0, title:'Fehler finden', res:[], err:true};
+  const box = this.root.querySelector('.tr-run'); box.hidden = false;
+  this.root.querySelector('.tr-dash').hidden = true; this.root.querySelector('.tr-typesec').hidden = true;
+  this.errNext();
+  try { box.scrollIntoView({block:'start', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){}
+};
+Training.errNext = function(){
+  const R0 = this.run, box = this.root.querySelector('.tr-run');
+  if (R0.i >= R0.list.length){
+    const ok = R0.res.filter(x => x).length;
+    box.innerHTML = `<div class="fin ok"><h4>Fehler-Runde beendet: ${ok} von ${R0.res.length} Fehlern selbst gefunden und verbessert</h4><p class="small">Fremde Fehler zu finden schärft den Blick für die eigenen. Achte bei deinen Rechnungen auf genau diese Stellen.</p><div class="btnrow"><button type="button" class="btn btn-primary" data-tr="err">Noch eine Runde</button><button type="button" class="btn" data-tr="stop">Zur Übersicht</button></div></div>`;
+    this.run = null; return;
+  }
+  const key = R0.list[R0.i], E = ERRGEN[key].make(), who = ERR_NAMES[rnd.i(0, ERR_NAMES.length - 1)];
+  if (E.goal) prepGoal(E.goal);
+  R0.E = E;
+  const lines = E.texLines || E.lines.map(t => t === 'keine Lösung' ? null : errLineTex(E.goal, t));
+  box.innerHTML = `<div class="tr-head"><b>Fehler finden</b><span class="small">Aufgabe ${R0.i + 1} von ${R0.list.length} · ${escH(ERRGEN[key].label)}</span><button type="button" class="btn btn-sm" data-tr="stop">Runde beenden</button></div>
+    <div class="err-box"><p class="small">${who} hat diese Aufgabe gelöst. In einer Zeile steckt ein typischer Fehler, die Zeilen danach rechnen damit weiter.</p><h4>${R(E.task)}</h4>
+    <ol class="err-lines">${lines.map((t, i) => `<li><button type="button" class="err-l" data-i="${i}"><span class="err-n">${i + 1}</span><span class="rd-tex">${t === null ? 'keine Lösung' : R('$' + t + '$')}</span></button></li>`).join('')}</ol>
+    <div class="err-step"><p><b>1.</b> Tippe auf die erste falsche Zeile.</p></div></div>`;
+  const stepEl = box.querySelector('.err-step'), lis = box.querySelectorAll('.err-l');
+  let tries = 0, ok = true;
+  const done = good => { R0.res.push(good); LM.event && LM.event('Fehler finden: ' + (good ? 'gelöst' : 'mit Hilfe')); stepEl.insertAdjacentHTML('beforeend', `<div class="btnrow"><button type="button" class="btn btn-primary err-next">${R0.i + 1 < R0.list.length ? 'Nächste Lösung' : 'Runde auswerten'}</button></div>`); stepEl.querySelector('.err-next').addEventListener('click', () => { R0.i++; this.errNext(); }); };
+  const step3 = () => {
+    if (E.fixOpts){
+      const opts = E.fixOpts.map((t, i) => ({t, ok:!i})).sort(() => Math.random() - .5);
+      stepEl.insertAdjacentHTML('beforeend', `<div class="qcard"><div class="qc-q"><b>3.</b> Wie lautet die Zeile richtig?</div><div class="qc-opts">${opts.map((o, i) => `<button type="button" class="opt" data-i="${i}">${R('$' + o.t + '$')}</button>`).join('')}</div><div class="qc-fb"></div></div>`);
+      const card = stepEl.querySelector('.qcard:last-child');
+      card.addEventListener('click', e => { const b = e.target.closest('.opt'); if (!b || b.disabled) return; const o = opts[+b.dataset.i];
+        if (o.ok){ b.classList.add('right'); card.querySelectorAll('.opt').forEach(x => x.disabled = true); card.querySelector('.qc-fb').innerHTML = '<div class="ok">Richtig verbessert.</div>'; done(ok); }
+        else { b.classList.add('wrong'); b.disabled = true; ok = false; card.querySelector('.qc-fb').innerHTML = '<div class="bad">Noch nicht. Rechne die Zeile selbst nach.</div>'; } });
+      return;
+    }
+    const g = E.goal, st = errState(g, E.okLines, E.wrong);
+    stepEl.insertAdjacentHTML('beforeend', `<p><b>3.</b> Schreib die Zeile ${E.wrong + 1} richtig.</p><div class="err-w"></div>`);
+    const wbox = stepEl.querySelector('.err-w');
+    let fails = 0;
+    const W = new LineWriter(wbox, g, {onCheck:() => {
+      const v = W.value(); if (!v.text) return;
+      let p = goalParse(g, v.text); if (p.cont) p.contTgt = (g.targets && g.targets[0] && g.targets[0].label) || null;
+      const r = p.err ? {status:'unread'} : analyzeLine(g, st, p);
+      const fb = stepEl.querySelector('.err-fb') || (stepEl.insertAdjacentHTML('beforeend', '<div class="err-fb small"></div>'), stepEl.querySelector('.err-fb'));
+      if (r.status === 'ok' && E.need && !(r.vals || []).some(x => E.need.some(n => aNear(x, n)))){ fb.innerHTML = '<div class="bad">Das stimmt, aber es fehlt noch etwas. Wie viele Lösungen hat die Gleichung?</div>'; fails++; ok = false; return; }
+      if (r.status === 'ok'){ W.lock(true); fb.innerHTML = `<div class="ok">${R('Richtig verbessert: $' + lineTex(p) + '$')}</div>`; done(ok); return; }
+      fails++; ok = false;
+      if (r.status === 'unread' || r.status === 'note'){ fb.innerHTML = r.status === 'note' ? R(r.html) : 'Die Zeile ist noch nicht lesbar. Tippe auf falsch erkannte Zeichen oder nutze die Tastatur.'; return; }
+      if (fails >= 2){ W.lock(true); fb.innerHTML = `<div class="bad">So wäre es richtig: ${R('$' + errLineTex(g, E.okLines[E.wrong]) + '$')}</div>`; done(false); return; }
+      fb.innerHTML = `<div class="bad">${R(r.html || 'Das stimmt noch nicht.')} Versuch es noch einmal.</div>`; W.clear(true);
+    }});
+  };
+  const step2 = () => {
+    const opts = E.why.map((t, i) => ({t, ok:!i})).sort(() => Math.random() - .5);
+    stepEl.innerHTML = `<div class="qcard"><div class="qc-q"><b>2.</b> Was ist in Zeile ${E.wrong + 1} schiefgegangen?</div><div class="qc-opts">${opts.map((o, i) => `<button type="button" class="opt" data-i="${i}">${R(o.t)}</button>`).join('')}</div><div class="qc-fb"></div></div>`;
+    const card = stepEl.querySelector('.qcard'); let w = 0;
+    card.addEventListener('click', e => { const b = e.target.closest('.opt'); if (!b || b.disabled || card.dataset.done) return; const o = opts[+b.dataset.i];
+      if (o.ok || ++w >= 2){ card.dataset.done = '1'; if (!o.ok){ ok = false; b.classList.add('wrong'); } card.querySelectorAll('.opt').forEach((x, i) => { x.disabled = true; if (opts[i].ok) x.classList.add('right'); }); card.querySelector('.qc-fb').innerHTML = `<div class="${o.ok ? 'ok' : 'bad'}">${o.ok ? 'Genau.' : 'Das war es nicht.'} ${R(E.why[0])}</div>`; step3(); }
+      else { b.classList.add('wrong'); b.disabled = true; card.querySelector('.qc-fb').innerHTML = '<div class="bad">Nicht ganz. Schau dir die Zeile noch einmal genau an.</div>'; } });
+  };
+  box.querySelector('.err-lines').addEventListener('click', e => {
+    const b = e.target.closest('.err-l'); if (!b || box.querySelector('.err-lines').dataset.done) return;
+    const i = +b.dataset.i;
+    if (i === E.wrong){ box.querySelector('.err-lines').dataset.done = '1'; b.classList.add('found'); lis.forEach(x => x.disabled = true); step2(); return; }
+    tries++; ok = false; b.classList.add(i < E.wrong ? 'fine' : 'later');
+    stepEl.innerHTML = `<p><b>1.</b> ${i < E.wrong ? 'Diese Zeile stimmt noch. Vergleich die nächsten Zeilen jeweils mit der Zeile davor.' : 'Diese Zeile ist falsch, aber der Fehler steckt schon weiter oben: Sie rechnet nur folgerichtig weiter.'} ${tries >= 2 ? '' : 'Tippe noch einmal.'}</p>`;
+    if (tries >= 2){ box.querySelector('.err-lines').dataset.done = '1'; lis[E.wrong].classList.add('found'); lis.forEach(x => x.disabled = true); stepEl.insertAdjacentHTML('beforeend', `<p class="small">Der Fehler steckt in Zeile ${E.wrong + 1}.</p>`); step2(); }
+  });
+};
+Training.render = (orig => function(){
+  orig.call(this);
+  const cards = this.root.querySelector('.tr-cards');
+  if (cards && !cards.querySelector('.tr-errcard') && Object.keys(ERRGEN).some(k => ERRGEN[k].ch === CH.cur)) cards.insertAdjacentHTML('beforeend', `<div class="tr-card tr-errcard"><h4>Fehler finden</h4><p class="small">Drei fremde Lösungen mit typischen Denkfehlern: Finde die falsche Zeile, benenne den Fehler und verbessere ihn. Das schärft den Blick für die eigenen Fehler.</p><button type="button" class="btn" data-tr="err">Fehler suchen</button></div>`);
+})(Training.render);
+document.addEventListener('click', e => { const b = e.target.closest('#training-box [data-tr="err"]'); if (b) Training.startErr(); });
+
 /* ================= Start v3 ================= */
 const PLOTS = {};
 function labA11(){
@@ -6565,6 +7856,13 @@ buildQuiz();
 demoLine();
 Training.init($('#training-box')); studentPanel($('#student-box')); sheetPanel($('#sheet-box')); dataLab($('#lab-data')); samplesPanel($('#samples-box'));
 LM.on(() => CLASS.sync()); CLASS.init();
+/* Nachschlagen, Hilfe-Einstellung, KI-Einrichtung (nur eigenständige Fassung) */
+if (typeof lexSection === 'function'){
+  lexSection(); quellenDidaktik();
+  const ck = document.getElementById('checkmode');
+  if (ck && !ck.querySelector('.help-on')){ ck.insertAdjacentHTML('beforeend', `<label class="ckm help-on"><input type="checkbox"${HELP_CFG.on ? ' checked' : ''}> <span><b>Hilfe anbieten, wenn es stockt:</b> Nach etwa einer Minute ohne Fortschritt, nach zwei Fehlern oder viel Radieren erscheint ein Angebot mit gestuften Hinweisen. Du entscheidest, ob du es öffnest.</span></label>`); ck.querySelector('.help-on input').addEventListener('change', e => { HELP_CFG.on = e.target.checked; helpSave(); }); }
+  if (CLASS.standalone){ const sec = document.getElementById('lehrkraft'); if (sec && !sec.querySelector('.ki-setup')){ const d = document.createElement('details'); d.className = 'ki-setup'; d.innerHTML = '<summary>KI-Antworten auf freie Fragen einrichten (für Eltern oder Lehrkraft, optional)</summary><div class="ki-box"></div>'; sec.appendChild(d); kiSetup(d.querySelector('.ki-box')); } }
+}
 (() => { const d = $('#hand'); if (!d) return; let ht = null; d.addEventListener('toggle', () => { if (d.open && !ht) ht = new HandTrainer($('#hand-box')); else if (ht) ht.ink.fit(); }); })();
 $('#mode-lern').addEventListener('click', () => setMode('lern'));
 $('#mode-loes').addEventListener('click', () => setMode('loes'));
