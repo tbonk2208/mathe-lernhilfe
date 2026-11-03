@@ -2038,9 +2038,26 @@ function classify(strokes, ctx, W){
 }
 /* Komma nach einer Ziffer: ein kurzer, nicht flacher Strich rechts unten, oben höchstens bis zur halben Ziffernhöhe,
    unten bis zur Grundlinie oder darunter. Eine 1 reicht dagegen bis oben. A: Zeichen (Gruppe) links davon */
+function segDist(p, a, b){
+  const dx = b.x - a.x, dy = b.y - a.y, L = dx * dx + dy * dy;
+  const t = L ? Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / L)) : 0;
+  return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy);
+}
+function polyDist(P, Q){
+  let d = Infinity;
+  for (const p of P){
+    if (Q.length === 1) d = Math.min(d, Math.hypot(p.x - Q[0].x, p.y - Q[0].y));
+    for (let i = 1; i < Q.length; i++) d = Math.min(d, segDist(p, Q[i - 1], Q[i]));
+  }
+  return d;
+}
+/* kleinster Abstand zwischen einem Strich und den Strichen eines Zeichens (Punktlisten) */
+function inkDist(P, list){ let d = Infinity; for (const Q of list) d = Math.min(d, polyDist(P, Q), polyDist(Q, P)); return d; }
+/* Ein Komma steht frei neben der Ziffer. Berührt der Strich sie (Senkrechte der 4, Fuß der 1), gehört er zur Ziffer. */
 function commaGeo(s, A){
   const ah = A.y1 - A.y0;
-  return ah > 0 && s.h < 0.75 * ah && s.h > 0.35 * Math.max(s.w, 1) && s.w < 0.6 * ah && s.y0 > A.y0 + 0.45 * ah && s.y1 > A.y1 - 0.15 * ah && s.cx > (A.x0 + A.x1) / 2;
+  if (!(ah > 0 && s.h < 0.75 * ah && s.h > 0.35 * Math.max(s.w, 1) && s.w < 0.6 * ah && s.y0 > A.y0 + 0.45 * ah && s.y1 > A.y1 - 0.15 * ah && s.cx > (A.x0 + A.x1) / 2)) return false;
+  return !(A.st && s.pts && inkDist(s.pts, A.st.map(q => q.pts)) < Math.max(1.5, 0.1 * ah));
 }
 function groupStrokes(S, H, ctx, W){
   const tiny = s => Math.max(s.w, s.h) < 0.22 * H;
@@ -2180,7 +2197,8 @@ function recogItems(strokes, ctx, depth = 0){
     const prevDig = prev && prev.k === 'sym' && !prev.sup && !prev.sub && /[0-9]/.test(prev.alts[0][0]);
     const letter = /[a-z]/.test(c0) && it.alts[0][1] > 0.3 && !ctx.labelPos;     /* Zahlen-Ziele: Buchstaben mitten in der Zeile sind unwahrscheinlich */
     if (prevDig && !letter && it.strokes && it.strokes.length <= 2 && it.h < 0.8 * Hn && (it.x1 - it.x0) < 0.6 * Hn && it.h > 0.35 * Math.max(it.x1 - it.x0, 1)
-        && it.y0 > base - 0.5 * Hn && it.cy > base - 0.3 * Hn){ it.alts = [[',', .8], [c0, .15], ['', .05]]; return; }
+        && it.y0 > base - 0.5 * Hn && it.cy > base - 0.3 * Hn
+        && !(prev.strokes && it.strokes.some(P => inkDist(P, prev.strokes) < Math.max(1.5, 0.1 * (prev.y1 - prev.y0))))){ it.alts = [[',', .8], [c0, .15], ['', .05]]; return; }
     const small = it.h < 0.72 * Hn;
     if (small && prevAtom && it.y1 < base - 0.3 * Hn) it.sup = true;
     else if (small && prev && prev.k === 'sym' && /[a-z]/.test(prev.alts[0][0]) && it.y0 > base - 0.55 * Hn && /[0-9]/.test(c0)) it.sub = true;
