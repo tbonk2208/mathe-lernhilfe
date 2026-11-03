@@ -751,6 +751,116 @@ body.ch-vek nav.toc [data-ch="qf"], body.ch-qf nav.toc [data-ch="vek"]{display:n
 .err-n{font:600 .8rem var(--f-body);color:var(--muted);min-width:1.2em}
 .err-step .qcard{margin:8px 0}
 
+/* ================= Lernweg (v8) ================= */
+body.wg main > section.card{display:none}
+body.wg main > section.card.wg-on{display:flex}
+.wg-hero h1{font-size:2rem;margin:0}
+.wg-how{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--paper)}
+.wg-how summary{cursor:pointer;font-weight:700}
+.wg-howl{margin:8px 0;padding-left:1.4em;display:flex;flex-direction:column;gap:4px}
+.wg-planbox{border:1.5px solid var(--accent);border-radius:14px;padding:16px 18px;background:var(--accent-soft);display:flex;flex-direction:column;gap:8px}
+.wg-planbox h3{margin:0}
+.wg-planbox h4{margin:6px 0 0}
+.wg-pin{display:flex;flex-wrap:wrap;gap:12px}
+.wg-pin input,.wg-pin select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink)}
+.wg-today{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+.wg-today li{padding-left:2px}
+.wg-today li > span{margin-right:8px}
+.wg-sched{margin:0;padding-left:1.4em;font-size:.95rem}
+.wg-sd{display:inline-block;min-width:7.5em;font-variant-numeric:tabular-nums;color:var(--muted)}
+.wg-th{margin:8px 0 0}
+.wg-tlist{display:flex;flex-direction:column;gap:10px}
+.wg-tc{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--sheet)}
+.wg-tc.next{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.wg-tc.ok{background:var(--good-soft)}
+.wg-tn{width:2.1em;height:2.1em;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;background:var(--accent-soft);color:var(--accent)}
+.wg-tc.ok .wg-tn{background:var(--good);color:#fff}
+.wg-dots{display:flex;gap:4px;margin:5px 0 3px}
+.wg-dots span{width:22px;height:6px;border-radius:3px;background:var(--line)}
+.wg-dots span.on{background:var(--good)}
+.wg-dots span.cur{background:var(--accent)}
+@media (max-width:560px){.wg-tc{grid-template-columns:auto 1fr}.wg-tc > button{grid-column:1 / -1}}
+.wg-mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+/* Thema */
+.wg-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.wg-back{text-decoration:none;font-weight:600}
+.wg-title{margin:0;font-size:1.6rem}
+.wg-stepper{list-style:none;margin:0;padding:0;display:flex;gap:6px;flex-wrap:wrap}
+.wg-stepper button{font:600 .88rem var(--f-body);display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--sheet);color:var(--muted);border-radius:999px;padding:4px 12px 4px 5px;cursor:pointer}
+.wg-stepper button .wg-sn{width:1.6em;height:1.6em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--paper);font-size:.8rem}
+.wg-stepper button.done{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.wg-stepper button.done .wg-sn{background:var(--good);color:#fff}
+.wg-stepper button.cur{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
+.wg-stepper button.cur .wg-sn{background:var(--accent);color:#fff}
+@media (max-width:560px){.wg-stepper{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}.wg-stepper button{white-space:nowrap}}
+.wg-step{display:flex;flex-direction:column;gap:14px}
+.wg-sh{display:flex;align-items:center;gap:8px;margin:4px 0 0;font-size:1.25rem}
+.wg-sh .wg-sn{width:1.7em;height:1.7em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:.9rem}
+.wg-goals{border-left:4px solid var(--good);background:var(--good-soft);padding:10px 14px;border-radius:0 10px 10px 0}
+.wg-goals h4,.wg-merk h4,.wg-fehl h4,.wg-verst h4{margin:0 0 6px}
+.wg-goals ul,.wg-merk ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.wg-diag,.wg-verst,.wg-qs,.wg-fq,.wg-dq,.wg-exq{display:flex;flex-direction:column;gap:10px}
+.wg-routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:8px 0}
+.wg-rt{display:flex;flex-direction:column;gap:4px;text-align:left;font:inherit;border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:12px;padding:12px 14px;cursor:pointer}
+.wg-rt:hover{border-color:var(--accent)}
+.wg-rt.rec{border-color:var(--accent);background:var(--accent-soft)}
+.wg-tag{display:inline-block;font:700 .7rem var(--f-body);text-transform:uppercase;letter-spacing:.05em;background:var(--accent);color:#fff;border-radius:999px;padding:1px 7px;margin-left:4px;vertical-align:middle}
+.wg-rec{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--paper)}
+.linkbtn{font:inherit;background:none;border:0;padding:0;color:var(--accent);text-decoration:underline;cursor:pointer}
+.wg-kn{display:flex;flex-direction:column;gap:12px}
+.wg-kntext{font-size:1.05rem;margin:0}
+.wg-pad{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--sheet)}
+.wg-padh{display:flex;gap:6px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);background:var(--paper)}
+.wg-padh .small{flex:1}
+.wg-padz{height:260px;position:relative}
+.wg-padz canvas{width:100%;height:100%;display:block}
+.wg-ans{display:flex;flex-wrap:wrap;gap:12px}
+.wg-ans input{font:inherit;padding:6px 9px;border:1.5px solid var(--line);border-radius:8px;width:8em;background:var(--sheet);color:var(--ink)}
+.wg-ans input.bad{border-color:var(--bad)}
+.wg-knfb .ok,.wg-knfb .bad,.wg-knfb .obs{padding:8px 12px;border-radius:8px}
+.wg-knfb .ok{background:var(--good-soft);color:var(--good)}
+.wg-knfb .bad{background:var(--bad-soft);color:var(--bad)}
+.wg-knfb .obs{background:var(--obs-soft);color:var(--ink)}
+.wg-ap .chip{border:1px solid var(--line);border-radius:999px;background:var(--sheet);padding:5px 12px;font:inherit;font-size:.92rem;cursor:pointer;color:var(--ink)}
+.wg-ap .chip.on{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.wg-ap h4{margin:0}
+.wg-fl{display:grid;grid-template-columns:1fr 1.4fr;gap:6px 10px}
+.wg-fw,.wg-fr{padding:8px 10px;border-radius:8px}
+.wg-fw{background:var(--bad-soft)}
+.wg-fr{background:var(--good-soft)}
+.wg-x,.wg-ok{display:block;font:700 .7rem var(--f-body);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.wg-x{color:var(--bad)}.wg-ok{color:var(--good)}
+@media (max-width:620px){.wg-fl{grid-template-columns:1fr}.wg-fr{margin-bottom:6px}}
+.wg-moved{display:flex;flex-direction:column;gap:12px}
+.wg-lab{border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.wg-lab > summary{cursor:pointer;font-weight:700}
+.wg-labbox{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.wg-fade{border-top:2px dashed var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px}
+.wg-fade h4{margin:0}
+.wg-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wg-col{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--paper)}
+.wg-col h4{margin:0 0 6px}
+.wg-col ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+@media (max-width:700px){.wg-cmp{grid-template-columns:1fr}}
+.wg-grp{border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.wg-grp > summary{cursor:pointer;font-weight:700;padding:4px 0}
+.wg-grpb{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.wg-step section.card.wg-bt{padding:16px 16px;border-radius:12px}
+.wg-step section.card.wg-bt .card-head h2{font-size:1.2rem}
+.wg-step .vtask{margin:0}
+.wg-run:empty,.wg-more:empty{display:none}
+.wg-run{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.wg-exit{display:flex;flex-direction:column;gap:12px}
+.wg-again{border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.wg-again summary{cursor:pointer;font-weight:600}
+.wg-mybox p{margin:0}
+.wg-tx{line-height:1.6}
+.wg-noh .ask-btn,.wg-noh .help-offer{display:none}
+nav.toc a.wg-nt > span:first-child{display:flex;gap:6px;align-items:baseline}
+.wg-nn{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;min-width:.9em}
+.wg-dk{color:var(--muted)}
+.box.life h4 .lt{flex:0 0 auto;width:auto;display:inline-block;margin:0}
+
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
 .nojs-note h2{margin:0 0 8px;font-size:1.25rem;color:var(--bad,#b42318)}
@@ -1060,7 +1170,7 @@ html.js .nojs-note{display:none}
     <section class="card" id="vstart" data-ch="vek">
       <div class="card-head"><span class="num" style="background:var(--good)">V</span><h2>Vektoren: Kapitelstart</h2></div>
       <p class="lead">Mit Vektoren gelingt der Sprung von der ebenen in die räumliche Geometrie. Das kannst du bald: Punkte und Verschiebungen im Raum durch Vektoren beschreiben, mit Vektoren rechnen und geometrische Aussagen mit Vektoren begründen und prüfen.</p>
-      <p class="goal"><b>So ist das Kapitel aufgebaut:</b> Check-in (Pythagoras und Co.), Erkundungen, dann die drei Lerneinheiten von S. 142–155. Den Rechenweg schreibst du aufs Blatt wie im Heft: Vektoren als Spalte in großen Klammern, die Koordinaten untereinander, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) = (4 | −2 | −2), Punkte als Ortsvektor. Bewertet wird der ganze Weg: Richtige Teilschritte und Folgefehler werden anerkannt. Mit „⌨ Tippen“ geht es auch per Tastatur, eine Spalte schreibst du dann als (4|−2|−2). Linearkombinationen und Aufgaben mit mehreren richtigen Antworten trägst du weiter in Kästchen ein.</p>
+      <p class="goal"><b>So ist das Kapitel aufgebaut:</b> erst der Vorwissen-Check (Pythagoras und Co., S. 139), dann drei Themen nach den Lerneinheiten von S. 142–155. Die Erkundungen von S. 140–141 sind dort der Einstieg zum Knobeln. Den Rechenweg schreibst du aufs Blatt wie im Heft: Vektoren als Spalte in großen Klammern, die Koordinaten untereinander, z. B. AB = (5 − 1 | 0 − 2 | 1 − 3) = (4 | −2 | −2), Punkte als Ortsvektor. Bewertet wird der ganze Weg: Richtige Teilschritte und Folgefehler werden anerkannt. Mit „⌨ Tippen“ geht es auch per Tastatur, eine Spalte schreibst du dann als (4|−2|−2). Linearkombinationen und Aufgaben mit mehreren richtigen Antworten trägst du weiter in Kästchen ein.</p>
       <aside class="box life"><h4><span class="lt game">Game</span> Koordinaten in Minecraft</h4><p>Mit F3 zeigt Minecraft (Java Edition) deine Position als drei Zahlen X, Y, Z<a class="ref" href="#q14">[14]</a>. Y ist dort die Höhe, X zählt nach Osten, Z nach Süden<a class="ref" href="#q14">[14]</a>. Im Matheheft ist die Höhe dagegen <span class="m"><i>x</i><sub>3</sub></span>. Gleiche Idee, andere Namen: Drei Zahlen legen jeden Ort fest.</p></aside>
       <aside class="box life"><h4><span class="lt fb">Fußball</span> Laufwege als Vektoren</h4><p>In der Bundesliga erfassen Kamerasysteme die Position jedes Spielers 25-mal pro Sekunde als Koordinaten<a class="ref" href="#q16">[16]</a>; das System TRACAB liefert 25-mal pro Sekunde auch x-, y- und z-Koordinaten des Balls<a class="ref" href="#q17">[17]</a>. Der Weg zwischen zwei Messungen ist ein Vektor „Endpunkt minus Anfangspunkt“, seine Länge die gelaufene Strecke.</p></aside>
     </section>
@@ -4678,7 +4788,7 @@ class StuckWatch {
     const gr = this.gr;
     if (gr.done || !document.body.contains(gr.root)) return this.stop();
     const p = this.progMeasure(); if (p > this.prog){ this.prog = p; this.lastProg = nowMs(); this.erase = []; this.nErr = 0; }
-    if (!HELP_CFG.on || this.offerEl || this.panel || !this.visible() || gr.wbox.classList.contains('locked') || (gr.tutor && gr.tutor.querySelector('.qcard:not(.explain) .opt:not([disabled])'))) return;
+    if (!HELP_CFG.on || this.offerEl || this.panel || !this.visible() || (gr.root && gr.root.closest && gr.root.closest('.wg-noh')) || gr.wbox.classList.contains('locked') || (gr.tutor && gr.tutor.querySelector('.qcard:not(.explain) .opt:not([disabled])'))) return;
     const now = nowMs(), quiet = now - this.lastAct, noProg = now - this.lastProg, thr = HELP_CFG.idle * (1 + this.snooze);
     this.erase = this.erase.filter(t => now - t < 120000);
     let why = null;
@@ -7784,6 +7894,997 @@ Training.render = (orig => function(){
 })(Training.render);
 document.addEventListener('click', e => { const b = e.target.closest('#training-box [data-tr="err"]'); if (b) Training.startErr(); });
 
+/* ================= Lernweg (v8): kleine Labore für den Schritt „Darstellen“ ================= */
+/* Gemeinsame Hilfen: Vorzeichen-Glied für Gleichungen, Abfrage innerhalb des Labors */
+const lwSg = (v, t = '') => v === 0 ? '' : ` ${v < 0 ? '-' : '+'} ${t && Math.abs(v) === 1 ? '' : fmt(Math.abs(v))}${t}`;
+const lwQ = root => s => root.querySelector(s);
+
+/* p-q-Labor: f(x) = x² + px + q, Scheitelpunktform, Diskriminante, Nullstellen */
+function labPQ(root, o = {}){
+  root.innerHTML = `<div class="lab"><div class="lab-ctrl">
+      <div class="rng"><label>p</label><input type="range" class="pq-p" min="-8" max="8" step="0.5" value="${o.p ?? -2}" aria-label="p"><output class="pq-po"></output></div>
+      <div class="rng"><label>q</label><input type="range" class="pq-q" min="-10" max="10" step="0.5" value="${o.q ?? -3}" aria-label="q"><output class="pq-qo"></output></div>
+      <div class="eqline pq-eq"></div><div class="eqline pq-eq2"></div>
+      <dl class="facts pq-facts"></dl>
+      <div class="lab-fb pq-fb" aria-live="polite"></div>
+    </div><div class="plotbox pq-plot"></div></div>`;
+  const g = lwQ(root);
+  const upd = () => {
+    const p = +g('.pq-p').value, q = +g('.pq-q').value, h = -p / 2, D = p * p / 4 - q;
+    g('.pq-po').textContent = fmt(p); g('.pq-qo').textContent = fmt(q);
+    g('.pq-eq').innerHTML = tex(`f(x) = x^2${lwSg(p, 'x')}${lwSg(q)}`);
+    g('.pq-eq2').innerHTML = tex(`f(x) = ${h === 0 ? 'x^2' : `(x ${h > 0 ? '-' : '+'} ${fmt(Math.abs(h))})^2`}${lwSg(-D)}`);
+    const zs = D > 1e-9 ? [h - Math.sqrt(D), h + Math.sqrt(D)] : Math.abs(D) <= 1e-9 ? [h] : [];
+    g('.pq-facts').innerHTML = `<dt>${tex('D = (#frac{p}{2})^2 - q')}</dt><dd>${fmt(D)}</dd><dt>Scheitel</dt><dd>${tex('S' + ptl(h, -D))}</dd><dt>Nullstellen</dt><dd>${zs.length ? zs.map(z => tex('x = ' + fmt(z, 2))).join(', ') : 'keine'}</dd>`;
+    const fb = g('.pq-fb');
+    fb.textContent = D > 1e-9 ? 'D > 0: zwei Nullstellen. Der Scheitel liegt unter der x-Achse.' : zs.length ? 'D = 0: genau eine Nullstelle. Der Scheitel liegt auf der x-Achse.' : 'D < 0: keine Nullstelle. Der Scheitel liegt über der x-Achse.';
+    fb.className = 'lab-fb pq-fb' + (zs.length === 1 ? ' ok' : '');
+    const y0 = Math.min(-3, -D - 2), y1 = Math.max(8, -D + 9);
+    g('.pq-plot').innerHTML = plotSVG({x:[-9, 9], y:[y0, y1], aspect:.75, fns:[{f:x => x * x + p * x + q, color:COL.acc}],
+      pts:[{x:h, y:-D, color:COL.acc, label:'S'}].concat(zs.map(z => ({x:z, y:0, color:COL.good, r:5}))), label:'Graph von f'});
+  };
+  root.addEventListener('input', upd); upd();
+}
+
+/* Schnittpunkte: Normalparabel und Gerade g(x) = mx + n, wahlweise mit Differenzfunktion */
+function labSchnitt(root){
+  root.innerHTML = `<div class="lab"><div class="lab-ctrl">
+      <div class="rng"><label>m</label><input type="range" class="sc-m" min="-3" max="3" step="0.5" value="1" aria-label="Steigung m"><output class="sc-mo"></output></div>
+      <div class="rng"><label>n</label><input type="range" class="sc-n" min="-4" max="6" step="0.5" value="2" aria-label="Achsenabschnitt n"><output class="sc-no"></output></div>
+      <label class="chk"><input type="checkbox" class="sc-d"> Differenzfunktion ${tex('d(x) = f(x) - g(x)')} zeigen</label>
+      <div class="eqline sc-eq"></div><div class="eqline sc-eq2"></div>
+      <dl class="facts sc-facts"></dl>
+      <div class="lab-fb sc-fb" aria-live="polite"></div>
+    </div><div class="plotbox sc-plot"></div></div>`;
+  const g = lwQ(root);
+  const upd = () => {
+    const m = +g('.sc-m').value, n = +g('.sc-n').value, D = m * m / 4 + n;
+    g('.sc-mo').textContent = fmt(m); g('.sc-no').textContent = fmt(n);
+    g('.sc-eq').innerHTML = tex(`f(x) = x^2,#quad g(x) = ${m === 0 ? fmt(n) : (Math.abs(m) === 1 ? (m < 0 ? '-' : '') : fmt(m)) + 'x' + lwSg(n)}`);
+    g('.sc-eq2').innerHTML = tex(`x^2 = ${m === 0 ? fmt(n) : (Math.abs(m) === 1 ? (m < 0 ? '-' : '') : fmt(m)) + 'x' + lwSg(n)} #Lra x^2${lwSg(-m, 'x')}${lwSg(-n)} = 0`);
+    const xs = D > 1e-9 ? [m / 2 - Math.sqrt(D), m / 2 + Math.sqrt(D)] : Math.abs(D) <= 1e-9 ? [m / 2] : [];
+    g('.sc-facts').innerHTML = `<dt>Schnittpunkte</dt><dd>${xs.length ? xs.map(x => tex('S' + ptl(+x.toFixed(2), +(x * x).toFixed(2)))).join(', ') : 'keine'}</dd>`;
+    const fb = g('.sc-fb');
+    fb.textContent = xs.length === 2 ? 'Zwei Schnittpunkte: Die Gleichung hat zwei Lösungen.' : xs.length ? 'Die Gerade berührt die Parabel: genau eine Lösung.' : 'Kein Schnittpunkt: Die Gleichung hat keine Lösung.';
+    fb.className = 'lab-fb sc-fb' + (xs.length === 1 ? ' ok' : '');
+    const fns = [{f:x => x * x, color:COL.f, label:'f', at:-2.6, dx:-16, dy:4}, {f:x => m * x + n, color:COL.g, label:'g', at:3.6, dx:6, dy:-6}];
+    if (g('.sc-d').checked) fns.push({f:x => x * x - m * x - n, color:COL.d, dash:true, label:'d', at:-2.2, dx:8, dy:14});
+    g('.sc-plot').innerHTML = plotSVG({x:[-5, 5], y:[-9, 12], aspect:.8, fns, pts:xs.map(x => ({x, y:x * x, color:COL.acc, r:5})).concat(g('.sc-d').checked ? xs.map(x => ({x, y:0, color:COL.d, r:4.5, hollow:true})) : []), label:'Parabel und Gerade'});
+  };
+  root.addEventListener('input', upd); root.addEventListener('change', upd); upd();
+}
+
+/* Pfeil und Spalte: ein Vektor, drei Pfeile an verschiedenen Stellen, wahlweise mit Gegenvektor */
+function labPfeil(root){
+  root.innerHTML = `<div class="lab"><div class="lab-ctrl">
+      <div class="rng"><label>${tex('v_{1}')}</label><input type="range" class="pf-1" min="-4" max="4" step="1" value="3" aria-label="erste Koordinate"><output class="pf-1o"></output></div>
+      <div class="rng"><label>${tex('v_{2}')}</label><input type="range" class="pf-2" min="-4" max="4" step="1" value="-1" aria-label="zweite Koordinate"><output class="pf-2o"></output></div>
+      <label class="chk"><input type="checkbox" class="pf-g"> Gegenvektor ${tex('-#vec{v}')} zeigen</label>
+      <div class="eqline pf-eq"></div>
+      <div class="lab-fb pf-fb" aria-live="polite"></div>
+    </div><div class="plotbox pf-plot arbox"></div></div>`;
+  const g = lwQ(root), ST = [[-3, 2], [0, -2], [2, 1]];
+  const upd = () => {
+    const v = [+g('.pf-1').value, +g('.pf-2').value], neg = g('.pf-g').checked;
+    g('.pf-1o').textContent = v[0]; g('.pf-2o').textContent = v[1];
+    g('.pf-eq').innerHTML = tex(`#vec{v} = #col{${fmt(v[0])};${fmt(v[1])}}`) + (neg ? ' &nbsp; ' + tex(`-#vec{v} = #col{${fmt(-v[0])};${fmt(-v[1])}}`) : '');
+    const arrows = ST.map(a => ({a, b:[a[0] + v[0], a[1] + v[1]]}));
+    if (neg) ST.forEach(a => arrows.push({a, b:[a[0] - v[0], a[1] - v[1]], cls:'err'}));
+    g('.pf-fb').textContent = v[0] || v[1] ? `Jeder blaue Pfeil: ${Math.abs(v[0])} nach ${v[0] < 0 ? 'links' : 'rechts'}, ${Math.abs(v[1])} nach ${v[1] < 0 ? 'unten' : 'oben'}.` : 'Nullvektor: keine Verschiebung, also kein Pfeil.';
+    g('.pf-plot').innerHTML = arrowSVG([-7, 7, -6, 6], arrows, null);
+  };
+  root.addEventListener('input', upd); root.addEventListener('change', upd); upd();
+}
+
+/* ================= Lernweg (v8): Themen, Diagnose, Einstiege, Klärung, Vergleiche ================= */
+/* Aufbau je Thema nach der Lernabfolge: Ziel und Eingangscheck, Einstieg (Musterbeispiel oder Knobelproblem),
+   Klären, Darstellungen verbinden, Lösungswege vergleichen, Üben, Abschlusscheck.
+   Multiple-Choice-Einträge: [Text, richtig?, Rückmeldung]. Mathe in $…$ wie im übrigen Programm. */
+const LW_TOPICS = [
+/* ---------------- Parabeln ---------------- */
+{id:'p1', ch:'qf', title:'Parabeln lesen und zeichnen', book:'S. 14: Aufgaben 5, 7, 8 · S. 15: Aufgabe 13', kind:'concept',
+ goals:['Ich kann am Graphen den Scheitelpunkt und den Streckfaktor ablesen und die Gleichung in Scheitelpunktform $f(x) = a(x - d)^2 + e$ angeben.', 'Ich kann aus der Scheitelpunktform den Graphen ohne Wertetabelle skizzieren.', 'Ich kann Funktionswerte berechnen, auch für negative x-Werte.'],
+ pre:['die Normalparabel $y = x^2$', 'Punkte im Koordinatensystem ablesen', 'negative Zahlen quadrieren'],
+ check:[
+  {pre:true, q:'Welchen Wert hat $f(x) = x^2$ an der Stelle $x = -3$?', opts:[['$9$', true, '$(-3)^2 = (-3) #cdot (-3) = 9$.'], ['$-9$', false, 'Das Quadrat einer negativen Zahl ist positiv: $(-3)^2 = 9$.'], ['$-6$', false, 'Quadrieren heißt mit sich selbst multiplizieren, nicht verdoppeln.']]},
+  {pre:true, q:'Der Punkt P liegt 2 Einheiten links von der y-Achse und 3 Einheiten unter der x-Achse. Welche Koordinaten hat P?', opts:[['$P(-2|-3)$', true, 'Erst die x-Koordinate (links/rechts), dann die y-Koordinate (unten/oben).'], ['$P(-3|-2)$', false, 'Zuerst kommt die x-Koordinate, also links/rechts: $-2$.'], ['$P(2|3)$', false, 'Links und unten sind die negativen Richtungen.']]},
+  {q:'Wo liegt der Scheitelpunkt von $f(x) = (x - 4)^2 + 1$?', opts:[['$S(4|1)$', true, 'Die Klammer wird für $x = 4$ null, dann ist $f(4) = 1$.'], ['$S(-4|1)$', false, 'Die Klammer $(x - 4)$ wird für $x = 4$ null, nicht für $x = -4$.'], ['$S(1|4)$', false, 'Erst die x-Koordinate: Sie steckt in der Klammer.']]},
+  {q:'Was bewirkt der Faktor $-2$ in $f(x) = -2x^2$ im Vergleich zur Normalparabel?', opts:[['nach unten geöffnet und schmaler', true, 'Minus öffnet nach unten, $|a| = 2 > 1$ streckt.'], ['nach unten geöffnet und breiter', false, '$|a| = 2 > 1$: Die Werte wachsen doppelt so schnell, die Parabel wird schmaler.'], ['um 2 nach unten verschoben', false, 'Eine Verschiebung nach unten käme von einem Glied $-2$ am Ende, nicht von einem Faktor.']]}],
+ example:{type:'ablesen', task:'Lies die Gleichung der abgebildeten Parabel in Scheitelpunktform ab.',
+  fig:() => plotSVG({x:[-3, 7], y:[-4, 4], fns:[{f:x => 0.5 * (x - 2) ** 2 - 3, color:COL.acc}], pts:[{x:2, y:-3, color:COL.acc, label:'S'}, {x:4, y:-1, color:COL.good, r:4.5}, {x:0, y:-1, color:COL.good, r:4.5}], label:'Parabel mit Scheitel (2|−3)'}),
+  steps:[
+   {t:'Scheitelpunkt ablesen: $S(2|-3)$, also $d = 2$ und $e = -3$.', why:{q:'Warum ist $d = 2$ und nicht $d = -2$?', opts:[['In $(x - d)^2$ wird die Klammer bei $x = d$ null; der Scheitel liegt bei $x = 2$.', true, 'Genau: $(x - 2)^2 = 0$ für $x = 2$.'], ['Weil man das Vorzeichen immer umdreht.', false, 'Eine Regel ohne Grund hilft wenig. Der Grund: Bei $x = d$ wird die Klammer null.'], ['Weil rechts von der y-Achse alles negativ ist.', false, 'Rechts von der y-Achse sind die x-Werte positiv.']]}},
+   {t:'Ansatz: $f(x) = a(x - 2)^2 - 3$.'},
+   {t:'Vom Scheitel 2 Einheiten nach rechts steigt der Graph um 2 (von $-3$ auf $-1$). Bei 2 Einheiten Abstand ändert sich der Wert um $a #cdot 2^2 = 4a$. Also $4a = 2$ und $a = 0,5$.', why:{q:'Warum wird der Höhenunterschied durch 4 geteilt?', opts:[['Bei 2 Einheiten Abstand vom Scheitel ist $(x - d)^2 = 2^2 = 4$; der Höhenunterschied ist $a #cdot 4$.', true, 'Genau. Bei 1 Einheit Abstand wäre er $a #cdot 1$, bei 3 Einheiten $a #cdot 9$.'], ['Weil die Parabel 4 Kästchen breit ist.', false, 'Es zählt der Abstand vom Scheitel: 2 Einheiten, quadriert 4.'], ['Weil man immer durch 4 teilt.', false, 'Nur bei 2 Einheiten Abstand. Bei 1 Einheit teilt man durch 1, bei 3 Einheiten durch 9.']]}},
+   {t:'Ergebnis: $f(x) = 0,5(x - 2)^2 - 3$. Probe mit $(0|-1)$: $0,5 #cdot (0 - 2)^2 - 3 = 2 - 3 = -1$ ✓', why:{q:'Wozu dient die Probe mit einem weiteren Punkt?', opts:[['Sie zeigt, ob $a$ richtig bestimmt ist; ein falsches $a$ fiele hier auf.', true, 'Genau. Scheitel und ein Punkt legen die Parabel fest, ein dritter Punkt kontrolliert.'], ['Sie ist nur Formsache.', false, 'Sie deckt Ablesefehler auf, etwa ein falsch gezähltes Kästchen.'], ['Sie berechnet den Scheitel.', false, 'Den Scheitel haben wir schon abgelesen.']]}}]},
+ knobel:{text:'Ohne Wertetabelle, wenn du kannst: Wo liegt der tiefste Punkt der Parabel $f(x) = (x - 3)^2 - 2$? Und wo der tiefste Punkt von $g(x) = 2(x + 1)^2 + 4$? Überlege, für welches x der Funktionswert am kleinsten ist.',
+  ans:[{label:'tiefster Punkt von f: x =', v:3}, {label:'y =', v:-2}, {label:'tiefster Punkt von g: x =', v:-1, sp:[[1, 'Bei $x = 1$ ist $(x + 1)^2 = 4$. Wann wird die Klammer null?']]}, {label:'y =', v:4}],
+  sol:'Ein Quadrat ist nie negativ. $(x - 3)^2$ wird bei $x = 3$ am kleinsten, nämlich 0, also ist der tiefste Punkt $(3|-2)$. Bei $g$ wird $(x + 1)^2$ bei $x = -1$ null: tiefster Punkt $(-1|4)$.',
+  ap:[['tab', 'Werte eingesetzt (Wertetabelle)', 'Mit einer Wertetabelle findest du den tiefsten Punkt, wenn er bei einer ganzen Zahl liegt. Die Scheitelpunktform liefert ihn ohne Rechnen: Die Klammer wird bei $x = 3$ null, kleiner als 0 kann ein Quadrat nicht werden.'],
+      ['null', 'Überlegt, wann die Klammer null wird', 'Genau die Kernidee: $(x - 3)^2$ ist nie negativ, also ist $f(x)$ nie kleiner als $-2$, und den Wert $-2$ erreicht $f$ bei $x = 3$.'],
+      ['schieb', 'Mit dem Verschieben der Normalparabel überlegt', 'Gute Vorstellung: Die Normalparabel wird um 3 nach rechts und um 2 nach unten verschoben. Warum „− 3“ nach rechts verschiebt, steht unten bei der Kernidee.'],
+      ['rate', 'Geraten oder nicht weitergekommen', 'Kein Problem. Gerade solche Versuche helfen, die Erklärung besser zu verstehen.']]},
+ klaer:{idee:'In $f(x) = a(x - d)^2 + e$ steckt der ganze Graph. Die Klammer $(x - d)^2$ ist nie negativ und wird genau bei $x = d$ null. Dort liegt der Scheitel, und der Funktionswert ist $e$. Der Faktor $a$ sagt, wie stark sich die Werte vom Scheitel aus ändern: 1 Einheit seitwärts ⇒ um $a$, 2 Einheiten ⇒ um $4a$, 3 Einheiten ⇒ um $9a$.',
+  merk:['Scheitel $S(d|e)$: Bei $(x + 3)^2$ ist $d = -3$, der Scheitel liegt links.', '$a > 0$: nach oben geöffnet, $a &lt; 0$: nach unten.', '$|a| > 1$: schmaler (gestreckt), $|a| &lt; 1$: breiter (gestaucht).', 'Skizze ohne Tabelle: Scheitel eintragen, dann vom Scheitel 1 seitwärts und $a$ hoch, 2 seitwärts und $4a$ hoch, auf beiden Seiten gleich.'],
+  move:[['#werkzeug', 'Scheitelpunktform'], ['#werkzeug', 'Wirkung auf den Graphen'], ['#werkzeug', 'Ablese-Regel']],
+  fehl:[['„$(x + 3)^2$ verschiebt nach rechts.“', 'Die Klammer wird bei $x = -3$ null, also liegt der Scheitel bei $x = -3$: Verschiebung nach links.'], ['„Ein großes $a$ macht die Parabel breiter.“', 'Umgekehrt: Bei $|a| > 1$ wachsen die Werte schneller, die Parabel wird schmaler.'], ['Beim Einsetzen $-3^2 = 9$ rechnen', 'Ohne Klammer wird zuerst quadriert: $-3^2 = -9$. Setze negative Zahlen immer mit Klammer ein: $(-3)^2 = 9$.']],
+  verst:[{q:'Welche Gleichung hat den Scheitel $S(-1|5)$ und ist nach unten geöffnet?', opts:[['$f(x) = -2(x + 1)^2 + 5$', true, 'Klammer null bei $x = -1$, $a = -2 &lt; 0$.'], ['$f(x) = -2(x - 1)^2 + 5$', false, 'Diese Klammer wird bei $x = 1$ null: Scheitel $(1|5)$.'], ['$f(x) = 2(x + 1)^2 + 5$', false, 'Mit $a = 2 > 0$ ist die Parabel nach oben geöffnet.']]}]},
+ darst:{intro:'Im Parameter-Labor siehst du Gleichung und Graph nebeneinander. Achte darauf, welche Zahl in der Gleichung welche Eigenschaft des Graphen steuert.',
+  move:[['#werkzeug', 'Parameter-Labor'], ['#werkzeug', 'Verändere'], '#lab-free'],
+  qs:[{q:'Stell im Labor $a = 1$, $d = 0$, $e = 0$ ein und schiebe dann $d$ auf $2$. Was passiert mit Graph und Gleichung?', opts:[['Der Graph rückt 2 nach rechts; in der Gleichung steht $(x - 2)^2$.', true, 'Der Wert von $d$ ist die x-Koordinate des Scheitels; in der Klammer steht dann „− 2“.'], ['Der Graph rückt 2 nach links; in der Gleichung steht $(x + 2)^2$.', false, 'Probier es aus: Bei $d = 2$ liegt der Scheitel rechts.'], ['Der Graph rückt 2 nach oben.', false, 'Nach oben verschiebt $e$, nicht $d$.']]},
+      {q:'Die Ablese-Treppe zeigt Punkte 1 und 2 Einheiten neben dem Scheitel. Bei $a = 0,5$: Um wie viel liegt der Punkt 2 Einheiten neben dem Scheitel höher?', opts:[['um 2', true, '$a #cdot 2^2 = 0,5 #cdot 4 = 2$.'], ['um 1', false, 'Das wäre $a #cdot 2$. Der Abstand wird aber quadriert: $a #cdot 2^2$.'], ['um 0,25', false, 'Der Abstand 2 wird quadriert und mit $a$ multipliziert: $0,5 #cdot 4 = 2$.']]},
+      {fade:true, q:'Welcher Graph gehört zu $f(x) = -(x - 1)^2 + 4$?', opts:[['Scheitel $(1|4)$, nach unten geöffnet, Form der Normalparabel', true, '$d = 1$, $e = 4$, $a = -1$.'], ['Scheitel $(-1|4)$, nach unten geöffnet', false, 'Die Klammer $(x - 1)$ wird bei $x = 1$ null.'], ['Scheitel $(1|4)$, nach oben geöffnet und schmaler', false, '$a = -1$: nach unten, gleiche Form wie die Normalparabel.']]}]},
+ vergl:{task:'Bestimme die Gleichung der Parabel mit Scheitel $S(1|-2)$, die durch $P(3|6)$ geht.',
+  a:{name:'Mia', how:'liest am Graphen ab', lines:['Scheitel $S(1|-2)$: $f(x) = a(x - 1)^2 - 2$', 'Vom Scheitel 1 nach rechts steigt der Graph um 2, also $a = 2$.', '$f(x) = 2(x - 1)^2 - 2$']},
+  b:{name:'Jonas', how:'rechnet mit dem Punkt P', lines:['$f(x) = a(x - 1)^2 - 2$', '$P(3|6)$ einsetzen: $6 = a(3 - 1)^2 - 2$', '$6 = 4a - 2$ ⇔ $8 = 4a$ ⇔ $a = 2$', '$f(x) = 2(x - 1)^2 - 2$']},
+  qs:[{q:'Was haben beide Wege gemeinsam?', opts:[['Beide setzen zuerst den Scheitel in die Scheitelpunktform ein und bestimmen danach nur noch $a$.', true, 'Der Scheitel liefert $d$ und $e$; offen bleibt nur $a$.'], ['Beide brauchen eine Wertetabelle.', false, 'Keiner der beiden legt eine Tabelle an.'], ['Sie kommen nur zufällig auf dasselbe.', false, 'Beide nutzen, dass der Höhenunterschied zum Scheitel $a #cdot (x - d)^2$ ist.']]},
+      {q:'Wann ist Jonas’ Weg besser?', opts:[['Wenn man 1 Einheit neben dem Scheitel nichts genau ablesen kann, z. B. bei $a = 0,3$, oder wenn nur Koordinaten gegeben sind.', true, 'Einsetzen klappt mit jedem Punkt, Ablesen nur bei gut lesbaren Kästchen.'], ['Nie, Mias Weg ist immer schneller.', false, 'Ohne Graph oder bei krummen Werten kann Mia nicht ablesen.'], ['Nur wenn die Parabel nach unten geöffnet ist.', false, 'Die Öffnung spielt keine Rolle.']]},
+      {q:'Mia hätte auch 2 Einheiten nach rechts gehen können. Um wie viel steigt der Graph dort?', opts:[['um 8', true, '$a #cdot 2^2 = 2 #cdot 4 = 8$, passend zu $P(3|6)$: von $-2$ auf $6$.'], ['um 4', false, 'Das wäre $a #cdot 2$; der Abstand wird quadriert.'], ['um 2', false, 'Um 2 steigt er nach 1 Einheit, nach 2 Einheiten um $2 #cdot 4 = 8$.']]}]},
+ ueben:[{t:'Grundaufgaben', ids:['a5', 'a8']}, {t:'Skizzieren', ids:['a7']}, {t:'Vertiefen', ids:['a13']}],
+ types:['ablesen', 'skizze', 'werte'], exit:{types:['ablesen', 'skizze', 'werte']}},
+
+{id:'p2', ch:'qf', title:'Nullstellen berechnen', book:'S. 14: Aufgaben 6 und 9', kind:'proc',
+ goals:['Ich kann den Schnittpunkt mit der y-Achse und die Nullstellen einer quadratischen Funktion berechnen.', 'Ich erkenne an der Form der Gleichung, welches Verfahren am schnellsten ist: Ausklammern, Wurzelziehen, Ablesen aus der Produktform oder pq-Formel.', 'Ich kann begründen, warum es zwei, eine oder keine Nullstelle geben kann.'],
+ pre:['lineare Gleichungen lösen', 'Wurzeln ziehen', 'ausklammern'],
+ check:[
+  {pre:true, q:'Löse $3x - 6 = 0$.', opts:[['$x = 2$', true, '$3x = 6$, also $x = 2$.'], ['$x = -2$', false, 'Probe: $3 #cdot (-2) - 6 = -12 #neq 0$.'], ['$x = 3$', false, 'Probe: $3 #cdot 3 - 6 = 3 #neq 0$.']]},
+  {pre:true, q:'Welche Zahlen erfüllen $x^2 = 25$?', opts:[['$x = 5$ und $x = -5$', true, 'Auch $(-5)^2 = 25$.'], ['nur $x = 5$', false, 'Auch $(-5)^2 = 25$: Es gibt zwei Lösungen.'], ['$x = 12,5$', false, 'Quadrieren ist nicht verdoppeln: $12,5^2 = 156,25$.']]},
+  {q:'Was ist der beste erste Schritt bei $x^2 + 7x = 0$?', opts:[['$x$ ausklammern: $x(x + 7) = 0$', true, 'Dann liefert der Satz vom Nullprodukt $x = 0$ oder $x = -7$.'], ['durch $x$ teilen', false, 'Dabei geht die Lösung $x = 0$ verloren.'], ['die Wurzel ziehen', false, 'Wegen des Glieds $7x$ steht das Quadrat nicht allein.']]},
+  {q:'Wie viele Nullstellen hat $f(x) = x^2 + 4$?', opts:[['keine', true, '$x^2$ ist nie negativ, also ist $x^2 + 4$ immer mindestens 4.'], ['zwei: $x = 2$ und $x = -2$', false, 'Probe: $2^2 + 4 = 8 #neq 0$.'], ['eine: $x = -4$', false, 'Probe: $(-4)^2 + 4 = 20$.']]}],
+ example:{type:'pq'},
+ knobel:{text:'Ein Ball fliegt auf der Bahn $h(x) = -0,1x^2 + x$. Dabei ist $x$ die waagerechte Entfernung vom Abwurf und $h(x)$ die Höhe, beides in Metern. In welcher Entfernung landet der Ball wieder auf dem Boden?',
+  ans:[{label:'Entfernung in m:', v:10, sp:[[0, 'Bei $x = 0$ startet der Ball. Gesucht ist die zweite Stelle mit Höhe 0.']]}],
+  sol:'$h(x) = x(-0,1x + 1) = 0$ ⇒ $x = 0$ (Abwurf) oder $-0,1x + 1 = 0$, also $x = 10$. Der Ball landet nach 10 m.',
+  ap:[['tab', 'Probiert oder Wertetabelle', 'Probieren klappt hier, weil die Nullstelle eine ganze Zahl ist. Bei $h(x) = -0,1x^2 + x + 1$ läge sie bei etwa 10,9 m; dann braucht man ein Verfahren.'],
+      ['graph', 'Graph gezeichnet', 'Am Graphen sieht man, wo die Höhe null ist. Genau wird es erst mit einer Rechnung.'],
+      ['aus', '$x$ ausgeklammert', 'Der schnellste Weg: $x(-0,1x + 1) = 0$, also $x = 0$ oder $x = 10$ (Satz vom Nullprodukt).'],
+      ['pq', 'pq-Formel benutzt', 'Geht auch: erst durch $-0,1$ teilen ($x^2 - 10x = 0$), dann pq-Formel. Ausklammern ist hier kürzer, weil kein Glied ohne $x$ vorkommt.'],
+      ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Klärung zeigt, welcher Weg hier am kürzesten ist.']]},
+ klaer:{idee:'Nullstellen sind die x-Werte mit $f(x) = 0$; den Schnittpunkt mit der y-Achse liefert $f(0)$. Welcher Weg am kürzesten ist, verrät die Form der Gleichung: Fehlt das Glied ohne $x$, klammerst du $x$ aus. Fehlt das Glied mit $x$, löst du nach $x^2$ auf und ziehst die Wurzel. Steht ein Produkt da, liest du ab. Sonst hilft die pq-Formel, nachdem du durch den Faktor vor $x^2$ geteilt hast.',
+  merk:['Satz vom Nullprodukt: $a #cdot b = 0$ genau dann, wenn $a = 0$ oder $b = 0$.', 'Beim Wurzelziehen beide Lösungen: Aus $x^2 = 9$ folgt $x = 3$ oder $x = -3$.', 'Die pq-Formel gilt nur für $x^2 + px + q = 0$: vorher durch den Faktor vor $x^2$ teilen.', 'Nie durch $x$ teilen: Dabei geht die Lösung $x = 0$ verloren.'],
+  move:[['#werkzeug', 'Welche Methode passt'], ['#werkzeug', 'Schnellster Weg'], ['#werkzeug', 'pq-Formel und Diskriminante']],
+  fehl:[['$x^2 = 16$ ⇒ $x = 4$', 'Auch $(-4)^2 = 16$. Es gibt zwei Lösungen: $x = #pm 4$.'], ['$x^2 + 5x = 0$ durch $x$ teilen ⇒ $x = -5$', 'Teilen durch $x$ setzt $x #neq 0$ voraus, genau die Lösung $x = 0$ fällt so weg. Ausklammern: $x(x + 5) = 0$.'], ['pq-Formel bei $2x^2 + 8x - 10 = 0$ mit $p = 8$', 'Die pq-Formel braucht eine 1 vor $x^2$. Erst durch 2 teilen: $x^2 + 4x - 5 = 0$, also $p = 4$, $q = -5$.']],
+  verst:[{q:'Welcher Weg ist bei $f(x) = 2(x - 3)^2 - 8$ am kürzesten?', opts:[['Klammer isolieren: $(x - 3)^2 = 4$, dann Wurzel: $x - 3 = #pm 2$', true, 'Also $x = 5$ oder $x = 1$.'], ['Ausmultiplizieren und pq-Formel', false, 'Geht auch, ist aber länger.'], ['Durch $x$ teilen', false, 'Das ist nie ein guter erster Schritt: Lösungen können verloren gehen.']]}]},
+ darst:{intro:'Das p-q-Labor zeigt dieselbe Funktion dreimal: als $x^2 + px + q$, in Scheitelpunktform und als Graph. Der Term unter der Wurzel der pq-Formel, $D = (#frac{p}{2})^2 - q$, steckt auch in der Scheitelpunktform.',
+  make:['labPQ', {p:-2, q:-3}],
+  qs:[{q:'Stell $p = -2$ und $q = -3$ ein. Wo schneidet der Graph die x-Achse, und was liefert die pq-Formel?', opts:[['Bei $x = -1$ und $x = 3$; die Formel gibt $1 #pm #sqrt{4}$, also dieselben Stellen.', true, '$-#frac{p}{2} = 1$ und $(#frac{p}{2})^2 - q = 1 + 3 = 4$.'], ['Bei $x = 1$ und $x = -3$', false, 'Probe: $f(1) = 1 - 2 - 3 = -4 #neq 0$.'], ['gar nicht', false, 'Der Scheitel liegt bei $(1|-4)$, also unter der x-Achse: Es gibt Schnittpunkte.']]},
+      {q:'Verschiebe $q$ nach oben. Ab welchem Wert von $q$ (bei $p = -2$) hat der Graph keine Nullstelle mehr?', opts:[['für $q > 1$', true, 'Dann ist $(#frac{p}{2})^2 - q = 1 - q &lt; 0$: Der Scheitel liegt über der x-Achse.'], ['für $q > 0$', false, 'Bei $q = 0,5$ gibt es noch zwei Nullstellen: $1 - 0,5 > 0$.'], ['für $q > -3$', false, 'Bei $q = 0$ schneidet der Graph die x-Achse noch bei 0 und 2.']]},
+      {fade:true, q:'Der Scheitel einer nach oben geöffneten Parabel liegt bei $S(2|-1)$. Wie viele Nullstellen hat sie?', opts:[['zwei', true, 'Der tiefste Punkt liegt unter der x-Achse, die Parabel steigt nach beiden Seiten.'], ['eine', false, 'Eine Nullstelle gibt es nur, wenn der Scheitel auf der x-Achse liegt.'], ['keine', false, 'Keine gäbe es, wenn der tiefste Punkt über der x-Achse läge.']]}]},
+ vergl:{task:'Bestimme die Nullstellen von $f(x) = x^2 - 6x$.',
+  a:{name:'Lena', how:'klammert aus', lines:['$x^2 - 6x = 0$', '$x(x - 6) = 0$', '$x = 0$ oder $x - 6 = 0$', '$x_{1} = 0$, $x_{2} = 6$']},
+  b:{name:'Tim', how:'nimmt die pq-Formel', lines:['$x^2 - 6x + 0 = 0$, also $p = -6$, $q = 0$', '$x_{1,2} = 3 #pm #sqrt{9 - 0}$', '$x_{1,2} = 3 #pm 3$', '$x_{1} = 6$, $x_{2} = 0$']},
+  qs:[{q:'Sind beide Lösungen richtig?', opts:[['Ja, beide finden $x = 0$ und $x = 6$.', true, 'Verschiedene Wege, dieselbe Lösungsmenge.'], ['Nur Lenas: Tim hat $q$ vergessen.', false, 'Tim setzt $q = 0$; das stimmt, weil kein Glied ohne $x$ vorkommt.'], ['Nur Tims: Lena hat durch $x$ geteilt.', false, 'Lena hat ausgeklammert, nicht geteilt. Dabei bleibt $x = 0$ erhalten.']]},
+      {q:'Woran erkennt man, dass Ausklammern hier schneller ist?', opts:[['Es gibt kein Glied ohne $x$: In jedem Glied steckt ein $x$.', true, 'Dann ist $x$ ein gemeinsamer Faktor.'], ['Die Zahl 6 ist gerade.', false, 'Das spielt keine Rolle.'], ['Die Parabel ist nach oben geöffnet.', false, 'Die Öffnung sagt nichts über den Rechenweg.']]},
+      {q:'Welcher Weg funktioniert bei $x^2 - 6x + 5 = 0$?', opts:[['Die pq-Formel (oder Faktorisieren durch Probieren); $x$ ausklammern klappt nicht mehr.', true, 'Mit $p = -6$, $q = 5$: $x = 3 #pm 2$, also $x = 1$ oder $x = 5$.'], ['Nur Ausklammern', false, '$x(x - 6) + 5$ ist kein Produkt mehr.'], ['Beide gleich gut', false, 'Wegen der 5 ohne $x$ hat nicht jedes Glied den Faktor $x$.']]}]},
+ ueben:[{t:'Grundaufgaben', ids:['a6']}, {t:'Test 1', ids:['a9']}],
+ types:['rein', 'aus', 'prod', 'scheitel', 'pq', 'allg'], exit:{pick:3}},
+
+{id:'p3', ch:'qf', title:'Schnittpunkte zweier Graphen', book:'S. 14: Aufgaben 10 und 11', kind:'concept',
+ goals:['Ich kann die Schnittpunkte zweier Graphen durch Gleichsetzen berechnen und die y-Koordinaten bestimmen.', 'Ich kann erklären, warum das Gleichsetzen auf die Nullstellen der Differenzfunktion $d(x) = f(x) - g(x)$ führt.', 'Ich kann Schnittpunkte in Sachaufgaben deuten, zum Beispiel beim Tarifvergleich.'],
+ pre:['Nullstellen berechnen (Thema 2)', 'Gleichungen umformen'],
+ check:[
+  {pre:true, q:'Was ist die Lösung von $x^2 - 4x + 3 = 0$?', opts:[['$x = 1$ oder $x = 3$', true, '$(x - 1)(x - 3) = 0$.'], ['$x = -1$ oder $x = -3$', false, 'Probe mit $x = -1$: $1 + 4 + 3 = 8 #neq 0$.'], ['keine Lösung', false, 'Probe mit $x = 1$: $1 - 4 + 3 = 0$.']]},
+  {pre:true, q:'Was bedeutet „Der Punkt $P(2|5)$ liegt auf dem Graphen von $f$“?', opts:[['$f(2) = 5$', true, 'Erst x, dann y, und $y = f(x)$.'], ['$f(5) = 2$', false, 'Erst kommt die x-Koordinate: $P(x|y)$ mit $y = f(x)$.'], ['$f(2) + 5 = 0$', false, 'Der Funktionswert an der Stelle 2 ist 5.']]},
+  {q:'Was ist der erste Schritt, um die Schnittpunkte von $f(x) = x^2$ und $g(x) = 2x + 3$ zu finden?', opts:[['$x^2 = 2x + 3$ ansetzen', true, 'Im Schnittpunkt haben beide Funktionen denselben Wert.'], ['$f(0)$ und $g(0)$ ausrechnen', false, 'Das sind nur die Schnittpunkte mit der y-Achse.'], ['die Nullstellen von $f$ und $g$ einzeln berechnen', false, 'Im Schnittpunkt sind die Funktionswerte gleich, nicht null.']]},
+  {q:'Die Gleichung $f(x) = g(x)$ hat die Lösungen $x = -1$ und $x = 3$. Was fehlt noch für die Schnittpunkte?', opts:[['die y-Koordinaten, z. B. $f(-1)$ und $f(3)$', true, 'Ein Punkt hat zwei Koordinaten.'], ['nichts', false, 'Ein Schnittpunkt hat auch eine y-Koordinate.'], ['die Nullstellen von $g$', false, 'Die braucht man hier nicht.']]}],
+ example:{type:'schnitt'},
+ knobel:{text:'Die Parabel $f(x) = x^2$ und die Gerade $g(x) = x + 2$ schneiden sich in zwei Punkten. Bei welchen x-Werten? Probiere, zeichne oder rechne.',
+  ans:[{label:'ein x-Wert:', v:-1}, {label:'der andere x-Wert:', v:2}], free:true,
+  sol:'$x^2 = x + 2$ ⇔ $x^2 - x - 2 = 0$ ⇒ $x = 0,5 #pm #sqrt{0,25 + 2} = 0,5 #pm 1,5$, also $x = -1$ oder $x = 2$. Die Schnittpunkte sind $(-1|1)$ und $(2|4)$.',
+  ap:[['tab', 'Wertetabelle für beide Funktionen', 'Gute Idee: Gesucht sind die x-Werte mit gleichen Funktionswerten. Bei $x = -1$ und $x = 2$ stimmen die Tabellen überein. Das klappt nur bei „glatten“ Schnittstellen.'],
+      ['graph', 'Graphen gezeichnet', 'Die Schnittpunkte sieht man direkt. Für genaue Werte rechnet man: $x^2 = x + 2$.'],
+      ['gleich', 'Gleichgesetzt und gerechnet', 'Genau der Rechenweg: $x^2 = x + 2$ ⇔ $x^2 - x - 2 = 0$, dann pq-Formel.'],
+      ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Kernidee unten zeigt, wie man das Problem auf Nullstellen zurückführt.']]},
+ klaer:{idee:'Im Schnittpunkt haben beide Funktionen an derselben Stelle denselben Wert: $f(x) = g(x)$. Bringst du alles auf eine Seite, entsteht $f(x) - g(x) = 0$. Die Schnittstellen sind also die Nullstellen der Differenzfunktion $d(x) = f(x) - g(x)$, und dafür kennst du die Verfahren aus Thema 2. Zum Schluss gehört die y-Koordinate dazu: in $f$ oder $g$ einsetzen.',
+  merk:['Ansatz: $f(x) = g(x)$', 'Alles auf eine Seite bringen, ordnen, lösen (pq-Formel, Ausklammern …)', 'y-Koordinate durch Einsetzen, Probe in der anderen Funktion', 'Keine Lösung: Die Graphen schneiden sich nicht. Genau eine Lösung: Sie berühren sich.'],
+  move:[['#werkzeug', 'Die eine Idee']],
+  fehl:[['Nur die x-Werte angeben', 'Ein Schnittpunkt hat zwei Koordinaten: $S(x|f(x))$.'], ['$x^2 - 7 = 4x - 11$ ⇒ $x^2 + 4x - 18 = 0$', 'Jedes Glied wechselt mit umgekehrtem Vorzeichen die Seite: $-4x$ und $+11$, also $x^2 - 4x + 4 = 0$.'], ['Die Nullstellen von f und g einzeln berechnen', 'Nullstellen sind Schnittpunkte mit der x-Achse. Gesucht sind aber die Stellen mit $f(x) = g(x)$.']],
+  verst:[{q:'$f(x) = x^2 + 1$ und $g(x) = 2x$ führen auf $x^2 - 2x + 1 = 0$. Was bedeutet das für die Graphen?', opts:[['Sie berühren sich in genau einem Punkt, bei $x = 1$.', true, '$(x - 1)^2 = 0$ hat nur die Lösung $x = 1$: Berührpunkt $(1|2)$.'], ['Sie schneiden sich zweimal.', false, '$(x - 1)^2 = 0$ hat nur eine Lösung.'], ['Sie schneiden sich nicht.', false, 'Es gibt eine Lösung, also einen gemeinsamen Punkt.']]}]},
+ darst:{intro:'Verändere die Gerade und beobachte, wie die Zahl der Schnittpunkte mit der Gleichung zusammenhängt. Mit der Differenzfunktion siehst du die Schnittstellen als Nullstellen.',
+  make:['labSchnitt'],
+  qs:[{q:'Schalte die Differenzfunktion $d = f - g$ ein. Was fällt an den Schnittstellen von $f$ und $g$ auf?', opts:[['Genau dort hat $d$ seine Nullstellen.', true, 'Wo $f(x) = g(x)$ ist, ist $f(x) - g(x) = 0$.'], ['Dort hat $d$ seinen Scheitel.', false, 'Der Scheitel von $d$ liegt zwischen den Schnittstellen.'], ['Dort schneidet $d$ die y-Achse.', false, 'Die y-Achse liegt bei $x = 0$, die Schnittstellen meist woanders.']]},
+      {q:'Verschiebe die Gerade nach unten, bis sie die Parabel nur noch berührt. Was zeigt dann die Gleichung $f(x) - g(x) = 0$?', opts:[['Sie hat genau eine Lösung; $d$ berührt die x-Achse.', true, 'Berühren heißt: eine gemeinsame Stelle.'], ['Sie hat keine Lösung.', false, 'Ein Berührpunkt ist ein gemeinsamer Punkt.'], ['Sie hat zwei Lösungen.', false, 'Zwei Lösungen gibt es, solange die Gerade die Parabel schneidet.']]},
+      {fade:true, q:'Die Gleichung $f(x) = g(x)$ führt auf $x^2 + 2 = 0$. Was folgt?', opts:[['Die Graphen haben keinen Schnittpunkt.', true, '$x^2 = -2$ hat keine reelle Lösung.'], ['Sie schneiden sich bei $x = #pm #sqrt{2}$.', false, 'Das wäre bei $x^2 - 2 = 0$.'], ['Sie berühren sich bei $x = -2$.', false, 'Probe: $(-2)^2 + 2 = 6 #neq 0$.']]}]},
+ vergl:{task:'Bestimme die Schnittpunkte von $f(x) = x^2 - 2x$ und $g(x) = x + 4$.',
+  a:{name:'Aylin', how:'rechnet', lines:['$x^2 - 2x = x + 4$', '$x^2 - 3x - 4 = 0$', '$x_{1,2} = 1,5 #pm #sqrt{2,25 + 4} = 1,5 #pm 2,5$', '$x_{1} = 4$, $x_{2} = -1$; $g(4) = 8$, $g(-1) = 3$', 'Schnittpunkte $S_{1}(4|8)$, $S_{2}(-1|3)$']},
+  b:{name:'Ben', how:'liest am Graphen ab und prüft', lines:['Graphen gezeichnet: Sie schneiden sich anscheinend bei $x = -1$ und $x = 4$.', 'Probe: $f(-1) = 1 + 2 = 3$, $g(-1) = -1 + 4 = 3$ ✓', 'Probe: $f(4) = 16 - 8 = 8$, $g(4) = 8$ ✓', 'Schnittpunkte $S_{1}(-1|3)$, $S_{2}(4|8)$']},
+  qs:[{q:'Warum braucht Ben die Probe?', opts:[['Ablesen ist ungenau; erst die Probe zeigt, dass die Werte exakt stimmen.', true, 'Mit der Probe wird aus einer Vermutung ein Nachweis.'], ['Die Probe ist überflüssig.', false, 'Ohne Probe wäre $x = 3,9$ statt 4 nicht zu unterscheiden.'], ['Damit er die y-Achse findet.', false, 'Die Probe prüft die abgelesenen Stellen.']]},
+      {q:'Bei welcher Aufgabe käme Ben mit seinem Weg nicht ans Ziel?', opts:[['Wenn die Schnittstellen keine glatten Zahlen sind, z. B. $x = 1 + #sqrt{3}$.', true, 'Dann trifft keine abgelesene Zahl genau; Aylins Rechnung liefert den exakten Wert.'], ['Wenn sich die Graphen zweimal schneiden.', false, 'Zwei glatte Schnittstellen kann Ben ablesen.'], ['Wenn die Gerade steigt.', false, 'Die Steigung spielt keine Rolle.']]},
+      {q:'Was macht Bens Weg trotzdem wertvoll?', opts:[['Die Skizze zeigt vorab, wie viele Schnittpunkte zu erwarten sind, und dient als Kontrolle.', true, 'Eine Skizze vor dem Rechnen ist eine gute Gewohnheit.'], ['Er ist immer genauer.', false, 'Ablesen ist ungenauer als Rechnen.'], ['Man braucht keine Gleichungen mehr.', false, 'Für die Probe braucht Ben die Funktionsgleichungen.']]}]},
+ ueben:[{t:'Grundaufgaben', ids:['a10']}, {t:'Anwenden', ids:['a11']}],
+ types:['schnitt'], exit:{types:['schnitt', 'schnitt'], mc:[{q:'Beim Gleichsetzen zweier Funktionen entsteht $(x - 1)^2 = -4$. Wie viele Schnittpunkte haben die Graphen?', opts:[['keinen', true, 'Ein Quadrat ist nie negativ.'], ['zwei', false, 'Aus $(x - 1)^2 = -4$ lässt sich keine reelle Wurzel ziehen.'], ['einen', false, 'Einen gäbe es bei $(x - 1)^2 = 0$.']]}]}},
+
+{id:'p4', ch:'qf', title:'Parabeln aufstellen und anwenden', book:'S. 15: Aufgaben 12, 14 und 15', kind:'concept',
+ goals:['Ich kann eine Parabelgleichung aus dem Scheitel und einem weiteren Punkt aufstellen.', 'Ich kann Sachsituationen wie einen Wurf oder einen Brückenbogen mit einer Parabel beschreiben und Fragen dazu mit der Gleichung beantworten.', 'Ich prüfe Ergebnisse im Sachzusammenhang, zum Beispiel welche Nullstelle sinnvoll ist.'],
+ pre:['Scheitelpunktform (Thema 1)', 'Nullstellen (Thema 2)'],
+ check:[
+  {pre:true, q:'Welche Gleichung hat eine Parabel mit Scheitel $S(2|5)$?', opts:[['$f(x) = a(x - 2)^2 + 5$', true, 'Klammer null bei $x = 2$, Funktionswert dort 5.'], ['$f(x) = a(x + 2)^2 + 5$', false, 'Diese Klammer wird bei $x = -2$ null.'], ['$f(x) = a(x - 5)^2 + 2$', false, 'x- und y-Koordinate sind vertauscht.']]},
+  {pre:true, q:'Löse $9a + 2 = -1$.', opts:[['$a = -#frac{1}{3}$', true, '$9a = -3$, also $a = -#frac{1}{3}$.'], ['$a = -3$', false, 'Probe: $9 #cdot (-3) + 2 = -25$.'], ['$a = #frac{1}{3}$', false, 'Probe: $9 #cdot #frac{1}{3} + 2 = 5$.']]},
+  {q:'Eine Parabel hat den Scheitel $S(0|4)$ und geht durch $P(2|0)$. Wie groß ist $a$?', opts:[['$a = -1$', true, '$a #cdot 2^2 + 4 = 0$, also $4a = -4$.'], ['$a = 1$', false, 'Probe: $1 #cdot 2^2 + 4 = 8 #neq 0$.'], ['$a = -2$', false, 'Probe: $-2 #cdot 2^2 + 4 = -4 #neq 0$.']]},
+  {q:'Ein Ball fliegt auf der Bahn $h(x) = -0,2(x - 5)^2 + 5$. Die Rechnung $h(x) = 0$ liefert $x = 0$ und $x = 10$. Was bedeuten die beiden Werte?', opts:[['Abwurf bei 0 m, Landung bei 10 m', true, 'An beiden Stellen ist die Höhe 0.'], ['Der Ball ist zweimal 10 m hoch.', false, '$h(x) = 0$ fragt nach der Höhe 0.'], ['Nur $x = 10$ stimmt, $x = 0$ ist ein Rechenfehler.', false, 'Bei $x = 0$ ist die Höhe ebenfalls 0: Dort beginnt der Flug.']]}],
+ example:{type:'sp'},
+ knobel:{text:'Ein Torbogen ist parabelförmig, unten 4 m breit und in der Mitte 3 m hoch. Wie hoch ist der Bogen 1 m neben der Mitte? Tipp: Leg dir ein Koordinatensystem passend hin.',
+  ans:[{label:'Höhe in m:', v:2.25, tol:0.006, sp:[[1.5, 'Die Hälfte der Höhe wäre richtig, wenn der Bogen ein Dreieck wäre. Eine Parabel fällt in der Nähe des Scheitels langsamer ab.']]}],
+  sol:'Ursprung unten in der Mitte: Scheitel $S(0|3)$, Fußpunkt $(2|0)$. $f(x) = ax^2 + 3$ mit $4a + 3 = 0$, also $a = -0,75$. Dann $f(1) = -0,75 + 3 = 2,25$: Der Bogen ist dort 2,25 m hoch.',
+  ap:[['sp', 'Ursprung in die Mitte gelegt, Scheitelpunktform', 'Der kürzeste Weg: $S(0|3)$, Fußpunkt $(2|0)$, $4a + 3 = 0$, also $a = -0,75$ und $f(1) = 2,25$.'],
+      ['links', 'Ursprung an einen Fußpunkt gelegt', 'Geht genauso: $S(2|3)$, Fußpunkt $(0|0)$, $f(x) = -0,75(x - 2)^2 + 3$ und $f(1) = 2,25$. Die Lage des Koordinatensystems ändert die Gleichung, nicht die Antwort.'],
+      ['zeich', 'Gezeichnet und abgelesen', 'Eine maßstäbliche Zeichnung liefert einen guten Schätzwert. Die Gleichung gibt den genauen Wert.'],
+      ['schaetz', 'Geschätzt, z. B. die Hälfte der Höhe', 'Ein Parabelbogen ist keine Dreiecksspitze: 1 m neben der Mitte ist er noch $#frac{3}{4}$ so hoch, weil die Höhe mit dem Quadrat des Abstands abnimmt.'],
+      ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Klärung zeigt, wie man aus Worten Punkte macht.']]},
+ klaer:{idee:'Eine Parabel ist durch ihren Scheitel und einen weiteren Punkt festgelegt. Ansatz: Scheitel in $f(x) = a(x - d)^2 + e$ einsetzen, dann den Punkt einsetzen und nach $a$ auflösen. In Sachaufgaben legst du zuerst das Koordinatensystem fest (wo ist der Ursprung, welche Einheit?) und übersetzt die Angaben in Punkte. Am Ende prüfst du, ob das Ergebnis im Sachzusammenhang Sinn ergibt.',
+  merk:['Modellieren in vier Schritten: Situation → Punkte im Koordinatensystem → Gleichung → Antwort im Sachzusammenhang.', 'Höchster oder tiefster Punkt der Bahn = Scheitel.', 'Boden = x-Achse: Wo die Bahn den Boden trifft, liegen Nullstellen.', 'Nicht jede Lösung passt: Negative Weiten oder Zeiten vor dem Start fallen weg.'],
+  fehl:[['Den Abwurfpunkt als Scheitel nehmen', 'Der Scheitel ist der höchste Punkt der Bahn, nicht der Startpunkt.'], ['Beim Einsetzen $a$ und $x$ verwechseln', 'Für $x$ und $f(x)$ kommen die Koordinaten des Punktes hinein; unbekannt ist nur $a$.'], ['Beide Nullstellen als Wurfweite angeben', 'Im Sachzusammenhang zählt meist nur die Nullstelle hinter dem Abwurfpunkt.']],
+  verst:[{q:'Ein Basketball wird aus 2 m Höhe geworfen und erreicht 4 m weiter seine größte Höhe von 3,6 m. Welche Punkte setzt du an?', opts:[['$S(4|3,6)$ als Scheitel und $P(0|2)$ als Abwurfpunkt', true, 'Ursprung am Boden unter der Abwurfstelle.'], ['$S(0|2)$ als Scheitel und $P(4|3,6)$', false, 'Der Scheitel ist der höchste Punkt, nicht der Abwurf.'], ['$S(3,6|4)$ und $P(2|0)$', false, 'Erst die waagerechte Entfernung (x), dann die Höhe (y).']]}]},
+ darst:{intro:'Im Flugbahn-Labor wird jede Zahl zu etwas Sichtbarem: Der Scheitel ist der Gipfel der Bahn, eine Nullstelle der Punkt am Boden, ein Funktionswert die Höhe an einer Stelle.',
+  move:[['#labor', 'Hier steckst du'], '#lab-flight', '#lab-data', ['#labor', 'Maße nach den Fußballregeln']],
+  qs:[{q:'Im Labor legst du den Scheitel der Flugbahn fest. Woraus ergibt sich dann der Streckfaktor $a$?', opts:[['Aus dem Startpunkt: Die Bahn muss durch den Abschusspunkt gehen.', true, 'Scheitel plus ein Punkt legen die Parabel fest.'], ['Aus der Höhe der Mauer.', false, 'Die Mauer ist ein Hindernis, kein Punkt der Bahn.'], ['$a$ ist immer $-1$.', false, 'Dann hätten alle Würfe dieselbe Form.']]},
+      {q:'Was bedeutet im Labor eine Nullstelle der Flugbahn?', opts:[['Die Stelle, an der der Ball wieder auf dem Boden ankäme', true, 'Höhe 0 heißt Boden.'], ['Die höchste Stelle', false, 'Das ist der Scheitel.'], ['Die Höhe an der Mauer', false, 'Das ist ein Funktionswert.']]},
+      {fade:true, q:'Eine Bahn ist $h(x) = -0,1(x - 6)^2 + 4$. Wie hoch ist der Ball 6 m vom Start entfernt?', opts:[['4 m, das ist der höchste Punkt', true, 'Bei $x = 6$ ist die Klammer null.'], ['0 m', false, '$h(6) = -0,1 #cdot 0 + 4 = 4$.'], ['3,6 m', false, 'Bei $x = 6$ ist die Klammer null: $h(6) = 4$.']]}]},
+ vergl:{task:'Bestimme die Parabel mit Scheitel $S(2|1)$ durch $P(4|9)$.',
+  a:{name:'Emma', how:'Scheitelpunktform', lines:['$f(x) = a(x - 2)^2 + 1$', '$P(4|9)$: $9 = a #cdot 2^2 + 1$', '$8 = 4a$, also $a = 2$', '$f(x) = 2(x - 2)^2 + 1$']},
+  b:{name:'Noah', how:'allgemeine Form mit drei Punkten', lines:['Symmetrie: Mit $P(4|9)$ liegt auch $(0|9)$ auf der Parabel.', '$f(x) = ax^2 + bx + c$ mit $f(0) = 9$, $f(2) = 1$, $f(4) = 9$', '$c = 9$; $4a + 2b + 9 = 1$; $16a + 4b + 9 = 9$', 'Aus der dritten Gleichung $b = -4a$, in die zweite: $4a - 8a = -8$, also $a = 2$, $b = -8$', '$f(x) = 2x^2 - 8x + 9$']},
+  qs:[{q:'Sind beide Ergebnisse gleich?', opts:[['Ja: Ausmultipliziert ist $2(x - 2)^2 + 1 = 2x^2 - 8x + 9$.', true, '$2(x^2 - 4x + 4) + 1 = 2x^2 - 8x + 9$.'], ['Nein, Noah hat eine andere Parabel.', false, 'Multipliziere Emmas Ergebnis aus.'], ['Nur an der Stelle $x = 2$.', false, 'Die Terme sind für alle x gleich.']]},
+      {q:'Warum ist Emmas Weg kürzer?', opts:[['Der Scheitel enthält schon zwei Angaben ($d$ und $e$); es bleibt nur eine Unbekannte.', true, 'Eine Gleichung für eine Unbekannte statt drei für drei.'], ['Weil Emma rundet.', false, 'Emma rechnet exakt.'], ['Weil Noah falsch rechnet.', false, 'Noah rechnet richtig, nur aufwendiger.']]},
+      {q:'Wann braucht man Noahs Weg?', opts:[['Wenn der Scheitel nicht bekannt ist, aber drei Punkte.', true, 'Dann gibt es drei Unbekannte $a$, $b$, $c$ und drei Gleichungen.'], ['Nie.', false, 'Ohne Scheitel geht Emmas Ansatz nicht.'], ['Nur bei nach unten geöffneten Parabeln.', false, 'Die Öffnung spielt keine Rolle.']]}]},
+ ueben:[{t:'Grundaufgaben', ids:['a12']}, {t:'Anwenden und modellieren', ids:['a14', 'a15']}],
+ types:['sp', 'flanke', 'eintritt', 'xp', 'liga', 'anstossen'], exit:{types:['sp'], pickFrom:['flanke', 'eintritt', 'xp']}},
+
+{id:'p5', ch:'qf', title:'Anzahl der Nullstellen und Parameter', book:'S. 15: Aufgaben 16 und 17', kind:'concept',
+ goals:['Ich kann mit dem Term unter der Wurzel der pq-Formel entscheiden, ob es zwei, eine oder keine Nullstelle gibt.', 'Ich kann Werte eines Parameters bestimmen, für die es genau eine oder keine Nullstelle gibt.', 'Ich kann Aussagen über Parabeln mit Parametern prüfen und mit Gegenbeispielen widerlegen.'],
+ pre:['pq-Formel (Thema 2)', 'Ungleichungen wie $16 - t &lt; 0$ lösen'],
+ check:[
+  {pre:true, q:'Welche Werte haben $p$ und $q$ in $x^2 - 8x + 7 = 0$?', opts:[['$p = -8$, $q = 7$', true, 'Das Vorzeichen gehört dazu.'], ['$p = 8$, $q = 7$', false, 'Das Vorzeichen gehört zu $p$: $-8x$.'], ['$p = -8$, $q = -7$', false, '$+7$, also $q = 7$.']]},
+  {pre:true, q:'Für welche $t$ gilt $16 - t &lt; 0$?', opts:[['$t > 16$', true, 'Probe mit $t = 20$: $16 - 20 = -4 &lt; 0$.'], ['$t &lt; 16$', false, 'Probe mit $t = 0$: $16 - 0 = 16 > 0$.'], ['$t &lt; -16$', false, 'Probe mit $t = -20$: $16 + 20 = 36 > 0$.']]},
+  {q:'Wie viele Nullstellen hat $f(x) = x^2 - 6x + 9$?', opts:[['genau eine', true, '$(#frac{p}{2})^2 - q = 9 - 9 = 0$; es ist $(x - 3)^2$.'], ['zwei', false, '$(#frac{p}{2})^2 - q = 9 - 9 = 0$.'], ['keine', false, 'Bei $x = 3$ ist $f(3) = 0$.']]},
+  {q:'Für welches $t$ hat $f(x) = x^2 + 4x + t$ genau eine Nullstelle?', opts:[['$t = 4$', true, '$(#frac{p}{2})^2 - q = 4 - t = 0$.'], ['$t = -4$', false, 'Dann ist $4 - (-4) = 8 > 0$: zwei Nullstellen.'], ['$t = 2$', false, 'Dann ist $4 - 2 = 2 > 0$.']]}],
+ example:{type:'param', qs:[{q:'Warum entscheidet gerade der Term unter der Wurzel über die Anzahl der Nullstellen?', opts:[['Ist er positiv, ergibt $#pm$ zwei verschiedene Werte; ist er null, fällt $#pm 0$ weg; ist er negativ, gibt es keine reelle Wurzel.', true, 'Genau das unterscheidet die drei Fälle.'], ['Weil $p$ immer negativ ist.', false, '$p$ kann jedes Vorzeichen haben.'], ['Weil die Wurzel immer 2 ergibt.', false, 'Die Wurzel hängt von $p$ und $q$ ab.']]}]},
+ knobel:{text:'Für welche Zahl $t$ berührt die Parabel $f(x) = x^2 - 6x + t$ die x-Achse in genau einem Punkt? Du kannst probieren, zeichnen oder rechnen.',
+  ans:[{label:'t =', v:9}],
+  sol:'$x^2 - 6x + t = (x - 3)^2 + t - 9$. Der Scheitel $(3|t - 9)$ liegt für $t = 9$ auf der x-Achse. Mit der pq-Formel: $(#frac{-6}{2})^2 - t = 9 - t = 0$.',
+  ap:[['probier', 'Verschiedene t ausprobiert', 'Probieren zeigt: Je größer t, desto höher liegt die Parabel. Genau bei $t = 9$ liegt der Scheitel auf der x-Achse.'],
+      ['sp', 'In die Scheitelpunktform umgeformt', 'Sehr gut: $x^2 - 6x + t = (x - 3)^2 + t - 9$. Der Scheitel $(3|t - 9)$ liegt für $t = 9$ auf der x-Achse.'],
+      ['pq', 'pq-Formel, Term unter der Wurzel', 'Genau: $(#frac{-6}{2})^2 - t = 9 - t = 0$ für $t = 9$.'],
+      ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Kernidee unten zeigt, welcher Term entscheidet.']]},
+ klaer:{idee:'Bei $x^2 + px + q = 0$ entscheidet die Diskriminante $D = (#frac{p}{2})^2 - q$, der Term unter der Wurzel der pq-Formel: $D > 0$ zwei Nullstellen, $D = 0$ genau eine, $D &lt; 0$ keine. Am Graphen heißt das: Der Scheitel von $y = x^2 + px + q$ liegt bei $(-#frac{p}{2}|-D)$, also unterhalb, auf oder oberhalb der x-Achse. Steckt ein Parameter in der Gleichung, setzt du $D = 0$ bzw. $D &lt; 0$ an und löst nach dem Parameter auf.',
+  merk:['Erst in Normalform bringen: Vor $x^2$ muss eine 1 stehen.', '$D = 0$: Die Parabel berührt die x-Achse in ihrem Scheitel.', 'Aussagen mit Parametern: Ein Gegenbeispiel genügt, um „gilt immer“ zu widerlegen.', 'Vorab-Check: Scheitel unter der x-Achse und Parabel nach oben geöffnet ⇒ zwei Nullstellen.'],
+  move:[{clone:['#werkzeug', 'pq-Formel und Diskriminante']}],
+  fehl:[['$D$ ohne Normalform: bei $2x^2 - 4x + t$ mit $p = -4$', 'Erst durch 2 teilen: $x^2 - 2x + #frac{t}{2}$, also $p = -2$ und $q = #frac{t}{2}$.'], ['Bei $D &lt; 0$ das Zeichen falsch herum: $9 - t &lt; 0$ ⇒ $t &lt; 9$', 'Probe mit $t = 0$: $9 - 0 = 9 > 0$. Richtig ist $t > 9$.'], ['$p$ ohne Vorzeichen: bei $x^2 - 8x + t$ mit $p = 8$', 'Das Vorzeichen gehört zu $p$: $p = -8$. Für $(#frac{p}{2})^2$ ändert es nichts, für $-#frac{p}{2}$ schon.']],
+  verst:[{q:'Für welche $t$ hat $f(x) = x^2 - 10x + t$ keine Nullstelle?', opts:[['$t > 25$', true, '$D = 25 - t &lt; 0$ ⇔ $t > 25$.'], ['$t &lt; 25$', false, 'Dann ist $D > 0$: zwei Nullstellen.'], ['$t = 25$', false, 'Dann gibt es genau eine.']]}]},
+ darst:{intro:'Dasselbe p-q-Labor wie in Thema 2, diesmal mit Blick auf $D$: Achte darauf, wie die Höhe des Scheitels und $D$ zusammenhängen.',
+  make:['labPQ', {p:-6, q:5}],
+  qs:[{q:'Stell $p = -6$ ein und verändere $q$. Bei welchem $q$ berührt der Graph die x-Achse?', opts:[['bei $q = 9$', true, '$D = 9 - q = 0$.'], ['bei $q = 6$', false, 'Dann ist $D = 9 - 6 = 3 > 0$.'], ['bei $q = -9$', false, 'Dann ist $D = 18 > 0$.']]},
+      {q:'Wie hängen die Höhe des Scheitels und $D$ zusammen?', opts:[['Der Scheitel liegt auf der Höhe $-D$.', true, '$x^2 + px + q = (x + #frac{p}{2})^2 - D$.'], ['Der Scheitel liegt auf der Höhe $D$.', false, 'Bei $D > 0$ liegt der Scheitel unter der x-Achse, also bei einem negativen Wert.'], ['gar nicht', false, 'Schau auf die Scheitelpunktform im Labor.']]},
+      {fade:true, q:'Bei $x^2 + 2x + q$ liegt der Scheitel bei $(-1|3)$. Wie groß ist $D$, und wie viele Nullstellen gibt es?', opts:[['$D = -3$, keine Nullstelle', true, 'Scheitelhöhe $-D = 3$.'], ['$D = 3$, zwei Nullstellen', false, 'Die Scheitelhöhe ist $-D$.'], ['$D = 0$, eine Nullstelle', false, 'Dann läge der Scheitel auf der x-Achse.']]}]},
+ vergl:{task:'Für welches $t$ hat $f(x) = x^2 + 10x + t$ genau eine Nullstelle?',
+  a:{name:'Lea', how:'mit der Diskriminante', lines:['$p = 10$, $q = t$', '$D = 5^2 - t = 25 - t$', 'Genau eine Nullstelle: $25 - t = 0$, also $t = 25$']},
+  b:{name:'Paul', how:'mit der Scheitelpunktform', lines:['$x^2 + 10x + t = (x + 5)^2 - 25 + t$', 'Scheitel $S(-5|t - 25)$', 'Genau eine Nullstelle, wenn der Scheitel auf der x-Achse liegt: $t - 25 = 0$, also $t = 25$']},
+  qs:[{q:'Was ist bei beiden Wegen dieselbe Größe?', opts:[['$25 - t$ bei Lea und $t - 25$ bei Paul: Die Scheitelhöhe ist $-D$.', true, 'Beide Wege beschreiben dieselbe Sache.'], ['Es gibt keine Gemeinsamkeit.', false, 'Vergleiche $25 - t$ und $t - 25$.'], ['Beide rechnen mit $t = 10$.', false, '10 ist $p$, nicht $t$.']]},
+      {q:'Wofür ist Pauls Sicht besonders hilfreich?', opts:[['Man sieht am Graphen, warum es keine Nullstelle gibt, wenn der Scheitel über der x-Achse liegt und die Parabel nach oben geöffnet ist.', true, 'Die Scheitelpunktform verbindet Rechnung und Bild.'], ['Sie ist immer kürzer.', false, 'Das Umformen kostet etwas Zeit.'], ['Sie funktioniert ohne Rechnen.', false, 'Auch Paul formt um.']]},
+      {q:'Für welche $t$ hat $f$ keine Nullstelle?', opts:[['$t > 25$', true, 'Dann liegt der Scheitel über der x-Achse.'], ['$t &lt; 25$', false, 'Dann liegt der Scheitel unter der x-Achse: zwei Nullstellen.'], ['$t = 0$', false, 'Bei $t = 0$ ist $f(x) = x(x + 10)$ mit zwei Nullstellen.']]}]},
+ ueben:[{t:'Grundaufgaben', ids:['a16']}, {t:'Argumentieren', ids:['a17']}],
+ types:['param'], exit:{types:['param', 'param'], mc:[{q:'„Wenn $q > 0$ ist, hat $x^2 + px + q$ keine Nullstelle.“ Stimmt das?', opts:[['Es kommt darauf an: Für $p = 0$, $q = 1$ gibt es keine, für $p = 5$, $q = 1$ aber zwei Nullstellen.', true, 'Bei $p = 5$, $q = 1$ ist $D = 6,25 - 1 > 0$.'], ['Ja, immer.', false, 'Gegenbeispiel: $x^2 + 5x + 1$ mit $D = 5,25 > 0$.'], ['Nein, nie.', false, 'Für $x^2 + 1$ stimmt die Aussage.']]}]}},
+
+{id:'p6', ch:'qf', title:'Grundwissen: Zehnerpotenzen', book:'S. 15: Aufgabe 18', kind:'proc', light:true, steps:['ziel', 'einstieg', 'klaer', 'ueben', 'check'],
+ goals:['Ich kann Zahlen in der Schreibweise mit Zehnerpotenzen ohne Zehnerpotenz schreiben.'],
+ pre:['Stellenwerte im Dezimalsystem'],
+ check:[
+  {pre:true, q:'Was ist $10^3$?', opts:[['$1000$', true, '$10 #cdot 10 #cdot 10$.'], ['$30$', false, 'Potenzieren ist mehrfaches Multiplizieren, nicht Multiplizieren mit 3.'], ['$100$', false, 'Das ist $10^2$.']]},
+  {q:'Was ist $2,5 #cdot 10^{2}$?', opts:[['$250$', true, 'Komma um 2 Stellen nach rechts.'], ['$25$', false, 'Das wäre $2,5 #cdot 10^{1}$.'], ['$2500$', false, 'Das wäre $2,5 #cdot 10^{3}$.']]},
+  {q:'Was ist $4 #cdot 10^{-3}$?', opts:[['$0,004$', true, '$10^{-3} = 0,001$, also $4 #cdot 0,001 = 0,004$.'], ['$0,0004$', false, 'Eine Stelle zu weit: $10^{-3} = 0,001$.'], ['$-4000$', false, 'Ein negativer Exponent macht die Zahl nicht negativ, sondern klein.']]}],
+ example:{type:'pot', task:'Schreib $3,07 #cdot 10^{-4}$ ohne Zehnerpotenz.',
+  steps:[{t:'$10^{-4} = #frac{1}{10^{4}} = 0,0001$', why:{q:'Was bedeutet der negative Exponent?', opts:[['Man teilt durch $10^4$; die Zahl wird kleiner.', true, '$10^{-n} = #frac{1}{10^{n}}$.'], ['Die Zahl wird negativ.', false, '$10^{-4}$ ist positiv, nur sehr klein.'], ['Man zieht 4 ab.', false, 'Der Exponent zählt Faktoren 10, keine Subtraktion.']]}},
+   {t:'Mal $10^{-4}$ heißt: Komma um 4 Stellen nach links. Fehlende Stellen werden mit Nullen gefüllt.'},
+   {t:'$3,07 #cdot 10^{-4} = 0,000307$', why:{q:'Wie kannst du das Ergebnis schnell prüfen?', opts:[['Größenordnung: $3 #cdot 0,0001 = 0,0003$ passt zu $0,000307$.', true, 'Eine Überschlagsrechnung fängt Stellenfehler ab.'], ['Gar nicht.', false, 'Ein Überschlag hilft immer.'], ['Mit $3,07 + 10 - 4$.', false, 'Potenzen werden nicht addiert.']]}}]},
+ klaer:{idee:'Mal $10^n$ verschiebt das Komma um $n$ Stellen nach rechts, mal $10^{-n}$ um $n$ Stellen nach links. Fehlende Stellen füllst du mit Nullen auf.',
+  merk:['$10^{-n} = #frac{1}{10^{n}}$', 'Überschlag: $5,766 #cdot 10^{3}$ liegt zwischen 5000 und 6000.'],
+  fehl:[['Bei $10^{-4}$ das Komma nach rechts verschieben', '$10^{-4}$ ist kleiner als 1: Die Zahl wird kleiner, das Komma wandert nach links.'], ['$3,07 #cdot 10^{-4} = 0,0000307$', 'Es zählt die Zahl der Stellen, um die das Komma wandert: 4 Stellen ergeben $0,000307$.']],
+  verst:[{q:'Was ist $9,87 #cdot 10^{-2}$?', opts:[['$0,0987$', true, 'Komma 2 Stellen nach links.'], ['$987$', false, 'Das wäre $9,87 #cdot 10^{2}$.'], ['$0,00987$', false, 'Das sind 3 Stellen.']]}]},
+ ueben:[{t:'Aufgaben', ids:['g18']}],
+ types:['pot'], exit:{types:['pot', 'pot', 'pot']}},
+
+/* ---------------- Vektoren ---------------- */
+{id:'v0', ch:'vek', title:'Vorwissen: Pythagoras und Co.', book:'S. 139: Check-in', kind:'proc', light:true, steps:['ziel', 'ueben', 'check'],
+ goals:['Ich kann mit dem Satz des Pythagoras Längen berechnen, auch die Raumdiagonale eines Würfels.', 'Ich kann den Abstand zweier Punkte in der Ebene berechnen.', 'Ich kenne die Eigenschaften der Vierecke und kann im rechtwinkligen Dreieck mit sin, cos und tan rechnen.'],
+ pre:[],
+ check:[
+  {q:'Ein rechtwinkliges Dreieck hat die Katheten 3 cm und 4 cm. Wie lang ist die Hypotenuse?', opts:[['5 cm', true, '$#sqrt{3^2 + 4^2} = #sqrt{25} = 5$.'], ['7 cm', false, 'Nicht addieren: $#sqrt{3^2 + 4^2} = 5$.'], ['25 cm', false, 'Die Wurzel fehlt: $#sqrt{25} = 5$.']]},
+  {q:'Wie groß ist der Abstand von $A(1|1)$ und $B(4|5)$?', opts:[['5', true, '$#sqrt{3^2 + 4^2} = 5$.'], ['7', false, 'Die Differenzen 3 und 4 werden nicht addiert, sondern über Pythagoras verbunden.'], ['$#sqrt{7}$', false, 'Erst quadrieren, dann addieren: $9 + 16 = 25$.']]},
+  {q:'Welche Aussage stimmt?', opts:[['Jedes Quadrat ist ein Rechteck.', true, 'Ein Quadrat hat vier rechte Winkel.'], ['Jedes Rechteck ist ein Quadrat.', false, 'Ein Rechteck muss keine gleich langen Seiten haben.'], ['Ein Parallelogramm hat immer vier rechte Winkel.', false, 'Nur besondere Parallelogramme (Rechtecke) haben rechte Winkel.']]},
+  {q:'Im rechtwinkligen Dreieck ist der Sinus eines Winkels gleich …', opts:[['Gegenkathete durch Hypotenuse', true, 'Kurz: sin = G/H.'], ['Ankathete durch Hypotenuse', false, 'Das ist der Kosinus.'], ['Gegenkathete durch Ankathete', false, 'Das ist der Tangens.']]}],
+ ueben:[{t:'Check-in-Aufgaben', ids:['vci']}],
+ types:[], exit:{mc:[
+  {q:'Ein Würfel hat die Kantenlänge 2. Wie lang ist seine Raumdiagonale?', opts:[['$#sqrt{12} #approx 3,46$', true, '$#sqrt{2^2 + 2^2 + 2^2} = #sqrt{12}$.'], ['$#sqrt{8} #approx 2,83$', false, 'Das ist die Flächendiagonale.'], ['6', false, 'Die Kanten werden nicht addiert.']]},
+  {q:'Wie groß ist der Abstand von $A(-2|2)$ und $B(3|-1)$?', opts:[['$#sqrt{34} #approx 5,83$', true, 'Differenzen 5 und $-3$: $25 + 9 = 34$.'], ['$#sqrt{10}$', false, 'Die Differenzen sind 5 und $-3$, nicht 1 und 3.'], ['8', false, 'Erst quadrieren, dann addieren, dann die Wurzel.']]},
+  {q:'Hypotenuse 10 cm, Winkel α = 30°. Wie lang ist die Gegenkathete von α?', opts:[['5 cm', true, 'sin(30°) = 0,5, also $10 #cdot 0,5 = 5$.'], ['8,66 cm', false, 'Das ist die Ankathete: $10 #cdot$ cos(30°).'], ['20 cm', false, 'Eine Kathete ist immer kürzer als die Hypotenuse.']]}]}},
+
+{id:'v1', ch:'vek', title:'Punkte und Figuren im Raum', book:'S. 140–146: Erkundungen und Lerneinheit 1', kind:'concept',
+ goals:['Ich kann Punkte im räumlichen Koordinatensystem ablesen und ins Schrägbild einzeichnen.', 'Ich erkenne an den Koordinaten, ob ein Punkt auf einer Achse oder in einer Koordinatenebene liegt.', 'Ich kann den Abstand zweier Punkte im Raum berechnen.'],
+ pre:['Koordinaten in der Ebene', 'Satz des Pythagoras', 'Abstand in der Ebene (Vorwissen)'],
+ check:[
+  {pre:true, q:'Wie groß ist der Abstand von $A(0|0)$ und $B(3|4)$ in der Ebene?', opts:[['5', true, '$#sqrt{9 + 16} = 5$.'], ['7', false, 'Nicht addieren, sondern Pythagoras.'], ['12', false, 'Nicht multiplizieren, sondern Pythagoras.']]},
+  {q:'Wo liegt der Punkt $P(0|3|0)$?', opts:[['auf der $x_{2}$-Achse', true, 'Zwei Koordinaten sind 0.'], ['in der $x_{1}x_{3}$-Ebene', false, 'In der $x_{1}x_{3}$-Ebene wäre die zweite Koordinate 0.'], ['auf der $x_{3}$-Achse', false, 'Auf der $x_{3}$-Achse wäre nur die dritte Koordinate von 0 verschieden.']]},
+  {q:'Wie zeichnest du im Schrägbild den Punkt $Q(2|0|0)$?', opts:[['auf der schräg nach vorn zeigenden Achse, zwei Kästchendiagonalen vom Ursprung', true, 'Die $x_{1}$-Achse zeigt schräg nach vorn.'], ['2 Einheiten nach rechts', false, 'Nach rechts zeigt die $x_{2}$-Achse.'], ['2 Einheiten nach oben', false, 'Nach oben zeigt die $x_{3}$-Achse.']]},
+  {q:'Wie groß ist der Abstand von $A(1|2|3)$ und $B(3|2|4)$?', opts:[['$#sqrt{5}$', true, '$#sqrt{2^2 + 0^2 + 1^2} = #sqrt{5}$.'], ['3', false, 'Die Differenzen werden quadriert, nicht addiert.'], ['$#sqrt{3}$', false, 'Erst die Differenzen quadrieren: $4 + 0 + 1 = 5$.']]}],
+ example:{type:'vAbstand', task:'Wie weit sind $A(1|2|0)$ und $B(4|6|12)$ voneinander entfernt?',
+  steps:[{t:'Differenzen der Koordinaten: $4 - 1 = 3$, $6 - 2 = 4$, $12 - 0 = 12$.', why:{q:'Warum bildet man die Differenzen?', opts:[['Sie geben an, wie weit man in jeder Achsenrichtung von A nach B gehen muss.', true, 'Jede Differenz ist ein Weg entlang einer Achse.'], ['Weil man immer subtrahiert.', false, 'Der Grund: Die Differenzen sind die Wege in die drei Richtungen.'], ['Damit die Zahlen kleiner werden.', false, 'Es geht um die Wege in die drei Richtungen.']]}},
+   {t:'In der Grundebene mit Pythagoras: $#sqrt{3^2 + 4^2} = #sqrt{25} = 5$.', why:{q:'Warum darf man hier den Satz des Pythagoras benutzen?', opts:[['Die Wege in $x_{1}$- und $x_{2}$-Richtung stehen senkrecht aufeinander.', true, 'Rechter Winkel, also Pythagoras.'], ['Weil 3, 4, 5 immer passt.', false, 'Der Grund ist der rechte Winkel zwischen den Achsen.'], ['Weil A in einer Koordinatenebene liegt.', false, 'Entscheidend ist der rechte Winkel zwischen den Achsenrichtungen.']]}},
+   {t:'Dann mit der Höhe, noch einmal Pythagoras: $#sqrt{5^2 + 12^2} = #sqrt{169} = 13$.', why:{q:'Was entsteht, wenn man beide Schritte zusammenfasst?', opts:[['Die Abstandsformel $#sqrt{3^2 + 4^2 + 12^2}$.', true, '$5^2 = 3^2 + 4^2$, also $#sqrt{5^2 + 12^2} = #sqrt{3^2 + 4^2 + 12^2}$.'], ['$3 + 4 + 12 = 19$', false, 'Längen addieren sich nur auf einer Geraden.'], ['Nichts, die Formel ist anders.', false, 'Sie ist genau diese Zusammenfassung.']]}},
+   {t:'Ergebnis: $d(A, B) = #sqrt{3^2 + 4^2 + 12^2} = 13$.'}]},
+ knobel:{tasks:['t-v1-0', 't-ver-1'], note:'Zwei Einstiegsaufgaben aus dem Buch. Probier sie, bevor du die Merkkästen liest; die Lernhilfe prüft deine Antworten.'},
+ klaer:{idee:'Ein Punkt im Raum braucht drei Koordinaten $P(p_{1}|p_{2}|p_{3})$: wie weit nach vorn ($x_{1}$), nach rechts ($x_{2}$) und nach oben ($x_{3}$). Ist eine Koordinate 0, liegt der Punkt in einer Koordinatenebene; sind zwei Koordinaten 0, liegt er auf einer Achse. Abstände berechnest du mit zweimal Pythagoras, zusammengefasst: $d = #sqrt{(b_{1} - a_{1})^2 + (b_{2} - a_{2})^2 + (b_{3} - a_{3})^2}$.',
+  merk:['Reihenfolge im Schrägbild: erst $x_{1}$ (schräg), dann $x_{2}$ (waagerecht), dann $x_{3}$ (senkrecht).', 'Eine Koordinate 0: Koordinatenebene. Zwei Koordinaten 0: Achse.', 'Ein Schrägbild ist mehrdeutig: Verschiedene Raumpunkte können an dieselbe Stelle im Bild fallen. Darum braucht man die Koordinaten.'],
+  move:['#v1 .merk'],
+  fehl:[['$P(0|0|5)$ „liegt in der $x_{3}$-Ebene“', 'Zwei Koordinaten sind 0: P liegt auf der $x_{3}$-Achse. Ebenen heißen nach zwei Achsen, z. B. $x_{1}x_{2}$-Ebene.'], ['Abstand: Differenzen addieren statt quadrieren', 'Erst jede Differenz quadrieren, dann addieren, dann die Wurzel ziehen.'], ['Im Schrägbild $x_{1}$ waagerecht nach rechts zeichnen', 'Nach rechts zeigt $x_{2}$. Die $x_{1}$-Achse zeigt schräg nach vorn (Kästchendiagonale).']],
+  verst:[{q:'Liegt $R(4|0|-2)$ auf einer Achse oder in einer Ebene?', opts:[['in der $x_{1}x_{3}$-Ebene', true, 'Nur die zweite Koordinate ist 0.'], ['auf der $x_{1}$-Achse', false, 'Dafür müssten zwei Koordinaten 0 sein.'], ['in der $x_{1}x_{2}$-Ebene', false, 'Dort wäre die dritte Koordinate 0.']]}]},
+ darst:{intro:'Zwei Labore verbinden Raumbild und Koordinaten. Im Raum-Labor gehören die Erkundungsaufgaben aus dem Buch dazu.',
+  move:[['#vlab', 'Raum-Spiel'], ['#vlab', 'Ein Punkt im Zimmer'], '#lab-raten', ['#vlab', 'Raum-Labor'], ['#vlab', 'Statt eines Raumgeometrieprogramms'], '#lab-raum', '#t-ver-3'],
+  qs:[{q:'Im Raum-Labor liegt C auf der $x_{3}$-Achse. Welche Koordinaten von C können sich beim Verändern des Quaders ändern?', opts:[['nur die dritte', true, 'Auf der $x_{3}$-Achse sind die ersten beiden Koordinaten immer 0.'], ['alle drei', false, 'Auf einer Achse sind zwei Koordinaten fest 0.'], ['die erste und die zweite', false, 'Genau diese bleiben auf der $x_{3}$-Achse 0.']]},
+      {q:'Im Schrägbild liegen zwei verschiedene Punkte an derselben Stelle. Wie kann das sein?', opts:[['Das Schrägbild zeigt den Raum auf einer Fläche; Tiefe und Höhe können sich im Bild ausgleichen.', true, 'Darum liest man Raumpunkte nur mit Hilfslinien sicher ab.'], ['Dann haben sie dieselben Koordinaten.', false, 'Verschiedene Punkte haben verschiedene Koordinaten.'], ['Das ist ein Zeichenfehler.', false, 'Das passiert auch bei richtiger Zeichnung.']]},
+      {fade:true, q:'Welcher Punkt liegt 4 Einheiten direkt über $P(3|2|0)$?', opts:[['$(3|2|4)$', true, 'Nach oben ändert sich nur $x_{3}$.'], ['$(3|6|0)$', false, 'Das ist 4 nach rechts.'], ['$(7|2|0)$', false, 'Das ist 4 nach vorn.']]}]},
+ vergl:{task:'Bestimme den Abstand von $A(1|1|1)$ und $B(3|4|7)$.',
+  a:{name:'Mila', how:'mit der Formel', lines:['$d = #sqrt{(3 - 1)^2 + (4 - 1)^2 + (7 - 1)^2}$', '$= #sqrt{4 + 9 + 36} = #sqrt{49} = 7$']},
+  b:{name:'Jan', how:'zweimal Pythagoras', lines:['Grundriss: $#sqrt{2^2 + 3^2} = #sqrt{13}$', 'Mit der Höhe 6: $#sqrt{13 + 6^2} = #sqrt{49} = 7$']},
+  qs:[{q:'Warum kommen beide auf 7?', opts:[['Jans erster Schritt liefert $2^2 + 3^2$, das auch in Milas Formel unter der Wurzel steht.', true, 'Die Formel ist zweimal Pythagoras in einem.'], ['Zufall', false, 'Es ist dieselbe Rechnung in anderer Reihenfolge.'], ['Mila hat gerundet.', false, 'Beide rechnen exakt.']]},
+      {q:'Was zeigt Jans Weg, was die Formel versteckt?', opts:[['Warum die Formel stimmt: Sie ist zweimal der Satz des Pythagoras.', true, 'Wer das weiß, kann die Formel jederzeit neu herleiten.'], ['Dass man runden muss.', false, 'Hier geht alles glatt auf.'], ['Dass Abstände immer ganzzahlig sind.', false, 'Meist sind sie das nicht.']]},
+      {q:'Welcher Weg ist bei $A(2|-1|5)$ und $B(-1|3|5)$ besonders schnell?', opts:[['Die Formel: Die dritte Differenz ist 0, es bleibt $#sqrt{9 + 16} = 5$.', true, 'Die Punkte liegen auf gleicher Höhe.'], ['Nur Jans Weg funktioniert.', false, 'Beide funktionieren.'], ['Keiner, weil die Punkte auf gleicher Höhe liegen.', false, 'Gerade dann ist es besonders einfach.']]}]},
+ ueben:[{t:'Grundaufgaben', sec:'v1', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v1', from:9, to:99}],
+ types:['vPlot', 'vLage', 'vAbstand'], exit:{types:['vLage', 'vAbstand'], mc:[{q:'Welcher Punkt liegt in der $x_{2}x_{3}$-Ebene, aber auf keiner Achse?', opts:[['$(0|5|-1)$', true, 'Nur die erste Koordinate ist 0.'], ['$(5|0|-1)$', false, 'Dieser liegt in der $x_{1}x_{3}$-Ebene.'], ['$(-1|5|0)$', false, 'Dieser liegt in der $x_{1}x_{2}$-Ebene.']]}]}},
+
+{id:'v2', ch:'vek', title:'Vektoren', book:'S. 147–150: Lerneinheit 2', kind:'concept',
+ goals:['Ich kann einen Vektor als Verschiebung deuten und zu zwei Punkten den Verbindungsvektor $#vec{AB}$ berechnen.', 'Ich kann Ortsvektor, Gegenvektor und Nullvektor erklären.', 'Ich kann den Betrag (die Länge) eines Vektors berechnen und Vierecke mit Vektoren untersuchen.'],
+ pre:['Punkte im Raum (Thema 1)', 'Abstand zweier Punkte'],
+ check:[
+  {pre:true, q:'Wie kommt man vom Ursprung zu $P(2|-1|3)$?', opts:[['2 nach vorn, 1 nach links, 3 nach oben', true, '$x_{1}$ vorn, $x_{2}$ rechts (−1: links), $x_{3}$ oben.'], ['2 nach rechts, 1 nach unten, 3 nach vorn', false, 'Die Reihenfolge ist vorn, rechts, oben.'], ['2 nach oben, 1 nach links, 3 nach vorn', false, 'Die erste Koordinate gehört zur $x_{1}$-Achse (vorn).']]},
+  {q:'Welcher Vektor führt von $A(1|2|3)$ nach $B(4|2|1)$?', opts:[['$#col{3;0;-2}$', true, 'Spitze minus Fuß: $B - A$.'], ['$#col{-3;0;2}$', false, 'Das ist $A - B$, also der Weg von B nach A.'], ['$#col{5;4;4}$', false, 'Addiert statt subtrahiert.']]},
+  {q:'Was ist der Gegenvektor zu $#col{2;-1;0}$?', opts:[['$#col{-2;1;0}$', true, 'Alle Vorzeichen wechseln.'], ['$#col{2;1;0}$', false, 'Alle Koordinaten wechseln das Vorzeichen, nicht nur eine.'], ['$#col{0;-1;2}$', false, 'Vertauschen ergibt keinen Gegenvektor.']]},
+  {q:'Wie lang ist $#vec{v} = #col{2;3;6}$?', opts:[['7', true, '$#sqrt{4 + 9 + 36} = #sqrt{49}$.'], ['11', false, 'Die Koordinaten werden quadriert, nicht addiert.'], ['49', false, 'Die Wurzel fehlt.']]}],
+ example:{type:'vAB', task:'Gegeben sind $A(2|1|4)$ und $B(5|-1|4)$. Bestimme $#vec{AB}$ und seinen Betrag.',
+  steps:[{t:'$#vec{AB} = #col{5 - 2;-1 - 1;4 - 4} = #col{3;-2;0}$', why:{q:'Warum rechnet man „Spitze minus Fuß“, also $B - A$?', opts:[['Der Vektor beschreibt den Weg von A nach B: Zu A addiert ergibt er B.', true, '$A + #vec{AB} = B$, also $#vec{AB} = B - A$.'], ['Weil B im Alphabet später kommt.', false, 'Der Grund ist die Richtung: von A nach B.'], ['Die Reihenfolge ist egal.', false, 'Mit $A - B$ erhält man den Gegenvektor, der von B nach A zeigt.']]}},
+   {t:'Probe: $(2 + 3|1 - 2|4 + 0) = (5|-1|4) = B$ ✓'},
+   {t:'$|#vec{AB}| = #sqrt{3^2 + (-2)^2 + 0^2} = #sqrt{13} #approx 3,61$', why:{q:'Was gibt der Betrag an?', opts:[['Die Länge der Verschiebung, also den Abstand von A und B.', true, 'Darum ist der Betrag dieselbe Rechnung wie der Abstand.'], ['Die Summe der Koordinaten.', false, 'Summe: $3 - 2 + 0 = 1$, das ist keine Länge.'], ['Wie viele Pfeile zum Vektor gehören.', false, 'Zu jedem Vektor gehören unendlich viele Pfeile.']]}}]},
+ knobel:{tasks:['t-v2-0'], note:'Die Einstiegsaufgabe aus dem Buch: Beschreibe Springerzüge als Verschiebungen. Probier es, bevor du den Merkkasten liest.'},
+ klaer:{idee:'Ein Vektor ist eine Verschiebung: Er sagt, wie weit man in jede Achsenrichtung geht, aber nicht, wo man startet. Darum gehören alle gleich langen, gleich gerichteten Pfeile zum selben Vektor. Den Vektor von A nach B erhältst du mit „Spitze minus Fuß“: $#vec{AB} = B - A$, Koordinate für Koordinate. Der Ortsvektor $#vec{OP}$ führt vom Ursprung zu P und hat dieselben Koordinaten wie P. Die Länge heißt Betrag: $|#vec{v}| = #sqrt{v_{1}^2 + v_{2}^2 + v_{3}^2}$.',
+  merk:['Gegenvektor $-#vec{a}$: gleiche Länge, entgegengesetzte Richtung; $#vec{BA} = -#vec{AB}$.', 'Nullvektor $#vec{0}$: keine Verschiebung, z. B. hin und zurück.', 'Parallelogramm ABCD: $#vec{AB} = #vec{DC}$.', 'Betrag von $#vec{AB}$ = Abstand von A und B.'],
+  move:['#v2 .merk', '#v2 aside.life'],
+  fehl:[['„Fuß minus Spitze“: $#vec{AB} = A - B$', 'Das ergibt den Gegenvektor $#vec{BA}$. Probe: $A + #vec{AB}$ muss B ergeben.'], ['Betrag: $|#col{-3;4;0}| = #sqrt{-9 + 16}$', 'Quadrate sind nie negativ: $(-3)^2 = 9$, also $#sqrt{9 + 16} = 5$.'], ['Ein Vektor gehört zu genau einem Pfeil', 'Zu einem Vektor gehören unendlich viele Pfeile: alle gleich lang und gleich gerichtet, egal wo sie beginnen.']],
+  verst:[{q:'$#vec{AB} = #col{1;2;-1}$ und $A(3|0|2)$. Wo liegt B?', opts:[['$B(4|2|1)$', true, '$B = A + #vec{AB}$.'], ['$B(2|-2|3)$', false, 'Das wäre $A - #vec{AB}$.'], ['$B(1|2|-1)$', false, 'Das sind die Koordinaten des Vektors, nicht des Punktes.']]}]},
+ darst:{intro:'Ein Vektor, viele Pfeile: Stell die Spalte ein und vergleiche die Pfeile. Die Zahlen in der Spalte sind die Schritte nach rechts und nach oben.',
+  make:['labPfeil'],
+  qs:[{q:'Stell $#vec{v} = #col{3;-1}$ ein. Was haben alle blauen Pfeile gemeinsam?', opts:[['Jeder geht 3 nach rechts und 1 nach unten: gleiche Länge, gleiche Richtung.', true, 'Darum gehören sie zum selben Vektor.'], ['Sie beginnen alle im Ursprung.', false, 'Sie beginnen an verschiedenen Stellen.'], ['Sie sind verschieden lang.', false, 'Alle sind gleich lang.']]},
+      {q:'Schalte den Gegenvektor ein. Was ändert sich an der Spalte?', opts:[['Beide Koordinaten wechseln das Vorzeichen.', true, '$-#col{3;-1} = #col{-3;1}$.'], ['Die Koordinaten werden vertauscht.', false, 'Vertauscht wird nichts.'], ['Nichts, nur die Farbe.', false, 'Die Pfeile zeigen in die Gegenrichtung.']]},
+      {fade:true, q:'Ein Pfeil startet bei $(1|2)$ und endet bei $(-2|4)$. Welcher Vektor gehört dazu?', opts:[['$#col{-3;2}$', true, 'Spitze minus Fuß: $(-2 - 1|4 - 2)$.'], ['$#col{3;-2}$', false, 'Das ist der Gegenvektor (Fuß minus Spitze).'], ['$#col{-1;6}$', false, 'Addiert statt subtrahiert.']]}]},
+ vergl:{task:'Ist ABCD mit $A(1|0|2)$, $B(4|1|2)$, $C(5|3|1)$ und $D(2|2|1)$ ein Parallelogramm?',
+  a:{name:'Sara', how:'vergleicht Vektoren', lines:['$#vec{AB} = #col{3;1;0}$, $#vec{DC} = #col{3;1;0}$', '$#vec{AB} = #vec{DC}$: AB und DC sind parallel, gleich lang und gleich gerichtet.', 'Also ist ABCD ein Parallelogramm.']},
+  b:{name:'Finn', how:'vergleicht Seitenlängen', lines:['$|AB| = #sqrt{10}$, $|DC| = #sqrt{10}$, $|AD| = #sqrt{6}$, $|BC| = #sqrt{6}$', 'Gegenüberliegende Seiten sind gleich lang.', 'Also ist ABCD ein Parallelogramm.']},
+  qs:[{q:'Wessen Begründung reicht im Raum aus?', opts:[['Saras: Gleiche Vektoren heißen parallel, gleich lang und gleich gerichtet.', true, 'Finns Kriterium reicht im Raum nicht: Vier Kanten eines Tetraeders bilden zum Beispiel ein Viereck mit gleich langen Seiten, das gar nicht eben ist.'], ['Finns: Gleich lange Gegenseiten reichen immer.', false, 'In der Ebene ja, im Raum nicht: Das Viereck muss nicht einmal eben sein.'], ['Beide gleich gut.', false, 'Nur Saras Argument schließt verdrehte Vierecke aus.']]},
+      {q:'Was müsste Finn zusätzlich zeigen?', opts:[['Dass die Gegenseiten auch parallel und gleich gerichtet sind; genau das leistet $#vec{AB} = #vec{DC}$.', true, 'Die Vektorgleichung enthält alles auf einmal.'], ['Dass alle Seiten gleich lang sind.', false, 'Auch das macht im Raum noch kein ebenes Viereck.'], ['Nichts.', false, 'Seine Begründung hat im Raum eine Lücke.']]},
+      {q:'Wozu ist Finns Rechnung trotzdem nützlich?', opts:[['Sie zeigt zusätzlich, dass ABCD keine Raute ist, weil $#sqrt{10} #neq #sqrt{6}$.', true, 'Längen beantworten andere Fragen als Richtungen.'], ['Sie ist nutzlos.', false, 'Sie liefert die Seitenlängen.'], ['Sie ersetzt die Vektorrechnung.', false, 'Das tut sie im Raum nicht.']]}]},
+ ueben:[{t:'Grundaufgaben', sec:'v2', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v2', from:9, to:99}],
+ types:['vAB', 'vBetrag', 'vEnd', 'vPara'], exit:{types:['vAB', 'vBetrag', 'vEnd']}},
+
+{id:'v3', ch:'vek', title:'Rechnen mit Vektoren', book:'S. 140 (Erkundung) und S. 151–155: Lerneinheit 3', kind:'proc',
+ goals:['Ich kann Vektoren addieren, subtrahieren und mit einer Zahl multiplizieren, rechnerisch und zeichnerisch.', 'Ich kann Linearkombinationen berechnen und den Mittelpunkt einer Strecke bestimmen.', 'Ich kann prüfen, ob zwei Vektoren kollinear sind, und geometrische Aussagen mit Vektoren begründen.'],
+ pre:['Vektoren als Spalten (Thema 2)', 'Bruchrechnung'],
+ check:[
+  {pre:true, q:'Was ist $#vec{AB}$ für $A(1|1|1)$ und $B(2|3|4)$?', opts:[['$#col{1;2;3}$', true, 'Spitze minus Fuß.'], ['$#col{3;4;5}$', false, 'Addiert statt subtrahiert.'], ['$#col{-1;-2;-3}$', false, 'Das ist $#vec{BA}$.']]},
+  {q:'$#col{1;2;3} + #col{4;-2;0} = $ ?', opts:[['$#col{5;0;3}$', true, 'Koordinatenweise addieren.'], ['$#col{4;-4;0}$', false, 'Addieren, nicht multiplizieren.'], ['$#col{5;4;3}$', false, '$2 + (-2) = 0$.']]},
+  {q:'$-2 #cdot #col{3;-1;0} = $ ?', opts:[['$#col{-6;2;0}$', true, 'Jede Koordinate mal $-2$.'], ['$#col{-6;-1;0}$', false, 'Jede Koordinate wird multipliziert.'], ['$#col{1;-3;-2}$', false, 'Mal $-2$, nicht minus 2.']]},
+  {q:'Welcher Punkt ist der Mittelpunkt von $A(2|0|4)$ und $B(6|2|0)$?', opts:[['$M(4|1|2)$', true, 'Koordinatenweise der Mittelwert.'], ['$M(2|1|-2)$', false, 'Das ist der halbe Verbindungsvektor, nicht der Mittelpunkt.'], ['$M(8|2|4)$', false, 'Die Summe muss noch halbiert werden.']]}],
+ example:{type:'vLin', task:'Berechne $2 #cdot #col{1;-3;2} - #col{4;1;-1}$.',
+  steps:[{t:'$2 #cdot #col{1;-3;2} = #col{2;-6;4}$', why:{q:'Wie multipliziert man einen Vektor mit einer Zahl?', opts:[['Jede Koordinate wird mit der Zahl multipliziert.', true, 'Der Pfeil wird doppelt so lang.'], ['Nur die erste Koordinate.', false, 'Dann änderte sich die Richtung.'], ['Die Zahl wird zu jeder Koordinate addiert.', false, 'Multiplizieren, nicht addieren.']]}},
+   {t:'$#col{2;-6;4} - #col{4;1;-1} = #col{2 - 4;-6 - 1;4 - (-1)} = #col{-2;-7;5}$', why:{q:'Worauf muss man in der dritten Koordinate achten?', opts:[['Minus eine negative Zahl: $4 - (-1) = 4 + 1 = 5$.', true, 'Klammern zeigen das Vorzeichen.'], ['Auf nichts Besonderes.', false, 'Hier steckt eine typische Falle.'], ['Dass man $4 - 1 = 3$ rechnet.', false, 'Die Klammer zählt: $-(-1) = +1$.']]}},
+   {t:'Ergebnis: $#col{-2;-7;5}$'}]},
+ knobel:{tasks:['t-ver-2'], note:'Die Erkundung aus dem Buch: Ordne Diagramme den Gleichungen zu und finde selbst die Rechenregeln. Probier es, bevor du den Merkkasten liest.'},
+ klaer:{idee:'Mit Vektoren rechnest du Koordinate für Koordinate. Beim Addieren hängst du die Pfeile aneinander, beim Subtrahieren addierst du den Gegenvektor, und eine Zahl $r$ streckt den Pfeil auf das $|r|$-Fache, für $r &lt; 0$ mit Richtungsumkehr. So lassen sich Punkte erreichen: $#vec{OM} = #vec{OA} + #frac{1}{2}#vec{AB}$ führt zum Mittelpunkt, kurz $M = #frac{1}{2}(A + B)$. Zwei Vektoren sind kollinear (parallel), wenn einer ein Vielfaches des anderen ist.',
+  merk:['Kollinear prüfen: Dasselbe $s$ muss in allen Koordinaten passen.', 'Mittelpunkt: in jeder Koordinate der Mittelwert $#frac{a_{i} + b_{i}}{2}$.', 'Ein Vektorweg durch eine Figur, z. B. $#vec{AG} = #vec{AB} + #vec{BC} + #vec{CG}$, beweist Aussagen ohne Zeichnung.'],
+  move:['#v3 .merk'],
+  fehl:[['Zahl mal Vektor nur in einer Koordinate', '$3 #cdot #col{1;2;0} = #col{3;6;0}$: Die Zahl wirkt auf jede Koordinate.'], ['Den halben Verbindungsvektor $#frac{1}{2}#vec{AB}$ als Mittelpunkt angeben', '$#frac{1}{2}#vec{AB}$ ist nur der Weg von A bis zur Mitte. Der Mittelpunkt ist $A + #frac{1}{2}#vec{AB}$.'], ['Kollinearität nur an einer Koordinate prüfen', 'Bei $#col{1;2;3}$ und $#col{2;4;7}$ passt $s = 2$ nur in den ersten beiden Koordinaten: nicht kollinear.']],
+  verst:[{q:'Sind $#vec{a} = #col{2;-1;3}$ und $#vec{b} = #col{-4;2;-6}$ kollinear?', opts:[['Ja, $#vec{b} = -2 #cdot #vec{a}$.', true, 'Der Faktor $-2$ passt in allen drei Koordinaten.'], ['Nein, weil die Vorzeichen verschieden sind.', false, 'Ein negativer Faktor kehrt nur die Richtung um.'], ['Nein, weil $-6 #neq 3$.', false, 'Man prüft den Faktor: $-6 = -2 #cdot 3$.']]}]},
+ darst:{intro:'Im Vektor-Baukasten siehst du Rechnung und Pfeilbild gleichzeitig.',
+  move:[['#vlab', 'Vektor-Baukasten'], ['#vlab', 'Rechnen mit Vektoren'], '#lab-bau'],
+  qs:[{q:'Stell im Baukasten $r = 1$ und $s = 1$ ein. Wie entsteht der Pfeil von $#vec{a} + #vec{b}$?', opts:[['Den Pfeil von $#vec{b}$ an die Spitze von $#vec{a}$ hängen.', true, 'Der Summenpfeil führt vom Anfang von $#vec{a}$ zur Spitze von $#vec{b}$.'], ['Die Pfeile übereinanderlegen.', false, 'Dann sähe man nur die Pfeile selbst.'], ['Den längeren Pfeil verdoppeln.', false, 'Das wäre $2 #cdot #vec{a}$.']]},
+      {q:'Was passiert mit dem Pfeil $r #cdot #vec{a}$, wenn du $r$ von 2 auf $-2$ schiebst?', opts:[['Er bleibt gleich lang, zeigt aber in die Gegenrichtung.', true, '$|-2| = |2|$, das Minus kehrt die Richtung um.'], ['Er wird kürzer.', false, 'Die Länge hängt von $|r|$ ab.'], ['Er dreht sich um 90°.', false, 'Er dreht sich um 180°.']]},
+      {fade:true, q:'Mit $#vec{a} = #col{1;0}$ und $#vec{b} = #col{0;1}$: Welche Zahlen $r$, $s$ ergeben $r #cdot #vec{a} + s #cdot #vec{b} = #col{3;-2}$?', opts:[['$r = 3$, $s = -2$', true, '$#col{3;0} + #col{0;-2} = #col{3;-2}$.'], ['$r = -2$, $s = 3$', false, 'Dann käme $#col{-2;3}$ heraus.'], ['$r = 3$, $s = 2$', false, 'Dann käme $#col{3;2}$ heraus.']]}]},
+ vergl:{task:'Bestimme den Mittelpunkt von $A(2|-1|5)$ und $B(6|3|-1)$.',
+  a:{name:'Hannah', how:'Mittelwert', lines:['$M = (#frac{2 + 6}{2}|#frac{-1 + 3}{2}|#frac{5 + (-1)}{2})$', '$M(4|1|2)$']},
+  b:{name:'Luis', how:'Vektorweg', lines:['$#vec{AB} = #col{4;4;-6}$', '$#vec{OM} = #vec{OA} + #frac{1}{2}#vec{AB} = #col{2;-1;5} + #col{2;2;-3} = #col{4;1;2}$', '$M(4|1|2)$']},
+  qs:[{q:'Warum sind beide Wege gleichwertig?', opts:[['$A + #frac{1}{2}(B - A) = #frac{1}{2}(A + B)$: Es ist dieselbe Rechnung, nur umgeformt.', true, 'Ausmultiplizieren zeigt es.'], ['Zufall bei diesen Zahlen', false, 'Es gilt für alle Punkte.'], ['Luis hat abgeschrieben.', false, 'Luis rechnet einen anderen Weg.']]},
+      {q:'Welcher Weg hilft beim Punkt T, der AB im Verhältnis 1 : 2 teilt (T liegt näher bei A)?', opts:[['Luis’ Weg: $#vec{OT} = #vec{OA} + #frac{1}{3}#vec{AB}$', true, 'Der Vektorweg lässt sich auf jeden Bruchteil der Strecke übertragen.'], ['Hannahs Weg mit $#frac{a + b}{3}$', false, 'Der Mittelwert passt nur für die Mitte.'], ['Keiner', false, 'Luis’ Weg funktioniert.']]},
+      {q:'Wofür taugt Hannahs Weg besonders?', opts:[['Für die Mitte: Er ist am schnellsten und leicht im Kopf zu rechnen.', true, 'Für Mittelpunkte ist er erste Wahl.'], ['Für alle Teilungspunkte', false, 'Nur für die Mitte.'], ['Für Kollinearität', false, 'Dafür braucht man Vielfache von Vektoren.']]}]},
+ ueben:[{t:'Grundaufgaben', sec:'v3', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v3', from:9, to:99}],
+ types:['vLin', 'vMitte', 'vKoll', 'vPara'], exit:{types:['vLin', 'vMitte', 'vKoll']}}
+];
+
+/* ================= Lernweg (v8): Ablauf je Thema, Plan, Navigation ================= */
+/* Abfolge je Thema (Barbieri u. a. 2023; Sinha & Kapur 2021; Rittle-Johnson & Star 2007; Maskos u. a. 2025):
+   Ziel und Eingangscheck → Einstieg (Musterbeispiel oder Knobeln, Wahl mit Empfehlung) → Klären → Darstellen
+   (Labor, danach ohne Bild) → Lösungswege vergleichen → Üben (Buchaufgaben) → Abschlusscheck mit Anpassung. */
+const WG_STEP = {ziel:{t:'Ziel und Check', min:5}, einstieg:{t:'Einstieg', min:10}, klaer:{t:'Klären', min:8}, darst:{t:'Darstellen', min:8}, vergl:{t:'Vergleichen', min:6}, ueben:{t:'Üben', min:25}, check:{t:'Abschluss', min:10}};
+const WG_ALL = ['ziel', 'einstieg', 'klaer', 'darst', 'vergl', 'ueben', 'check'];
+const WG_DAY = 86400000;
+const wgSteps = T => T.steps || WG_ALL;
+const WGS = Object.assign({t:{}, plan:{}, view:''}, store.get('qf8-lw') || {});
+const wgSave = () => store.set('qf8-lw', WGS);
+const wgT = id => WGS.t[id] || (WGS.t[id] = {done:{}, step:'ziel'});
+const WGI = {}; LW_TOPICS.forEach(T => { WGI[T.id] = T; T.n = +T.id.slice(1); });
+const wgTopics = ch => LW_TOPICS.filter(T => T.ch === ch);
+const wgName = T => T.n ? `Thema ${T.n}` : 'Vorwissen';
+const wgShuffle = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(p => p[1]);
+const wgParse = s => { s = String(s || '').trim().replace(/^.*=/, '').replace(/[−–]/g, '-').replace(/\s/g, '').replace(',', '.'); if (!s) return NaN; if (/^-?\d*\.?\d+\/\d*\.?\d+$/.test(s)){ const [a, b] = s.split('/'); return +a / +b; } return /^-?\d*\.?\d+$/.test(s) ? +s : NaN; };
+const wgDate = t => new Date(t).toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'numeric'});
+
+/* Element aus dem bisherigen Seitenaufbau holen: '#id', [Abschnitt, Text eines direkten Kindes] oder {clone:[…]} */
+function wgPick(spec){
+  if (!spec) return null;
+  if (typeof spec === 'string') return document.querySelector(spec);
+  if (Array.isArray(spec)){ const root = document.querySelector(spec[0]); return root ? [...root.children].find(c => c.textContent.includes(spec[1])) || null : null; }
+  if (spec.clone){ const el = wgPick(spec.clone); if (!el) return null; const c = el.cloneNode(true); c.removeAttribute('id'); c.querySelectorAll('[id]').forEach(x => x.removeAttribute('id')); return c; }
+  return null;
+}
+
+/* ---- Auswahlfrage mit Rückmeldung ---- */
+function wgMC(box, item, o = {}){
+  const card = document.createElement('div'); card.className = 'qcard wg-mc';
+  const order = wgShuffle(item.opts.map((x, i) => i).filter(i => item.opts[i][3] !== 'last')).concat(item.opts.map((x, i) => i).filter(i => item.opts[i][3] === 'last'));
+  card.innerHTML = `${o.head ? `<div class="qc-h">${o.head}</div>` : ''}<div class="qc-q">${R(item.q)}</div><div class="qc-opts">${order.map(i => `<button type="button" class="opt" data-i="${i}">${R(item.opts[i][0])}</button>`).join('')}</div><div class="qc-fb" aria-live="polite"></div>`;
+  box.appendChild(card);
+  card.querySelector('.qc-opts').addEventListener('click', e => {
+    const b = e.target.closest('.opt'); if (!b || card.dataset.done) return; card.dataset.done = '1';
+    const x = item.opts[+b.dataset.i], ok = !!x[1], right = item.opts.find(y => y[1]);
+    card.querySelectorAll('.opt').forEach(y => { y.disabled = true; if (item.opts[+y.dataset.i][1]) y.classList.add('right'); });
+    if (!ok) b.classList.add('wrong');
+    card.querySelector('.qc-fb').innerHTML = x[3] === 'last' ? `<div class="wg-dk">${R(x[2] || '')} Die richtige Antwort ist markiert.</div>` : `<div class="${ok ? 'ok' : 'bad'}">${ok ? 'Richtig.' : 'Nicht ganz.'} ${R(x[2] || (ok ? '' : (right && right[2]) || ''))}</div>`;
+    o.onAnswer && o.onAnswer(ok, card);
+  });
+  return card;
+}
+function wgMCList(box, items, onAll, o = {}){
+  const res = new Array(items.length).fill(null);
+  items.forEach((it, i) => wgMC(box, it, {head:o.head ? o.head(i) : '', onAnswer:ok => { res[i] = ok; if (res.every(r => r !== null)) onAll && onAll(res); }}));
+  if (!items.length) onAll && onAll(res);
+  return res;
+}
+
+/* ---- Aufgabenfolge mit generierten Aufgaben (Musterbeispiel, Ausblenden, Abschluss) ---- */
+class WGRun {
+  constructor(box, list, o = {}){ this.box = box; this.list = list.slice(); this.i = 0; this.res = []; this.o = o; this.next(); }
+  stageOf(type){
+    if (this.o.stage != null) return this.o.stage;
+    if (this.o.first0 && this.i === 0) return 0;
+    let s = LM.stage(type); if (s < 0) s = 0;
+    return this.o.minStage != null ? Math.max(s, this.o.minStage) : s;
+  }
+  next(){
+    if (this.i >= this.list.length){ this.o.onDone && this.o.onDone(this.res, this); return; }
+    const type = this.list[this.i], sub = generate(type), stage = this.stageOf(type);
+    this.box.innerHTML = `<div class="tr-head"><b>${escH(this.o.title || 'Aufgaben')}</b><span class="small">Aufgabe ${this.i + 1} von ${this.list.length} · ${escH(TYPES[type].label)}${this.o.stage === 3 ? '' : ' · ' + STAGE_TXT[stage]}</span></div>
+      <div class="tr-task"><h4>${R(sub.head)}</h4>${sub.given ? `<div class="plotbox sm">${sub.given}</div>` : ''}</div><div class="tr-ws"></div>`;
+    const ws = this.box.querySelector('.tr-ws');
+    if (stage === 0) return this.example(sub, type, ws);
+    const g = sub.goals.find(x => x.kind === 'solve');
+    if (g && stage < 3){ const n = g.canon.length; g.give = Math.max(0, stage === 1 ? n - 1 : n - 2); g.why = sub.why; }
+    new Workspace3(sub, ws, {onFinish:stt => {
+      LM.result(type, stt === 'ok', stage); this.res.push({type, r:stt, stage});
+      return {label:this.i + 1 < this.list.length ? 'Nächste Aufgabe' : (this.o.lastLabel || 'Weiter'), go:() => { this.i++; this.next(); }};
+    }});
+  }
+  /* vollständiges Beispiel; bei Rechenwegen Schritt für Schritt mit Warum-Frage */
+  example(sub, type, ws){
+    const g = sub.goals.find(x => x.kind === 'solve'), lines = (g && g.canonInfo) || [], why = sub.why || [];
+    const go = () => { LM.seenExample(type); this.list.splice(this.i + 1, 0, type); this.i++; this.o.first0 = false; this.next(); };
+    const finish = qbox => {
+      qbox.innerHTML = `<div class="fin ok"><p>${R(sub.fin || '')}</p></div><div class="wg-exq"></div><div class="btnrow"><button type="button" class="btn btn-primary ex-go">Jetzt selbst: ähnliche Aufgabe</button></div>`;
+      if (this.o.exQs) wgMCList(qbox.querySelector('.wg-exq'), this.o.exQs, null, {head:() => 'Warum?'});
+      qbox.querySelector('.ex-go').addEventListener('click', go);
+    };
+    if (!lines.length){
+      ws.innerHTML = '<p class="small">Erst ein vollständig gelöstes Beispiel. Lies es Schritt für Schritt und überlege, warum jeder Schritt stimmt.</p><div class="wg-model"></div><div class="ex-q"></div>';
+      modelView3(sub, ws.querySelector('.wg-model')); finish(ws.querySelector('.ex-q')); return;
+    }
+    ws.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er erlaubt ist. Danach rechnest du eine ähnliche Aufgabe selbst, zuerst mit Lücken.</p>${g.start ? `<div class="gline given"><span class="gl-ic">Start</span><span class="gl-tex">${R(g.start)}</span></div>` : ''}<ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
+    const ol = ws.querySelector('.ex-lines'), qbox = ws.querySelector('.ex-q');
+    let i = 0;
+    const step = () => {
+      if (i >= lines.length) return finish(qbox);
+      const c = lines[i], li = document.createElement('li'); li.className = 'gl model';
+      li.innerHTML = `<span class="gl-ic">${i + 1}</span><span class="gl-ink"></span><span class="gl-tex">${c.none ? 'keine Lösung' : c.html ? R(c.html) : lineHTML(c.parsed)}</span><span class="gl-msg"></span>`;
+      ol.appendChild(li); qbox.innerHTML = '';
+      const rule = why[i];
+      if (rule && RULES[rule]){
+        const opts = wgShuffle([rule].concat(wgShuffle(Object.keys(RULES).filter(k => k !== rule)).slice(0, 2)));
+        const card = document.createElement('div'); card.className = 'qcard explain';
+        card.innerHTML = `<div class="qc-h">Warum?</div><div class="qc-q">Was geschieht in Schritt ${i + 1}?</div><div class="qc-opts">${opts.map(k => `<button type="button" class="opt" data-k="${k}">${R(RULES[k].t)}</button>`).join('')}</div><div class="qc-fb"></div>`;
+        qbox.appendChild(card);
+        card.querySelector('.qc-opts').addEventListener('click', e => {
+          const b = e.target.closest('.opt'); if (!b || card.dataset.done) return; card.dataset.done = '1';
+          const ok = b.dataset.k === rule; LM.explain(ok);
+          card.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (x.dataset.k === rule) x.classList.add('right'); }); if (!ok) b.classList.add('wrong');
+          li.querySelector('.gl-msg').innerHTML = R(RULES[rule].t);
+          card.querySelector('.qc-fb').innerHTML = `<div class="${ok ? 'ok' : 'bad'}">${ok ? 'Genau.' : 'Nicht ganz.'} ${R(RULES[rule].fb)}</div><div class="btnrow"><button type="button" class="btn btn-sm ex-next">Nächster Schritt</button></div>`;
+          card.querySelector('.ex-next').addEventListener('click', () => { i++; step(); });
+        });
+      } else { const b = document.createElement('div'); b.className = 'btnrow'; b.innerHTML = '<button type="button" class="btn btn-sm">Nächster Schritt</button>'; qbox.appendChild(b); b.querySelector('button').addEventListener('click', () => { i++; step(); }); }
+    };
+    step();
+  }
+}
+
+/* ---- Selbst verfasstes Musterbeispiel: Schritt für Schritt, mit Warum-Fragen ---- */
+function wgExample(box, E, onDone){
+  box.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er stimmt; die Warum-Fragen helfen dabei.</p><div class="tr-task"><h4>${R(E.task)}</h4>${E.fig ? `<div class="plotbox sm">${E.fig()}</div>` : ''}</div><ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
+  const ol = box.querySelector('.ex-lines'), qbox = box.querySelector('.ex-q');
+  let i = 0;
+  const step = () => {
+    if (i >= E.steps.length){ onDone && onDone(); return; }
+    const s = E.steps[i], li = document.createElement('li'); li.className = 'gl model';
+    li.innerHTML = `<span class="gl-ic">${i + 1}</span><span class="gl-tex wg-tx">${R(s.t)}</span>`;
+    ol.appendChild(li); qbox.innerHTML = '';
+    const more = () => { const b = document.createElement('div'); b.className = 'btnrow'; b.innerHTML = `<button type="button" class="btn btn-sm">${i + 1 < E.steps.length ? 'Nächster Schritt' : 'Beispiel fertig'}</button>`; qbox.appendChild(b); b.querySelector('button').addEventListener('click', () => { b.remove(); i++; step(); }); };
+    if (s.why) wgMC(qbox, s.why, {head:'Warum?', onAnswer:ok => { LM.explain(ok); more(); }}); else more();
+  };
+  step();
+}
+
+/* ---- Knobelproblem (Problemlösen vor der Instruktion) ---- */
+function wgKnobel(box, T, onReady){
+  const K = T.knobel, st = wgT(T.id), s = st.kn || (st.kn = {tries:0});
+  box.innerHTML = `<div class="wg-kn"><p class="wg-kntext">${R(K.text)}</p>
+    <div class="wg-pad"><div class="wg-padh"><span class="small">Notizblatt für deine Versuche (wird nicht bewertet)</span><button type="button" class="btn btn-sm" data-kn="undo">↶ Strich</button><button type="button" class="btn btn-sm" data-kn="clear">✕ leeren</button></div><div class="wg-padz"><canvas aria-label="Notizblatt"></canvas></div></div>
+    <div class="wg-ans">${K.ans.map((a, i) => `<label class="fld"><span>${R(a.label)}</span><input type="text" inputmode="decimal" autocomplete="off" data-i="${i}" value="${escH((s.ans || [])[i] || '')}"></label>`).join('')}</div>
+    <div class="btnrow"><button type="button" class="btn btn-primary" data-kn="check">Antwort prüfen</button><button type="button" class="btn" data-kn="stuck">Ich komme nicht weiter</button></div>
+    <div class="wg-knfb" aria-live="polite"></div>
+    <div class="wg-ap" hidden><h4>Wie bist du vorgegangen?</h4><p class="small">Die Klärung im nächsten Schritt knüpft an deinen Weg an.</p><div class="ga-chips">${K.ap.map(([k, l]) => `<button type="button" class="chip" data-ap="${k}">${R(l)}</button>`).join('')}</div></div></div>`;
+  const pad = box.querySelector('.wg-padz'), cv = pad.querySelector('canvas');
+  const ink = new InkCanvas(cv, {lw:2.4, zone:pad, bg:(c, w, h) => { c.strokeStyle = cssVar('--line'); c.lineWidth = 1; for (let x = 20; x < w; x += 20){ c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); } for (let y = 20; y < h; y += 20){ c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); } }});
+  requestAnimationFrame(() => { ink.fit(); ink.redraw(); });
+  const fb = box.querySelector('.wg-knfb'), apBox = box.querySelector('.wg-ap');
+  const showAp = () => { apBox.hidden = false; if (s.ap){ const c = apBox.querySelector(`[data-ap="${s.ap}"]`); if (c) c.classList.add('on'); onReady && onReady(); } };
+  if (s.tries || s.ok || s.stuck) showAp();
+  box.addEventListener('click', e => {
+    const b = e.target.closest('[data-kn],[data-ap]'); if (!b) return;
+    if (b.dataset.kn === 'undo') return ink.undo();
+    if (b.dataset.kn === 'clear') return ink.clear();
+    if (b.dataset.kn === 'stuck'){ s.stuck = 1; wgSave(); fb.innerHTML = '<div class="obs">Gut, dass du es versucht hast. Genau solche Versuche machen die Erklärung im nächsten Schritt verständlicher. Wähle unten, wie du angefangen hast.</div>'; showAp(); LM.event('Lernweg: Knobeln abgebrochen', T.id); return; }
+    if (b.dataset.kn === 'check'){
+      const ins = [...box.querySelectorAll('.wg-ans input')], vals = ins.map(i => wgParse(i.value));
+      s.ans = ins.map(i => i.value); s.tries = (s.tries || 0) + 1;
+      if (vals.some(v => !isFinite(v))){ fb.innerHTML = '<div class="bad">Trag in jedes Feld eine Zahl ein, z. B. 2,5 oder −1.</div>'; s.tries--; return; }
+      const tol = a => a.tol || 1e-6;
+      let okList;
+      if (K.free){ const want = K.ans.map(a => a.v), used = []; okList = vals.map(v => { const j = want.findIndex((w, k) => !used.includes(k) && Math.abs(w - v) <= tol(K.ans[k])); if (j >= 0){ used.push(j); return true; } return false; }); }
+      else okList = vals.map((v, i) => Math.abs(v - K.ans[i].v) <= tol(K.ans[i]));
+      ins.forEach((inp, i) => inp.classList.toggle('bad', !okList[i]));
+      const sp = vals.map((v, i) => (K.ans[i].sp || []).find(([w]) => Math.abs(w - v) < 1e-6)).filter(Boolean).map(x => x[1]);
+      s.ok = okList.every(Boolean); wgSave();
+      if (s.ok){ fb.innerHTML = '<div class="ok">Stimmt. Wie bist du darauf gekommen? Wähle unten deinen Weg.</div>'; LM.event('Lernweg: Knobelproblem gelöst', T.id); }
+      else fb.innerHTML = `<div class="bad">${okList.filter(Boolean).length ? `${okList.filter(Boolean).length} von ${okList.length} Werten stimmen. ` : 'Noch nicht. '}${sp.length ? R(sp[0]) + ' ' : ''}${s.tries >= 2 ? 'Du hast es ernsthaft versucht; das zählt. Wähle unten, wie du vorgegangen bist, und geh weiter zur Klärung.' : 'Probier einen anderen Weg oder prüfe deine Rechnung.'}</div>`;
+      if (s.ok || s.tries >= 2) showAp();
+      return;
+    }
+    if (b.dataset.ap){ s.ap = b.dataset.ap; wgSave(); apBox.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === b)); onReady && onReady(); }
+  });
+}
+
+/* ---- Abschluss-Aufgaben eines Themas ---- */
+function wgExitTypes(T){
+  const E = T.exit || {}; let L = [];
+  if (E.pick) L = wgShuffle(T.types).slice(0, E.pick);
+  if (E.types) L = L.concat(E.types);
+  if (E.pickFrom) L.push(wgShuffle(E.pickFrom)[0]);
+  return L;
+}
+/* Fehler finden erst, wenn ein Typ sicher sitzt: Zu Beginn helfen richtige Beispiele mehr als fehlerhafte */
+const wgErrUnlocked = () => Object.keys(ERRGEN).filter(k => { const t = LM.st.train[k]; return (t && t.stage >= 3 && t.ok >= 1) || LW_TOPICS.some(T => T.types.includes(k) && wgT(T.id).mastered); });
+
+/* ---- Plan: Klausurtermin oder tägliche Lernzeit ---- */
+function wgExamDays(){ const d = WGS.plan.exam; if (!d) return null; const t = new Date(d + 'T12:00:00'); return isNaN(t) ? null : Math.ceil((t - Date.now()) / WG_DAY); }
+/* Abstand der Wiederholungen etwa 20 % der Zeit bis zur Prüfung (Cepeda u. a. 2008), mindestens 1 Tag */
+function wgGap(){ const n = wgExamDays(); return n && n > 0 ? Math.max(1, Math.round(0.2 * n)) : null; }
+function wgScopeCh(){ const s = WGS.plan.scope || CH.cur; return s === 'both' ? ['qf', 'vek'] : [s]; }
+
+const LW = {
+  cur:null, subs:{},
+  init(){
+    const main = $('main'); if (!main || typeof LW_TOPICS === 'undefined') return;
+    document.body.classList.add('wg');
+    /* Startseite wird zur Seite „Schreiben und Einstellungen“ */
+    const st0 = $('#start'); if (st0){ const cc = st0.querySelector('.chcards'); if (cc) cc.remove(); const h1 = st0.querySelector('h1'); if (h1) h1.textContent = 'Schreiben und Einstellungen'; }
+    /* Übersicht und Themen anlegen */
+    const home = document.createElement('section'); home.className = 'card'; home.id = 'lw-home';
+    home.innerHTML = `<div class="wg-hero"><h1>Mein Lernweg: <span class="wg-chn"></span></h1><p class="lead wg-chlead"></p></div><div class="wg-chintro"></div>
+      <details class="wg-how wg-howt"><summary>So ist jedes Thema aufgebaut</summary><ol class="wg-howl">${WG_ALL.map(k => `<li><b>${WG_STEP[k].t}:</b> ${({ziel:'Du siehst, was du am Ende können sollst. Vier kurze Fragen zeigen, womit du am besten startest.', einstieg:'Entweder ein Musterbeispiel mit Warum-Fragen oder ein Knobelproblem, das du zuerst selbst probierst. Du wählst, die Lernhilfe empfiehlt.', klaer:'Die Kernidee, worauf es ankommt und typische Fehler, nach dem Knobeln mit Blick auf deinen eigenen Ansatz.', darst:'Gleichung, Graph und Zahlen im Labor verbinden, danach dieselbe Frage ohne Bild.', vergl:'Zwei Lösungswege, wie sie Mitschüler aufschreiben könnten: Was ist gleich, was anders, wann ist welcher besser?', ueben:'Die Buchaufgaben, vom Einfachen zum Schwierigen. Wenn du stockst, bietet die Lernhilfe Hinweise an.', check:'Ein kurzer Check ohne Hilfe. Sitzt es, geht es weiter und das Thema kommt später zur Wiederholung. Sitzt es noch nicht, bekommst du gezielte Übung.'})[k]}</li>`).join('')}</ol>
+      <p class="small">Warum so? Die Abfolge folgt Übersichtsarbeiten zur Wirksamkeit im Mathematikunterricht: vorgerechnete Beispiele bei neuen Verfahren, Problemlösen vor der Erklärung bei Verständniszielen, Vergleich von Lösungswegen, Rückmeldung, die den nächsten Schritt bestimmt, und verteiltes Üben. Die Studien stehen unter <a href="#quellen">Quellen</a>. Am meisten bringt die Lernhilfe als Ergänzung zum Unterricht: Besprich Vergleiche und offene Fragen auch mit anderen.</p></details>
+      <div class="wg-plan"></div><h2 class="wg-th">Themen</h2><div class="wg-tlist"></div><div class="wg-end"></div>`;
+    main.insertBefore(home, $('#start') || main.firstChild);
+    const vs = $('#vstart'), ci = home.querySelector('.wg-chintro');
+    if (vs){ const d = document.createElement('details'); d.dataset.ch = 'vek'; d.className = 'wg-chv wg-how'; d.innerHTML = '<summary>Über das Kapitel</summary>'; vs.querySelectorAll(':scope > .lead, :scope > .goal, :scope > aside').forEach(el => d.appendChild(el)); ci.appendChild(d); vs.remove(); }
+    LW_TOPICS.forEach(T => main.insertBefore(this.buildTopic(T), $('#start')));
+    /* Inhalte umziehen: erst Kopien, dann Verschiebungen */
+    const specs = T => [].concat((T.klaer || {}).move || [], (T.darst || {}).move || []);
+    LW_TOPICS.forEach(T => specs(T).filter(s => s && s.clone).forEach(s => { const el = wgPick(s); if (el) this.slot(T, s, el); }));
+    LW_TOPICS.forEach(T => {
+      specs(T).filter(s => !(s && s.clone)).forEach(s => { const el = wgPick(s); if (el) this.slot(T, s, el); });
+      const sec = $(`#t-${T.id}`);
+      if (T.knobel && T.knobel.tasks){ const box = sec.querySelector('.wg-knbook'); T.knobel.tasks.forEach(id => { const el = document.getElementById(id); if (el) box.appendChild(el); }); }
+      (T.ueben || []).forEach((g, gi) => {
+        const box = sec.querySelector(`.wg-grp[data-g="${gi}"] .wg-grpb`);
+        if (g.ids) g.ids.forEach(id => { const el = document.getElementById(id); if (el){ el.classList.add('wg-bt'); box.appendChild(el); } });
+        if (g.sec) $$(`#${g.sec} .vtask`).forEach(el => { const n = +el.id.split('-').pop(); if (n >= g.from && n <= g.to) box.appendChild(el); });
+      });
+      this.subs[T.id] = [...sec.querySelectorAll('[data-k="ueben"] .acc')].map(a => a.dataset.id);
+    });
+    ['werkzeug', 'labor', 'vlab', 'ver', 'v1', 'v2', 'v3'].forEach(id => { const el = document.getElementById(id); if (el && el.matches('main > section')) el.remove(); });
+    /* selbst gebaute Labore */
+    LW_TOPICS.forEach(T => { const m = T.darst && T.darst.make; if (m){ const box = $(`#t-${T.id} .wg-labbox`); const f = {labPQ, labSchnitt, labPfeil}[m[0]]; if (box && f) f(box, m[1] || {}); } });
+    /* Verweise auf frühere Abschnitte an den neuen Aufbau anpassen */
+    const TXT = [['(Tabelle im Werkzeugkasten)', '(Tabelle im Schritt „Klären“)'], ['im Flugbahn-Labor ausprobieren', 'im Flugbahn-Labor ausprobieren (Thema 4, Schritt „Darstellen“)'], ['Im Flugbahn-Labor kannst du', 'Im Flugbahn-Labor (Schritt „Darstellen“) kannst du'], ['„Raum-Labor“ weiter unten', '„Raum-Labor“ oben']];
+    const tw = document.createTreeWalker(main, NodeFilter.SHOW_TEXT); for (let n = tw.nextNode(); n; n = tw.nextNode()) TXT.forEach(([a, b]) => { if (n.nodeValue.includes(a)) n.nodeValue = n.nodeValue.replace(a, b); });
+    this.nav(); this.hooks(); this.quellen();
+    $$('main > section.card').forEach(s => { if (s.id === 'lehrkraft' && s.hidden) return; s.dataset.view = '1'; });
+    const h = location.hash.slice(1);
+    if (!(h && this.route(h, {noPush:true, first:true}))) this.show(WGS.view && document.getElementById(WGS.view) && WGS.view !== 'lehrkraft' ? WGS.view : 'lw-home', {noPush:true});
+    LM.on(() => { if (this.cur === 'lw-home') this.renderHome(); this.navCounts(); });
+  },
+  /* Ziel eines verschobenen Elements im Thema */
+  slot(T, spec, el){
+    const sec = $(`#t-${T.id}`), inK = ((T.klaer || {}).move || []).includes(spec);
+    (inK ? sec.querySelector('[data-k="klaer"] .wg-moved') : sec.querySelector('.wg-labbox')).appendChild(el);
+  },
+  buildTopic(T){
+    const sec = document.createElement('section'); sec.className = 'card wg-topic'; sec.id = `t-${T.id}`; sec.dataset.ch = T.ch; sec.dataset.topic = T.id;
+    const ks = wgSteps(T);
+    const stepH = k => `<h3 class="wg-sh"><span class="wg-sn">${ks.indexOf(k) + 1}</span> ${WG_STEP[k].t}</h3>`;
+    const next = k => { const i = ks.indexOf(k), n = ks[i + 1]; return n ? `<div class="wg-next btnrow"><button type="button" class="btn btn-primary" data-wg="next" data-k="${k}">Weiter: ${WG_STEP[n].t}</button></div>` : ''; };
+    const parts = {
+      ziel:`${stepH('ziel')}<div class="wg-goals"><h4>Das kannst du danach</h4><ul>${T.goals.map(g => `<li>${R(g)}</li>`).join('')}</ul></div>${T.pre && T.pre.length ? `<p class="small"><b>Das brauchst du schon:</b> ${T.pre.map(p => R(p)).join(' · ')}</p>` : ''}<div class="wg-diag"></div><div class="wg-route"></div>`,
+      einstieg:`${stepH('einstieg')}<div class="wg-pick"></div><div class="wg-ex" hidden></div><div class="wg-knw" hidden>${T.knobel && T.knobel.tasks ? `<p class="small wg-note">${R(T.knobel.note || '')}</p><div class="wg-knbook"></div>` : '<div class="wg-knq"></div>'}</div><div class="wg-skip" hidden></div><div class="wg-nx"></div>`,
+      klaer:`${stepH('klaer')}<div class="wg-mine"></div>${T.klaer ? `<div class="box rule wg-idee"><h4>Die Kernidee</h4><p>${R(T.klaer.idee)}</p></div><div class="wg-merk"><h4>Darauf kommt es an</h4><ul>${T.klaer.merk.map(m => `<li>${R(m)}</li>`).join('')}</ul></div><div class="wg-moved"></div><div class="wg-fehl"><h4>Typische Fehler</h4><div class="wg-fl">${T.klaer.fehl.map(([w, r]) => `<div class="wg-fw"><span class="wg-x">So nicht</span>${R(w)}</div><div class="wg-fr"><span class="wg-ok">Darum</span>${R(r)}</div>`).join('')}</div></div><div class="wg-verst"><h4>Kurz geprüft</h4></div>` : ''}${next('klaer')}`,
+      darst:`${stepH('darst')}${T.darst ? `<p class="lead">${R(T.darst.intro)}</p><details class="wg-lab" open><summary>Labor</summary><div class="wg-labbox"></div></details><div class="wg-qs"></div><div class="wg-fade" hidden><h4>Jetzt ohne Labor</h4><p class="small">Dieselbe Idee, aber ohne Bild. So prüfst du, ob die Verbindung im Kopf angekommen ist.</p><div class="wg-fq"></div></div>` : ''}${next('darst')}`,
+      vergl:`${stepH('vergl')}${T.vergl ? `<p class="lead">${R(T.vergl.task)}</p><div class="wg-cmp">${[T.vergl.a, T.vergl.b].map(p => `<div class="wg-col"><h4>${escH(p.name)} <span class="small">${escH(p.how)}</span></h4><ol>${p.lines.map(l => `<li>${R(l)}</li>`).join('')}</ol></div>`).join('')}</div><div class="wg-qs"></div><p class="small wg-tip" hidden>Tipp: Erklär einer Mitschülerin oder einem Mitschüler, warum beide Wege zum selben Ergebnis führen. Wer erklären muss, merkt schnell, wo es noch hakt.</p>` : ''}${next('vergl')}`,
+      ueben:`${stepH('ueben')}<p class="small">Die Aufgaben aus dem Buch, vom Einfachen zum Schwierigen. Öffne eine Teilaufgabe, rechne auf dem Blatt und lass prüfen. Wenn du stockst, bietet die Lernhilfe Hinweise an.</p><p class="small wg-uprog"></p>${(T.ueben || []).map((g, gi) => `<details class="wg-grp" data-g="${gi}"${gi === 0 ? ' open' : ''}><summary>${escH(g.t)}</summary><div class="wg-grpb"></div></details>`).join('')}<div class="wg-more"></div><div class="wg-run"></div>${next('ueben')}`,
+      check:`${stepH('check')}<div class="wg-exit"></div>`
+    };
+    sec.innerHTML = `<div class="wg-top"><a href="#lw" class="wg-back">← Mein Lernweg</a><span class="small">${wgName(T)} · Buch ${escH(T.book)} · <a href="#lexikon">Begriff nachschlagen</a></span></div>
+      <h2 class="wg-title">${R(T.title)}</h2>
+      <ol class="wg-stepper">${ks.map((k, i) => `<li><button type="button" data-wg="step" data-k="${k}"><span class="wg-sn">${i + 1}</span><span class="wg-stt">${WG_STEP[k].t}</span></button></li>`).join('')}</ol>
+      ${ks.map(k => `<div class="wg-step" data-k="${k}" hidden>${parts[k]}</div>`).join('')}`;
+    sec.addEventListener('click', e => {
+      const b = e.target.closest('[data-wg]'); if (!b || !sec.contains(b)) return;
+      const a = b.dataset.wg;
+      if (a === 'step') this.step(T.id, b.dataset.k);
+      else if (a === 'next'){ const st = wgT(T.id); st.done[b.dataset.k] = 1; wgSave(); const i = ks.indexOf(b.dataset.k); this.step(T.id, ks[i + 1]); }
+      else if (a === 'route') this.setRoute(T, b.dataset.r);
+      else if (a === 'reroute'){ const st = wgT(T.id); delete st.route; wgSave(); this.renderEinstieg(T, true); }
+      else if (a === 'rediag'){ const st = wgT(T.id); delete st.diag; wgSave(); this.renderZiel(T, true); }
+      else if (a === 'topic') this.show(`t-${b.dataset.t}`);
+      else if (a === 'more') this.practice(T, b.dataset.n ? +b.dataset.n : 4, b.dataset.types ? b.dataset.types.split(',') : null);
+      else if (a === 'exit') this.startExit(T);
+      else if (a === 'err'){ this.show('training', {noScroll:true}); Training.startErr(); }
+      else if (a === 'home') this.show('lw-home');
+    });
+    return sec;
+  },
+  /* ---- Navigation ---- */
+  nav(){
+    const nav = $('nav.toc'); if (!nav) return;
+    const lk = $('#lehrkraft');
+    nav.innerHTML = `<a href="#lw" data-view="lw-home">Mein Lernweg</a>
+      ${LW_TOPICS.map(T => `<a href="#t-${T.id}" data-view="t-${T.id}" data-ch="${T.ch}" class="wg-nt"><span><span class="wg-nn">${T.n || '·'}</span> ${escH(T.title.replace('Grundwissen: ', ''))}</span><span class="cnt"></span></a>`).join('')}
+      <div class="sep"></div>
+      <a href="#training" data-view="training">Üben und wiederholen</a>
+      <a href="#lexikon" data-view="lexikon">Nachschlagen</a>
+      <a href="#quiz" data-view="quiz" data-ch="qf">Abschluss-Quiz</a>
+      <div class="sep"></div>
+      <a href="#start" data-view="start">Schreiben und Einstellungen</a>
+      <a href="#lehrkraft" data-view="lehrkraft"${lk && !lk.hidden ? '' : ' hidden'}>Lehrkraft</a>
+      <a href="#quellen" data-view="quellen">Quellen</a>`;
+    this.navCounts();
+  },
+  navCounts(){
+    LW_TOPICS.forEach(T => {
+      const a = $(`nav.toc a[data-view="t-${T.id}"] .cnt`); if (!a) return;
+      const st = wgT(T.id), ks = wgSteps(T), d = ks.filter(k => st.done[k]).length;
+      a.textContent = st.mastered ? '✓' : d ? `${d}/${ks.length}` : '';
+      a.classList.toggle('done', !!st.mastered);
+    });
+  },
+  route(id, o = {}){
+    if (id === 'lw') return this.show('lw-home', o);
+    const el = document.getElementById(id); if (!el) return false;
+    if (el.matches('main > section.card')) return this.show(id, o);
+    if (!this.revealEl(el, o)) return false;
+    setTimeout(() => { try { el.scrollIntoView({block:'start', behavior:'auto'}); } catch(e){} }, o.first ? 120 : 30);
+    return true;
+  },
+  /* Ansicht und Schritt öffnen, in denen ein Element liegt */
+  revealEl(el, o = {}){
+    const v = el.closest('main > section.card'); if (!v) return false;
+    if (this.cur !== v.id) this.show(v.id, Object.assign({noScroll:true}, o));
+    const st = el.closest('.wg-step'), tp = el.closest('.wg-topic');
+    if (st && tp && st.hidden) this.step(tp.dataset.topic, st.dataset.k, {noScroll:true});
+    for (let d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    return true;
+  },
+  show(id, o = {}){
+    const el = document.getElementById(id); if (!el || !el.matches('main > section.card')) return false;
+    const ch = el.dataset.ch; if (ch && ch !== CH.cur) CH.set(ch);
+    $$('main > section.card').forEach(s => s.classList.toggle('wg-on', s === el));
+    this.cur = id; if (id !== 'lehrkraft'){ WGS.view = id; wgSave(); }
+    $$('nav.toc a').forEach(a => a.classList.toggle('active', a.dataset.view === id));
+    if (el.classList.contains('wg-topic')) this.step(el.dataset.topic, o.step || wgT(el.dataset.topic).step || 'ziel', {noScroll:true});
+    if (id === 'lw-home') this.renderHome();
+    if (!o.noPush) try { history.pushState(null, '', '#' + (id === 'lw-home' ? 'lw' : id)); } catch(e){}
+    if (!o.noScroll) try { window.scrollTo(0, 0); } catch(e){}
+    return true;
+  },
+  step(id, k, o = {}){
+    const T = WGI[id], sec = $(`#t-${id}`); if (!T || !sec) return;
+    if (!wgSteps(T).includes(k)) k = wgSteps(T)[0];
+    const st = wgT(id); st.step = k; wgSave();
+    sec.querySelectorAll('.wg-step').forEach(s => { s.hidden = s.dataset.k !== k; });
+    sec.querySelectorAll('.wg-stepper button').forEach(b => { b.classList.toggle('cur', b.dataset.k === k); b.classList.toggle('done', !!st.done[b.dataset.k] || (b.dataset.k === 'check' && !!st.mastered)); b.setAttribute('aria-current', b.dataset.k === k ? 'step' : 'false'); });
+    const sp = sec.querySelector('.wg-stepper'), cb = sp && sp.querySelector('button.cur'); if (sp && cb && sp.scrollWidth > sp.clientWidth) sp.scrollLeft += cb.getBoundingClientRect().left - sp.getBoundingClientRect().left - sp.clientWidth / 2 + cb.offsetWidth / 2;
+    ({ziel:() => this.renderZiel(T), einstieg:() => this.renderEinstieg(T), klaer:() => this.renderKlaer(T), darst:() => this.renderDarst(T), vergl:() => this.renderVergl(T), ueben:() => this.renderUeben(T), check:() => this.renderCheck(T)})[k]();
+    this.navCounts();
+    if (!o.noScroll) try { sec.scrollIntoView({block:'start', behavior:'auto'}); } catch(e){}
+  },
+  el(T, k){ return $(`#t-${T.id} .wg-step[data-k="${k}"]`); },
+  /* ---- 1 Ziel und Eingangscheck ---- */
+  rec(T, d){
+    const pre = d.pre.every(Boolean), core = d.core.filter(Boolean).length, nc = d.core.length, hasE = wgSteps(T).includes('einstieg');
+    if (!hasE) return pre && core === nc ? {r:'exit', t:'Das Vorwissen sitzt. Mach den kurzen Abschluss und starte dann mit Thema 1.'} : {r:'skip', t:'Ein Teil des Vorwissens sitzt noch nicht. Empfehlung: die passenden Check-in-Aufgaben rechnen.'};
+    if (pre && core === nc) return {r:'skip', t:'Du kannst schon viel davon. Empfehlung: direkt zum Üben. Ausführliche Beispiele würden dich jetzt eher aufhalten.'};
+    if (!pre) return {r:'ex', t:'Bei den Grundlagen hakt es noch. Empfehlung: mit dem Musterbeispiel starten. Die Grundlagen findest du auch unter „Nachschlagen“.'};
+    if (T.kind === 'concept' && T.knobel) return {r:'kn', t:'Die Grundlagen sitzen. Empfehlung: erst knobeln. Wer vor der Erklärung selbst probiert, versteht das Prinzip oft tiefer und kann es besser auf neue Aufgaben übertragen.'};
+    return {r:'ex', t:'Die Grundlagen sitzen, das Verfahren ist neu. Empfehlung: mit dem Musterbeispiel starten. Bei neuen Rechenverfahren hilft ein vorgerechnetes Beispiel am meisten.'};
+  },
+  routes(T){ const R0 = [], hasE = wgSteps(T).includes('einstieg'); if (hasE) R0.push(['ex', 'Mit Musterbeispiel starten', 'Erst ein vollständig gelöstes Beispiel mit Warum-Fragen, dann eine ähnliche Aufgabe mit Lücken.']); if (hasE && T.knobel) R0.push(['kn', 'Erst selbst knobeln', 'Ein Problem ohne Anleitung probieren. Danach wird die Lösung erklärt, mit Blick auf deinen Ansatz.']); R0.push(['skip', hasE ? 'Direkt zum Üben' : 'Zu den Check-in-Aufgaben', hasE ? 'Wenn du das Thema schon kannst.' : 'Die Testaufgaben aus dem Buch rechnen.']); if (!hasE) R0.push(['exit', 'Direkt zum Abschluss', 'Drei kurze Fragen; danach geht es mit Thema 1 weiter.']); return R0; },
+  routeHTML(T, rec){
+    return `<div class="wg-routes">${this.routes(T).map(([r, t, d]) => `<button type="button" class="wg-rt${rec && rec.r === r ? ' rec' : ''}" data-wg="route" data-r="${r}"><b>${t}${rec && rec.r === r ? ' <span class="wg-tag">Empfohlen</span>' : ''}</b><span class="small">${d}</span></button>`).join('')}</div>`;
+  },
+  setRoute(T, r){
+    const st = wgT(T.id); st.done.ziel = 1;
+    if (r === 'exit'){ wgSave(); return this.step(T.id, 'check'); }
+    st.route = r; wgSave(); LM.event(`Lernweg ${T.id}: Einstieg ${({ex:'Beispiel', kn:'Knobeln', skip:'übersprungen'})[r]}`, T.id);
+    this.step(T.id, r === 'skip' ? 'ueben' : 'einstieg');
+  },
+  renderZiel(T, force){
+    const el = this.el(T, 'ziel'), st = wgT(T.id), dg = el.querySelector('.wg-diag'), ro = el.querySelector('.wg-route');
+    if (el.dataset.r && !force) return; el.dataset.r = '1';
+    const show = d => {
+      const rec = this.rec(T, d), n = d.pre.concat(d.core).filter(Boolean).length, all = d.pre.length + d.core.length;
+      ro.innerHTML = `<div class="wg-rec"><p><b>Ergebnis: ${n} von ${all} richtig.</b> ${rec.t}</p>${this.routeHTML(T, rec)}<p class="small"><button type="button" class="linkbtn" data-wg="rediag">Check wiederholen</button></p></div>`;
+    };
+    if (st.diag){ dg.innerHTML = '<h4>Eingangscheck</h4><p class="small">Schon erledigt.</p>'; show(st.diag); return; }
+    dg.innerHTML = `<h4>Eingangscheck</h4><p class="small">${T.check.length} kurze Fragen. Sie zählen nicht als Note, sondern zeigen, womit du am besten startest. Bitte nicht raten: Wenn du etwas nicht weißt, tippe auf „Weiß ich noch nicht“.</p><div class="wg-dq"></div><p class="small"><button type="button" class="linkbtn wg-skipdiag">Ohne Check selbst wählen</button></p>`;
+    ro.innerHTML = '';
+    const items = T.check.map(c => ({q:c.q, opts:c.opts.concat([['Weiß ich noch nicht', false, 'Kein Problem. Genau dafür ist dieses Thema da.', 'last']])}));
+    wgMCList(dg.querySelector('.wg-dq'), items, res => {
+      const d = {pre:T.check.map((c, i) => c.pre ? res[i] : null).filter(x => x !== null), core:T.check.map((c, i) => c.pre ? null : res[i]).filter(x => x !== null), at:Date.now()};
+      st.diag = d; wgSave(); LM.event(`Lernweg ${T.id}: Eingangscheck ${res.filter(Boolean).length}/${res.length}`, T.id); show(d);
+      try { ro.scrollIntoView({block:'nearest', behavior:'smooth'}); } catch(e){}
+    }, {head:i => `Frage ${i + 1} von ${T.check.length}`});
+    dg.querySelector('.wg-skipdiag').addEventListener('click', () => { ro.innerHTML = this.routeHTML(T, null); });
+  },
+  /* ---- 2 Einstieg ---- */
+  renderEinstieg(T, force){
+    const el = this.el(T, 'einstieg'), st = wgT(T.id), pick = el.querySelector('.wg-pick'), ex = el.querySelector('.wg-ex'), kn = el.querySelector('.wg-knw'), sk = el.querySelector('.wg-skip'), nx = el.querySelector('.wg-nx');
+    const nextBtn = () => { nx.innerHTML = `<div class="wg-next btnrow"><button type="button" class="btn btn-primary" data-wg="next" data-k="einstieg">Weiter: ${WG_STEP.klaer.t}</button></div>`; };
+    ex.hidden = st.route !== 'ex'; kn.hidden = st.route !== 'kn'; sk.hidden = st.route !== 'skip';
+    if (!st.route){ pick.innerHTML = `<p>Wie möchtest du einsteigen?${st.diag ? ' Die Empfehlung kommt aus deinem Eingangscheck.' : ''}</p>${this.routeHTML(T, st.diag ? this.rec(T, st.diag) : null)}`; nx.innerHTML = ''; return; }
+    pick.innerHTML = `<p class="small">Gewählt: <b>${({ex:'Musterbeispiel', kn:'Knobeln', skip:'Einstieg übersprungen'})[st.route]}</b> · <button type="button" class="linkbtn" data-wg="reroute">anders einsteigen</button></p>`;
+    if (st.route === 'ex' && (force || !ex.dataset.r)){
+      ex.dataset.r = '1'; nx.innerHTML = '';
+      const E = T.example, practice = () => { const box = document.createElement('div'); box.className = 'wg-exrun'; ex.appendChild(box); new WGRun(box, [E.type], {minStage:1, title:'Jetzt du', lastLabel:'Fertig', onDone:() => { st.done.einstieg = 1; wgSave(); nextBtn(); box.insertAdjacentHTML('beforeend', '<p class="small">Gut. Im nächsten Schritt geht es um die Idee hinter dem Verfahren.</p>'); }}); };
+      if (E.steps){ const box = document.createElement('div'); ex.innerHTML = ''; ex.appendChild(box); wgExample(box, E, () => { LM.seenExample(E.type); box.insertAdjacentHTML('beforeend', '<div class="btnrow"><button type="button" class="btn btn-primary wg-exgo">Jetzt selbst: ähnliche Aufgabe</button></div>'); box.querySelector('.wg-exgo').addEventListener('click', e => { e.target.closest('.btnrow').remove(); practice(); }); }); }
+      else { ex.innerHTML = ''; const box = document.createElement('div'); ex.appendChild(box); new WGRun(box, [E.type], {first0:true, exQs:E.qs, title:'Musterbeispiel und ähnliche Aufgabe', lastLabel:'Fertig', onDone:() => { st.done.einstieg = 1; wgSave(); nextBtn(); }}); }
+      if (st.done.einstieg) nextBtn();
+    }
+    if (st.route === 'kn'){
+      if (T.knobel.tasks){ nextBtn(); }
+      else if (force || !kn.dataset.r){ kn.dataset.r = '1'; nx.innerHTML = ''; wgKnobel(kn.querySelector('.wg-knq'), T, nextBtn); }
+    }
+    if (st.route === 'skip'){ sk.innerHTML = `<p>Du hast den Einstieg übersprungen. Das passt, wenn du das Thema schon kannst. Wenn doch etwas fehlt, kannst du jederzeit anders einsteigen.</p>`; nx.innerHTML = `<div class="wg-next btnrow"><button type="button" class="btn btn-primary" data-wg="step" data-k="ueben">Zum Üben</button><button type="button" class="btn" data-wg="next" data-k="einstieg">Weiter: ${WG_STEP.klaer.t}</button></div>`; }
+  },
+  /* ---- 3 Klären ---- */
+  renderKlaer(T){
+    const el = this.el(T, 'klaer'), st = wgT(T.id), mine = el.querySelector('.wg-mine'), K = T.knobel;
+    if (st.route === 'kn' && K && K.ap){
+      const s = st.kn || {}, ap = K.ap.find(a => a[0] === s.ap);
+      mine.innerHTML = `<div class="box obs wg-mybox"><h4>Dein Einstieg</h4>${s.tries || s.stuck ? `<p>${s.ok ? 'Deine Antwort war richtig.' : 'Deine Antwort war noch nicht richtig; das ist beim Knobeln normal.'}</p>` : '<p>Du hast das Knobelproblem noch nicht bearbeitet.</p>'}${ap ? `<p><b>Dein Weg: ${R(ap[1])}.</b> ${R(ap[2])}</p>` : ''}<p><b>Lösung:</b> ${R(K.sol)}</p></div>`;
+    } else if (st.route === 'kn' && K && K.tasks) mine.innerHTML = '<div class="box obs wg-mybox"><h4>Nach den Einstiegsaufgaben</h4><p>Vergleich deine Antworten mit dem Merkkasten unten. Was hast du schon richtig vermutet, was ist neu?</p></div>';
+    else mine.innerHTML = '';
+    if (el.dataset.r) return; el.dataset.r = '1';
+    const vb = el.querySelector('.wg-verst'); if (vb && T.klaer.verst) wgMCList(vb, T.klaer.verst, null);
+  },
+  /* ---- 4 Darstellen: Labor, danach dieselbe Idee ohne Bild ---- */
+  renderDarst(T){
+    const el = this.el(T, 'darst'); if (!T.darst || el.dataset.r) return; el.dataset.r = '1';
+    const qs = T.darst.qs.filter(q => !q.fade), fq = T.darst.qs.filter(q => q.fade), fade = el.querySelector('.wg-fade');
+    const toFade = () => { if (!fq.length) return; const lab = el.querySelector('.wg-lab'); if (lab) lab.open = false; fade.hidden = false; };
+    wgMCList(el.querySelector('.wg-qs'), qs, toFade, {head:() => 'Im Labor'});
+    if (fq.length) wgMCList(el.querySelector('.wg-fq'), fq, null);
+  },
+  /* ---- 5 Lösungswege vergleichen ---- */
+  renderVergl(T){
+    const el = this.el(T, 'vergl'); if (!T.vergl || el.dataset.r) return; el.dataset.r = '1';
+    wgMCList(el.querySelector('.wg-qs'), T.vergl.qs, () => { const t = el.querySelector('.wg-tip'); if (t) t.hidden = false; LM.event(`Lernweg ${T.id}: Lösungswege verglichen`, T.id); }, {head:() => 'Vergleichen'});
+  },
+  /* ---- 6 Üben ---- */
+  renderUeben(T){
+    const el = this.el(T, 'ueben'), ids = this.subs[T.id] || [], k = ids.filter(id => STATUS[id]).length;
+    el.querySelector('.wg-uprog').textContent = ids.length ? `${k} von ${ids.length} Teilaufgaben bearbeitet. Du musst nicht alle rechnen: Wenn die Grundaufgaben sicher klappen, kannst du zum Abschluss gehen.` : '';
+    const er = T.types.filter(t => ERRGEN[t]), un = wgErrUnlocked().filter(t => er.includes(t));
+    el.querySelector('.wg-more').innerHTML = T.types.length ? `<div class="wg-mcards"><div class="tr-card"><h4>Neue Aufgaben</h4><p class="small">Vier neue Aufgaben zu diesem Thema, gemischt. Die Hilfe passt sich an: Wo du sicher bist, rechnest du selbst; wo es hakt, gibt es wieder Lücken.</p><button type="button" class="btn" data-wg="more">Vier neue Aufgaben</button></div>${er.length ? `<div class="tr-card"><h4>Fehler finden</h4><p class="small">${un.length ? 'Fremde Lösungen mit typischen Fehlern: finden, erklären, verbessern.' : 'Wird freigeschaltet, sobald du einen Aufgabentyp sicher kannst (Abschluss bestanden oder im Training selbstständig gelöst). Am Anfang helfen richtige Beispiele mehr als fehlerhafte.'}</p><button type="button" class="btn" data-wg="err"${un.length ? '' : ' disabled'}>Fehler suchen</button></div>` : ''}</div>` : '';
+  },
+  practice(T, n, types){
+    const box = $(`#t-${T.id} .wg-run`), L = types || wgShuffle(T.types.concat(T.types)).slice(0, n);
+    for (let i = 1; i < L.length; i++) if (L[i] === L[i - 1]){ const j = L.findIndex((x, m) => m > i && x !== L[i]); if (j > 0) [L[i], L[j]] = [L[j], L[i]]; }
+    new WGRun(box, L, {title:types ? 'Gezielt üben' : 'Neue Aufgaben', lastLabel:'Fertig', onDone:res => { box.innerHTML = `<div class="fin ok"><h4>Fertig: ${res.filter(r => r.r === 'ok').length} von ${res.length} ohne Hilfe</h4><div class="btnrow"><button type="button" class="btn" data-wg="more">Noch vier</button>${types ? '<button type="button" class="btn btn-primary" data-wg="exit">Abschluss wiederholen</button>' : ''}</div></div>`; }});
+    try { box.scrollIntoView({block:'start', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){}
+  },
+  /* ---- 7 Abschluss: kurzer Check ohne Hilfe, Ergebnis bestimmt den nächsten Schritt ---- */
+  renderCheck(T){
+    const el = this.el(T, 'check'), st = wgT(T.id), box = el.querySelector('.wg-exit');
+    if (box.dataset.busy) return;
+    const nT = wgTopics(T.ch), nxt = nT[nT.indexOf(T) + 1];
+    const E0 = T.exit || {}, types = (E0.pick || 0) + (E0.types || []).length + (E0.pickFrom ? 1 : 0), mcN = (E0.mc || []).length;
+    const intro = `<p>Ein kurzer Check ohne Hilfe: ${types ? `${types} neue ${types === 1 ? 'Aufgabe' : 'Aufgaben'}` : ''}${types && mcN ? ' und ' : ''}${mcN ? `${mcN} ${mcN === 1 ? 'Verständnisfrage' : 'Verständnisfragen'}` : ''}. Hinweise werden dabei nicht angeboten. Das Ergebnis entscheidet, wie es weitergeht: Sitzt es, kommt das Thema in einigen Tagen zur Wiederholung; sitzt es noch nicht, bekommst du gezielte Übung.</p>`;
+    if (st.exit) box.innerHTML = this.exitHTML(T, st, nxt) + `<details class="wg-again"><summary>Abschluss noch einmal machen</summary>${intro}<div class="btnrow"><button type="button" class="btn" data-wg="exit">Neu starten</button></div></details>`;
+    else box.innerHTML = intro + '<div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss starten</button></div>';
+  },
+  exitHTML(T, st, nxt){
+    const E = st.exit, ok = E.ok === E.n, fails = E.fails || [];
+    const er = T.types.filter(t => ERRGEN[t]);
+    if (ok) return `<div class="fin ok"><h4>Sicher: ${E.ok} von ${E.n} ohne Hilfe</h4><p>Das Thema kommt in einigen Tagen zur Wiederholung (unter „Üben und wiederholen“ bei „Heute fällig“). Verteilte Wiederholung hält das Gelernte länger.</p>${er.length ? '<p>Neu freigeschaltet: <b>Fehler finden</b> zu diesem Thema.</p>' : ''}<div class="btnrow">${nxt ? `<button type="button" class="btn btn-primary" data-wg="topic" data-t="${nxt.id}">Weiter: ${escH(wgName(nxt))}</button>` : ''}<button type="button" class="btn" data-wg="home">Zum Lernweg</button></div></div>`;
+    return `<div class="fin help"><h4>Noch nicht ganz sicher: ${E.ok} von ${E.n}</h4>${fails.length ? `<p>Noch unsicher: ${fails.map(t => t === 'mc' ? 'Verständnisfrage' : escH(TYPES[t].label)).join(', ')}.</p>` : ''}<p><b>So geht es weiter:</b></p><ol><li>Im Schritt <button type="button" class="linkbtn" data-wg="step" data-k="klaer">Klären</button> die Kernidee und die typischen Fehler noch einmal ansehen.</li>${fails.some(t => t !== 'mc') ? `<li>Gezielt üben: ${fails.filter(t => t !== 'mc').length * 2} Aufgaben, mit Lücken als Hilfe. <button type="button" class="btn btn-sm" data-wg="more" data-types="${[...new Set(fails.filter(t => t !== 'mc'))].flatMap(t => [t, t]).slice(0, 4).join(',')}">Starten</button></li>` : ''}<li>Danach den Abschluss mit neuen Aufgaben wiederholen.</li></ol><div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss wiederholen</button></div></div>`;
+  },
+  startExit(T){
+    if (this.cur !== `t-${T.id}`) this.show(`t-${T.id}`, {step:'check'}); else if (wgT(T.id).step !== 'check') this.step(T.id, 'check');
+    const el = this.el(T, 'check'), box = el.querySelector('.wg-exit'), st = wgT(T.id), mc = (T.exit && T.exit.mc) || [], L = wgExitTypes(T);
+    box.dataset.busy = '1'; box.innerHTML = '<div class="wg-xrun wg-noh"></div><div class="wg-xmc"></div>';
+    const fin = (res, mres) => {
+      const fails = res.filter(r => r.r !== 'ok').map(r => r.type).concat(mres.filter(x => !x).map(() => 'mc'));
+      st.exit = {ok:res.filter(r => r.r === 'ok').length + mres.filter(Boolean).length, n:res.length + mres.length, at:Date.now(), fails};
+      if (st.exit.ok === st.exit.n){ st.mastered = Date.now(); st.done.check = 1; } else delete st.mastered;
+      wgSave(); LM.event(`Lernweg ${T.id}: Abschluss ${st.exit.ok}/${st.exit.n}`, T.id);
+      delete box.dataset.busy; this.step(T.id, 'check'); CLASS.sync && CLASS.sync();
+    };
+    const doMC = res => { if (!mc.length) return fin(res, []); const mb = box.querySelector('.wg-xmc'); mb.innerHTML = '<h4>Verständnisfragen</h4>'; wgMCList(mb, mc, mres => setTimeout(() => fin(res, mres), 900)); };
+    if (L.length) new WGRun(box.querySelector('.wg-xrun'), L, {stage:3, title:'Abschluss', lastLabel:'Weiter', onDone:res => { box.querySelector('.wg-xrun').innerHTML = `<p class="small">Aufgaben erledigt: ${res.filter(r => r.r === 'ok').length} von ${res.length} ohne Hilfe.</p>`; doMC(res); }});
+    else doMC([]);
+  },
+  /* ---- Übersicht mit Plan ---- */
+  renderHome(){
+    const home = $('#lw-home'); if (!home) return;
+    const ch = CH.cur, Ts = wgTopics(ch);
+    home.querySelector('.wg-chn').textContent = ch === 'vek' ? 'Vektoren' : 'Parabeln';
+    home.querySelector('.wg-chlead').innerHTML = ch === 'vek' ? 'Buchseiten 138–155: Punkte im Raum, Vektoren und Rechnen mit Vektoren. Beginne mit dem Vorwissen-Check, dann geht es Thema für Thema weiter.' : 'Buchseiten 14–15, Aufgaben 5–18: Parabeln lesen, Nullstellen und Schnittpunkte berechnen, Parabeln aufstellen und in Sachaufgaben anwenden.';
+    home.querySelectorAll('.wg-chv').forEach(d => { d.hidden = d.dataset.ch !== ch; });
+    const how = home.querySelector('.wg-howt'); if (!WGS.seenHow){ how.open = true; WGS.seenHow = 1; wgSave(); }
+    const nextT = Ts.find(T => !wgT(T.id).mastered);
+    home.querySelector('.wg-tlist').innerHTML = Ts.map(T => {
+      const st = wgT(T.id), ks = wgSteps(T), d = ks.filter(k => st.done[k]).length, due = st.mastered && T.types.some(t => LM.due().includes(t));
+      const txt = st.mastered ? `Sicher seit ${wgDate(st.mastered)}${due ? ' · Wiederholung fällig' : ''}` : d || st.step !== 'ziel' ? `Weiter bei: ${WG_STEP[st.step].t}` : 'noch nicht begonnen';
+      return `<div class="wg-tc${st.mastered ? ' ok' : ''}${T === nextT ? ' next' : ''}"><div class="wg-tn">${T.n || '·'}</div><div class="wg-tb"><b>${R(T.title)}</b><div class="small">Buch ${escH(T.book)}</div><div class="wg-dots">${ks.map(k => `<span class="${st.done[k] || (k === 'check' && st.mastered) ? 'on' : k === st.step && (d || st.step !== 'ziel') ? 'cur' : ''}" title="${WG_STEP[k].t}"></span>`).join('')}</div><div class="small">${txt}</div></div><button type="button" class="btn${T === nextT ? ' btn-primary' : ''}" data-open="${T.id}">${st.mastered ? 'Ansehen' : d || st.step !== 'ziel' ? 'Weiter' : 'Starten'}</button></div>`;
+    }).join('');
+    home.querySelector('.wg-end').innerHTML = `<div class="wg-mcards"><div class="tr-card"><h4>Gemischt üben</h4><p class="small">Aufgaben aus allen Themen gemischt. Das fühlt sich schwerer an, hilft aber, zu jeder Aufgabe den passenden Weg zu wählen.</p><button type="button" class="btn" data-home="mixed">Runde starten</button></div>${ch === 'qf' ? '<div class="tr-card"><h4>Kapitelabschluss</h4><p class="small">Elf Verständnisfragen zum ganzen Kapitel, jede Antwort wird erklärt.</p><button type="button" class="btn" data-home="quiz">Zum Abschluss-Quiz</button></div>' : ''}</div>`;
+    this.renderPlan(home.querySelector('.wg-plan'), Ts, nextT);
+    if (!home.dataset.ev){ home.dataset.ev = '1'; home.addEventListener('click', e => {
+      const o = e.target.closest('[data-open]'); if (o) return this.show(`t-${o.dataset.open}`);
+      const h = e.target.closest('[data-home]'); if (!h) return;
+      const a = h.dataset.home;
+      if (a === 'mixed'){ Training.start(Training.mixedList(6), 'Vermischte Runde'); }
+      else if (a === 'due'){ Training.start(Training.dueList(), 'Wiederholung'); }
+      else if (a === 'quiz') this.show('quiz');
+      else if (a === 'go'){ const [id, k] = h.dataset.t.split(':'); this.show(`t-${id}`, {step:k}); }
+    });
+    home.addEventListener('change', e => {
+      const t = e.target; if (!t.closest('.wg-plan')) return;
+      if (t.classList.contains('lp-exam')) WGS.plan.exam = t.value || '';
+      if (t.classList.contains('lp-scope')) WGS.plan.scope = t.value;
+      if (t.classList.contains('lp-min')) WGS.plan.min = +t.value;
+      wgSave(); this.renderHome(); if (typeof Training !== 'undefined' && Training.root && !Training.run) Training.render();
+    }); }
+  },
+  renderPlan(box, Ts, nextT){
+    const P = WGS.plan, mins = P.min || 20, days = wgExamDays(), scope = P.scope || CH.cur;
+    const dueN = LM.due().filter(k => chTypes().includes(k)).length;
+    const items = []; let left = mins;
+    if (days !== null && days >= 0 && days <= 2) items.push(['Endspurt: eine gemischte Runde aus allen Themen', 15, 'mixed', 'Runde starten']);
+    if (dueN){ const m = Math.min(15, Math.max(5, dueN * 3)); items.push([`Wiederholen: ${dueN} fällige${dueN === 1 ? 'r' : ''} Aufgabentyp${dueN === 1 ? '' : 'en'}, gemischt`, m, 'due', 'Wiederholen']); left -= m; }
+    if (nextT && !(days !== null && days >= 0 && days <= 1)){
+      const st = wgT(nextT.id), ks = wgSteps(nextT); let i = Math.max(0, ks.indexOf(st.step)); if (st.done[ks[i]] && i < ks.length - 1) i++;
+      for (; i < ks.length && (left > 0 || !items.some(x => x[2] === 'go')); i++){ const k = ks[i], m = WG_STEP[k].min; items.push([`${nextT.n ? wgName(nextT) + ' ' : ''}„${nextT.title}“: ${WG_STEP[k].t}`, m, 'go', 'Los', `${nextT.id}:${k}`]); left -= m; if (items.filter(x => x[2] === 'go').length >= 3) break; }
+    }
+    if (!nextT && !dueN) items.push(['Alle Themen sicher. Gemischt üben hält es frisch.', 10, 'mixed', 'Runde starten']);
+    const total = items.reduce((a, x) => a + x[1], 0);
+    let sched = '';
+    if (days !== null){
+      if (days < 0) sched = '<p class="small">Der eingetragene Klausurtermin liegt in der Vergangenheit. Trag einen neuen ein oder lösch ihn.</p>';
+      else {
+        const open = LW_TOPICS.filter(T => wgScopeCh().includes(T.ch) && !wgT(T.id).mastered), avail = Math.max(1, days - 2), now = Date.now();
+        sched = `<h4>Bis zur Klausur: noch ${days} ${days === 1 ? 'Tag' : 'Tage'}</h4>${open.length ? `<ol class="wg-sched">${open.map((T, i) => `<li><span class="wg-sd">bis ${wgDate(now + Math.max(0, Math.ceil((i + 1) * avail / open.length)) * WG_DAY)}</span> ${escH(wgName(T))}: ${R(T.title)}</li>`).join('')}<li><span class="wg-sd">${days > 2 ? 'ab ' + wgDate(now + (days - 2) * WG_DAY) : 'jetzt'}</span> gemischt wiederholen${scope !== 'vek' ? ', Abschluss-Quiz' : ''}</li></ol>` : '<p class="small">Alle Themen des Klausurstoffs sind sicher. Jetzt hilft gemischtes Wiederholen.</p>'}<p class="small">Wiederholt wird etwa alle ${wgGap()} ${wgGap() === 1 ? 'Tag' : 'Tage'}: Bei einer Prüfung in einigen Wochen behält man am meisten, wenn der Abstand zwischen Lernen und Wiederholen etwa ein Fünftel der Zeit bis zur Prüfung beträgt.</p>`;
+      }
+    }
+    box.innerHTML = `<div class="wg-planbox"><h3>Mein Plan</h3>
+      <div class="wg-pin"><label class="fld"><span>Klausur am (freiwillig)</span><input type="date" class="lp-exam" value="${escH(P.exam || '')}"></label>
+      <label class="fld"><span>Stoff der Klausur</span><select class="lp-scope">${[['qf', 'Parabeln'], ['vek', 'Vektoren'], ['both', 'beides']].map(([v, t]) => `<option value="${v}"${scope === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
+      <label class="fld"><span>Lernzeit pro Tag</span><select class="lp-min">${[10, 20, 30, 45].map(m => `<option value="${m}"${mins === m ? ' selected' : ''}>${m} Minuten</option>`).join('')}</select></label></div>
+      <h4>Heute dran (etwa ${total} Minuten)</h4><ol class="wg-today">${items.map(x => `<li><span>${R(x[0])} <span class="small">(ca. ${x[1]} Min.)</span></span><button type="button" class="btn btn-sm" data-home="${x[2]}"${x[4] ? ` data-t="${x[4]}"` : ''}>${x[3]}</button></li>`).join('')}</ol>${sched}
+      <p class="small">Lieber öfter kurz als selten lange: Verteiltes Üben und Wiederholen hält das Gelernte am längsten.</p></div>`;
+  },
+  /* ---- Anschlüsse an die übrige Lernhilfe ---- */
+  hooks(){
+    const self = this;
+    toggleAcc = (orig => function(acc, force){ const b = acc.querySelector('.acc-b'), open = force !== undefined ? force : b.hidden; if (open) self.revealEl(acc); return orig.call(this, acc, force); })(toggleAcc);
+    /* „Nächste Teilaufgabe“ bleibt im selben Schritt */
+    openNext = function(id){
+      const cur = $(`.acc[data-id="${id}"]`); if (!cur) return;
+      const scope = cur.closest('.wg-step') || cur.closest('main > section') || document;
+      const all = [...scope.querySelectorAll('.acc')], nxt = all[all.indexOf(cur) + 1];
+      toggleAcc(cur, false);
+      if (!nxt){ const nb = scope.querySelector && scope.querySelector('.wg-next'); if (nb) try { nb.scrollIntoView({block:'center', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){} return; }
+      toggleAcc(nxt, true);
+      try { nxt.scrollIntoView({block:'start', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(e){}
+    };
+    Training.start = (orig => function(...a){ if (self.cur !== 'training') self.show('training', {noScroll:true}); return orig.apply(this, a); })(Training.start);
+    if (Training.startErr) Training.startErr = (orig => function(...a){ if (self.cur !== 'training') self.show('training', {noScroll:true}); return orig.apply(this, a); })(Training.startErr);
+    errPick = function(n){
+      const un = wgErrUnlocked(), keys = Object.keys(ERRGEN).filter(k => ERRGEN[k].ch === CH.cur && un.includes(k)), list = [];
+      LM.topErrors(6).map(([k]) => ERR_KMAP[k]).filter(k => keys.includes(k)).forEach(k => { if (list.length < n && !list.includes(k)) list.push(k); });
+      wgShuffle(keys).forEach(k => { if (list.length < n && !list.includes(k)) list.push(k); });
+      for (let i = 0; keys.length && list.length < n; i++) list.push(keys[i % keys.length]);
+      return wgShuffle(list);
+    };
+    Training.render = (orig => function(){
+      orig.call(this);
+      const c = this.root && this.root.querySelector('.tr-errcard'); if (!c) return;
+      const un = wgErrUnlocked().filter(k => ERRGEN[k].ch === CH.cur), b = c.querySelector('button');
+      c.querySelector('p').textContent = un.length ? `Fremde Lösungen mit typischen Denkfehlern: Finde die falsche Zeile, benenne den Fehler und verbessere ihn. Freigeschaltet: ${un.map(k => TYPES[k].label).join(', ')}.` : 'Wird freigeschaltet, sobald du einen Aufgabentyp sicher kannst (Abschluss eines Themas bestanden oder im Training selbstständig gelöst). Am Anfang helfen richtige Beispiele mehr als fehlerhafte.';
+      if (b) b.disabled = !un.length;
+    })(Training.render);
+    if (Training.root && !Training.run) Training.render();
+    /* Wiederholungen: bei Klausurtermin zusätzlich nach etwa einem Fünftel der Restzeit fällig */
+    LM.due = (orig => function(){ const d = new Set(orig.call(this)), gap = wgGap(); if (gap){ const lim = Date.now() - gap * WG_DAY, chs = wgScopeCh(); Object.keys(LM.st.train).forEach(k => { const t = LM.st.train[k]; if (TYPES[k] && chs.includes(TYPES[k].ch || 'qf') && t.n && t.last && t.last <= lim) d.add(k); }); } return [...d]; })(LM.due);
+    updProgress = (orig => function(){ const r = orig.apply(this, arguments); try { self.navCounts(); if (self.cur && self.cur.startsWith('t-')){ const T = WGI[self.cur.slice(2)]; if (T && wgT(T.id).step === 'ueben') self.renderUeben(T); } } catch(e){} return r; })(updProgress);
+    CLASS.report = (orig => function(name){ const h = orig.call(this, name); return h.replace('<h2>Training</h2>', wgReport() + '<h2>Training</h2>'); })(CLASS.report);
+    /* Verweise innerhalb der Seite öffnen die passende Ansicht */
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]'); if (!a || e.defaultPrevented) return;
+      const id = a.getAttribute('href').slice(1); if (!id) return;
+      if (self.route(id)) e.preventDefault();
+    });
+    addEventListener('popstate', () => { const h = location.hash.slice(1); if (!h || !self.route(h, {noPush:true})) self.show('lw-home', {noPush:true}); });
+    $$('.ch-btn').forEach(b => b.addEventListener('click', () => { const v = self.cur && document.getElementById(self.cur); if (!v || (v.dataset.ch && v.dataset.ch !== CH.cur) || self.cur === 'lw-home') self.show('lw-home'); }));
+  },
+  quellen(){
+    const sec = $('#quellen'); if (!sec || sec.querySelector('.src-wg')) return;
+    const L = [
+      ['Barbieri, C. A.; Miller-Cotto, D.; Clerjuste, S. N.; Chawla, K. (2023): A meta-analysis of the worked examples effect on mathematics performance. Educational Psychology Review 35, 11. Musterbeispiel als Einstieg bei neuen Verfahren.', 'https://doi.org/10.1007/s10648-023-09745-1', 'doi:10.1007/s10648-023-09745-1'],
+      ['Sinha, T.; Kapur, M. (2021): When problem solving followed by instruction works: Evidence for productive failure. Review of Educational Research 91(5), 761–798. Knobeln vor der Erklärung bei Verständniszielen, Klärung mit Bezug auf die eigenen Ansätze.', 'https://doi.org/10.3102/00346543211019105', 'doi:10.3102/00346543211019105'],
+      ['Kalyuga, S.; Ayres, P.; Chandler, P.; Sweller, J. (2003): The expertise reversal effect. Educational Psychologist 38(1), 23–31. Wer ein Thema schon kann, überspringt das Beispiel.', 'https://ro.uow.edu.au/edupapers/136', 'ro.uow.edu.au'],
+      ['Kalyuga, S. (2005): When less is more in cognitive diagnosis. Proceedings of the Cognitive Science Society 27 (ausführlich: Journal of Educational Psychology 100, 2008, 603–612). Kurzer Eingangscheck mit „erster Schritt“-Fragen.', 'https://escholarship.org/uc/item/0899206c', 'escholarship.org'],
+      ['Rittle-Johnson, B.; Star, J. R. (2007): Does comparing solution methods facilitate conceptual and procedural knowledge? Journal of Educational Psychology 99(3), 561–574; sowie (2009): Compared with what? Journal of Educational Psychology 101(3), 529–544. Lösungswege vergleichen.', 'https://doi.org/10.1037/a0014224', 'doi:10.1037/a0014224'],
+      ['Übersichtsarbeit zu fehlerhaften Beispielen (2025): Educational Psychology Review. Nutzen hängt u. a. vom Vorwissen ab; deshalb „Fehler finden“ erst nach sicherem Können.', 'https://link.springer.com/article/10.1007/s10648-025-10071-x', 'link.springer.com'],
+      ['Hillmayr, D.; Ziernwald, L.; Reinhold, F.; Hofer, S. I.; Reiss, K. M. (2020): The potential of digital tools to enhance mathematics and science learning in secondary schools: A context-specific meta-analysis. Computers & Education 153, 103897. Digitale Werkzeuge als Ergänzung, Simulationen und tutorielle Systeme.', 'https://doi.org/10.1016/j.compedu.2020.103897', 'doi:10.1016/j.compedu.2020.103897'],
+      ['Maskos, K.; Schulz, A.; Oeksuez, S. S.; Rakoczy, K. (2025): Formative assessment in mathematics education. A systematic review. ZDM Mathematics Education. Abschlusscheck, dessen Ergebnis den nächsten Schritt bestimmt.', 'https://doi.org/10.1007/s11858-025-01696-x', 'doi:10.1007/s11858-025-01696-x'],
+      ['Cepeda, N. J.; Vul, E.; Rohrer, D.; Wixted, J. T.; Pashler, H. (2008): Spacing effects in learning: A temporal ridgeline of optimal retention. Psychological Science 19(11), 1095–1102. Abstand der Wiederholungen im Klausurplan.', 'https://doi.org/10.1111/j.1467-9280.2008.02209.x', 'doi:10.1111/j.1467-9280.2008.02209.x']
+    ];
+    sec.insertAdjacentHTML('beforeend', `<h3 class="src-wg">Grundlagen des Lernwegs</h3><ol class="src">${L.map(([t, u, l]) => `<li>${escH(t)} <a href="${u}">${escH(l)}</a></li>`).join('')}</ol>`);
+  }
+};
+function wgReport(){
+  const rows = LW_TOPICS.map(T => {
+    const st = WGS.t[T.id]; if (!st || (!st.diag && !st.route && !st.exit && !Object.keys(st.done || {}).length)) return '';
+    const d = st.diag ? `${d2(st.diag)}` : '–';
+    function d2(x){ const a = x.pre.concat(x.core); return `${a.filter(Boolean).length} von ${a.length}`; }
+    return `<tr><td>${escH((T.ch === 'vek' ? 'Vektoren · ' : 'Parabeln · ') + T.title)}</td><td>${d}</td><td>${escH(({ex:'Musterbeispiel', kn:'Knobeln', skip:'übersprungen'})[st.route] || '–')}</td><td>${st.exit ? `${st.exit.ok} von ${st.exit.n}` : '–'}</td><td>${st.mastered ? 'sicher (' + new Date(st.mastered).toLocaleDateString('de-DE') + ')' : st.step ? 'bei: ' + escH(WG_STEP[st.step].t) : ''}</td></tr>`;
+  }).join('');
+  const P = WGS.plan;
+  return `<h2>Lernweg</h2>${rows ? `<table><tr><th>Thema</th><th>Eingangscheck</th><th>Einstieg</th><th>Abschluss</th><th>Stand</th></tr>${rows}</table>` : '<p>Noch nicht begonnen.</p>'}${P.exam ? `<p>Klausurtermin eingetragen: ${escH(new Date(P.exam + 'T12:00:00').toLocaleDateString('de-DE'))}.</p>` : ''}`;
+}
+
 /* ================= Start v3 ================= */
 const PLOTS = {};
 function labA11(){
@@ -7879,6 +8980,7 @@ try {
 setMode(store.get('qf-mode') === 'loes' ? 'loes' : 'lern');
 updProgress(); quizScore();
 vkInit();
+LW.init();
 
 
 /* ================= Web-App: Offline-Betrieb, Installation, Updates ================= */
