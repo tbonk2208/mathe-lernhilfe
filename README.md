@@ -38,13 +38,13 @@ Unter **Für Eltern** stehen alle Musterlösungen der Buchaufgaben, der Lernstan
 
 Die Lernhilfe ist nach Themen aufgebaut (Parabeln: 6 Themen, Vektoren: Vorwissen und 3 Themen). Jedes Thema folgt derselben Abfolge:
 
-1. **Ziel und Check:** Lernziele als „Ich kann …“-Sätze und ein kurzer Eingangscheck. Daraus kommt eine Empfehlung für den Einstieg.
+1. **Ziel und Check:** Lernziele als „Ich kann …“-Sätze und ein kurzer Eingangscheck. Daraus kommt eine Empfehlung für den Einstieg. Fehlt Vorwissen, verlinkt das Ergebnis direkt den passenden Eintrag zum Nachlesen (z. B. „Lineare Gleichungen lösen“) oder das vorige Thema.
 2. **Einstieg:** wahlweise ein Musterbeispiel mit Warum-Fragen und eine ähnliche Aufgabe mit Lücken, ein Knobelproblem vor der Erklärung oder direkt zum Üben.
-3. **Klären:** Kernidee, worauf es ankommt, typische Fehler; nach dem Knobeln mit Rückmeldung zum eigenen Ansatz.
+3. **Klären:** Kernidee, worauf es ankommt, typische Fehler; nach dem Knobeln mit Rückmeldung zum eigenen Ansatz. In Thema 2 gibt es zusätzlich einen kurzen Abschnitt zur quadratischen Ergänzung mit eigenen Übungsaufgaben (freiwillig; nicht im Abschluss und nicht in der Probeklausur).
 4. **Darstellen:** Gleichung, Graph und Zahlen im Labor verbinden, danach dieselbe Frage ohne Bild.
 5. **Vergleichen:** zwei richtige Lösungswege gegenüberstellen und begründen, wann welcher besser ist.
 6. **Üben:** die Buchaufgaben des Themas und neue Aufgaben, deren Hilfe sich anpasst.
-7. **Abschluss:** kurzer Check ohne Hilfe; das Ergebnis entscheidet über Wiederholung oder gezielte Übung.
+7. **Abschluss:** kurzer Check ohne Hilfe mit vier Aufgaben oder Fragen. „Sicher“ gilt ab 3 von 4; was nicht geklappt hat, kommt beim Wiederholen bald wieder. In Thema 2 ist eine Aufgabe zur pq-Formel immer dabei und muss klappen. Sonst gibt es gezielte Übung.
 
 Alles wird nur auf dem Gerät gespeichert.
 

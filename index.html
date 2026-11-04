@@ -954,6 +954,25 @@ button.wg-tc:hover{border-color:var(--accent)}
 .topbar .brand .pg{margin-left:6px}
 .wg-gatehint{margin-left:10px;color:var(--muted)}
 .wg-next button:disabled{opacity:.55;cursor:not-allowed}
+/* v17: Vorwissen auffrischen, Zusatzabschnitt im Klären */
+.wg-fill{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;margin:10px 0;background:var(--sheet)}
+.wg-fill h4{margin:0 0 6px}
+.wg-fill ul{margin:0;padding-left:1.1em}
+.wg-fill li{margin:6px 0}
+.wg-fillb{display:inline-block;margin-left:8px}
+.wg-lexd{margin:4px 0 2px}
+.wg-lexd summary{cursor:pointer;color:var(--accent);font-weight:600}
+.wg-lexd .lex-e{margin-top:6px}
+.wg-lexd .lex-e h4{display:none}
+.wg-xsteps{margin:6px 0;padding-left:1.4em}
+.wg-xsteps li{margin:6px 0}
+.wg-xsteps .wg-xl{display:block}
+.wg-xrunb:empty{display:none}
+.wg-xrunb{margin:10px 0;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+/* Musterbeispiel: leere Tintenspalte ausblenden, Begründung unter der Zeile */
+.ex-lines .gl .gl-ink:empty{display:none}
+.ex-lines .gl .gl-msg{grid-column:2 / -1;font-family:var(--f-body)}
+.ex-lines .gl .gl-msg:empty{display:none}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -1083,6 +1102,7 @@ html.js .nojs-note{display:none}
           <tr><td><span class="m"><i>a</i>(<i>x</i> − <i>x</i><sub>1</sub>)(<i>x</i> − <i>x</i><sub>2</sub>)</span></td><td>Nullstellen direkt ablesen</td><td>6d, 9e</td></tr>
           <tr><td><span class="m"><i>a</i>(<i>x</i> − <i>d</i>)<sup>2</sup> + <i>e</i></span></td><td>Klammer isolieren, Wurzel ziehen</td><td>6g, 9f</td></tr>
           <tr><td><span class="m"><i>a</i><i>x</i><sup>2</sup> + <i>b</i><i>x</i> + <i>c</i></span></td><td>durch <span class="m"><i>a</i></span> teilen, dann pq-Formel oder Satz von Vieta</td><td>6c, 6e, 6f, 9d</td></tr>
+          <tr><td><span class="m"><i>x</i><sup>2</sup> + <i>p</i><i>x</i> + <i>q</i></span>, wenn die Lehrkraft es verlangt oder die Scheitelpunktform gesucht ist</td><td>quadratische Ergänzung: <span class="m">(<span class="fr"><span><i>p</i></span><span>2</span></span>)<sup>2</sup></span> auf beiden Seiten addieren, binomische Formel, Wurzel ziehen. Die pq-Formel ist die Abkürzung dafür.</td><td>6c</td></tr>
         </tbody>
       </table></div>
       <div class="box rule">
@@ -2966,6 +2986,8 @@ const RULES = {
   nullprodukt:{t:'Satz vom Nullprodukt: Jeder Faktor wird einzeln null gesetzt', fb:'Ein Produkt ist genau dann null, wenn mindestens ein Faktor null ist.'},
   wurzel:{t:'Wurzel gezogen und beide Vorzeichen berücksichtigt', fb:'Aus $x^2 = k$ mit $k > 0$ folgt $x = #sqrt{k}$ oder $x = -#sqrt{k}$.'},
   pq:{t:'pq-Formel angewendet', fb:'Für $x^2 + px + q = 0$ gilt $x_{1,2} = -#frac{p}{2} #pm #sqrt{(#frac{p}{2})^2 - q}$.'},
+  qerg:{t:'Quadratisch ergänzt: das Quadrat des halben $p$ auf beiden Seiten addiert', fb:'Mit $(#frac{p}{2})^2$ wird die linke Seite zu einer binomischen Formel. Weil auf beiden Seiten dasselbe addiert wird, bleibt die Lösungsmenge gleich.'},
+  binom:{t:'Mit der binomischen Formel als Quadrat geschrieben', fb:'Zum Beispiel $x^2 - 6x + 9 = (x - 3)^2$. Die Seite wird nur anders geschrieben, ihr Wert ändert sich nicht.'},
   ansatz:{t:'Gleichgesetzt, weil im Schnittpunkt beide Funktionen denselben Wert haben', fb:'Im Schnittpunkt gilt $f(x) = g(x)$.'},
   einsetzen:{t:'Bekannte Koordinaten für $x$ und $y$ eingesetzt', fb:'Ein Punkt liegt auf dem Graphen, wenn seine Koordinaten die Gleichung erfüllen.'},
   keine:{t:'Keine Lösung, weil kein Quadrat negativ ist', fb:'Ein Quadrat einer reellen Zahl ist nie negativ.'},
@@ -2984,7 +3006,12 @@ function stepRule(prevParsed, parsed, res, goal){
       if (isProd(prevParsed)) return 'nullprodukt';
       return null;
     }
-    if (sqNow && !sqPrev) return 'isoliert';
+    if (sqNow && !sqPrev){
+      /* stand vorher x² und x einzeln da, wurde eine binomische Formel benutzt */
+      try { const env = {v, flags:{}}, A = evalSafe(prevParsed.parts[0], env), B = evalSafe(prevParsed.parts[1], env);
+        if (!A.err && !B.err && A.br.length === 1 && B.br.length === 1){ const d = P.add(A.br[0], B.br[0], -1); if (P.deg(d) === 2 && Math.abs(d[1] || 0) > 1e-9 && !prevParsed.parts.some(q => hasNode(q, 'par'))) return 'binom'; } } catch(e){}
+      return 'isoliert';
+    }
     if (isProd(parsed) && !isProd(prevParsed)) return 'faktor';
     if (/multipliziert|geteilt/.test(res.html || '')) return 'skalieren';
     if (/Äquivalent umgeformt ✓$/.test(res.html || '') && prevParsed) return 'umstellen';
@@ -4723,8 +4750,24 @@ const LEX = [
    x:'$(a + b)^{2} = a^{2} + 2ab + b^{2}$, $(a - b)^{2} = a^{2} - 2ab + b^{2}$ und $(a + b)(a - b) = a^{2} - b^{2}$.',
    f:'$(x - 3)^{2}$ ist nicht $x^{2} - 9$, sondern $x^{2} - 6x + 9$.', see:['qe']},
   {id:'qe', ch:'qf', t:'Quadratische Ergänzung', kw:'quadratische ergänzung ergänzen scheitelform umwandeln in scheitelpunktform',
-   x:'So wandelst du $x^{2} + px + q$ in die Scheitelpunktform um: Das Quadrat des halben $p$ addieren und wieder abziehen.',
-   b:'$x^{2} - 6x + 5 = (x^{2} - 6x + 9) - 9 + 5 = (x - 3)^{2} - 4$, Scheitel $S(3|-4)$.', see:['spf', 'binom']},
+   x:'So wandelst du $x^{2} + px + q$ in die Scheitelpunktform um: Das Quadrat des halben $p$ addieren und wieder abziehen. Beim Lösen einer Gleichung addierst du es auf beiden Seiten; dann steht links eine binomische Formel, und du ziehst die Wurzel.',
+   b:'$x^{2} - 6x + 5 = (x^{2} - 6x + 9) - 9 + 5 = (x - 3)^{2} - 4$, Scheitel $S(3|-4)$. Als Gleichung: $x^{2} - 6x = -5$ ⇒ $x^{2} - 6x + 9 = 4$ ⇒ $(x - 3)^{2} = 4$ ⇒ $x = 5$ oder $x = 1$.',
+   f:'Das Quadrat des halben $p$ nur links addieren. In einer Gleichung gehört es auf beide Seiten.', see:['spf', 'binom', 'pq']},
+  {id:'lingl', ch:'qf', t:'Lineare Gleichungen lösen', kw:'lineare gleichung gleichungen lösen auflösen nach x umstellen variable isolieren 3x-6=0',
+   x:'Ziel ist $x = …$. Bring alle Glieder mit $x$ auf eine Seite und alle Zahlen auf die andere. Teile dann durch die Zahl vor $x$. Was du rechnest, rechnest du auf beiden Seiten.',
+   b:'$3x - 6 = 0 #quad| +6$ ⇒ $3x = 6 #quad| :3$ ⇒ $x = 2$. Probe: $3 #cdot 2 - 6 = 0$.', f:'Beim Teilen durch eine negative Zahl das Vorzeichen mitnehmen: Aus $-2x = 8$ folgt $x = -4$, nicht $x = 4$.', see:['aequi']},
+  {id:'koord2', ch:'qf', t:'Punkte im Koordinatensystem', kw:'koordinatensystem punkt punkte koordinaten ablesen eintragen x-koordinate y-koordinate links rechts oben unten ursprung',
+   x:'Bei $P(x|y)$ sagt die erste Zahl, wie weit du vom Ursprung $(0|0)$ nach rechts (positiv) oder links (negativ) gehst. Die zweite sagt, wie weit nach oben (positiv) oder unten (negativ).',
+   g:'Erst gehen, dann klettern: erst waagerecht (x), dann senkrecht (y).', b:'2 nach links und 3 nach unten: $P(-2|-3)$.', f:'Die Reihenfolge vertauschen: $(3|-2)$ ist ein anderer Punkt als $(-2|3)$.', see:['punktprobe']},
+  {id:'punktprobe', ch:'qf', t:'Liegt ein Punkt auf dem Graphen? (Punktprobe)', kw:'punktprobe punkt liegt auf dem graphen graph prüfen koordinaten einsetzen f(2)=5',
+   x:'$P(2|5)$ liegt auf dem Graphen von $f$, wenn $f(2) = 5$ ist. Du setzt also die x-Koordinate ein und vergleichst das Ergebnis mit der y-Koordinate.',
+   b:'$f(x) = x^{2} + 1$: $f(2) = 5$, also liegt $P(2|5)$ auf dem Graphen. $Q(1|3)$ liegt nicht darauf, denn $f(1) = 2$.', f:'Die Koordinaten vertauschen: Eingesetzt wird immer die erste Zahl, die x-Koordinate.', see:['einsetzen', 'koord2']},
+  {id:'ungl', ch:'qf', t:'Ungleichungen lösen', kw:'ungleichung ungleichungen kleiner größer lösen umformen zeichen umdrehen negativ',
+   x:'Ungleichungen formst du fast wie Gleichungen um: Auf beiden Seiten dasselbe addieren oder abziehen ist erlaubt. Multiplizierst oder teilst du durch eine negative Zahl, dreht sich das Zeichen um: Aus $<$ wird $>$.',
+   b:'$16 - t < 0 #quad| -16$ ⇒ $-t < -16 #quad| :(-1)$ ⇒ $t > 16$. Probe mit $t = 20$: $16 - 20 = -4 < 0$.', f:'Beim Teilen durch $-1$ das Zeichen nicht umdrehen. $t < 16$ wäre falsch: Für $t = 0$ ist $16 - 0 = 16$ nicht kleiner als 0.', see:['diskr']},
+  {id:'pot10', ch:'qf', t:'Potenzen und Zehnerpotenzen', kw:'potenz potenzen zehnerpotenz zehnerpotenzen hoch exponent hochzahl 10^3 tausend',
+   x:'$10^{n}$ bedeutet: $n$-mal die 10 multiplizieren. Das ergibt eine 1 mit $n$ Nullen. Eine negative Hochzahl bedeutet Teilen: $10^{-n} = #frac{1}{10^{n}}$.',
+   b:'$10^{3} = 10 #cdot 10 #cdot 10 = 1000$, $10^{-2} = 0,01$, $4,6 #cdot 10^{5} = 460000$.', f:'$10^{3}$ ist nicht $10 #cdot 3 = 30$.'},
   {id:'aequi', ch:'qf', t:'Umformen: auf beiden Seiten dasselbe', kw:'umformen äquivalenzumformung äquivalent beide seiten waage auf die andere seite bringen umformungsangabe strich minus teilen',
    x:'Eine Gleichung bleibt gleichwertig, wenn du auf beiden Seiten dasselbe rechnest: dieselbe Zahl addieren oder abziehen, mit derselben Zahl ($#neq 0$) malnehmen oder durch sie teilen. Im Heft steht die Rechnung hinter einem Strich: $2x + 3 = 7 #quad| -3$.',
    g:'Stell dir eine Waage im Gleichgewicht vor: Nimmst du auf beiden Seiten dasselbe weg, bleibt sie im Gleichgewicht.',
@@ -4775,6 +4818,12 @@ const LEX = [
    b:'$#col{-8;-6;4}$ und $#col{4;3;2}$: $s = -2$ passt bei den ersten beiden Koordinaten, aber $2 #cdot (-2) = -4 #neq 4$. Also nicht kollinear.', see:['smul', 'parall']},
   {id:'parall', ch:'vek', t:'Parallelogramm nachweisen', kw:'parallelogramm viereck nachweis nachweisen beweisen ab=dc vierter eckpunkt fehlender punkt',
    x:'$ABCD$ ist ein Parallelogramm, wenn $#vec{AB} = #vec{DC}$ gilt (dann ist auch $#vec{AD} = #vec{BC}$). Achte auf die Reihenfolge der Ecken. Einen fehlenden Eckpunkt erreichst du so: $#vec{OD} = #vec{OA} + #vec{BC}$.', see:['verbv', 'kollin']},
+  {id:'abst2', ch:'vek', t:'Abstand zweier Punkte in der Ebene', kw:'abstand ebene zwei punkte entfernung differenzen pythagoras länge strecke',
+   x:'Für $A(a_{1}|a_{2})$ und $B(b_{1}|b_{2})$ bildest du die Differenzen der Koordinaten. Sie sind die Katheten eines rechtwinkligen Dreiecks; der Abstand ist die Hypotenuse: $d = #sqrt{(b_{1} - a_{1})^{2} + (b_{2} - a_{2})^{2}}$.',
+   b:'$A(1|1)$, $B(4|5)$: Differenzen 3 und 4, also $d = #sqrt{9 + 16} = 5$.', f:'Die Differenzen addieren statt quadrieren: $3 + 4 = 7$ ist zu groß.', see:['pyth', 'betrag']},
+  {id:'viereck', ch:'vek', t:'Besondere Vierecke', kw:'viereck vierecke quadrat rechteck raute parallelogramm trapez eigenschaften',
+   x:'Parallelogramm: Gegenüberliegende Seiten sind parallel und gleich lang. Rechteck: ein Parallelogramm mit vier rechten Winkeln. Raute: ein Parallelogramm mit vier gleich langen Seiten. Quadrat: Rechteck und Raute zugleich. Trapez: Zwei Seiten sind zueinander parallel.',
+   f:'„Jedes Rechteck ist ein Quadrat“ stimmt nicht. Umgekehrt stimmt es: Jedes Quadrat ist ein Rechteck.', see:['parall']},
   {id:'pyth', ch:'vek', t:'Satz des Pythagoras', kw:'pythagoras satz des pythagoras hypotenuse kathete rechtwinklig a^2+b^2=c^2 höhe dreieck',
    x:'Im rechtwinkligen Dreieck gilt $a^{2} + b^{2} = c^{2}$; $c$ ist die Hypotenuse (dem rechten Winkel gegenüber, die längste Seite).',
    f:'Für eine Kathete wird subtrahiert: $h^{2} = 8,5^{2} - 6,8^{2}$, nicht addiert.', see:['betrag', 'trig']},
@@ -5433,6 +5482,21 @@ const TYPES = {
       goals:[vorabGoal(A, m, f(m)), nst(polySrc(A, B, C), [polySrc(1, p, q) + '=0', `x=${N(m)}+-sqrt(${N(m * m)}${sgnN(-q)})`, `x=${N(m)}+-${N(s)}`, `x_1=${N(m + s)}`, `x_2=${N(m - s)}`], {named:{p, q, D:m * m - q}})], why:['skalieren', 'pq', 'rechnen', 'umstellen', 'umstellen'],
       fin:`Erst durch $${fmt(A)}$ teilen (Normalform $${polyTex(1, p, q)} = 0$), dann pq-Formel: Nullstellen $${fmt(m + s)}$ und $${fmt(m - s)}$.`, plot:nstPlot(f, A, m, f(m), [m + s, m - s])});
   }},
+  /* quadratische Ergänzung: p gerade, damit glatte Zahlen entstehen; optional (nicht im Abschluss, nicht in der Probeklausur) */
+  qe:{label:'Nullstellen mit quadratischer Ergänzung', book:[], optional:true, gen(){
+    const none = Math.random() < 0.15; let p, q, h, k;
+    if (none){ h = rnd.nz(-5, 5); k = -rnd.i(1, 9); p = 2 * h; q = h * h - k; }
+    else { let r1, r2; do { r1 = rnd.i(-8, 8); r2 = rnd.i(-8, 8); } while (r1 === r2 || (r1 + r2) % 2 || !(r1 + r2) || !(r1 * r2)); p = -(r1 + r2); q = r1 * r2; h = p / 2; k = h * h - q; }
+    const s = Math.sqrt(Math.max(k, 0)), m = -h, f = quadF(1, p, q);
+    const canon = [`${polySrc(1, p, 0)}=${N(-q)}`, `${polySrc(1, p, h * h)}=${N(-q)}${sgnN(h * h)}`, `(x${sgnN(h)})^2=${N(k)}`].concat(none ? ['NONE'] : [`x${sgnN(h)}=+-${N(s)}`, `x_1=${N(m + s)}`, `x_2=${N(m - s)}`]);
+    const why = ['umstellen', 'qerg', 'binom'].concat(none ? ['keine'] : ['wurzel', 'umstellen', 'umstellen']);
+    const spf = `$${polyTex(1, p, q)} = (x ${h > 0 ? '+' : '-'} ${fmt(Math.abs(h))})^2 ${k > 0 ? '-' : '+'} ${fmt(Math.abs(k))}$, Scheitel $S${ptl(m, -k)}$`;
+    const prompt = 'Löse $f(x) = 0$ mit quadratischer Ergänzung: die Zahl nach rechts, das Quadrat des halben $p$ auf beiden Seiten addieren, binomische Formel, Wurzel ziehen. Schreib am Ende $x_{1} = …$, $x_{2} = …$ oder tippe auf „keine Lösung“. Andere richtige Wege zählen auch.';
+    return mk('qe', {head:`$f(x) = ${polyTex(1, p, q)}$`, taskText:`Nullstellen von f(x) = ${polySrc(1, p, q)} mit quadratischer Ergänzung`, fn:polySrc(1, p, q),
+      goals:[vorabGoal(1, m, f(m)), nst(polySrc(1, p, q), canon, {prompt, named:{p, q, D:k}})], why,
+      fin:none ? `Keine Nullstellen: $(x ${h > 0 ? '+' : '-'} ${fmt(Math.abs(h))})^2 = ${fmt(k)}$ ist unmöglich, denn ein Quadrat ist nie negativ. Nebenbei: ${spf}.` : `Nullstellen $${fmt(m + s)}$ und $${fmt(m - s)}$. Nebenbei: ${spf}. Die pq-Formel liefert dasselbe Ergebnis.`,
+      plot:nstPlot(f, 1, m, f(m), none ? [] : [m + s, m - s])});
+  }},
   schnitt:{label:'Schnittpunkte von Parabel und Gerade', book:['a10a', 'a10b', 'a10c', 'a10d'], gen(){
     const m = rnd.p([-2, -1, -0.5, 0.5, 1, 2, 3]), n = rnd.i(-6, 6), a = rnd.p([1, 1, -1, 0.5]), tang = Math.random() < 0.15;
     let r1 = rnd.i(-5, 5), r2 = tang ? r1 : rnd.i(-5, 5); if (!tang) while (r2 === r1) r2 = rnd.i(-5, 5);
@@ -5592,7 +5656,7 @@ const Training = {
   },
   mixedList(n){
     typeFromBook();
-    const keys = chTypes(), now = Date.now();
+    const keys = chTypes().filter(k => !TYPES[k].optional || (LM.st.train[k] || {}).n), now = Date.now();
     const score = k => { const t = LM.st.train[k] || {}; const due = t.n ? Math.max(0, (now - (t.due || 0)) / 86400000) : 0.5; const weak = t.n ? 1 - t.ok / t.n : 0.5; return due + weak + Math.random() * 0.6; };
     const pool = keys.slice().sort((a, b) => score(b) - score(a));
     const list = [];
@@ -8405,8 +8469,8 @@ const LW_TOPICS = [
  goals:['Ich kann am Graphen den Scheitelpunkt und den Streckfaktor ablesen und die Gleichung in Scheitelpunktform $f(x) = a(x - d)^2 + e$ angeben.', 'Ich kann aus der Scheitelpunktform den Graphen ohne Wertetabelle skizzieren.', 'Ich kann Funktionswerte berechnen, auch für negative x-Werte.'],
  pre:['die Normalparabel $y = x^2$', 'Punkte im Koordinatensystem ablesen', 'negative Zahlen quadrieren'],
  check:[
-  {pre:true, q:'Welchen Wert hat $f(x) = x^2$ an der Stelle $x = -3$?', opts:[['$9$', true, '$(-3)^2 = (-3) #cdot (-3) = 9$.'], ['$-9$', false, 'Das Quadrat einer negativen Zahl ist positiv: $(-3)^2 = 9$.'], ['$-6$', false, 'Quadrieren heißt mit sich selbst multiplizieren, nicht verdoppeln.']]},
-  {pre:true, q:'Der Punkt P liegt 2 Einheiten links von der y-Achse und 3 Einheiten unter der x-Achse. Welche Koordinaten hat P?', opts:[['$P(-2|-3)$', true, 'Erst die x-Koordinate (links/rechts), dann die y-Koordinate (unten/oben).'], ['$P(-3|-2)$', false, 'Zuerst kommt die x-Koordinate, also links/rechts: $-2$.'], ['$P(2|3)$', false, 'Links und unten sind die negativen Richtungen.']]},
+  {pre:true, see:'einsetzen', what:'Negative Zahlen einsetzen und quadrieren', q:'Welchen Wert hat $f(x) = x^2$ an der Stelle $x = -3$?', opts:[['$9$', true, '$(-3)^2 = (-3) #cdot (-3) = 9$.'], ['$-9$', false, 'Das Quadrat einer negativen Zahl ist positiv: $(-3)^2 = 9$.'], ['$-6$', false, 'Quadrieren heißt mit sich selbst multiplizieren, nicht verdoppeln.']]},
+  {pre:true, see:'koord2', what:'Punkte im Koordinatensystem', q:'Der Punkt P liegt 2 Einheiten links von der y-Achse und 3 Einheiten unter der x-Achse. Welche Koordinaten hat P?', opts:[['$P(-2|-3)$', true, 'Erst die x-Koordinate (links/rechts), dann die y-Koordinate (unten/oben).'], ['$P(-3|-2)$', false, 'Zuerst kommt die x-Koordinate, also links/rechts: $-2$.'], ['$P(2|3)$', false, 'Links und unten sind die negativen Richtungen.']]},
   {q:'Wo liegt der Scheitelpunkt von $f(x) = (x - 4)^2 + 1$?', opts:[['$S(4|1)$', true, 'Die Klammer wird für $x = 4$ null, dann ist $f(4) = 1$.'], ['$S(-4|1)$', false, 'Die Klammer $(x - 4)$ wird für $x = 4$ null, nicht für $x = -4$.'], ['$S(1|4)$', false, 'Erst die x-Koordinate: Sie steckt in der Klammer.']]},
   {q:'Was bewirkt der Faktor $-2$ in $f(x) = -2x^2$ im Vergleich zur Normalparabel?', opts:[['nach unten geöffnet und schmaler', true, 'Minus öffnet nach unten, $|a| = 2 > 1$ streckt.'], ['nach unten geöffnet und breiter', false, '$|a| = 2 > 1$: Die Werte wachsen doppelt so schnell, die Parabel wird schmaler.'], ['um 2 nach unten verschoben', false, 'Eine Verschiebung nach unten käme von einem Glied $-2$ am Ende, nicht von einem Faktor.']]}],
  example:{type:'ablesen', task:'Lies die Gleichung der abgebildeten Parabel in Scheitelpunktform ab.',
@@ -8436,18 +8500,18 @@ const LW_TOPICS = [
  vergl:{task:'Gezeichnet ist eine Parabel mit Scheitel $S(1|-2)$, die durch $P(3|6)$ geht. Bestimme ihre Gleichung.',
   a:{name:'Mia', how:'liest am Graphen ab', lines:['Scheitel $S(1|-2)$: $f(x) = a(x - 1)^2 - 2$', 'Vom Scheitel 1 nach rechts steigt der Graph um 2, also $a = 2$.', '$f(x) = 2(x - 1)^2 - 2$']},
   b:{name:'Jonas', how:'rechnet mit dem Punkt P', lines:['$f(x) = a(x - 1)^2 - 2$', '$P(3|6)$ einsetzen: $6 = a(3 - 1)^2 - 2$', '$6 = 4a - 2$ ⇔ $8 = 4a$ ⇔ $a = 2$', '$f(x) = 2(x - 1)^2 - 2$']},
-  qs:[{q:'Was haben beide Wege gemeinsam?', opts:[['Beide setzen zuerst den Scheitel in die Scheitelpunktform ein und bestimmen danach nur noch $a$.', true, 'Der Scheitel liefert $d$ und $e$; offen bleibt nur $a$.'], ['Beide brauchen eine Wertetabelle.', false, 'Keiner der beiden legt eine Tabelle an.'], ['Sie kommen nur zufällig auf dasselbe.', false, 'Beide nutzen, dass der Höhenunterschied zum Scheitel $a #cdot (x - d)^2$ ist.']]},
-      {q:'Wann ist Jonas’ Weg besser?', opts:[['Wenn man 1 Einheit neben dem Scheitel nichts genau ablesen kann, z. B. bei $a = 0,3$, oder wenn nur Koordinaten gegeben sind.', true, 'Einsetzen klappt mit jedem Punkt, Ablesen nur bei gut lesbaren Kästchen.'], ['Nie, Mias Weg ist immer schneller.', false, 'Ohne Graph oder bei krummen Werten kann Mia nicht ablesen.'], ['Nur wenn die Parabel nach unten geöffnet ist.', false, 'Die Öffnung spielt keine Rolle.']]},
+  qs:[{q:'Was haben beide Wege gemeinsam?', opts:[['Beide setzen zuerst den Scheitel ein und bestimmen danach nur noch $a$.', true, 'Der Scheitel liefert $d$ und $e$; offen bleibt nur $a$.'], ['Beide brauchen eine Wertetabelle.', false, 'Keiner der beiden legt eine Tabelle an.'], ['Sie kommen nur zufällig auf dasselbe.', false, 'Beide nutzen, dass der Höhenunterschied zum Scheitel $a #cdot (x - d)^2$ ist.']]},
+      {q:'Wann ist Jonas’ Weg besser?', opts:[['Bei krummen Werten wie $a = 0,3$ oder wenn nur Koordinaten gegeben sind.', true, 'Einsetzen klappt mit jedem Punkt, Ablesen nur bei gut lesbaren Kästchen.'], ['Nie, Mias Weg ist immer schneller.', false, 'Ohne Graph oder bei krummen Werten kann Mia nicht ablesen.'], ['Nur wenn die Parabel nach unten geöffnet ist.', false, 'Die Öffnung spielt keine Rolle.']]},
       {q:'Mia hätte auch 2 Einheiten nach rechts gehen können. Um wie viel steigt der Graph dort?', opts:[['um 8', true, '$a #cdot 2^2 = 2 #cdot 4 = 8$, passend zu $P(3|6)$: von $-2$ auf $6$.'], ['um 4', false, 'Das wäre $a #cdot 2$; der Abstand wird quadriert.'], ['um 2', false, 'Um 2 steigt er nach 1 Einheit, nach 2 Einheiten um $2 #cdot 4 = 8$.']]}]},
  ueben:[{t:'Grundaufgaben', ids:['a5', 'a8']}, {t:'Skizzieren', ids:['a7']}, {t:'Vertiefen', ids:['a13']}],
- types:['ablesen', 'skizze', 'werte'], exit:{types:['ablesen', 'skizze', 'werte']}},
+ types:['ablesen', 'skizze', 'werte'], exit:{types:['ablesen', 'skizze', 'werte'], pickFrom:['ablesen', 'werte']}},
 
 {id:'p2', ch:'qf', title:'Nullstellen berechnen', book:'S. 14: Aufgaben 6 und 9', kind:'proc',
  goals:['Ich kann den Schnittpunkt mit der y-Achse und die Nullstellen einer quadratischen Funktion berechnen.', 'Ich erkenne an der Form der Gleichung, welches Verfahren am schnellsten ist: Ausklammern, Wurzelziehen, Ablesen aus der Produktform oder pq-Formel.', 'Ich kann begründen, warum es zwei, eine oder keine Nullstelle geben kann.'],
  pre:['lineare Gleichungen lösen', 'Wurzeln ziehen', 'ausklammern'],
  check:[
-  {pre:true, q:'Löse $3x - 6 = 0$.', opts:[['$x = 2$', true, '$3x = 6$, also $x = 2$.'], ['$x = -2$', false, 'Probe: $3 #cdot (-2) - 6 = -12 #neq 0$.'], ['$x = 3$', false, 'Probe: $3 #cdot 3 - 6 = 3 #neq 0$.']]},
-  {pre:true, q:'Welche Zahlen erfüllen $x^2 = 25$?', opts:[['$x = 5$ und $x = -5$', true, 'Auch $(-5)^2 = 25$.'], ['nur $x = 5$', false, 'Auch $(-5)^2 = 25$: Es gibt zwei Lösungen.'], ['$x = 12,5$', false, 'Quadrieren ist nicht verdoppeln: $12,5^2 = 156,25$.']]},
+  {pre:true, see:'lingl', what:'Lineare Gleichungen lösen', q:'Löse $3x - 6 = 0$.', opts:[['$x = 2$', true, '$3x = 6$, also $x = 2$.'], ['$x = -2$', false, 'Probe: $3 #cdot (-2) - 6 = -12 #neq 0$.'], ['$x = 3$', false, 'Probe: $3 #cdot 3 - 6 = 3 #neq 0$.']]},
+  {pre:true, see:'wurzel', what:'Wurzel ziehen: Es gibt zwei Lösungen', q:'Welche Zahlen erfüllen $x^2 = 25$?', opts:[['$x = 5$ und $x = -5$', true, 'Auch $(-5)^2 = 25$.'], ['nur $x = 5$', false, 'Auch $(-5)^2 = 25$: Es gibt zwei Lösungen.'], ['$x = 12,5$', false, 'Quadrieren ist nicht verdoppeln: $12,5^2 = 156,25$.']]},
   {q:'Was ist der beste erste Schritt bei $x^2 + 7x = 0$?', opts:[['$x$ ausklammern: $x(x + 7) = 0$', true, 'Dann liefert der Satz vom Nullprodukt $x = 0$ oder $x = -7$.'], ['durch $x$ teilen', false, 'Dabei geht die Lösung $x = 0$ verloren.'], ['die Wurzel ziehen', false, 'Wegen des Glieds $7x$ steht das Quadrat nicht allein.']]},
   {q:'Wie viele Nullstellen hat $f(x) = x^2 + 4$?', opts:[['keine', true, '$x^2$ ist nie negativ, also ist $x^2 + 4$ immer mindestens 4.'], ['zwei: $x = 2$ und $x = -2$', false, 'Probe: $2^2 + 4 = 8 #neq 0$.'], ['eine: $x = -4$', false, 'Probe: $(-4)^2 + 4 = 20$.']]}],
  example:{type:'pq'},
@@ -8459,11 +8523,15 @@ const LW_TOPICS = [
       ['aus', '$x$ ausgeklammert', 'Der schnellste Weg: $x(-0,1x + 1) = 0$, also $x = 0$ oder $x = 10$ (Satz vom Nullprodukt).'],
       ['pq', 'pq-Formel benutzt', 'Geht auch: erst durch $-0,1$ teilen ($x^2 - 10x = 0$), dann pq-Formel. Ausklammern ist hier kürzer, weil kein Glied ohne $x$ vorkommt.'],
       ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Klärung zeigt, welcher Weg hier am kürzesten ist.']]},
- klaer:{idee:'Nullstellen sind die x-Werte mit $f(x) = 0$; den Schnittpunkt mit der y-Achse liefert $f(0)$. Welcher Weg am kürzesten ist, verrät die Form der Gleichung: Fehlt das Glied ohne $x$, klammerst du $x$ aus. Fehlt das Glied mit $x$, löst du nach $x^2$ auf und ziehst die Wurzel. Steht ein Produkt da, liest du ab. Sonst hilft die pq-Formel, nachdem du durch den Faktor vor $x^2$ geteilt hast.',
+ klaer:{idee:'Nullstellen sind die x-Werte mit $f(x) = 0$; den Schnittpunkt mit der y-Achse liefert $f(0)$. Welcher Weg am kürzesten ist, verrät die Form der Gleichung: Fehlt das Glied ohne $x$, klammerst du $x$ aus. Fehlt das Glied mit $x$, löst du nach $x^2$ auf und ziehst die Wurzel. Steht ein Produkt da, liest du ab. Sonst hilft die pq-Formel, nachdem du durch den Faktor vor $x^2$ geteilt hast. Wer die quadratische Ergänzung kennt, kann sie stattdessen nehmen (Abschnitt unten).',
   merk:['Satz vom Nullprodukt: $a #cdot b = 0$ genau dann, wenn $a = 0$ oder $b = 0$.', 'Beim Wurzelziehen beide Lösungen: Aus $x^2 = 9$ folgt $x = 3$ oder $x = -3$.', 'Die pq-Formel gilt nur für $x^2 + px + q = 0$: vorher durch den Faktor vor $x^2$ teilen.', 'Nie durch $x$ teilen: Dabei geht die Lösung $x = 0$ verloren.'],
   move:[['#werkzeug', 'Welche Methode passt'], ['#werkzeug', 'Schnellster Weg'], ['#werkzeug', 'pq-Formel und Diskriminante']],
   fehl:[['$x^2 = 16$ ⇒ $x = 4$', 'Auch $(-4)^2 = 16$. Es gibt zwei Lösungen: $x = #pm 4$.'], ['$x^2 + 5x = 0$ durch $x$ teilen ⇒ $x = -5$', 'Teilen durch $x$ setzt $x #neq 0$ voraus, genau die Lösung $x = 0$ fällt so weg. Ausklammern: $x(x + 5) = 0$.'], ['pq-Formel bei $2x^2 + 8x - 10 = 0$ mit $p = 8$', 'Die pq-Formel braucht eine 1 vor $x^2$. Erst durch 2 teilen: $x^2 + 4x - 5 = 0$, also $p = 4$, $q = -5$.']],
-  verst:[{q:'Welcher Weg ist bei $f(x) = 2(x - 3)^2 - 8$ am kürzesten?', opts:[['Klammer isolieren: $(x - 3)^2 = 4$, dann Wurzel: $x - 3 = #pm 2$', true, 'Also $x = 5$ oder $x = 1$.'], ['Ausmultiplizieren und pq-Formel', false, 'Geht auch, ist aber länger.'], ['Durch $x$ teilen', false, 'Das ist nie ein guter erster Schritt: Lösungen können verloren gehen.']]}]},
+  verst:[{q:'Welcher Weg ist bei $f(x) = 2(x - 3)^2 - 8$ am kürzesten?', opts:[['Klammer isolieren: $(x - 3)^2 = 4$, dann Wurzel: $x - 3 = #pm 2$', true, 'Also $x = 5$ oder $x = 1$.'], ['Ausmultiplizieren und pq-Formel', false, 'Geht auch, ist aber länger.'], ['Durch $x$ teilen', false, 'Das ist nie ein guter erster Schritt: Lösungen können verloren gehen.']]}],
+  box:[{h:'Noch ein Weg: quadratische Ergänzung', ps:['Die pq-Formel ist eine Abkürzung für diesen Weg. Du ergänzt die linke Seite so, dass eine binomische Formel entsteht. Wenn deine Lehrkraft die quadratische Ergänzung verlangt, rechnest du so, hier für $x^2 - 6x + 5 = 0$:'],
+   steps:[['$x^2 - 6x = -5$', 'Die Zahl ohne $x$ kommt auf die rechte Seite.'], ['$x^2 - 6x + 9 = -5 + 9$', 'Das halbe $p$ quadrieren: $(#frac{-6}{2})^2 = 9$. Auf beiden Seiten addieren.'], ['$(x - 3)^2 = 4$', 'Links steht jetzt die 2. binomische Formel: $x^2 - 6x + 9 = (x - 3)^2$.'], ['$x - 3 = 2$ oder $x - 3 = -2$', 'Wurzel ziehen, beide Vorzeichen.'], ['$x_{1} = 5$, $x_{2} = 1$', 'Probe: $5^2 - 6 #cdot 5 + 5 = 0$.']],
+   after:'Steht rechts nach dem dritten Schritt eine negative Zahl, gibt es keine Nullstelle. Steht vor $x^2$ eine andere Zahl als 1, teilst du zuerst durch sie. Nebenbei bekommst du die Scheitelpunktform: $x^2 - 6x + 5 = (x - 3)^2 - 4$, also $S(3|-4)$.',
+   train:['qe', 'qe', 'qe'], trainLabel:'3 Aufgaben mit quadratischer Ergänzung', trainTitle:'Quadratische Ergänzung'}]},
  darst:{intro:'Das p-q-Labor zeigt dieselbe Funktion dreimal: als $x^2 + px + q$, in Scheitelpunktform und als Graph. Der Term unter der Wurzel der pq-Formel, $D = (#frac{p}{2})^2 - q$, steckt auch in der Scheitelpunktform.',
   make:['labPQ', {p:-2, q:-3}],
   qs:[{q:'Stell $p = -2$ und $q = -3$ ein. Wo schneidet der Graph die x-Achse, und was liefert die pq-Formel?', opts:[['Bei $x = -1$ und $x = 3$; die Formel gibt $1 #pm #sqrt{4}$, also dieselben Stellen.', true, '$-#frac{p}{2} = 1$ und $(#frac{p}{2})^2 - q = 1 + 3 = 4$.'], ['Bei $x = 1$ und $x = -3$', false, 'Probe: $f(1) = 1 - 2 - 3 = -4 #neq 0$.'], ['gar nicht', false, 'Der Scheitel liegt bei $(1|-4)$, also unter der x-Achse: Es gibt Schnittpunkte.']]},
@@ -8476,14 +8544,14 @@ const LW_TOPICS = [
       {q:'Woran erkennt man, dass Ausklammern hier schneller ist?', opts:[['Es gibt kein Glied ohne $x$: In jedem Glied steckt ein $x$.', true, 'Dann ist $x$ ein gemeinsamer Faktor.'], ['Die Zahl 6 ist gerade.', false, 'Das spielt keine Rolle.'], ['Die Parabel ist nach oben geöffnet.', false, 'Die Öffnung sagt nichts über den Rechenweg.']]},
       {q:'Welcher Weg funktioniert bei $x^2 - 6x + 5 = 0$?', opts:[['Die pq-Formel (oder Faktorisieren durch Probieren); $x$ ausklammern klappt nicht mehr.', true, 'Mit $p = -6$, $q = 5$: $x = 3 #pm 2$, also $x = 1$ oder $x = 5$.'], ['Nur Ausklammern', false, '$x(x - 6) + 5$ ist kein Produkt mehr.'], ['Beide gleich gut', false, 'Wegen der 5 ohne $x$ hat nicht jedes Glied den Faktor $x$.']]}]},
  ueben:[{t:'Grundaufgaben', ids:['a6']}, {t:'Test 1', ids:['a9']}],
- types:['rein', 'aus', 'prod', 'scheitel', 'pq', 'allg'], exit:{pick:3}},
+ types:['rein', 'aus', 'prod', 'scheitel', 'pq', 'allg'], exit:{types:['pq'], pick:3, pickExcl:['pq'], must:['pq']}},
 
 {id:'p3', ch:'qf', title:'Schnittpunkte zweier Graphen', book:'S. 14: Aufgaben 10 und 11', kind:'concept',
  goals:['Ich kann die Schnittpunkte zweier Graphen durch Gleichsetzen berechnen und die y-Koordinaten bestimmen.', 'Ich kann erklären, warum das Gleichsetzen auf die Nullstellen der Differenzfunktion $d(x) = f(x) - g(x)$ führt.', 'Ich kann Schnittpunkte in Sachaufgaben deuten, zum Beispiel beim Tarifvergleich.'],
  pre:['Nullstellen berechnen (Thema 2)', 'Gleichungen umformen'],
  check:[
-  {pre:true, q:'Was ist die Lösung von $x^2 - 4x + 3 = 0$?', opts:[['$x = 1$ oder $x = 3$', true, '$(x - 1)(x - 3) = 0$.'], ['$x = -1$ oder $x = -3$', false, 'Probe mit $x = -1$: $1 + 4 + 3 = 8 #neq 0$.'], ['keine Lösung', false, 'Probe mit $x = 1$: $1 - 4 + 3 = 0$.']]},
-  {pre:true, q:'Was bedeutet „Der Punkt $P(2|5)$ liegt auf dem Graphen von $f$“?', opts:[['$f(2) = 5$', true, 'Erst x, dann y, und $y = f(x)$.'], ['$f(5) = 2$', false, 'Erst kommt die x-Koordinate: $P(x|y)$ mit $y = f(x)$.'], ['$f(2) + 5 = 0$', false, 'Der Funktionswert an der Stelle 2 ist 5.']]},
+  {pre:true, topic:'p2', see:'qgl', what:'Quadratische Gleichungen lösen', q:'Was ist die Lösung von $x^2 - 4x + 3 = 0$?', opts:[['$x = 1$ oder $x = 3$', true, '$(x - 1)(x - 3) = 0$.'], ['$x = -1$ oder $x = -3$', false, 'Probe mit $x = -1$: $1 + 4 + 3 = 8 #neq 0$.'], ['keine Lösung', false, 'Probe mit $x = 1$: $1 - 4 + 3 = 0$.']]},
+  {pre:true, see:'punktprobe', what:'Liegt ein Punkt auf dem Graphen?', q:'Was bedeutet „Der Punkt $P(2|5)$ liegt auf dem Graphen von $f$“?', opts:[['$f(2) = 5$', true, 'Erst x, dann y, und $y = f(x)$.'], ['$f(5) = 2$', false, 'Erst kommt die x-Koordinate: $P(x|y)$ mit $y = f(x)$.'], ['$f(2) + 5 = 0$', false, 'Der Funktionswert an der Stelle 2 ist 5.']]},
   {q:'Was ist der erste Schritt, um die Schnittpunkte von $f(x) = x^2$ und $g(x) = 2x + 3$ zu finden?', opts:[['$x^2 = 2x + 3$ ansetzen', true, 'Im Schnittpunkt haben beide Funktionen denselben Wert.'], ['$f(0)$ und $g(0)$ ausrechnen', false, 'Das sind nur die Schnittpunkte mit der y-Achse.'], ['die Nullstellen von $f$ und $g$ einzeln berechnen', false, 'Im Schnittpunkt sind die Funktionswerte gleich, nicht null.']]},
   {q:'Die Gleichung $f(x) = g(x)$ hat die Lösungen $x = -1$ und $x = 3$. Was fehlt noch für die Schnittpunkte?', opts:[['die y-Koordinaten, z. B. $f(-1)$ und $f(3)$', true, 'Ein Punkt hat zwei Koordinaten.'], ['nichts', false, 'Ein Schnittpunkt hat auch eine y-Koordinate.'], ['die Nullstellen von $g$', false, 'Die braucht man hier nicht.']]}],
  example:{type:'schnitt'},
@@ -8495,7 +8563,7 @@ const LW_TOPICS = [
       ['gleich', 'Gleichgesetzt und gerechnet', 'Genau der Rechenweg: $x^2 = x + 2$ ⇔ $x^2 - x - 2 = 0$, dann pq-Formel.'],
       ['rate', 'Nicht weitergekommen', 'Kein Problem. Die Kernidee unten zeigt, wie man das Problem auf Nullstellen zurückführt.']]},
  klaer:{idee:'Im Schnittpunkt haben beide Funktionen an derselben Stelle denselben Wert: $f(x) = g(x)$. Bringst du alles auf eine Seite, entsteht $f(x) - g(x) = 0$. Die Schnittstellen sind also die Nullstellen der Differenzfunktion $d(x) = f(x) - g(x)$, und dafür kennst du die Verfahren aus Thema 2. Zum Schluss gehört die y-Koordinate dazu: in $f$ oder $g$ einsetzen.',
-  merk:['Ansatz: $f(x) = g(x)$', 'Alles auf eine Seite bringen, ordnen, lösen (pq-Formel, Ausklammern …)', 'y-Koordinate durch Einsetzen, Probe in der anderen Funktion', 'Keine Lösung: Die Graphen schneiden sich nicht. Genau eine Lösung: Sie berühren sich.'],
+  merk:['Ansatz: $f(x) = g(x)$', 'Alles auf eine Seite bringen, ordnen, lösen (pq-Formel, Ausklammern …)', 'y-Koordinate durch Einsetzen, Probe in der anderen Funktion', 'Keine Lösung: kein gemeinsamer Punkt. Genau eine Lösung: ein gemeinsamer Punkt. Bei einer quadratischen Gleichung ($D = 0$) berühren sich die Graphen; heben sich die $x^2$-Glieder weg (wie in Aufgabe 10d), bleibt eine lineare Gleichung, und die Graphen schneiden sich einmal.'],
   move:[['#werkzeug', 'Die eine Idee']],
   fehl:[['Nur die x-Werte angeben', 'Ein Schnittpunkt hat zwei Koordinaten: $S(x|f(x))$.'], ['$x^2 - 7 = 4x - 11$ ⇒ $x^2 + 4x - 18 = 0$', 'Jedes Glied wechselt mit umgekehrtem Vorzeichen die Seite: $-4x$ und $+11$, also $x^2 - 4x + 4 = 0$.'], ['Die Nullstellen von f und g einzeln berechnen', 'Nullstellen sind Schnittpunkte mit der x-Achse. Gesucht sind aber die Stellen mit $f(x) = g(x)$.']],
   verst:[{q:'$f(x) = x^2 + 1$ und $g(x) = 2x$ führen auf $x^2 - 2x + 1 = 0$. Was bedeutet das für die Graphen?', opts:[['Sie berühren sich in genau einem Punkt, bei $x = 1$.', true, '$(x - 1)^2 = 0$ hat nur die Lösung $x = 1$: Berührpunkt $(1|2)$.'], ['Sie schneiden sich zweimal.', false, '$(x - 1)^2 = 0$ hat nur eine Lösung.'], ['Sie schneiden sich nicht.', false, 'Es gibt eine Lösung, also einen gemeinsamen Punkt.']]}]},
@@ -8511,14 +8579,15 @@ const LW_TOPICS = [
       {q:'Bei welcher Aufgabe käme Ben mit seinem Weg nicht ans Ziel?', opts:[['Wenn die Schnittstellen keine glatten Zahlen sind, z. B. $x = 1 + #sqrt{3}$.', true, 'Dann trifft keine abgelesene Zahl genau; Aylins Rechnung liefert den exakten Wert.'], ['Wenn sich die Graphen zweimal schneiden.', false, 'Zwei glatte Schnittstellen kann Ben ablesen.'], ['Wenn die Gerade steigt.', false, 'Die Steigung spielt keine Rolle.']]},
       {q:'Was macht Bens Weg trotzdem wertvoll?', opts:[['Die Skizze zeigt vorab, wie viele Schnittpunkte zu erwarten sind, und dient als Kontrolle.', true, 'Eine Skizze vor dem Rechnen ist eine gute Gewohnheit.'], ['Er ist immer genauer.', false, 'Ablesen ist ungenauer als Rechnen.'], ['Man braucht keine Gleichungen mehr.', false, 'Für die Probe braucht Ben die Funktionsgleichungen.']]}]},
  ueben:[{t:'Grundaufgaben', ids:['a10']}, {t:'Anwenden', ids:['a11']}],
- types:['schnitt'], exit:{types:['schnitt', 'schnitt'], mc:[{q:'Beim Gleichsetzen zweier Funktionen entsteht $(x - 1)^2 = -4$. Wie viele Schnittpunkte haben die Graphen?', opts:[['keinen', true, 'Ein Quadrat ist nie negativ.'], ['zwei', false, 'Aus $(x - 1)^2 = -4$ lässt sich keine reelle Wurzel ziehen.'], ['einen', false, 'Einen gäbe es bei $(x - 1)^2 = 0$.']]}]}},
+ types:['schnitt'], exit:{types:['schnitt', 'schnitt'], mc:[{q:'Beim Gleichsetzen zweier Funktionen entsteht $(x - 1)^2 = -4$. Wie viele Schnittpunkte haben die Graphen?', opts:[['keinen', true, 'Ein Quadrat ist nie negativ.'], ['zwei', false, 'Aus $(x - 1)^2 = -4$ lässt sich keine reelle Wurzel ziehen.'], ['einen', false, 'Einen gäbe es bei $(x - 1)^2 = 0$.']]},
+  {q:'Beim Gleichsetzen von Parabel und Gerade entsteht $x^2 - 6x + 9 = 0$. Was bedeutet das?', opts:[['Die Gerade berührt die Parabel in genau einem Punkt.', true, '$x^2 - 6x + 9 = (x - 3)^2 = 0$ hat nur die Lösung $x = 3$.'], ['Die Graphen schneiden sich in zwei Punkten.', false, 'Mit $D = 9 - 9 = 0$ gibt es nur eine Lösung.'], ['Die Graphen haben keinen gemeinsamen Punkt.', false, '$x = 3$ ist eine Lösung: Dort treffen sie sich.']]}]}},
 
 {id:'p4', ch:'qf', title:'Parabeln aufstellen und anwenden', book:'S. 15: Aufgaben 12, 14 und 15', kind:'concept',
  goals:['Ich kann eine Parabelgleichung aus dem Scheitel und einem weiteren Punkt aufstellen.', 'Ich kann Sachsituationen wie einen Wurf oder einen Brückenbogen mit einer Parabel beschreiben und Fragen dazu mit der Gleichung beantworten.', 'Ich prüfe Ergebnisse im Sachzusammenhang, zum Beispiel welche Nullstelle sinnvoll ist.'],
  pre:['Scheitelpunktform (Thema 1)', 'Nullstellen (Thema 2)'],
  check:[
-  {pre:true, q:'Welche Gleichung hat eine Parabel mit Scheitel $S(2|5)$?', opts:[['$f(x) = a(x - 2)^2 + 5$', true, 'Klammer null bei $x = 2$, Funktionswert dort 5.'], ['$f(x) = a(x + 2)^2 + 5$', false, 'Diese Klammer wird bei $x = -2$ null.'], ['$f(x) = a(x - 5)^2 + 2$', false, 'x- und y-Koordinate sind vertauscht.']]},
-  {pre:true, q:'Löse $9a + 2 = -1$.', opts:[['$a = -#frac{1}{3}$', true, '$9a = -3$, also $a = -#frac{1}{3}$.'], ['$a = -3$', false, 'Probe: $9 #cdot (-3) + 2 = -25$.'], ['$a = #frac{1}{3}$', false, 'Probe: $9 #cdot #frac{1}{3} + 2 = 5$.']]},
+  {pre:true, topic:'p1', see:'spf', what:'Scheitelpunktform', q:'Welche Gleichung hat eine Parabel mit Scheitel $S(2|5)$?', opts:[['$f(x) = a(x - 2)^2 + 5$', true, 'Klammer null bei $x = 2$, Funktionswert dort 5.'], ['$f(x) = a(x + 2)^2 + 5$', false, 'Diese Klammer wird bei $x = -2$ null.'], ['$f(x) = a(x - 5)^2 + 2$', false, 'x- und y-Koordinate sind vertauscht.']]},
+  {pre:true, see:'lingl', what:'Lineare Gleichungen lösen', q:'Löse $9a + 2 = -1$.', opts:[['$a = -#frac{1}{3}$', true, '$9a = -3$, also $a = -#frac{1}{3}$.'], ['$a = -3$', false, 'Probe: $9 #cdot (-3) + 2 = -25$.'], ['$a = #frac{1}{3}$', false, 'Probe: $9 #cdot #frac{1}{3} + 2 = 5$.']]},
   {q:'Eine Parabel hat den Scheitel $S(0|4)$ und geht durch $P(2|0)$. Wie groß ist $a$?', opts:[['$a = -1$', true, '$a #cdot 2^2 + 4 = 0$, also $4a = -4$.'], ['$a = 1$', false, 'Probe: $1 #cdot 2^2 + 4 = 8 #neq 0$.'], ['$a = -2$', false, 'Probe: $-2 #cdot 2^2 + 4 = -4 #neq 0$.']]},
   {q:'Ein Ball fliegt auf der Bahn $h(x) = -0,2(x - 5)^2 + 5$. Die Rechnung $h(x) = 0$ liefert $x = 0$ und $x = 10$. Was bedeuten die beiden Werte?', opts:[['Abwurf bei 0 m, Landung bei 10 m', true, 'An beiden Stellen ist die Höhe 0.'], ['Der Ball ist zweimal 10 m hoch.', false, '$h(x) = 0$ fragt nach der Höhe 0.'], ['Nur $x = 10$ stimmt, $x = 0$ ist ein Rechenfehler.', false, 'Bei $x = 0$ ist die Höhe ebenfalls 0: Dort beginnt der Flug.']]}],
  example:{type:'sp'},
@@ -8546,14 +8615,14 @@ const LW_TOPICS = [
       {q:'Warum ist Emmas Weg kürzer?', opts:[['Der Scheitel enthält schon zwei Angaben ($d$ und $e$); es bleibt nur eine Unbekannte.', true, 'Eine Gleichung für eine Unbekannte statt drei für drei.'], ['Weil Emma rundet.', false, 'Emma rechnet exakt.'], ['Weil Noah falsch rechnet.', false, 'Noah rechnet richtig, nur aufwendiger.']]},
       {q:'Wann braucht man Noahs Weg?', opts:[['Wenn der Scheitel nicht bekannt ist, aber drei Punkte.', true, 'Dann gibt es drei Unbekannte $a$, $b$, $c$ und drei Gleichungen.'], ['Nie.', false, 'Ohne Scheitel geht Emmas Ansatz nicht.'], ['Nur bei nach unten geöffneten Parabeln.', false, 'Die Öffnung spielt keine Rolle.']]}]},
  ueben:[{t:'Grundaufgaben', ids:['a12']}, {t:'Anwenden und modellieren', ids:['a14', 'a15']}],
- types:['sp', 'flanke', 'eintritt', 'xp', 'liga', 'anstossen'], exit:{types:['sp'], pickFrom:['flanke', 'eintritt', 'xp']}},
+ types:['sp', 'flanke', 'eintritt', 'xp', 'liga', 'anstossen'], exit:{types:['sp'], pickFrom:['flanke', 'eintritt', 'xp'], pickFromN:2, mc:[{q:'Ein Ball fliegt auf der Bahn $h(x) = -0,1(x - 5)^2 + 3$ (x und h in Metern). Wie hoch fliegt er höchstens?', opts:[['3 m', true, 'Der Scheitel $S(5|3)$ ist der höchste Punkt, weil die Parabel nach unten geöffnet ist.'], ['5 m', false, '5 ist die x-Koordinate des Scheitels: In 5 m Entfernung ist der Ball am höchsten.'], ['0,1 m', false, '$-0,1$ ist der Streckfaktor. Er sagt, wie weit die Parabel geöffnet ist.']]}]}},
 
 {id:'p5', ch:'qf', title:'Anzahl der Nullstellen und Parameter', book:'S. 15: Aufgaben 16 und 17', kind:'concept',
  goals:['Ich kann mit dem Term unter der Wurzel der pq-Formel entscheiden, ob es zwei, eine oder keine Nullstelle gibt.', 'Ich kann Werte eines Parameters bestimmen, für die es genau eine oder keine Nullstelle gibt.', 'Ich kann Aussagen über Parabeln mit Parametern prüfen und mit Gegenbeispielen widerlegen.'],
  pre:['pq-Formel (Thema 2)', 'Ungleichungen wie $16 - t &lt; 0$ lösen'],
  check:[
-  {pre:true, q:'Welche Werte haben $p$ und $q$ in $x^2 - 8x + 7 = 0$?', opts:[['$p = -8$, $q = 7$', true, 'Das Vorzeichen gehört dazu.'], ['$p = 8$, $q = 7$', false, 'Das Vorzeichen gehört zu $p$: $-8x$.'], ['$p = -8$, $q = -7$', false, '$+7$, also $q = 7$.']]},
-  {pre:true, q:'Für welche $t$ gilt $16 - t &lt; 0$?', opts:[['$t > 16$', true, 'Probe mit $t = 20$: $16 - 20 = -4 &lt; 0$.'], ['$t &lt; 16$', false, 'Probe mit $t = 0$: $16 - 0 = 16 > 0$.'], ['$t &lt; -16$', false, 'Probe mit $t = -20$: $16 + 20 = 36 > 0$.']]},
+  {pre:true, topic:'p2', see:'pq', what:'p und q ablesen, pq-Formel', q:'Welche Werte haben $p$ und $q$ in $x^2 - 8x + 7 = 0$?', opts:[['$p = -8$, $q = 7$', true, 'Das Vorzeichen gehört dazu.'], ['$p = 8$, $q = 7$', false, 'Das Vorzeichen gehört zu $p$: $-8x$.'], ['$p = -8$, $q = -7$', false, '$+7$, also $q = 7$.']]},
+  {pre:true, see:'ungl', what:'Ungleichungen lösen', q:'Für welche $t$ gilt $16 - t &lt; 0$?', opts:[['$t > 16$', true, 'Probe mit $t = 20$: $16 - 20 = -4 &lt; 0$.'], ['$t &lt; 16$', false, 'Probe mit $t = 0$: $16 - 0 = 16 > 0$.'], ['$t &lt; -16$', false, 'Probe mit $t = -20$: $16 + 20 = 36 > 0$.']]},
   {q:'Wie viele Nullstellen hat $f(x) = x^2 - 6x + 9$?', opts:[['genau eine', true, '$(#frac{p}{2})^2 - q = 9 - 9 = 0$; es ist $(x - 3)^2$.'], ['zwei', false, '$(#frac{p}{2})^2 - q = 9 - 9 = 0$.'], ['keine', false, 'Bei $x = 3$ ist $f(3) = 0$.']]},
   {q:'Für welches $t$ hat $f(x) = x^2 + 4x + t$ genau eine Nullstelle?', opts:[['$t = 4$', true, '$(#frac{p}{2})^2 - q = 4 - t = 0$.'], ['$t = -4$', false, 'Dann ist $4 - (-4) = 8 > 0$: zwei Nullstellen.'], ['$t = 2$', false, 'Dann ist $4 - 2 = 2 > 0$.']]}],
  example:{type:'param', qs:[{q:'Warum entscheidet gerade der Term unter der Wurzel über die Anzahl der Nullstellen?', opts:[['Ist er positiv, ergibt $#pm$ zwei verschiedene Werte; ist er null, fällt $#pm 0$ weg; ist er negativ, gibt es keine reelle Wurzel.', true, 'Genau das unterscheidet die drei Fälle.'], ['Weil $p$ immer negativ ist.', false, '$p$ kann jedes Vorzeichen haben.'], ['Weil die Wurzel immer 2 ergibt.', false, 'Die Wurzel hängt von $p$ und $q$ ab.']]}]},
@@ -8578,16 +8647,17 @@ const LW_TOPICS = [
   a:{name:'Lea', how:'mit der Diskriminante', lines:['$p = 10$, $q = t$', '$D = 5^2 - t = 25 - t$', 'Genau eine Nullstelle: $25 - t = 0$, also $t = 25$']},
   b:{name:'Paul', how:'mit der Scheitelpunktform', lines:['$x^2 + 10x + t = (x + 5)^2 - 25 + t$', 'Scheitel $S(-5|t - 25)$', 'Genau eine Nullstelle, wenn der Scheitel auf der x-Achse liegt: $t - 25 = 0$, also $t = 25$']},
   qs:[{q:'Was ist bei beiden Wegen dieselbe Größe?', opts:[['$25 - t$ bei Lea und $t - 25$ bei Paul: Die Scheitelhöhe ist $-D$.', true, 'Beide Wege beschreiben dieselbe Sache.'], ['Es gibt keine Gemeinsamkeit.', false, 'Vergleiche $25 - t$ und $t - 25$.'], ['Beide rechnen mit $t = 10$.', false, '10 ist $p$, nicht $t$.']]},
-      {q:'Wofür ist Pauls Sicht besonders hilfreich?', opts:[['Man sieht am Graphen, warum es keine Nullstelle gibt, wenn der Scheitel über der x-Achse liegt und die Parabel nach oben geöffnet ist.', true, 'Die Scheitelpunktform verbindet Rechnung und Bild.'], ['Sie ist immer kürzer.', false, 'Das Umformen kostet etwas Zeit.'], ['Sie funktioniert ohne Rechnen.', false, 'Auch Paul formt um.']]},
+      {q:'Wofür ist Pauls Sicht besonders hilfreich?', opts:[['Am Bild sieht man, wann es keine Nullstelle gibt: wenn der Scheitel über der x-Achse liegt.', true, 'Paul nutzt die quadratische Ergänzung. Die Scheitelpunktform verbindet Rechnung und Bild.'], ['Sie ist immer kürzer.', false, 'Das Umformen kostet etwas Zeit.'], ['Sie funktioniert ohne Rechnen.', false, 'Auch Paul formt um.']]},
       {q:'Für welche $t$ hat $f$ keine Nullstelle?', opts:[['$t > 25$', true, 'Dann liegt der Scheitel über der x-Achse.'], ['$t &lt; 25$', false, 'Dann liegt der Scheitel unter der x-Achse: zwei Nullstellen.'], ['$t = 0$', false, 'Bei $t = 0$ ist $f(x) = x(x + 10)$ mit zwei Nullstellen.']]}]},
  ueben:[{t:'Grundaufgaben', ids:['a16']}, {t:'Argumentieren', ids:['a17']}],
- types:['param'], exit:{types:['param', 'param'], mc:[{q:'„Wenn $q > 0$ ist, hat $x^2 + px + q$ keine Nullstelle.“ Stimmt das?', opts:[['Es kommt darauf an: Für $p = 0$, $q = 1$ gibt es keine, für $p = 5$, $q = 1$ aber zwei Nullstellen.', true, 'Bei $p = 5$, $q = 1$ ist $D = 6,25 - 1 > 0$.'], ['Ja, immer.', false, 'Gegenbeispiel: $x^2 + 5x + 1$ mit $D = 5,25 > 0$.'], ['Nein, nie.', false, 'Für $x^2 + 1$ stimmt die Aussage.']]}]}},
+ types:['param'], exit:{types:['param', 'param'], mc:[{q:'„Wenn $q > 0$ ist, hat $x^2 + px + q$ keine Nullstelle.“ Stimmt das?', opts:[['Es kommt darauf an: Für $p = 0$, $q = 1$ gibt es keine, für $p = 5$, $q = 1$ aber zwei Nullstellen.', true, 'Bei $p = 5$, $q = 1$ ist $D = 6,25 - 1 > 0$.'], ['Ja, immer.', false, 'Gegenbeispiel: $x^2 + 5x + 1$ mit $D = 5,25 > 0$.'], ['Nein, nie.', false, 'Für $x^2 + 1$ stimmt die Aussage.']]},
+  {q:'Für welches $t$ hat $x^2 + 6x + t = 0$ genau eine Lösung?', opts:[['$t = 9$', true, '$D = 3^2 - t = 9 - t$ ist null für $t = 9$. Dann ist $x^2 + 6x + 9 = (x + 3)^2$.'], ['$t = 3$', false, 'Dann ist $D = 9 - 3 = 6 > 0$: zwei Lösungen.'], ['$t = 36$', false, 'Dann ist $D = 9 - 36 &lt; 0$: keine Lösung. Quadriert wird $#frac{p}{2} = 3$, nicht $p$.']]}]}},
 
 {id:'p6', ch:'qf', title:'Grundwissen: Zehnerpotenzen', book:'S. 15: Aufgabe 18', kind:'proc', light:true, steps:['ziel', 'einstieg', 'klaer', 'ueben', 'check'],
  goals:['Ich kann Zahlen in der Schreibweise mit Zehnerpotenzen ohne Zehnerpotenz schreiben.'],
  pre:['Stellenwerte im Dezimalsystem'],
  check:[
-  {pre:true, q:'Was ist $10^3$?', opts:[['$1000$', true, '$10 #cdot 10 #cdot 10$.'], ['$30$', false, 'Potenzieren ist mehrfaches Multiplizieren, nicht Multiplizieren mit 3.'], ['$100$', false, 'Das ist $10^2$.']]},
+  {pre:true, see:'pot10', what:'Potenzen: mehrfach multiplizieren', q:'Was ist $10^3$?', opts:[['$1000$', true, '$10 #cdot 10 #cdot 10$.'], ['$30$', false, 'Potenzieren ist mehrfaches Multiplizieren, nicht Multiplizieren mit 3.'], ['$100$', false, 'Das ist $10^2$.']]},
   {q:'Was ist $2,5 #cdot 10^{2}$?', opts:[['$250$', true, 'Komma um 2 Stellen nach rechts.'], ['$25$', false, 'Das wäre $2,5 #cdot 10^{1}$.'], ['$2500$', false, 'Das wäre $2,5 #cdot 10^{3}$.']]},
   {q:'Was ist $4 #cdot 10^{-3}$?', opts:[['$0,004$', true, '$10^{-3} = 0,001$, also $4 #cdot 0,001 = 0,004$.'], ['$0,0004$', false, 'Eine Stelle zu weit: $10^{-3} = 0,001$.'], ['$-4000$', false, 'Ein negativer Exponent macht die Zahl nicht negativ, sondern klein.']]}],
  example:{type:'pot', task:'Schreib $3,07 #cdot 10^{-4}$ ohne Zehnerpotenz.',
@@ -8599,28 +8669,29 @@ const LW_TOPICS = [
   fehl:[['Bei $10^{-4}$ das Komma nach rechts verschieben', '$10^{-4}$ ist kleiner als 1: Die Zahl wird kleiner, das Komma wandert nach links.'], ['$3,07 #cdot 10^{-4} = 0,0000307$', 'Es zählt die Zahl der Stellen, um die das Komma wandert: 4 Stellen ergeben $0,000307$.']],
   verst:[{q:'Was ist $9,87 #cdot 10^{-2}$?', opts:[['$0,0987$', true, 'Komma 2 Stellen nach links.'], ['$987$', false, 'Das wäre $9,87 #cdot 10^{2}$.'], ['$0,00987$', false, 'Das sind 3 Stellen.']]}]},
  ueben:[{t:'Aufgaben', ids:['g18']}],
- types:['pot'], exit:{types:['pot', 'pot', 'pot']}},
+ types:['pot'], exit:{types:['pot', 'pot', 'pot', 'pot']}},
 
 /* ---------------- Vektoren ---------------- */
 {id:'v0', ch:'vek', title:'Vorwissen: Pythagoras und Co.', book:'S. 139: Check-in', kind:'proc', light:true, steps:['ziel', 'ueben', 'check'],
  goals:['Ich kann mit dem Satz des Pythagoras Längen berechnen, auch die Raumdiagonale eines Würfels.', 'Ich kann den Abstand zweier Punkte in der Ebene berechnen.', 'Ich kenne die Eigenschaften der Vierecke und kann im rechtwinkligen Dreieck mit sin, cos und tan rechnen.'],
  pre:[],
  check:[
-  {q:'Ein rechtwinkliges Dreieck hat die Katheten 3 cm und 4 cm. Wie lang ist die Hypotenuse?', opts:[['5 cm', true, '$#sqrt{3^2 + 4^2} = #sqrt{25} = 5$.'], ['7 cm', false, 'Nicht addieren: $#sqrt{3^2 + 4^2} = 5$.'], ['25 cm', false, 'Die Wurzel fehlt: $#sqrt{25} = 5$.']]},
-  {q:'Wie groß ist der Abstand von $A(1|1)$ und $B(4|5)$?', opts:[['5', true, '$#sqrt{3^2 + 4^2} = 5$.'], ['7', false, 'Die Differenzen 3 und 4 werden nicht addiert, sondern über Pythagoras verbunden.'], ['$#sqrt{7}$', false, 'Erst quadrieren, dann addieren: $9 + 16 = 25$.']]},
-  {q:'Welche Aussage stimmt?', opts:[['Jedes Quadrat ist ein Rechteck.', true, 'Ein Quadrat hat vier rechte Winkel.'], ['Jedes Rechteck ist ein Quadrat.', false, 'Ein Rechteck muss keine gleich langen Seiten haben.'], ['Ein Parallelogramm hat immer vier rechte Winkel.', false, 'Nur besondere Parallelogramme (Rechtecke) haben rechte Winkel.']]},
-  {q:'Im rechtwinkligen Dreieck ist der Sinus eines Winkels gleich …', opts:[['Gegenkathete durch Hypotenuse', true, 'Kurz: sin = G/H.'], ['Ankathete durch Hypotenuse', false, 'Das ist der Kosinus.'], ['Gegenkathete durch Ankathete', false, 'Das ist der Tangens.']]}],
+  {see:'pyth', what:'Satz des Pythagoras', q:'Ein rechtwinkliges Dreieck hat die Katheten 3 cm und 4 cm. Wie lang ist die Hypotenuse?', opts:[['5 cm', true, '$#sqrt{3^2 + 4^2} = #sqrt{25} = 5$.'], ['7 cm', false, 'Nicht addieren: $#sqrt{3^2 + 4^2} = 5$.'], ['25 cm', false, 'Die Wurzel fehlt: $#sqrt{25} = 5$.']]},
+  {see:'abst2', what:'Abstand zweier Punkte in der Ebene', q:'Wie groß ist der Abstand von $A(1|1)$ und $B(4|5)$?', opts:[['5', true, '$#sqrt{3^2 + 4^2} = 5$.'], ['7', false, 'Die Differenzen 3 und 4 werden nicht addiert, sondern über Pythagoras verbunden.'], ['$#sqrt{7}$', false, 'Erst quadrieren, dann addieren: $9 + 16 = 25$.']]},
+  {see:'viereck', what:'Besondere Vierecke', q:'Welche Aussage stimmt?', opts:[['Jedes Quadrat ist ein Rechteck.', true, 'Ein Quadrat hat vier rechte Winkel.'], ['Jedes Rechteck ist ein Quadrat.', false, 'Ein Rechteck muss keine gleich langen Seiten haben.'], ['Ein Parallelogramm hat immer vier rechte Winkel.', false, 'Nur besondere Parallelogramme (Rechtecke) haben rechte Winkel.']]},
+  {see:'trig', what:'Sinus, Kosinus, Tangens', q:'Im rechtwinkligen Dreieck ist der Sinus eines Winkels gleich …', opts:[['Gegenkathete durch Hypotenuse', true, 'Kurz: sin = G/H.'], ['Ankathete durch Hypotenuse', false, 'Das ist der Kosinus.'], ['Gegenkathete durch Ankathete', false, 'Das ist der Tangens.']]}],
  ueben:[{t:'Check-in-Aufgaben', ids:['vci']}],
  types:[], exit:{mc:[
   {q:'Ein Würfel hat die Kantenlänge 2. Wie lang ist seine Raumdiagonale?', opts:[['$#sqrt{12} #approx 3,46$', true, '$#sqrt{2^2 + 2^2 + 2^2} = #sqrt{12}$.'], ['$#sqrt{8} #approx 2,83$', false, 'Das ist die Flächendiagonale.'], ['6', false, 'Die Kanten werden nicht addiert.']]},
   {q:'Wie groß ist der Abstand von $A(-2|2)$ und $B(3|-1)$?', opts:[['$#sqrt{34} #approx 5,83$', true, 'Differenzen 5 und $-3$: $25 + 9 = 34$.'], ['$#sqrt{10}$', false, 'Die Differenzen sind 5 und $-3$, nicht 1 und 3.'], ['8', false, 'Erst quadrieren, dann addieren, dann die Wurzel.']]},
-  {q:'Hypotenuse 10 cm, Winkel α = 30°. Wie lang ist die Gegenkathete von α?', opts:[['5 cm', true, 'sin(30°) = 0,5, also $10 #cdot 0,5 = 5$.'], ['8,66 cm', false, 'Das ist die Ankathete: $10 #cdot$ cos(30°).'], ['20 cm', false, 'Eine Kathete ist immer kürzer als die Hypotenuse.']]}]}},
+  {q:'Hypotenuse 10 cm, Winkel α = 30°. Wie lang ist die Gegenkathete von α?', opts:[['5 cm', true, 'sin(30°) = 0,5, also $10 #cdot 0,5 = 5$.'], ['8,66 cm', false, 'Das ist die Ankathete: $10 #cdot$ cos(30°).'], ['20 cm', false, 'Eine Kathete ist immer kürzer als die Hypotenuse.']]},
+  {q:'Welches Viereck hat vier gleich lange Seiten, muss aber keine rechten Winkel haben?', opts:[['Raute', true, 'Bei der Raute sind alle vier Seiten gleich lang, die Winkel können beliebig sein.'], ['Rechteck', false, 'Beim Rechteck sind nur die gegenüberliegenden Seiten gleich lang.'], ['Trapez', false, 'Beim Trapez sind nur zwei Seiten parallel; gleich lang müssen die Seiten nicht sein.']]}]}},
 
 {id:'v1', ch:'vek', title:'Punkte und Figuren im Raum', book:'S. 140–146: Erkundungen und Lerneinheit 1', kind:'concept',
  goals:['Ich kann Punkte im räumlichen Koordinatensystem ablesen und ins Schrägbild einzeichnen.', 'Ich erkenne an den Koordinaten, ob ein Punkt auf einer Achse oder in einer Koordinatenebene liegt.', 'Ich kann den Abstand zweier Punkte im Raum berechnen.'],
  pre:['Koordinaten in der Ebene', 'Satz des Pythagoras', 'Abstand in der Ebene (Vorwissen)'],
  check:[
-  {pre:true, q:'Wie groß ist der Abstand von $A(0|0)$ und $B(3|4)$ in der Ebene?', opts:[['5', true, '$#sqrt{9 + 16} = 5$.'], ['7', false, 'Nicht addieren, sondern Pythagoras.'], ['12', false, 'Nicht multiplizieren, sondern Pythagoras.']]},
+  {pre:true, topic:'v0', see:'pyth', what:'Abstand in der Ebene mit Pythagoras', q:'Wie groß ist der Abstand von $A(0|0)$ und $B(3|4)$ in der Ebene?', opts:[['5', true, '$#sqrt{9 + 16} = 5$.'], ['7', false, 'Nicht addieren, sondern Pythagoras.'], ['12', false, 'Nicht multiplizieren, sondern Pythagoras.']]},
   {q:'Wo liegt der Punkt $P(0|3|0)$?', opts:[['auf der $x_{2}$-Achse', true, 'Zwei Koordinaten sind 0.'], ['in der $x_{1}x_{3}$-Ebene', false, 'In der $x_{1}x_{3}$-Ebene wäre die zweite Koordinate 0.'], ['auf der $x_{3}$-Achse', false, 'Auf der $x_{3}$-Achse wäre nur die dritte Koordinate von 0 verschieden.']]},
   {q:'Wie zeichnest du im Schrägbild den Punkt $Q(2|0|0)$?', opts:[['auf der schräg nach vorn zeigenden Achse, zwei Kästchendiagonalen vom Ursprung', true, 'Die $x_{1}$-Achse zeigt schräg nach vorn.'], ['2 Einheiten nach rechts', false, 'Nach rechts zeigt die $x_{2}$-Achse.'], ['2 Einheiten nach oben', false, 'Nach oben zeigt die $x_{3}$-Achse.']]},
   {q:'Wie groß ist der Abstand von $A(1|2|3)$ und $B(3|2|4)$?', opts:[['$#sqrt{5}$', true, '$#sqrt{2^2 + 0^2 + 1^2} = #sqrt{5}$.'], ['3', false, 'Die Differenzen werden quadriert, nicht addiert.'], ['$#sqrt{3}$', false, 'Erst die Differenzen quadrieren: $4 + 0 + 1 = 5$.']]}],
@@ -8647,13 +8718,13 @@ const LW_TOPICS = [
       {q:'Was zeigt Jans Weg, was die Formel versteckt?', opts:[['Warum die Formel stimmt: Sie ist zweimal der Satz des Pythagoras.', true, 'Wer das weiß, kann die Formel jederzeit neu herleiten.'], ['Dass man runden muss.', false, 'Hier geht alles glatt auf.'], ['Dass Abstände immer ganzzahlig sind.', false, 'Meist sind sie das nicht.']]},
       {q:'Welcher Weg ist bei $A(2|-1|5)$ und $B(-1|3|5)$ besonders schnell?', opts:[['Die Formel: Die dritte Differenz ist 0, es bleibt $#sqrt{9 + 16} = 5$.', true, 'Die Punkte liegen auf gleicher Höhe.'], ['Nur Jans Weg funktioniert.', false, 'Beide funktionieren.'], ['Keiner, weil die Punkte auf gleicher Höhe liegen.', false, 'Gerade dann ist es besonders einfach.']]}]},
  ueben:[{t:'Grundaufgaben', sec:'v1', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v1', from:9, to:99}],
- types:['vPlot', 'vLage', 'vAbstand'], exit:{types:['vLage', 'vAbstand'], mc:[{q:'Welcher Punkt liegt in der $x_{2}x_{3}$-Ebene, aber auf keiner Achse?', opts:[['$(0|5|-1)$', true, 'Nur die erste Koordinate ist 0.'], ['$(5|0|-1)$', false, 'Dieser liegt in der $x_{1}x_{3}$-Ebene.'], ['$(-1|5|0)$', false, 'Dieser liegt in der $x_{1}x_{2}$-Ebene.']]}]}},
+ types:['vPlot', 'vLage', 'vAbstand'], exit:{types:['vLage', 'vAbstand', 'vPlot'], mc:[{q:'Welcher Punkt liegt in der $x_{2}x_{3}$-Ebene, aber auf keiner Achse?', opts:[['$(0|5|-1)$', true, 'Nur die erste Koordinate ist 0.'], ['$(5|0|-1)$', false, 'Dieser liegt in der $x_{1}x_{3}$-Ebene.'], ['$(-1|5|0)$', false, 'Dieser liegt in der $x_{1}x_{2}$-Ebene.']]}]}},
 
 {id:'v2', ch:'vek', title:'Vektoren', book:'S. 147–150: Lerneinheit 2', kind:'concept',
  goals:['Ich kann einen Vektor als Verschiebung deuten und zu zwei Punkten den Verbindungsvektor $#vec{AB}$ berechnen.', 'Ich kann Ortsvektor, Gegenvektor und Nullvektor erklären.', 'Ich kann den Betrag (die Länge) eines Vektors berechnen und Vierecke mit Vektoren untersuchen.'],
  pre:['Punkte im Raum (Thema 1)', 'Abstand zweier Punkte'],
  check:[
-  {pre:true, q:'Wie kommt man vom Ursprung zu $P(2|-1|3)$?', opts:[['2 nach vorn, 1 nach links, 3 nach oben', true, '$x_{1}$ vorn, $x_{2}$ rechts (−1: links), $x_{3}$ oben.'], ['2 nach rechts, 1 nach unten, 3 nach vorn', false, 'Die Reihenfolge ist vorn, rechts, oben.'], ['2 nach oben, 1 nach links, 3 nach vorn', false, 'Die erste Koordinate gehört zur $x_{1}$-Achse (vorn).']]},
+  {pre:true, topic:'v1', see:'ks3', what:'Punkte im räumlichen Koordinatensystem', q:'Wie kommt man vom Ursprung zu $P(2|-1|3)$?', opts:[['2 nach vorn, 1 nach links, 3 nach oben', true, '$x_{1}$ vorn, $x_{2}$ rechts (−1: links), $x_{3}$ oben.'], ['2 nach rechts, 1 nach unten, 3 nach vorn', false, 'Die Reihenfolge ist vorn, rechts, oben.'], ['2 nach oben, 1 nach links, 3 nach vorn', false, 'Die erste Koordinate gehört zur $x_{1}$-Achse (vorn).']]},
   {q:'Welcher Vektor führt von $A(1|2|3)$ nach $B(4|2|1)$?', opts:[['$#col{3;0;-2}$', true, 'Spitze minus Fuß: $B - A$.'], ['$#col{-3;0;2}$', false, 'Das ist $A - B$, also der Weg von B nach A.'], ['$#col{5;4;4}$', false, 'Addiert statt subtrahiert.']]},
   {q:'Was ist der Gegenvektor zu $#col{2;-1;0}$?', opts:[['$#col{-2;1;0}$', true, 'Alle Vorzeichen wechseln.'], ['$#col{2;1;0}$', false, 'Alle Koordinaten wechseln das Vorzeichen, nicht nur eine.'], ['$#col{0;-1;2}$', false, 'Vertauschen ergibt keinen Gegenvektor.']]},
   {q:'Wie lang ist $#vec{v} = #col{2;3;6}$?', opts:[['7', true, '$#sqrt{4 + 9 + 36} = #sqrt{49}$.'], ['11', false, 'Die Koordinaten werden quadriert, nicht addiert.'], ['49', false, 'Die Wurzel fehlt.']]}],
@@ -8675,17 +8746,17 @@ const LW_TOPICS = [
  vergl:{task:'Ist ABCD mit $A(1|0|2)$, $B(4|1|2)$, $C(5|3|1)$ und $D(2|2|1)$ ein Parallelogramm?',
   a:{name:'Sara', how:'vergleicht Vektoren', lines:['$#vec{AB} = #col{3;1;0}$, $#vec{DC} = #col{3;1;0}$', '$#vec{AB} = #vec{DC}$: AB und DC sind parallel, gleich lang und gleich gerichtet.', 'Also ist ABCD ein Parallelogramm.']},
   b:{name:'Finn', how:'vergleicht Seitenlängen', lines:['$|AB| = #sqrt{10}$, $|DC| = #sqrt{10}$, $|AD| = #sqrt{6}$, $|BC| = #sqrt{6}$', 'Gegenüberliegende Seiten sind gleich lang.', 'Also ist ABCD ein Parallelogramm.']},
-  qs:[{q:'Wessen Begründung reicht im Raum aus?', opts:[['Saras: Gleiche Vektoren heißen parallel, gleich lang und gleich gerichtet.', true, 'Finns Kriterium reicht im Raum nicht: Vier Kanten eines Tetraeders bilden zum Beispiel ein Viereck mit gleich langen Seiten, das gar nicht eben ist.'], ['Finns: Gleich lange Gegenseiten reichen immer.', false, 'In der Ebene ja, im Raum nicht: Das Viereck muss nicht einmal eben sein.'], ['Beide gleich gut.', false, 'Nur Saras Argument schließt verdrehte Vierecke aus.']]},
-      {q:'Was müsste Finn zusätzlich zeigen?', opts:[['Dass die Gegenseiten auch parallel und gleich gerichtet sind; genau das leistet $#vec{AB} = #vec{DC}$.', true, 'Die Vektorgleichung enthält alles auf einmal.'], ['Dass alle Seiten gleich lang sind.', false, 'Auch das macht im Raum noch kein ebenes Viereck.'], ['Nichts.', false, 'Seine Begründung hat im Raum eine Lücke.']]},
+  qs:[{q:'Wessen Begründung reicht im Raum aus?', opts:[['Saras: Gleiche Vektoren heißen parallel, gleich lang und gleich gerichtet.', true, 'Gegenbeispiel zu Finn: Vier Kanten eines Tetraeders sind gleich lang, liegen aber nicht in einer Ebene.'], ['Finns: Gleich lange Gegenseiten reichen immer.', false, 'In der Ebene ja, im Raum nicht: Das Viereck muss nicht einmal eben sein.'], ['Beide gleich gut.', false, 'Nur Saras Argument schließt verdrehte Vierecke aus.']]},
+      {q:'Was müsste Finn zusätzlich zeigen?', opts:[['Dass die Gegenseiten auch parallel und gleich gerichtet sind, also $#vec{AB} = #vec{DC}$.', true, 'Die Vektorgleichung enthält alles auf einmal.'], ['Dass alle Seiten gleich lang sind.', false, 'Auch das macht im Raum noch kein ebenes Viereck.'], ['Nichts.', false, 'Seine Begründung hat im Raum eine Lücke.']]},
       {q:'Wozu ist Finns Rechnung trotzdem nützlich?', opts:[['Sie zeigt zusätzlich, dass ABCD keine Raute ist, weil $#sqrt{10} #neq #sqrt{6}$.', true, 'Längen beantworten andere Fragen als Richtungen.'], ['Sie ist nutzlos.', false, 'Sie liefert die Seitenlängen.'], ['Sie ersetzt die Vektorrechnung.', false, 'Das tut sie im Raum nicht.']]}]},
  ueben:[{t:'Grundaufgaben', sec:'v2', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v2', from:9, to:99}],
- types:['vAB', 'vBetrag', 'vEnd', 'vPara'], exit:{types:['vAB', 'vBetrag', 'vEnd']}},
+ types:['vAB', 'vBetrag', 'vEnd', 'vPara'], exit:{types:['vAB', 'vBetrag', 'vEnd', 'vPara']}},
 
 {id:'v3', ch:'vek', title:'Rechnen mit Vektoren', book:'S. 140 (Erkundung) und S. 151–155: Lerneinheit 3', kind:'proc',
  goals:['Ich kann Vektoren addieren, subtrahieren und mit einer Zahl multiplizieren, rechnerisch und zeichnerisch.', 'Ich kann Linearkombinationen berechnen und den Mittelpunkt einer Strecke bestimmen.', 'Ich kann prüfen, ob zwei Vektoren kollinear sind, und geometrische Aussagen mit Vektoren begründen.'],
  pre:['Vektoren als Spalten (Thema 2)', 'Bruchrechnung'],
  check:[
-  {pre:true, q:'Was ist $#vec{AB}$ für $A(1|1|1)$ und $B(2|3|4)$?', opts:[['$#col{1;2;3}$', true, 'Spitze minus Fuß.'], ['$#col{3;4;5}$', false, 'Addiert statt subtrahiert.'], ['$#col{-1;-2;-3}$', false, 'Das ist $#vec{BA}$.']]},
+  {pre:true, topic:'v2', see:'verbv', what:'Verbindungsvektor: Spitze minus Fuß', q:'Was ist $#vec{AB}$ für $A(1|1|1)$ und $B(2|3|4)$?', opts:[['$#col{1;2;3}$', true, 'Spitze minus Fuß.'], ['$#col{3;4;5}$', false, 'Addiert statt subtrahiert.'], ['$#col{-1;-2;-3}$', false, 'Das ist $#vec{BA}$.']]},
   {q:'$#col{1;2;3} + #col{4;-2;0} = $ ?', opts:[['$#col{5;0;3}$', true, 'Koordinatenweise addieren.'], ['$#col{4;-4;0}$', false, 'Addieren, nicht multiplizieren.'], ['$#col{5;4;3}$', false, '$2 + (-2) = 0$.']]},
   {q:'$-2 #cdot #col{3;-1;0} = $ ?', opts:[['$#col{-6;2;0}$', true, 'Jede Koordinate mal $-2$.'], ['$#col{-6;-1;0}$', false, 'Jede Koordinate wird multipliziert.'], ['$#col{1;-3;-2}$', false, 'Mal $-2$, nicht minus 2.']]},
   {q:'Welcher Punkt ist der Mittelpunkt von $A(2|0|4)$ und $B(6|2|0)$?', opts:[['$M(4|1|2)$', true, 'Koordinatenweise der Mittelwert.'], ['$M(2|1|-2)$', false, 'Das ist der halbe Verbindungsvektor, nicht der Mittelpunkt.'], ['$M(8|2|4)$', false, 'Die Summe muss noch halbiert werden.']]}],
@@ -8711,7 +8782,7 @@ const LW_TOPICS = [
       {q:'Welcher Weg hilft beim Punkt T, der AB im Verhältnis 1 : 2 teilt (T liegt näher bei A)?', opts:[['Luis’ Weg: $#vec{OT} = #vec{OA} + #frac{1}{3}#vec{AB}$', true, 'Der Vektorweg lässt sich auf jeden Bruchteil der Strecke übertragen.'], ['Hannahs Weg mit $#frac{a + b}{3}$', false, 'Der Mittelwert passt nur für die Mitte.'], ['Keiner', false, 'Luis’ Weg funktioniert.']]},
       {q:'Wofür taugt Hannahs Weg besonders?', opts:[['Für die Mitte: Er ist am schnellsten und leicht im Kopf zu rechnen.', true, 'Für Mittelpunkte ist er erste Wahl.'], ['Für alle Teilungspunkte', false, 'Nur für die Mitte.'], ['Für Kollinearität', false, 'Dafür braucht man Vielfache von Vektoren.']]}]},
  ueben:[{t:'Grundaufgaben', sec:'v3', from:1, to:8}, {t:'Weiterführende Aufgaben', sec:'v3', from:9, to:99}],
- types:['vLin', 'vMitte', 'vKoll', 'vPara'], exit:{types:['vLin', 'vMitte', 'vKoll']}}
+ types:['vLin', 'vMitte', 'vKoll', 'vPara'], exit:{types:['vLin', 'vMitte', 'vKoll'], mc:[{q:'Was ergibt $#vec{AB} + #vec{BC}$?', opts:[['$#vec{AC}$', true, 'Erst von A nach B, dann von B nach C: zusammen von A nach C.'], ['$#vec{CA}$', false, 'Das ist die Gegenrichtung, von C nach A.'], ['$#vec{0}$', false, 'Den Nullvektor ergibt $#vec{AB} + #vec{BA}$.']]}]}}
 ];
 
 /* ================= Lernweg (v8): Ablauf je Thema, Plan, Navigation ================= */
@@ -8892,13 +8963,17 @@ function wgKnobel(box, T, onReady){
 /* ---- Abschluss-Aufgaben eines Themas ---- */
 function wgExitTypes(T){
   const E = T.exit || {}; let L = [];
-  if (E.pick) L = wgShuffle(T.types).slice(0, E.pick);
   if (E.types) L = L.concat(E.types);
-  if (E.pickFrom) L.push(wgShuffle(E.pickFrom)[0]);
+  if (E.pick) L = L.concat(wgShuffle(T.types.filter(t => !(E.pickExcl || []).includes(t))).slice(0, E.pick));
+  if (E.pickFrom) L = L.concat(wgShuffle(E.pickFrom).slice(0, E.pickFromN || 1));
   return L;
 }
+/* Abschluss: Anzahl der Aufgaben und Verständnisfragen; „sicher“ bei höchstens einer Aufgabe mit Hilfe (ab 4 Aufgaben), Pflichttypen müssen klappen */
+function wgExitCount(T){ const E = T.exit || {}; return {tasks:(E.types || []).length + (E.pick || 0) + (E.pickFrom ? E.pickFromN || 1 : 0), mc:(E.mc || []).length}; }
+function wgExitNeed(n){ return n >= 4 ? n - 1 : n; }
+function wgExitPass(T, X){ const must = (T.exit && T.exit.must) || []; return X.ok >= wgExitNeed(X.n) && !(X.fails || []).some(t => must.includes(t)); }
 /* Fehler finden erst, wenn ein Typ sicher sitzt: Zu Beginn helfen richtige Beispiele mehr als fehlerhafte */
-const wgErrUnlocked = () => Object.keys(ERRGEN).filter(k => { const t = LM.st.train[k]; return (t && t.stage >= 3 && t.ok >= 1) || LW_TOPICS.some(T => T.types.includes(k) && wgT(T.id).mastered); });
+const wgErrUnlocked = () => Object.keys(ERRGEN).filter(k => { const t = LM.st.train[k]; return (t && t.stage >= 3 && t.ok >= 1) || LW_TOPICS.some(T => T.types.includes(k) && wgT(T.id).mastered && !((wgT(T.id).exit || {}).fails || []).includes(k)); });
 
 /* ---- Plan: Klausurtermin oder tägliche Lernzeit ---- */
 function wgExamDays(){ const d = WGS.plan.exam; if (!d) return null; const t = new Date(d + 'T12:00:00'); return isNaN(t) ? null : Math.ceil((t - Date.now()) / WG_DAY); }
@@ -8957,7 +9032,7 @@ const LW = {
     const parts = {
       ziel:`${stepH('ziel')}<div class="wg-goals"><h4>Das kannst du danach</h4><ul>${T.goals.map(g => `<li>${R(g)}</li>`).join('')}</ul></div>${T.pre && T.pre.length ? `<p class="small"><b>Das brauchst du schon:</b> ${T.pre.map(p => R(p)).join(' · ')}</p>` : ''}<div class="wg-diag"></div><div class="wg-route"></div>`,
       einstieg:`${stepH('einstieg')}<div class="wg-pick"></div><div class="wg-ex" hidden></div><div class="wg-knw" hidden>${T.knobel && T.knobel.tasks ? `<p class="small wg-note">${R(T.knobel.note || '')}</p><div class="wg-knbook"></div>` : '<div class="wg-knq"></div>'}</div><div class="wg-skip" hidden></div><div class="wg-nx"></div>`,
-      klaer:`${stepH('klaer')}<div class="wg-mine"></div>${T.klaer ? `<div class="box rule wg-idee"><h4>Die Kernidee</h4><p>${R(T.klaer.idee)}</p></div><div class="wg-merk"><h4>Darauf kommt es an</h4><ul>${T.klaer.merk.map(m => `<li>${R(m)}</li>`).join('')}</ul></div><div class="wg-moved"></div><div class="wg-fehl"><h4>Typische Fehler</h4><div class="wg-fl">${T.klaer.fehl.map(([w, r]) => `<div class="wg-fw"><span class="wg-x">So nicht</span>${R(w)}</div><div class="wg-fr"><span class="wg-ok">Darum</span>${R(r)}</div>`).join('')}</div></div><div class="wg-verst"><h4>Kurz geprüft</h4></div>` : ''}${next('klaer')}`,
+      klaer:`${stepH('klaer')}<div class="wg-mine"></div>${T.klaer ? `<div class="box rule wg-idee"><h4>Die Kernidee</h4><p>${R(T.klaer.idee)}</p></div><div class="wg-merk"><h4>Darauf kommt es an</h4><ul>${T.klaer.merk.map(m => `<li>${R(m)}</li>`).join('')}</ul></div><div class="wg-moved"></div>${(T.klaer.box || []).map(B => `<div class="box obs wg-xbox"><h4>${R(B.h)}</h4>${(B.ps || []).map(t => `<p>${R(t)}</p>`).join('')}${B.steps ? `<ol class="wg-xsteps">${B.steps.map(([l, w]) => `<li><span class="wg-xl">${R(l)}</span><span class="small">${R(w)}</span></li>`).join('')}</ol>` : ''}${B.after ? `<p>${R(B.after)}</p>` : ''}${B.train ? `<div class="btnrow"><button type="button" class="btn" data-wg="morehere" data-types="${B.train.join(',')}" data-title="${escH(B.trainTitle || 'Üben')}">${escH(B.trainLabel || 'Üben')}</button></div>` : ''}</div>${B.train ? '<div class="wg-xrunb"></div>' : ''}`).join('')}<div class="wg-fehl"><h4>Typische Fehler</h4><div class="wg-fl">${T.klaer.fehl.map(([w, r]) => `<div class="wg-fw"><span class="wg-x">So nicht</span>${R(w)}</div><div class="wg-fr"><span class="wg-ok">Darum</span>${R(r)}</div>`).join('')}</div></div><div class="wg-verst"><h4>Kurz geprüft</h4></div>` : ''}${next('klaer')}`,
       darst:`${stepH('darst')}${T.darst ? `<p class="lead">${R(T.darst.intro)}</p><details class="wg-lab" open><summary>Labor</summary><div class="wg-labbox"></div></details><div class="wg-qs"></div><div class="wg-fade" hidden><h4>Jetzt ohne Labor</h4><p class="small">Dieselbe Idee, aber ohne Bild. So prüfst du, ob die Verbindung im Kopf angekommen ist.</p><div class="wg-fq"></div></div>` : ''}${next('darst')}`,
       vergl:`${stepH('vergl')}${T.vergl ? `<p class="lead">${R(T.vergl.task)}</p><div class="wg-cmp">${[T.vergl.a, T.vergl.b].map(p => `<div class="wg-col"><h4>${escH(p.name)} <span class="small">${escH(p.how)}</span></h4><ol>${p.lines.map(l => `<li>${R(l)}</li>`).join('')}</ol></div>`).join('')}</div><div class="wg-qs"></div><p class="small wg-tip" hidden>Tipp: Erklär einer Mitschülerin oder einem Mitschüler, warum beide Wege zum selben Ergebnis führen. Wer erklären muss, merkt schnell, wo es noch hakt.</p>` : ''}${next('vergl')}`,
       ueben:`${stepH('ueben')}<p class="small">Die Aufgaben aus dem Buch, vom Einfachen zum Schwierigen. Öffne eine Teilaufgabe, rechne auf dem Blatt und lass prüfen. Wenn du stockst, bietet die Lernhilfe Hinweise an.</p><p class="small wg-uprog"></p>${(T.ueben || []).map((g, gi) => `<details class="wg-grp" data-g="${gi}"${gi === 0 ? ' open' : ''}><summary>${escH(g.t)}</summary><div class="wg-grpb"></div></details>`).join('')}<div class="wg-more"></div><div class="wg-run"></div>${next('ueben')}`,
@@ -8968,6 +9043,8 @@ const LW = {
       <ol class="wg-stepper">${ks.map((k, i) => `<li><button type="button" data-wg="step" data-k="${k}"><span class="wg-sn">${i + 1}</span><span class="wg-stt">${WG_STEP[k].t}</span></button></li>`).join('')}</ol>
       ${ks.map(k => `<div class="wg-step" data-k="${k}" hidden>${parts[k]}</div>`).join('')}`;
     sec.addEventListener('click', e => {
+      const lx = e.target.closest('.wg-lexd [data-lexgo]');
+      if (lx){ const en = LEXI[lx.dataset.lexgo], dd = lx.closest('.wg-lexd'); if (en){ dd.querySelector('summary').textContent = 'Kurz nachlesen: ' + en.t; dd.querySelector('.lex-e').outerHTML = lexHTML(en); } return; }
       const b = e.target.closest('[data-wg]'); if (!b || !sec.contains(b)) return;
       const a = b.dataset.wg;
       if (a === 'step') this.step(T.id, b.dataset.k);
@@ -8978,6 +9055,7 @@ const LW = {
       else if (a === 'topic') this.show(`t-${b.dataset.t}`);
       else if (a === 'more') this.practice(T, b.dataset.n ? +b.dataset.n : 4, b.dataset.types ? b.dataset.types.split(',') : null);
       else if (a === 'exit') this.startExit(T);
+      else if (a === 'morehere'){ const xb = b.closest('.wg-xbox') || b.closest('.wg-xrunb').previousElementSibling, run = xb.nextElementSibling, L = b.dataset.types.split(','); new WGRun(run, L, {title:b.dataset.title || 'Üben', lastLabel:'Fertig', onDone:res => { run.innerHTML = `<div class="fin ok"><h4>Fertig: ${res.filter(r => r.r === 'ok').length} von ${res.length} ohne Hilfe</h4><div class="btnrow"><button type="button" class="btn" data-wg="morehere" data-types="${L.join(',')}" data-title="${escH(b.dataset.title || '')}">Noch ${L.length}</button></div></div>`; }}); try { run.scrollIntoView({block:'start', behavior:reduceMotion ? 'auto' : 'smooth'}); } catch(x){} }
       else if (a === 'err'){ this.show('training', {noScroll:true}); Training.startErr(); }
       else if (a === 'home') this.show('lw-home');
     });
@@ -9052,13 +9130,25 @@ const LW = {
   /* ---- 1 Ziel und Eingangscheck ---- */
   rec(T, d){
     const pre = d.pre.every(Boolean), core = d.core.filter(Boolean).length, nc = d.core.length, hasE = wgSteps(T).includes('einstieg');
-    if (!hasE) return pre && core === nc ? {r:'exit', t:'Das Vorwissen sitzt. Mach den kurzen Abschluss und starte dann mit Thema 1.'} : {r:'skip', t:'Ein Teil des Vorwissens sitzt noch nicht. Empfehlung: die passenden Check-in-Aufgaben rechnen.'};
+    if (!hasE) return pre && core === nc ? {r:'exit', t:'Das Vorwissen sitzt. Mach den kurzen Abschluss und starte dann mit Thema 1.'} : {r:'skip', t:'Ein Teil des Vorwissens sitzt noch nicht. Empfehlung: unten kurz nachlesen, dann die passenden Check-in-Aufgaben rechnen.'};
     if (pre && core === nc) return {r:'skip', t:'Du kannst schon viel davon. Empfehlung: direkt zum Üben. Ausführliche Beispiele würden dich jetzt eher aufhalten.'};
-    if (!pre) return {r:'ex', t:'Bei den Grundlagen hakt es noch. Empfehlung: mit dem Musterbeispiel starten. Die Grundlagen findest du auch unter „Nachschlagen“.'};
+    if (!pre) return {r:'ex', t:'Bei den Grundlagen hakt es noch. Empfehlung: Frisch zuerst auf, was unten steht. Starte danach mit dem Musterbeispiel.'};
     if (T.kind === 'concept' && T.knobel) return {r:'kn', t:'Die Grundlagen sitzen. Empfehlung: erst knobeln. Wer vor der Erklärung selbst probiert, versteht das Prinzip oft tiefer und kann es besser auf neue Aufgaben übertragen.'};
     return {r:'ex', t:'Die Grundlagen sitzen, das Verfahren ist neu. Empfehlung: mit dem Musterbeispiel starten. Bei neuen Rechenverfahren hilft ein vorgerechnetes Beispiel am meisten.'};
   },
-  routes(T){ const R0 = [], hasE = wgSteps(T).includes('einstieg'); if (hasE) R0.push(['ex', 'Mit Musterbeispiel starten', 'Erst ein vollständig gelöstes Beispiel mit Warum-Fragen, dann eine ähnliche Aufgabe mit Lücken.']); if (hasE && T.knobel) R0.push(['kn', 'Erst selbst knobeln', 'Ein Problem ohne Anleitung probieren. Danach wird die Lösung erklärt, mit Blick auf deinen Ansatz.']); R0.push(['skip', hasE ? 'Direkt zum Üben' : 'Zu den Check-in-Aufgaben', hasE ? 'Wenn du das Thema schon kannst.' : 'Die Testaufgaben aus dem Buch rechnen.']); if (!hasE) R0.push(['exit', 'Direkt zum Abschluss', 'Drei kurze Fragen; danach geht es mit Thema 1 weiter.']); return R0; },
+  /* Fehlendes Vorwissen: direkt zum passenden Lexikoneintrag oder zum vorigen Thema */
+  fillHTML(T, d){
+    let ip = 0, ic = 0; const seen = new Set(), rows = [];
+    T.check.forEach(c => {
+      const ok = c.pre ? d.pre[ip++] : d.core[ic++];
+      if (ok !== false || (!c.see && !c.topic)) return;
+      const key = (c.topic || '') + '|' + (c.see || ''); if (seen.has(key)) return; seen.add(key);
+      const tp = c.topic && WGI[c.topic], en = c.see && LEXI[c.see];
+      rows.push(`<li><b>${R(c.what || (en ? en.t : tp.title))}</b>${tp ? `<span class="wg-fillb"><button type="button" class="btn btn-sm" data-wg="topic" data-t="${tp.id}">${tp.n ? `Zu ${wgName(tp)}: ` : 'Zu '}${escH(tp.title)}</button></span>` : ''}${en ? `<details class="wg-lexd"><summary>Kurz nachlesen: ${escH(en.t)}</summary>${lexHTML(en)}</details>` : ''}</li>`);
+    });
+    return rows.length ? `<div class="wg-fill"><h4>Das frischst du am besten zuerst auf</h4><ul>${rows.join('')}</ul></div>` : '';
+  },
+  routes(T){ const R0 = [], hasE = wgSteps(T).includes('einstieg'); if (hasE) R0.push(['ex', 'Mit Musterbeispiel starten', 'Erst ein vollständig gelöstes Beispiel mit Warum-Fragen, dann eine ähnliche Aufgabe mit Lücken.']); if (hasE && T.knobel) R0.push(['kn', 'Erst selbst knobeln', 'Ein Problem ohne Anleitung probieren. Danach wird die Lösung erklärt, mit Blick auf deinen Ansatz.']); R0.push(['skip', hasE ? 'Direkt zum Üben' : 'Zu den Check-in-Aufgaben', hasE ? 'Wenn du das Thema schon kannst.' : 'Die Testaufgaben aus dem Buch rechnen.']); if (!hasE) R0.push(['exit', 'Direkt zum Abschluss', `${['Null', 'Eine', 'Zwei', 'Drei', 'Vier', 'Fünf', 'Sechs'][wgExitCount(T).mc + wgExitCount(T).tasks] || 'Ein paar'} kurze Fragen; danach geht es mit Thema 1 weiter.`]); return R0; },
   routeHTML(T, rec){
     return `<div class="wg-routes">${this.routes(T).map(([r, t, d]) => `<button type="button" class="wg-rt${rec && rec.r === r ? ' rec' : ''}" data-wg="route" data-r="${r}"><b>${t}${rec && rec.r === r ? ' <span class="wg-tag">Empfohlen</span>' : ''}</b><span class="small">${d}</span></button>`).join('')}</div>`;
   },
@@ -9073,7 +9163,7 @@ const LW = {
     if (el.dataset.r && !force) return; el.dataset.r = '1';
     const show = d => {
       const rec = this.rec(T, d), n = d.pre.concat(d.core).filter(Boolean).length, all = d.pre.length + d.core.length;
-      ro.innerHTML = `<div class="wg-rec"><p><b>Ergebnis: ${n} von ${all} richtig.</b> ${rec.t}</p>${this.routeHTML(T, rec)}<p class="small"><button type="button" class="linkbtn" data-wg="rediag">Check wiederholen</button></p></div>`;
+      ro.innerHTML = `<div class="wg-rec"><p><b>Ergebnis: ${n} von ${all} richtig.</b> ${rec.t}</p>${this.fillHTML(T, d)}${this.routeHTML(T, rec)}<p class="small"><button type="button" class="linkbtn" data-wg="rediag">Check wiederholen</button></p></div>`;
     };
     if (st.diag){ dg.innerHTML = '<h4>Eingangscheck</h4><p class="small">Schon erledigt.</p>'; show(st.diag); return; }
     dg.innerHTML = `<h4>Eingangscheck</h4><p class="small">${T.check.length} kurze Fragen. Sie zählen nicht. Sie zeigen nur, womit du am besten anfängst. Wenn du etwas nicht weißt, tippe auf „Weiß ich noch nicht“.</p><div class="wg-dq"></div><p class="small"><button type="button" class="linkbtn wg-skipdiag">Ohne Check selbst wählen</button></p>`;
@@ -9160,16 +9250,18 @@ const LW = {
     const el = this.el(T, 'check'), st = wgT(T.id), box = el.querySelector('.wg-exit');
     if (box.dataset.busy) return;
     const nT = wgTopics(T.ch), nxt = nT[nT.indexOf(T) + 1];
-    const E0 = T.exit || {}, types = (E0.pick || 0) + (E0.types || []).length + (E0.pickFrom ? 1 : 0), mcN = (E0.mc || []).length;
-    const intro = `<p>Ein kurzer Check ohne Hilfe: ${types ? `${types} neue ${types === 1 ? 'Aufgabe' : 'Aufgaben'}` : ''}${types && mcN ? ' und ' : ''}${mcN ? `${mcN} ${mcN === 1 ? 'Verständnisfrage' : 'Verständnisfragen'}` : ''}. Diesmal gibt es keine Hinweise. Klappt alles, ist das Thema geschafft. Wenn nicht, bekommst du passende Übungen.</p>`;
+    const C = wgExitCount(T), types = C.tasks, mcN = C.mc, n = types + mcN, need = wgExitNeed(n), must = (T.exit && T.exit.must) || [];
+    const intro = `<p>Ein kurzer Check ohne Hilfe: ${types ? `${types} neue ${types === 1 ? 'Aufgabe' : 'Aufgaben'}` : ''}${types && mcN ? ' und ' : ''}${mcN ? `${mcN} ${mcN === 1 ? 'Verständnisfrage' : 'Verständnisfragen'}` : ''}. Diesmal gibt es keine Hinweise. ${need < n ? `Klappen mindestens ${need} von ${n}, ist das Thema geschafft. Ein Ausrutscher ist also erlaubt.` : 'Klappt alles, ist das Thema geschafft.'}${must.length ? ` ${must.map(t => `Eine Aufgabe „${escH(TYPES[t].label)}“ ist immer dabei und muss klappen.`).join(' ')}` : ''} Wenn nicht, bekommst du passende Übungen.</p>`;
     if (st.exit) box.innerHTML = this.exitHTML(T, st, nxt) + `<details class="wg-again"><summary>Abschluss noch einmal machen</summary>${intro}<div class="btnrow"><button type="button" class="btn" data-wg="exit">Neu starten</button></div></details>`;
     else box.innerHTML = intro + '<div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss starten</button></div>';
   },
   exitHTML(T, st, nxt){
-    const E = st.exit, ok = E.ok === E.n, fails = E.fails || [];
-    const er = T.types.filter(t => ERRGEN[t]);
-    if (ok) return `<div class="fin ok"><h4>Sicher: ${E.ok} von ${E.n} ohne Hilfe</h4><p>In ein paar Tagen kommt das Thema unter „Wiederholen“ wieder dran. So bleibt es im Kopf.</p>${er.length ? '<p>Neu freigeschaltet: <b>Fehler finden</b> zu diesem Thema.</p>' : ''}<div class="btnrow">${nxt ? `<button type="button" class="btn btn-primary" data-wg="topic" data-t="${nxt.id}">Weiter: ${escH(wgName(nxt))}</button>` : ''}<button type="button" class="btn" data-wg="home">Zum Start</button></div></div>`;
-    return `<div class="fin help"><h4>Noch nicht ganz sicher: ${E.ok} von ${E.n}</h4>${fails.length ? `<p>Noch unsicher: ${fails.map(t => t === 'mc' ? 'Verständnisfrage' : escH(TYPES[t].label)).join(', ')}.</p>` : ''}<p><b>So geht es weiter:</b></p><ol><li>Im Schritt <button type="button" class="linkbtn" data-wg="step" data-k="klaer">Klären</button> die Kernidee und die typischen Fehler noch einmal ansehen.</li>${fails.some(t => t !== 'mc') ? `<li>Gezielt üben: ${fails.filter(t => t !== 'mc').length * 2} Aufgaben, mit Lücken als Hilfe. <button type="button" class="btn btn-sm" data-wg="more" data-types="${[...new Set(fails.filter(t => t !== 'mc'))].flatMap(t => [t, t]).slice(0, 4).join(',')}">Starten</button></li>` : ''}<li>Danach den Abschluss mit neuen Aufgaben wiederholen.</li></ol><div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss wiederholen</button></div></div>`;
+    const E = st.exit, ok = wgExitPass(T, E), fails = E.fails || [], must = (T.exit && T.exit.must) || [];
+    const er = T.types.filter(t => ERRGEN[t]), fl = t => t === 'mc' ? 'eine Verständnisfrage' : `„${escH(TYPES[t].label)}“`;
+    const slip = fails.length ? `<p>Noch nicht geklappt: ${fails.map(fl).join(', ')}. ${fails.some(t => t !== 'mc') ? `Das kommt beim Wiederholen bald wieder dran. <button type="button" class="btn btn-sm" data-wg="more" data-types="${[...new Set(fails.filter(t => t !== 'mc'))].flatMap(t => [t, t]).slice(0, 2).join(',')}">Jetzt 2 Aufgaben dazu</button>` : 'Lies dazu im Schritt „Klären“ noch einmal nach.'}</p>` : '';
+    if (ok) return `<div class="fin ok"><h4>Sicher: ${E.ok} von ${E.n} ohne Hilfe</h4>${slip}<p>In ein paar Tagen kommt das Thema unter „Wiederholen“ wieder dran. So bleibt es im Kopf.</p>${er.length ? '<p>Neu freigeschaltet: <b>Fehler finden</b> zu diesem Thema.</p>' : ''}<div class="btnrow">${nxt ? `<button type="button" class="btn btn-primary" data-wg="topic" data-t="${nxt.id}">Weiter: ${escH(wgName(nxt))}</button>` : ''}<button type="button" class="btn" data-wg="home">Zum Start</button></div></div>`;
+    const mustF = fails.filter(t => must.includes(t));
+    return `<div class="fin help"><h4>Noch nicht ganz sicher: ${E.ok} von ${E.n}</h4>${fails.length ? `<p>Noch unsicher: ${fails.map(t => t === 'mc' ? 'Verständnisfrage' : escH(TYPES[t].label)).join(', ')}.${mustF.length && E.ok >= wgExitNeed(E.n) ? ` Fast geschafft, aber ${mustF.map(fl).join(', ')} muss sicher sitzen: Das ist das wichtigste Verfahren dieses Themas.` : ''}</p>` : ''}<p><b>So geht es weiter:</b></p><ol><li>Im Schritt <button type="button" class="linkbtn" data-wg="step" data-k="klaer">Klären</button> die Kernidee und die typischen Fehler noch einmal ansehen.</li>${fails.some(t => t !== 'mc') ? `<li>Gezielt üben: ${fails.filter(t => t !== 'mc').length * 2} Aufgaben, mit Lücken als Hilfe. <button type="button" class="btn btn-sm" data-wg="more" data-types="${[...new Set(fails.filter(t => t !== 'mc'))].flatMap(t => [t, t]).slice(0, 4).join(',')}">Starten</button></li>` : ''}<li>Danach den Abschluss mit neuen Aufgaben wiederholen.</li></ol><div class="btnrow"><button type="button" class="btn btn-primary" data-wg="exit">Abschluss wiederholen</button></div></div>`;
   },
   startExit(T){
     if (this.cur !== `t-${T.id}`) this.show(`t-${T.id}`, {step:'check'}); else if (wgT(T.id).step !== 'check') this.step(T.id, 'check');
@@ -9178,7 +9270,7 @@ const LW = {
     const fin = (res, mres) => {
       const fails = res.filter(r => r.r !== 'ok').map(r => r.type).concat(mres.filter(x => !x).map(() => 'mc'));
       st.exit = {ok:res.filter(r => r.r === 'ok').length + mres.filter(Boolean).length, n:res.length + mres.length, at:Date.now(), fails};
-      if (st.exit.ok === st.exit.n){ st.mastered = Date.now(); st.done.check = 1; } else delete st.mastered;
+      if (wgExitPass(T, st.exit)){ st.mastered = Date.now(); st.done.check = 1; } else delete st.mastered;
       wgSave(); LM.event(`Lernweg ${T.id}: Abschluss ${st.exit.ok}/${st.exit.n}`, T.id);
       delete box.dataset.busy; this.step(T.id, 'check'); CLASS.sync && CLASS.sync();
     };
