@@ -952,6 +952,8 @@ button.wg-tc:hover{border-color:var(--accent)}
 @media (max-width:520px){.wg-tiles{gap:10px}.wg-tile{min-height:132px;padding:16px 14px}.wg-tile b{font-size:1.12rem}.wg-tic{width:48px;height:48px}.wg-tic .wg-svg{width:28px;height:28px}.wg-ti{grid-template-columns:auto 1fr}.wg-ti > :last-child{grid-column:1 / -1;justify-self:start}.wg-homebtn span{display:none}}
 .wg-tb > b .wg-tag{margin-left:6px}
 .topbar .brand .pg{margin-left:6px}
+.wg-gatehint{margin-left:10px;color:var(--muted)}
+.wg-next button:disabled{opacity:.55;cursor:not-allowed}
 
 /* Hinweis für Ansichten ohne JavaScript (z. B. Vorschau der iPad-Dateien-App) */
 .nojs-note{border:2px solid var(--bad,#b42318);border-radius:14px;padding:16px 20px;margin:0 0 20px;background:var(--sheet,#fff)}
@@ -1289,7 +1291,7 @@ html.js .nojs-note{display:none}
     </section>
     <section class="card" id="v3" data-ch="vek">
       <div class="card-head"><span class="num">3</span><h2>Rechnen mit Vektoren</h2><span class="tag">S. 153–155</span></div>
-      <div class="merk"><h4>Merke: Rechnen mit Vektoren</h4><p>Addieren und subtrahieren: koordinatenweise; zeichnerisch Pfeile aneinanderhängen. Zahl mal Vektor: <span class="m"><i>r</i> · <span class="vec"><i>a</i></span></span> multipliziert jede Koordinate, der Pfeil wird <span class="m">|<i>r</i>|</span>-mal so lang (für <span class="m"><i>r</i> &lt; 0</span> umgekehrt). Linearkombination: <span class="m"><i>r</i> · <span class="vec"><i>a</i></span> + <i>s</i> · <span class="vec"><i>b</i></span> + <i>t</i> · <span class="vec"><i>c</i></span></span>. Kollinear: <span class="m"><span class="vec"><i>b</i></span> = <i>s</i> · <span class="vec"><i>a</i></span></span> mit derselben Zahl s in allen Koordinaten. Mittelpunkt: <span class="m"><span class="vec"><i>O</i><i>M</i></span> = <span class="vec"><i>O</i><i>A</i></span> + <span class="fr"><span>1</span><span>2</span></span><span class="vec"><i>A</i><i>B</i></span> = <span class="fr"><span>1</span><span>2</span></span>(<span class="vec"><i>O</i><i>A</i></span> + <span class="vec"><i>O</i><i>B</i></span>)</span>. <span class="small">(Die Theorieseiten 151 und 152 waren nicht auf den Fotos; dieser Kasten fasst die Regeln zusammen, Beispiel 3 zur Kollinearität stammt von S. 153.)</span></p></div>
+      <div class="merk"><h4>Merke: Rechnen mit Vektoren</h4><p>Addieren und subtrahieren: koordinatenweise; zeichnerisch Pfeile aneinanderhängen. Zahl mal Vektor: <span class="m"><i>r</i> · <span class="vec"><i>a</i></span></span> multipliziert jede Koordinate, der Pfeil wird <span class="m">|<i>r</i>|</span>-mal so lang (für <span class="m"><i>r</i> &lt; 0</span> umgekehrt). Linearkombination: <span class="m"><i>r</i> · <span class="vec"><i>a</i></span> + <i>s</i> · <span class="vec"><i>b</i></span> + <i>t</i> · <span class="vec"><i>c</i></span></span>. Kollinear: <span class="m"><span class="vec"><i>b</i></span> = <i>s</i> · <span class="vec"><i>a</i></span></span> mit derselben Zahl s in allen Koordinaten. Mittelpunkt: <span class="m"><span class="vec"><i>O</i><i>M</i></span> = <span class="vec"><i>O</i><i>A</i></span> + <span class="fr"><span>1</span><span>2</span></span><span class="vec"><i>A</i><i>B</i></span> = <span class="fr"><span>1</span><span>2</span></span>(<span class="vec"><i>O</i><i>A</i></span> + <span class="vec"><i>O</i><i>B</i></span>)</span>.</p></div>
       <div class="vtasks"></div>
     </section>
     <section class="card" id="vlab" data-ch="vek">
@@ -2570,6 +2572,7 @@ function itemsText(items, picks, ctx){
 /* ================= Schrittanalyse und Leitfragen ================= */
 const M = s => '$' + s + '$';
 const termName = (j, v) => j === 2 ? `das Glied mit ${M(v + '^2')}` : j === 1 ? `das Glied mit ${M(v)}` : `die Zahl ohne ${M(v)}`;
+const termNameD = (j, v) => j === 0 ? `der Zahl ohne ${M(v)}` : termName(j, v).replace(/^das/, 'dem');   /* Dativ: bei dem Glied / bei der Zahl */
 const opt = (t, ok, fb) => ({t, ok:!!ok, fb});
 function shuffleOpts(q){ return q; }
 const QS = {
@@ -2613,7 +2616,7 @@ const QS = {
   pqMonic:a => ({q:`Die pq-Formel gilt nur für die Form ${M('x^2 + px + q = 0')}. Welche Zahl muss dafür vor ${M('x^2')} stehen?`,
     opts:[opt(M('0'), 0, 'Nein, dann wäre es keine quadratische Gleichung.'), opt(M('1'), 1, `Richtig. Teile zuerst jedes Glied durch ${M(fmt(a))}.`), opt('eine beliebige Zahl', 0, 'Nein, sonst stimmen p und q nicht.')],
     after:'Bring die Gleichung zuerst auf Normalform.'}),
-  divide:(a, c, v) => ({q:`In ${M(`${fmt(a)}${v} = ${fmt(c)}`)}: Was musst du tun, um ${M(v)} allein zu erhalten?`,
+  divide:(a, c, v) => ({q:`In ${M(`${a === 1 ? '' : a === -1 ? '-' : fmt(a)}${v} = ${fmt(c)}`)}: Was musst du tun, um ${M(v)} allein zu erhalten?`,
     opts:[opt(`durch ${M(fmt(a))} teilen`, 1, 'Genau.'), opt(`durch ${M(fmt(c))} teilen`, 0, 'Nein, geteilt wird durch den Faktor vor der Variablen.'), opt(`mit ${M(fmt(a))} multiplizieren`, 0, 'Nein, die Gegenoperation zum Multiplizieren ist das Teilen.')],
     after:'Schreib die Lösung neu.'}),
   probe:(val, v, eqTex, lv, rv) => ({keep:true, q:`Mach die Probe: Setz ${M(`${v} = ${fmt(val)}`)} in ${M(eqTex)} ein. Ist die Gleichung dann erfüllt?`,
@@ -2767,7 +2770,7 @@ function diagnoseSolve(goal, st, parsed, cur){
   if (cur.poly && prev && prev.poly){
     const Pp = prev.poly, Pc = cur.poly, n = Math.max(Pp.length, Pc.length);
     const binom = prev.parsed && JSON.stringify(prev.parsed).includes('"t":"pow"') && !JSON.stringify(parsed).includes('"t":"pow","a":{"t":"par"');
-    for (let j = 0; j < n; j++) if (Math.abs(Pp[j] || 0) > 1e-12){ const V = Pp.slice(); V[j] = -V[j]; if (bestScale(Pc, V)) return {status:'err', q:QS.signMove(j, v), html:`Das Vorzeichen bei ${termName(j, v)} stimmt nicht.`}; }
+    for (let j = 0; j < n; j++) if (Math.abs(Pp[j] || 0) > 1e-12){ const V = Pp.slice(); V[j] = -V[j]; if (bestScale(Pc, V)) return {status:'err', q:QS.signMove(j, v), html:`Das Vorzeichen bei ${termNameD(j, v)} stimmt nicht.`}; }
     const nz = [...Array(n).keys()].filter(i => Math.abs(Pp[i] || 0) > 1e-12);
     for (let mask = 1; mask < (1 << nz.length) - 1; mask++){
       const Sx = nz.filter((_, b) => mask & (1 << b)), k = (Pc[Sx[0]] || 0) / Pp[Sx[0]];
@@ -5504,7 +5507,7 @@ Object.assign(TYPES, {
       wordSolve('Gleichung lösen', `Löse $${L} = ${S}$ Zeile für Zeile (x: Anzahl der Teams). Schreib am Ende alle Lösungen auf, auch die, die nicht passen.`, `${two ? 'x*(x-1)' : 'x*(x-1)/2'}=${S}`, canon),
       deutGoal('Welche Lösung beantwortet die Frage?', [opt(`$${n}$ Teams`, 1, `Richtig. Die zweite Lösung $${-(n - 1)}$ ist mathematisch korrekt, aber eine negative Anzahl von Teams gibt es nicht.`), opt(`$${-(n - 1)}$ Teams`, 0, 'Eine negative Anzahl von Teams gibt es nicht.'), opt('beide Lösungen', 0, 'Die Gleichung kennt die Situation nicht. Welche Zahl kann eine Anzahl von Teams sein?')])],
       why:['umstellen', 'umstellen', 'pq', 'rechnen', 'umstellen', 'umstellen'],
-      fin:`Die Liga hat ${n} Teams. Zum Vergleich: In der Bundesliga spielen 18 Teams 306 Spiele pro Saison, in der Premier League 20 Teams 380 Spiele.`, plot:countPlot(two ? x => x * (x - 1) : x => x * (x - 1) / 2, n, S, 'Spiele')});
+      fin:two ? `Die Liga hat ${n} Teams. Zum Vergleich: In der Bundesliga spielen 18 Teams 306 Spiele pro Saison, in der Premier League 20 Teams 380 Spiele.` : `${n} Teams machen mit: $#frac{${n} #cdot ${n - 1}}{2} = ${S}$. Die negative Lösung passt nicht zur Situation.`, plot:countPlot(two ? x => x * (x - 1) : x => x * (x - 1) / 2, n, S, 'Spiele')});
   }},
   anstossen:{label:'Party: Jeder stößt mit jedem an', book:[], gen(){
     const n = rnd.i(6, 16), k = n * (n - 1) / 2;
@@ -5648,7 +5651,7 @@ const Training = {
   example(sub, type, ws){
     const g = sub.goals.find(x => x.kind === 'solve') || sub.goals.find(x => x.kind !== 'choice');
     const lines = (g.canonInfo || []), why = sub.why || [];
-    ws.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er erlaubt ist. Danach rechnest du eine ähnliche Aufgabe selbst, zuerst mit Lücken.</p>${g.start ? `<div class="gline given"><span class="gl-ic">Start</span><span class="gl-tex">${R(g.start)}</span></div>` : ''}<ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
+    ws.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er erlaubt ist. Danach rechnest du eine ähnliche Aufgabe selbst, zuerst mit Lücken.</p>${(typeof exStartTex === 'function' ? exStartTex(sub, g) : g.start) ? `<div class="gline given"><span class="gl-ic">Start</span><span class="gl-tex">${R(typeof exStartTex === 'function' ? exStartTex(sub, g) : g.start)}</span></div>` : ''}<ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
     const ol = ws.querySelector('.ex-lines'), qbox = ws.querySelector('.ex-q');
     let i = 0;
     const step = () => {
@@ -7787,7 +7790,7 @@ const rP3 = (a = -5, b = 6) => [rnd.i(a, b), rnd.i(a, b), rnd.i(a, b)];
 const rNZ3 = (a = -5, b = 5) => [rnd.nz(a, b), rnd.nz(a, b), rnd.nz(a, b)];
 Object.assign(TYPES, {
   vAB:{ch:'vek', label:'Vektor zwischen zwei Punkten', book:['v2-3a', 'v2-3b', 'v2-3c', 'v2-3d'], gen(){ const A = rP3(), B = rP3(); return mk('vAB', {head:`$${ptT('A', A)}$, $${ptT('B', B)}$: Bestimme $#vec{AB}$.`, taskText:'Vektor AB', goals:[gVec('Vektor', 'Spitze minus Fuß.', [iAB(A, B)])], fin:`$#vec{AB} = ${colT(V3.sub(A, B))}$`}); }},
-  vBetrag:{ch:'vek', label:'Betrag eines Vektors', book:['v2-4a', 'v2-4b', 'v2-4c', 'v2-4d'], gen(){ const v = rnd.p([[1, 2, 2], [2, -3, 6], [-4, 4, 2], [3, 0, -4], [1, -4, 8], [6, 2, -3]]).map(x => x * rnd.p([1, -1])); const w = rnd.i(0, 2) ? v : rNZ3(-4, 4); return mk('vBetrag', {head:`Berechne den Betrag von $#vec{v} = ${colT(w)}$.`, taskText:'Betrag', goals:[gNum('Betrag', '$|#vec{v}| = #sqrt{v_{1}^2 + v_{2}^2 + v_{3}^2}$', [tLen('v', '|#vec{v}|', w)], [cLen(w, 'v')])], fin:`$|#vec{v}| = #sqrt{${sumSq(w)}}${Number.isInteger(Math.sqrt(sumSq(w))) ? '' : ' #approx ' + fmtR(Math.sqrt(sumSq(w)))}$`}); }},
+  vBetrag:{ch:'vek', label:'Betrag eines Vektors', book:['v2-4a', 'v2-4b', 'v2-4c', 'v2-4d'], gen(){ const v = rnd.p([[1, 2, 2], [2, -3, 6], [-4, 4, 2], [3, 0, -4], [1, -4, 8], [6, 2, -3]]).map(x => x * rnd.p([1, -1])); const w = rnd.i(0, 2) ? v : rNZ3(-4, 4); return mk('vBetrag', {head:`Berechne den Betrag von $#vec{v} = ${colT(w)}$.`, taskText:'Betrag', goals:[gNum('Betrag', '$|#vec{v}| = #sqrt{v_{1}^2 + v_{2}^2 + v_{3}^2}$', [tLen('v', '|#vec{v}|', w)], [cLen(w, 'v')])], fin:`$|#vec{v}| = #sqrt{${sumSq(w)}}${Number.isInteger(Math.sqrt(sumSq(w))) ? ' = ' + Math.sqrt(sumSq(w)) : ' #approx ' + fmtR(Math.sqrt(sumSq(w)))}$`}); }},
   vAbstand:{ch:'vek', label:'Abstand zweier Punkte', book:['v1-2a', 'v1-2b'], gen(){ const A = rP3(), d = rnd.p([[1, 2, 2], [2, 3, 6], [2, -1, 2], [-4, 4, 2], [3, 0, 4], [1, 4, 8]]).map(x => x * rnd.p([1, -1])), B = V3.add(A, rnd.i(0, 3) ? d : rNZ3(-3, 3)); return mk('vAbstand', {head:`Abstand von $${ptT('A', A)}$ und $${ptT('B', B)}$`, taskText:'Abstand', goals:[gNum('Abstand', 'Abstandsformel im Raum.', [tDist('d', 'd', A, B)], [cDist(A, B, 'd')])], fin:`$d = ${fmtR(V3.len(V3.sub(A, B)))}$`}); }},
   vMitte:{ch:'vek', label:'Mittelpunkt einer Strecke', book:['v3-5a', 'v3-5b', 'v3-5c', 'v3-5d'], gen(){ const A = rP3(), B = rP3(); return mk('vMitte', {head:`Mittelpunkt von $${ptT('A', A)}$ und $${ptT('B', B)}$`, taskText:'Mittelpunkt', goals:[gVec('Mittelpunkt', 'Koordinatenweise Mittelwert bilden.', [iMid('M', A, B)])], fin:`$${ptT('M', V3.mid(A, B))}$`}); }},
   vLin:{ch:'vek', label:'Linearkombination berechnen', book:['v3-4a', 'v3-4b', 'v3-4d', 'v3-4e'], gen(){ const r = rnd.nz(-3, 4), s = rnd.nz(-3, 4), a = rP3(-4, 5), b = rP3(-4, 5), t = V3.add(V3.mul(r, a), V3.mul(s, b)), ex = `${fmt(r)} #cdot ${colT(a)} ${s < 0 ? '-' : '+'} ${fmt(Math.abs(s))} #cdot ${colT(b)}`; return mk('vLin', {head:`$${ex}$`, taskText:'Linearkombination', goals:[gVec('Ausrechnen', 'Erst die Vielfachen, dann addieren.', [iVec('#vec{x}', t, {kind:'scal'})])], fin:`$${ex} = ${colT(t)}$`}); }},
@@ -7900,7 +7903,7 @@ const ERRGEN = {
     const v = rnd.p([[2, -1, 2], [1, -2, 2], [-4, 4, 2], [2, -3, 6], [6, -2, 3]]), sq = v.map(x => x * x), L = Math.sqrt(sq.reduce((a, b) => a + b, 0));
     const neg = v.findIndex(x => x < 0), wrongSum = sq.reduce((a, b, i) => a + (v[i] < 0 ? -b : b), 0);
     const l0 = `|#vec{v}| = #sqrt{${v.map(x => eN(x) + '^{2}').join(' + ')}}`;
-    return {task:`Berechne die Länge von $#vec{v} = #col{${v.join(';')}}$.`, texLines:[l0, `= #sqrt{${sq.map((x, i) => (i ? (v[i] < 0 ? ' - ' : ' + ') : '') + fmt(x)).join('')}} = #sqrt{${fmt(wrongSum)}}`], wrong:1, kind:'vLenSign',
+    return {task:`Berechne die Länge von $#vec{v} = #col{${v.join(';')}}$.`, texLines:[l0, `= #sqrt{${sq.map((x, i) => (i ? (v[i] < 0 ? ' - ' : ' + ') : (v[i] < 0 ? '-' : '')) + fmt(x)).join('')}} = #sqrt{${fmt(wrongSum)}}`], wrong:1, kind:'vLenSign',
       why:[`$${eN(v[neg])}^{2} = ${fmt(sq[neg])}$ ist positiv: Ein Quadrat ist nie negativ.`, 'Die Wurzel hätte vor dem Addieren gezogen werden müssen.', 'Die Koordinaten hätten addiert werden müssen, nicht quadriert.'],
       fixOpts:[`#sqrt{${sq.map(fmt).join(' + ')}} = ${fmt(L)}`, `#sqrt{${fmt(wrongSum)}}`, `${v.map(fmt).join(' + ')} = ${fmt(v.reduce((a, b) => a + b, 0))}`]};
   }}
@@ -8050,6 +8053,8 @@ const ntTex = p => p.vecTex !== undefined ? p.vecTex : p.parts.map(toTex).join('
 const NT_PL0 = parseLine;
 parseLine = function(src, ctx = {}){
   const s = ntNorm(src), fns = ctx.fns || {};
+  /* „keine Lösung“, „nicht lösbar“, „L = ∅“ als Aussage */
+  if (/^\s*(keine\s*(reelle\s*)?(l(ö|oe)sung|lsg\.?)|k\.\s*l\.|nicht\s*l(ö|oe)sbar|unl(ö|oe)sbar|L\s*=\s*(\{\s*\}|∅))\s*!?\s*$/i.test(s)) return {parts:[{t:'var', n:'L'}, {t:'num', v:0}], lset:true, items:[], itemsAlt:null, vecTex:'keine Lösung'};
   /* Kette in einer Zeile: A ⇔ B ⇔ C */
   const ch = ntSplitTop(s, 'chain');
   if (ch && ch.length > 1 && ch.every(x => x.includes('='))){
@@ -8295,6 +8300,19 @@ writerCtx = (orig => g => {
   return c;
 })(writerCtx);
 
+/* Musterbeispiel: Startzeile „f(x) = 0“ mit der Gleichung, bei der pq-Formel mit p und q */
+function exStartTex(sub, g){
+  if (!g || g.start) return g && g.start;
+  if (g.kind !== 'solve' || !g.eq) return null;
+  const norm = t => String(t).replace(/\s+/g, '').replace(/\*/g, '');
+  if ((g.canon || []).some(c => norm(typeof c === 'string' ? c : c.line || '') === norm(g.eq))) return null;   /* Gleichung steht schon als erste Zeile */
+  const p = tryParse(g.eq, {fns:g.fnsPoly || {}}); if (p.err) return null;
+  const fn = sub && /\$([a-z])\(x\)\s*=/.exec(String(sub.head || ''));
+  let t = `$${fn ? fn[1] + '(x) = 0: ' : ''}${lineTex(p)}$`;
+  if (sub && sub.type === 'pq' && g.named && g.named.p !== undefined) t += `, also $p = ${fmt(g.named.p)}$ und $q = ${fmt(g.named.q)}$`;
+  return t;
+}
+
 /* ================= Lernweg (v8): kleine Labore für den Schritt „Darstellen“ ================= */
 /* Gemeinsame Hilfen: Vorzeichen-Glied für Gleichungen, Abfrage innerhalb des Labors */
 const lwSg = (v, t = '') => v === 0 ? '' : ` ${v < 0 ? '-' : '+'} ${t && Math.abs(v) === 1 ? '' : fmt(Math.abs(v))}${t}`;
@@ -8415,7 +8433,7 @@ const LW_TOPICS = [
   qs:[{q:'Stell im Labor $a = 1$, $d = 0$, $e = 0$ ein und schiebe dann $d$ auf $2$. Was passiert mit Graph und Gleichung?', opts:[['Der Graph rückt 2 nach rechts; in der Gleichung steht $(x - 2)^2$.', true, 'Der Wert von $d$ ist die x-Koordinate des Scheitels; in der Klammer steht dann „− 2“.'], ['Der Graph rückt 2 nach links; in der Gleichung steht $(x + 2)^2$.', false, 'Probier es aus: Bei $d = 2$ liegt der Scheitel rechts.'], ['Der Graph rückt 2 nach oben.', false, 'Nach oben verschiebt $e$, nicht $d$.']]},
       {q:'Die Ablese-Treppe zeigt Punkte 1 und 2 Einheiten neben dem Scheitel. Bei $a = 0,5$: Um wie viel liegt der Punkt 2 Einheiten neben dem Scheitel höher?', opts:[['um 2', true, '$a #cdot 2^2 = 0,5 #cdot 4 = 2$.'], ['um 1', false, 'Das wäre $a #cdot 2$. Der Abstand wird aber quadriert: $a #cdot 2^2$.'], ['um 0,25', false, 'Der Abstand 2 wird quadriert und mit $a$ multipliziert: $0,5 #cdot 4 = 2$.']]},
       {fade:true, q:'Welcher Graph gehört zu $f(x) = -(x - 1)^2 + 4$?', opts:[['Scheitel $(1|4)$, nach unten geöffnet, Form der Normalparabel', true, '$d = 1$, $e = 4$, $a = -1$.'], ['Scheitel $(-1|4)$, nach unten geöffnet', false, 'Die Klammer $(x - 1)$ wird bei $x = 1$ null.'], ['Scheitel $(1|4)$, nach oben geöffnet und schmaler', false, '$a = -1$: nach unten, gleiche Form wie die Normalparabel.']]}]},
- vergl:{task:'Bestimme die Gleichung der Parabel mit Scheitel $S(1|-2)$, die durch $P(3|6)$ geht.',
+ vergl:{task:'Gezeichnet ist eine Parabel mit Scheitel $S(1|-2)$, die durch $P(3|6)$ geht. Bestimme ihre Gleichung.',
   a:{name:'Mia', how:'liest am Graphen ab', lines:['Scheitel $S(1|-2)$: $f(x) = a(x - 1)^2 - 2$', 'Vom Scheitel 1 nach rechts steigt der Graph um 2, also $a = 2$.', '$f(x) = 2(x - 1)^2 - 2$']},
   b:{name:'Jonas', how:'rechnet mit dem Punkt P', lines:['$f(x) = a(x - 1)^2 - 2$', '$P(3|6)$ einsetzen: $6 = a(3 - 1)^2 - 2$', '$6 = 4a - 2$ ⇔ $8 = 4a$ ⇔ $a = 2$', '$f(x) = 2(x - 1)^2 - 2$']},
   qs:[{q:'Was haben beide Wege gemeinsam?', opts:[['Beide setzen zuerst den Scheitel in die Scheitelpunktform ein und bestimmen danach nur noch $a$.', true, 'Der Scheitel liefert $d$ und $e$; offen bleibt nur $a$.'], ['Beide brauchen eine Wertetabelle.', false, 'Keiner der beiden legt eine Tabelle an.'], ['Sie kommen nur zufällig auf dasselbe.', false, 'Beide nutzen, dass der Höhenunterschied zum Scheitel $a #cdot (x - d)^2$ ist.']]},
@@ -8787,7 +8805,7 @@ class WGRun {
       ws.innerHTML = '<p class="small">Erst ein vollständig gelöstes Beispiel. Lies es Schritt für Schritt und überlege, warum jeder Schritt stimmt.</p><div class="wg-model"></div><div class="ex-q"></div>';
       modelView3(sub, ws.querySelector('.wg-model')); finish(ws.querySelector('.ex-q')); return;
     }
-    ws.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er erlaubt ist. Danach rechnest du eine ähnliche Aufgabe selbst, zuerst mit Lücken.</p>${g.start ? `<div class="gline given"><span class="gl-ic">Start</span><span class="gl-tex">${R(g.start)}</span></div>` : ''}<ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
+    ws.innerHTML = `<p class="small">Erst ein vollständig gelöstes Beispiel. Überleg bei jedem Schritt, warum er erlaubt ist. Danach rechnest du eine ähnliche Aufgabe selbst, zuerst mit Lücken.</p>${(typeof exStartTex === 'function' ? exStartTex(sub, g) : g.start) ? `<div class="gline given"><span class="gl-ic">Start</span><span class="gl-tex">${R(typeof exStartTex === 'function' ? exStartTex(sub, g) : g.start)}</span></div>` : ''}<ol class="glines ex-lines"></ol><div class="ex-q"></div>`;
     const ol = ws.querySelector('.ex-lines'), qbox = ws.querySelector('.ex-q');
     let i = 0;
     const step = () => {
@@ -9089,6 +9107,15 @@ const LW = {
     if (st.route === 'skip'){ sk.innerHTML = `<p>Du hast den Einstieg übersprungen. Das passt, wenn du das Thema schon kannst. Wenn doch etwas fehlt, kannst du jederzeit anders einsteigen.</p>`; nx.innerHTML = `<div class="wg-next btnrow"><button type="button" class="btn btn-primary" data-wg="step" data-k="ueben">Zum Üben</button><button type="button" class="btn" data-wg="next" data-k="einstieg">Weiter: ${WG_STEP.klaer.t}</button></div>`; }
   },
   /* ---- 3 Klären ---- */
+  /* „Weiter“ erst, wenn die Fragen des Schritts beantwortet sind (bereits erledigte Schritte bleiben offen) */
+  gate(T, k, n){
+    const el = this.el(T, k), st = wgT(T.id), b = el && el.querySelector('.wg-next button[data-wg="next"]'); if (!b) return;
+    const open = st.done[k] || !n;
+    b.disabled = !open; const h = el.querySelector('.wg-gatehint');
+    if (!open && !h) b.insertAdjacentHTML('afterend', `<span class="small wg-gatehint">Beantworte zuerst die ${n === 1 ? 'Frage' : n + ' Fragen'} oben.</span>`);
+    if (open && h) h.remove();
+  },
+  gateOpen(T, k){ const el = this.el(T, k), b = el && el.querySelector('.wg-next button[data-wg="next"]'); if (b) b.disabled = false; const h = el && el.querySelector('.wg-gatehint'); if (h) h.remove(); },
   renderKlaer(T){
     const el = this.el(T, 'klaer'), st = wgT(T.id), mine = el.querySelector('.wg-mine'), K = T.knobel;
     if (st.route === 'kn' && K && K.ap){
@@ -9097,20 +9124,23 @@ const LW = {
     } else if (st.route === 'kn' && K && K.tasks) mine.innerHTML = '<div class="box obs wg-mybox"><h4>Nach den Einstiegsaufgaben</h4><p>Vergleich deine Antworten mit dem Merkkasten unten. Was hast du schon richtig vermutet, was ist neu?</p></div>';
     else mine.innerHTML = '';
     if (el.dataset.r) return; el.dataset.r = '1';
-    const vb = el.querySelector('.wg-verst'); if (vb && T.klaer.verst) wgMCList(vb, T.klaer.verst, null);
+    const vb = el.querySelector('.wg-verst');
+    if (vb && T.klaer && T.klaer.verst && T.klaer.verst.length){ this.gate(T, 'klaer', T.klaer.verst.length); wgMCList(vb, T.klaer.verst, () => this.gateOpen(T, 'klaer')); }
   },
   /* ---- 4 Darstellen: Labor, danach dieselbe Idee ohne Bild ---- */
   renderDarst(T){
     const el = this.el(T, 'darst'); if (!T.darst || el.dataset.r) return; el.dataset.r = '1';
     const qs = T.darst.qs.filter(q => !q.fade), fq = T.darst.qs.filter(q => q.fade), fade = el.querySelector('.wg-fade');
-    const toFade = () => { if (!fq.length) return; const lab = el.querySelector('.wg-lab'); if (lab) lab.open = false; fade.hidden = false; };
+    const toFade = () => { if (!fq.length) return this.gateOpen(T, 'darst'); const lab = el.querySelector('.wg-lab'); if (lab) lab.open = false; fade.hidden = false; };
+    this.gate(T, 'darst', qs.length + fq.length);
     wgMCList(el.querySelector('.wg-qs'), qs, toFade, {head:() => 'Im Labor'});
-    if (fq.length) wgMCList(el.querySelector('.wg-fq'), fq, null);
+    if (fq.length) wgMCList(el.querySelector('.wg-fq'), fq, () => this.gateOpen(T, 'darst'));
   },
   /* ---- 5 Lösungswege vergleichen ---- */
   renderVergl(T){
     const el = this.el(T, 'vergl'); if (!T.vergl || el.dataset.r) return; el.dataset.r = '1';
-    wgMCList(el.querySelector('.wg-qs'), T.vergl.qs, () => { const t = el.querySelector('.wg-tip'); if (t) t.hidden = false; LM.event(`Lernweg ${T.id}: Lösungswege verglichen`, T.id); }, {head:() => 'Vergleichen'});
+    this.gate(T, 'vergl', T.vergl.qs.length);
+    wgMCList(el.querySelector('.wg-qs'), T.vergl.qs, () => { const t = el.querySelector('.wg-tip'); if (t) t.hidden = false; this.gateOpen(T, 'vergl'); LM.event(`Lernweg ${T.id}: Lösungswege verglichen`, T.id); }, {head:() => 'Vergleichen'});
   },
   /* ---- 6 Üben ---- */
   renderUeben(T){
@@ -9462,6 +9492,7 @@ Object.assign(LW, {
       body.querySelector('.wg-sols').innerHTML = `<h3>Alle Lösungen</h3><p class="small">Hier stehen die Musterlösungen aller Buchaufgaben. Ihr Kind sieht eine Lösung sonst erst, nachdem es die Aufgabe selbst versucht hat; das Ansehen zählt dann als Hilfe.</p>
         ${['qf', 'vek'].map(ch => `<h4>${ch === 'qf' ? 'Parabeln' : 'Vektoren'}</h4>${wgTopics(ch).map(T => `<details class="wg-sol1"><summary>${R(T.title)}</summary>${Object.entries(tasks(T)).map(([tid, L]) => `<details class="wg-sol2"><summary>${escH(ttl(tid))}</summary>${L.map(s => `<div class="wg-sol3"><div class="small"><b>${escH(s.lbl || '')}</b> ${R(s.head || '')}</div><div class="wg-solm" data-id="${s.id}"></div></div>`).join('')}</details>`).join('')}</details>`).join('')}`).join('')}`;
       body.querySelectorAll('.wg-sol2').forEach(d => d.addEventListener('toggle', () => { if (!d.open || d.dataset.r) return; d.dataset.r = '1'; d.querySelectorAll('.wg-solm').forEach(m => modelView3(SUBS[m.dataset.id], m)); }));
+      body.querySelector('.wg-sols').insertAdjacentHTML('beforeend', '<p class="small">Hinweis zu den Quellen: Die Merkkästen folgen den Lerneinheiten des Buches. Die Theorieseiten 151 und 152 (Rechnen mit Vektoren) lagen nicht als Foto vor; der Merkkasten zu Thema 3 fasst die Regeln zusammen, das Beispiel zur Kollinearität stammt von S. 153.</p>');
       body.querySelector('.wg-pinset').innerHTML = `<h3>PIN</h3><form class="wg-pinnew"><p class="small">${pin ? 'Eine PIN ist gesetzt. Hier können Sie sie ändern.' : 'Legen Sie eine PIN fest, damit Ihr Kind die Lösungsübersicht und die KI-Einstellungen nicht öffnen kann.'}</p><div class="btnrow"><input type="password" inputmode="numeric" maxlength="8" placeholder="4 bis 8 Ziffern" aria-label="neue PIN"><button type="submit" class="btn">PIN speichern</button></div><p class="small wg-pinfb" aria-live="polite"></p></form>`;
     }
     body.querySelector('.wg-elrep').innerHTML = `<h3>Lernstand</h3>${wgReport().replace('<h2>Lernweg</h2>', '')}<p class="small">Den ausführlichen Bericht speichert Ihr Kind unter „Üben → Alle Aufgabentypen → Mein Lernstand“.</p>`;
